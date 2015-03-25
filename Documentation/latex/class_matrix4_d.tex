@@ -1,0 +1,181 @@
+\hypertarget{class_matrix4_d}{}\section{Matrix4\+D$<$ Data\+Type, b\+Primitive\+Type, allocator $>$ Class Template Reference}
+\label{class_matrix4_d}\index{Matrix4\+D$<$ Data\+Type, b\+Primitive\+Type, allocator $>$@{Matrix4\+D$<$ Data\+Type, b\+Primitive\+Type, allocator $>$}}
+
+
+{\ttfamily \#include $<$Matrix4\+D.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_matrix4_d_a05f6e88624c8cf8bfff8f854005588b3}{Matrix4\+D} (F\+I\+L\+E $\ast$f, bool b\+File\+Is\+Big\+Endian=false)
+\item 
+\hyperlink{class_matrix4_d_a7b656177fe4ad5384d583f75696299fb}{Matrix4\+D} (F\+I\+L\+E $\ast$f, bool b\+File\+Is\+Big\+Endian=false, bool b\+From64bits=false, int bytes\+\_\+padding=0)
+\item 
+\hyperlink{class_matrix4_d_ad42db5d6887aee94fd7e82110d5666d5}{Matrix4\+D} (unsigned int n\+Size\+X, unsigned int n\+Size\+Y, unsigned int n\+Size\+Z, unsigned int n\+Size\+W)
+\item 
+\hyperlink{class_matrix4_d_a06b661f5cba7abce0928f8a386759502}{$\sim$\+Matrix4\+D} ()
+\item 
+Data\+Type \& \hyperlink{class_matrix4_d_a41a8cc58d99d11846d486178a4620fcb}{Access} (unsigned int ix, unsigned int iy, unsigned int iz, unsigned int iw) const 
+\item 
+Data\+Type \& \hyperlink{class_matrix4_d_aa87da2d885eb60fd151148a492ec380e}{Lin\+Access} (unsigned int i) const 
+\item 
+Data\+Type $\ast$ \hyperlink{class_matrix4_d_a78a2d7181bc463309920aceba752ae18}{get\+Data} () const 
+\item 
+unsigned int $\ast$ \hyperlink{class_matrix4_d_a9c8afb2fce60f2ba1f594502d1c9c11f}{get\+Size} ()
+\item 
+unsigned int \hyperlink{class_matrix4_d_abad4f62b6a26a730f025952e243cfeeb}{get\+Number\+Of\+Elements} () const 
+\item 
+void \hyperlink{class_matrix4_d_ada53327de44528b2c849b74a4650ad20}{operator=} (Data\+Type val)
+\item 
+void \hyperlink{class_matrix4_d_a3e84cb30454e1b54f5018dbfecf48858}{Serialize} (F\+I\+L\+E $\ast$f)
+\item 
+void \hyperlink{class_matrix4_d_a7380a32c105c5d41c45b47ccdb3948a2}{Deserialize} (F\+I\+L\+E $\ast$f, bool b\+Swap\+Bytes=false)
+\item 
+void \hyperlink{class_matrix4_d_a1af167131c83c57271f1e31359928ed0}{Deserialize} (F\+I\+L\+E $\ast$f, bool b\+Swap\+Bytes=false, bool b\+From64bites=false, int bytes\+\_\+padding=0)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_matrix4_d_a05f6e88624c8cf8bfff8f854005588b3}{}\index{Matrix4\+D@{Matrix4\+D}!Matrix4\+D@{Matrix4\+D}}
+\index{Matrix4\+D@{Matrix4\+D}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{Matrix4\+D}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type , bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::{\bf Matrix4\+D} (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{f, }
+\item[{bool}]{b\+File\+Is\+Big\+Endian = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\label{class_matrix4_d_a05f6e88624c8cf8bfff8f854005588b3}
+
+
+Here is the call graph for this function\+:
+% FIG 0
+
+
+\hypertarget{class_matrix4_d_a7b656177fe4ad5384d583f75696299fb}{}\index{Matrix4\+D@{Matrix4\+D}!Matrix4\+D@{Matrix4\+D}}
+\index{Matrix4\+D@{Matrix4\+D}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{Matrix4\+D}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type , bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::{\bf Matrix4\+D} (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{f, }
+\item[{bool}]{b\+File\+Is\+Big\+Endian = {\ttfamily false}, }
+\item[{bool}]{b\+From64bits = {\ttfamily false}, }
+\item[{int}]{bytes\+\_\+padding = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}\label{class_matrix4_d_a7b656177fe4ad5384d583f75696299fb}
+
+
+Here is the call graph for this function\+:
+% FIG 1
+
+
+\hypertarget{class_matrix4_d_ad42db5d6887aee94fd7e82110d5666d5}{}\index{Matrix4\+D@{Matrix4\+D}!Matrix4\+D@{Matrix4\+D}}
+\index{Matrix4\+D@{Matrix4\+D}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{Matrix4\+D}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type , bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::{\bf Matrix4\+D} (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{n\+Size\+X, }
+\item[{unsigned int}]{n\+Size\+Y, }
+\item[{unsigned int}]{n\+Size\+Z, }
+\item[{unsigned int}]{n\+Size\+W}
+\end{DoxyParamCaption}
+)}\label{class_matrix4_d_ad42db5d6887aee94fd7e82110d5666d5}
+\hypertarget{class_matrix4_d_a06b661f5cba7abce0928f8a386759502}{}\index{Matrix4\+D@{Matrix4\+D}!````~Matrix4\+D@{$\sim$\+Matrix4\+D}}
+\index{````~Matrix4\+D@{$\sim$\+Matrix4\+D}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{$\sim$\+Matrix4\+D}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::$\sim${\bf Matrix4\+D} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix4_d_a06b661f5cba7abce0928f8a386759502}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_matrix4_d_a41a8cc58d99d11846d486178a4620fcb}{}\index{Matrix4\+D@{Matrix4\+D}!Access@{Access}}
+\index{Access@{Access}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{Access}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type , bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ Data\+Type \& {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::Access (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{ix, }
+\item[{unsigned int}]{iy, }
+\item[{unsigned int}]{iz, }
+\item[{unsigned int}]{iw}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix4_d_a41a8cc58d99d11846d486178a4620fcb}
+
+
+Here is the caller graph for this function\+:
+% FIG 2
+
+
+\hypertarget{class_matrix4_d_a7380a32c105c5d41c45b47ccdb3948a2}{}\index{Matrix4\+D@{Matrix4\+D}!Deserialize@{Deserialize}}
+\index{Deserialize@{Deserialize}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{Deserialize}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type , bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ void {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::Deserialize (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{f, }
+\item[{bool}]{b\+Swap\+Bytes = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\label{class_matrix4_d_a7380a32c105c5d41c45b47ccdb3948a2}
+
+
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\hypertarget{class_matrix4_d_a1af167131c83c57271f1e31359928ed0}{}\index{Matrix4\+D@{Matrix4\+D}!Deserialize@{Deserialize}}
+\index{Deserialize@{Deserialize}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{Deserialize}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type , bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ void {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::Deserialize (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{f, }
+\item[{bool}]{b\+Swap\+Bytes = {\ttfamily false}, }
+\item[{bool}]{b\+From64bites = {\ttfamily false}, }
+\item[{int}]{bytes\+\_\+padding = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}\label{class_matrix4_d_a1af167131c83c57271f1e31359928ed0}
+\hypertarget{class_matrix4_d_a78a2d7181bc463309920aceba752ae18}{}\index{Matrix4\+D@{Matrix4\+D}!get\+Data@{get\+Data}}
+\index{get\+Data@{get\+Data}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{get\+Data}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ Data\+Type$\ast$ {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::get\+Data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix4_d_a78a2d7181bc463309920aceba752ae18}
+\hypertarget{class_matrix4_d_abad4f62b6a26a730f025952e243cfeeb}{}\index{Matrix4\+D@{Matrix4\+D}!get\+Number\+Of\+Elements@{get\+Number\+Of\+Elements}}
+\index{get\+Number\+Of\+Elements@{get\+Number\+Of\+Elements}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{get\+Number\+Of\+Elements}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type , bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ unsigned int {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::get\+Number\+Of\+Elements (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix4_d_abad4f62b6a26a730f025952e243cfeeb}
+\hypertarget{class_matrix4_d_a9c8afb2fce60f2ba1f594502d1c9c11f}{}\index{Matrix4\+D@{Matrix4\+D}!get\+Size@{get\+Size}}
+\index{get\+Size@{get\+Size}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{get\+Size}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type , bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ unsigned int $\ast$ {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::get\+Size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix4_d_a9c8afb2fce60f2ba1f594502d1c9c11f}
+\hypertarget{class_matrix4_d_aa87da2d885eb60fd151148a492ec380e}{}\index{Matrix4\+D@{Matrix4\+D}!Lin\+Access@{Lin\+Access}}
+\index{Lin\+Access@{Lin\+Access}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{Lin\+Access}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type , bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ Data\+Type \& {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::Lin\+Access (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{i}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix4_d_aa87da2d885eb60fd151148a492ec380e}
+\hypertarget{class_matrix4_d_ada53327de44528b2c849b74a4650ad20}{}\index{Matrix4\+D@{Matrix4\+D}!operator=@{operator=}}
+\index{operator=@{operator=}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type , bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ void {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::operator= (
+\begin{DoxyParamCaption}
+\item[{Data\+Type}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix4_d_ada53327de44528b2c849b74a4650ad20}
+\hypertarget{class_matrix4_d_a3e84cb30454e1b54f5018dbfecf48858}{}\index{Matrix4\+D@{Matrix4\+D}!Serialize@{Serialize}}
+\index{Serialize@{Serialize}!Matrix4\+D@{Matrix4\+D}}
+\subsubsection[{Serialize}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type , bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ void {\bf Matrix4\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::Serialize (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{f}
+\end{DoxyParamCaption}
+)}\label{class_matrix4_d_a3e84cb30454e1b54f5018dbfecf48858}
+
+
+Here is the caller graph for this function\+:
+% FIG 4
+
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/\+Cubism/\hyperlink{_matrix4_d_8h}{Matrix4\+D.\+h}\end{DoxyCompactItemize}

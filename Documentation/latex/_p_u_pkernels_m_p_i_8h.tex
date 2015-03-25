@@ -1,0 +1,126 @@
+\hypertarget{_p_u_pkernels_m_p_i_8h}{}\section{/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/\+Cubism/\+P\+U\+Pkernels\+M\+P\+I.h File Reference}
+\label{_p_u_pkernels_m_p_i_8h}\index{/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/\+Cubism/\+P\+U\+Pkernels\+M\+P\+I.\+h@{/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/\+Cubism/\+P\+U\+Pkernels\+M\+P\+I.\+h}}
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$cassert$>$}\\*
+Include dependency graph for P\+U\+Pkernels\+M\+P\+I.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_p_u_pkernels_m_p_i_8h_a7a485735d2946aa4b92203577ff84081}{pack} (const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$const srcbase, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$const dst, const unsigned int gptfloats, int $\ast$selected\+\_\+components, const int ncomponents, const int xstart, const int ystart, const int zstart, const int xend, const int yend, const int zend)
+\item 
+void \hyperlink{_p_u_pkernels_m_p_i_8h_ae1600280d9525d09b4d580fbf4ed81db}{pack\+\_\+stripes} (const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$const srcbase, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$const dst, const unsigned int gptfloats, const int selstart, const int selend, const int xstart, const int ystart, const int zstart, const int xend, const int yend, const int zend)
+\item 
+void \hyperlink{_p_u_pkernels_m_p_i_8h_a8b5aa2551611fcb7d92dda8966cbbda3}{unpack} (const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$const \hyperlink{_p_u_pkernels_m_p_i_8h_a7a485735d2946aa4b92203577ff84081}{pack}, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$const dstbase, const unsigned int gptfloats, const int $\ast$const selected\+\_\+components, const int ncomponents, const int nsrc, const int dstxstart, const int dstystart, const int dstzstart, const int dstxend, const int dstyend, const int dstzend, const int xsize, const int ysize, const int zsize)
+\item 
+void \hyperlink{_p_u_pkernels_m_p_i_8h_a0d024fa525007ee6941795fb3f66f92d}{unpack\+\_\+subregion} (const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$const \hyperlink{_p_u_pkernels_m_p_i_8h_a7a485735d2946aa4b92203577ff84081}{pack}, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$const dstbase, const unsigned int gptfloats, const int $\ast$const selected\+\_\+components, const int ncomponents, const int srcxstart, const int srcystart, const int srczstart, const int L\+X, const int L\+Y, const int dstxstart, const int dstystart, const int dstzstart, const int dstxend, const int dstyend, const int dstzend, const int xsize, const int ysize, const int zsize)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{_p_u_pkernels_m_p_i_8h_a7a485735d2946aa4b92203577ff84081}{}\index{P\+U\+Pkernels\+M\+P\+I.\+h@{P\+U\+Pkernels\+M\+P\+I.\+h}!pack@{pack}}
+\index{pack@{pack}!P\+U\+Pkernels\+M\+P\+I.\+h@{P\+U\+Pkernels\+M\+P\+I.\+h}}
+\subsubsection[{pack}]{\setlength{\rightskip}{0pt plus 5cm}void pack (
+\begin{DoxyParamCaption}
+\item[{const {\bf Real} $\ast$const}]{srcbase, }
+\item[{{\bf Real} $\ast$const}]{dst, }
+\item[{const unsigned int}]{gptfloats, }
+\item[{int $\ast$}]{selected\+\_\+components, }
+\item[{const int}]{ncomponents, }
+\item[{const int}]{xstart, }
+\item[{const int}]{ystart, }
+\item[{const int}]{zstart, }
+\item[{const int}]{xend, }
+\item[{const int}]{yend, }
+\item[{const int}]{zend}
+\end{DoxyParamCaption}
+)}\label{_p_u_pkernels_m_p_i_8h_a7a485735d2946aa4b92203577ff84081}
+
+
+Here is the caller graph for this function\+:
+% FIG 2
+
+
+\hypertarget{_p_u_pkernels_m_p_i_8h_ae1600280d9525d09b4d580fbf4ed81db}{}\index{P\+U\+Pkernels\+M\+P\+I.\+h@{P\+U\+Pkernels\+M\+P\+I.\+h}!pack\+\_\+stripes@{pack\+\_\+stripes}}
+\index{pack\+\_\+stripes@{pack\+\_\+stripes}!P\+U\+Pkernels\+M\+P\+I.\+h@{P\+U\+Pkernels\+M\+P\+I.\+h}}
+\subsubsection[{pack\+\_\+stripes}]{\setlength{\rightskip}{0pt plus 5cm}void pack\+\_\+stripes (
+\begin{DoxyParamCaption}
+\item[{const {\bf Real} $\ast$const}]{srcbase, }
+\item[{{\bf Real} $\ast$const}]{dst, }
+\item[{const unsigned int}]{gptfloats, }
+\item[{const int}]{selstart, }
+\item[{const int}]{selend, }
+\item[{const int}]{xstart, }
+\item[{const int}]{ystart, }
+\item[{const int}]{zstart, }
+\item[{const int}]{xend, }
+\item[{const int}]{yend, }
+\item[{const int}]{zend}
+\end{DoxyParamCaption}
+)}\label{_p_u_pkernels_m_p_i_8h_ae1600280d9525d09b4d580fbf4ed81db}
+
+
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\hypertarget{_p_u_pkernels_m_p_i_8h_a8b5aa2551611fcb7d92dda8966cbbda3}{}\index{P\+U\+Pkernels\+M\+P\+I.\+h@{P\+U\+Pkernels\+M\+P\+I.\+h}!unpack@{unpack}}
+\index{unpack@{unpack}!P\+U\+Pkernels\+M\+P\+I.\+h@{P\+U\+Pkernels\+M\+P\+I.\+h}}
+\subsubsection[{unpack}]{\setlength{\rightskip}{0pt plus 5cm}void unpack (
+\begin{DoxyParamCaption}
+\item[{const {\bf Real} $\ast$const}]{pack, }
+\item[{{\bf Real} $\ast$const}]{dstbase, }
+\item[{const unsigned int}]{gptfloats, }
+\item[{const int $\ast$const}]{selected\+\_\+components, }
+\item[{const int}]{ncomponents, }
+\item[{const int}]{nsrc, }
+\item[{const int}]{dstxstart, }
+\item[{const int}]{dstystart, }
+\item[{const int}]{dstzstart, }
+\item[{const int}]{dstxend, }
+\item[{const int}]{dstyend, }
+\item[{const int}]{dstzend, }
+\item[{const int}]{xsize, }
+\item[{const int}]{ysize, }
+\item[{const int}]{zsize}
+\end{DoxyParamCaption}
+)}\label{_p_u_pkernels_m_p_i_8h_a8b5aa2551611fcb7d92dda8966cbbda3}
+
+
+Here is the caller graph for this function\+:
+% FIG 4
+
+
+\hypertarget{_p_u_pkernels_m_p_i_8h_a0d024fa525007ee6941795fb3f66f92d}{}\index{P\+U\+Pkernels\+M\+P\+I.\+h@{P\+U\+Pkernels\+M\+P\+I.\+h}!unpack\+\_\+subregion@{unpack\+\_\+subregion}}
+\index{unpack\+\_\+subregion@{unpack\+\_\+subregion}!P\+U\+Pkernels\+M\+P\+I.\+h@{P\+U\+Pkernels\+M\+P\+I.\+h}}
+\subsubsection[{unpack\+\_\+subregion}]{\setlength{\rightskip}{0pt plus 5cm}void unpack\+\_\+subregion (
+\begin{DoxyParamCaption}
+\item[{const {\bf Real} $\ast$const}]{pack, }
+\item[{{\bf Real} $\ast$const}]{dstbase, }
+\item[{const unsigned int}]{gptfloats, }
+\item[{const int $\ast$const}]{selected\+\_\+components, }
+\item[{const int}]{ncomponents, }
+\item[{const int}]{srcxstart, }
+\item[{const int}]{srcystart, }
+\item[{const int}]{srczstart, }
+\item[{const int}]{L\+X, }
+\item[{const int}]{L\+Y, }
+\item[{const int}]{dstxstart, }
+\item[{const int}]{dstystart, }
+\item[{const int}]{dstzstart, }
+\item[{const int}]{dstxend, }
+\item[{const int}]{dstyend, }
+\item[{const int}]{dstzend, }
+\item[{const int}]{xsize, }
+\item[{const int}]{ysize, }
+\item[{const int}]{zsize}
+\end{DoxyParamCaption}
+)}\label{_p_u_pkernels_m_p_i_8h_a0d024fa525007ee6941795fb3f66f92d}
+
+
+Here is the caller graph for this function\+:
+% FIG 5
+
+

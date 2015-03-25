@@ -1,0 +1,240 @@
+\hypertarget{class_matrix3_d}{}\section{Matrix3\+D$<$ Data\+Type, b\+Primitive\+Type, allocator $>$ Class Template Reference}
+\label{class_matrix3_d}\index{Matrix3\+D$<$ Data\+Type, b\+Primitive\+Type, allocator $>$@{Matrix3\+D$<$ Data\+Type, b\+Primitive\+Type, allocator $>$}}
+
+
+{\ttfamily \#include $<$Matrix3\+D.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_matrix3_d_abbdd6acc8bee38f2bc25bdff1bacc5f7}{\+\_\+\+Release} ()
+\item 
+void \hyperlink{class_matrix3_d_a159420c44012651ebd73d308fc9481c1}{\+\_\+\+Setup} (unsigned int n\+Size\+X, unsigned int n\+Size\+Y, unsigned int n\+Size\+Z)
+\item 
+\hyperlink{class_matrix3_d_a06093895c593605780898674095c8ea2}{$\sim$\+Matrix3\+D} ()
+\item 
+\hyperlink{class_matrix3_d_a33adec3fea79776994db7e67ddf6ad57}{Matrix3\+D} (const \hyperlink{class_matrix3_d}{Matrix3\+D} \&m)
+\item 
+\hyperlink{class_matrix3_d}{Matrix3\+D} \& \hyperlink{class_matrix3_d_afbdb57acaf83bcd05708f3a8da9779c3}{operator=} (const \hyperlink{class_matrix3_d}{Matrix3\+D} \&m)
+\item 
+\hyperlink{class_matrix3_d_a2c3146e7a44fdfc7fa7c290336440ca9}{Matrix3\+D} (unsigned int n\+Size\+X, unsigned int n\+Size\+Y, unsigned int n\+Size\+Z)
+\item 
+\hyperlink{class_matrix3_d_a2aebeb5dfb1bfbb36530558ff75882f4}{Matrix3\+D} ()
+\item 
+\hyperlink{class_matrix3_d_a3c295d69dbcfff4b8f6051b5d0f00fd1}{Matrix3\+D} (F\+I\+L\+E $\ast$f, bool b\+Swap\+Bytes)
+\item 
+Data\+Type \& \hyperlink{class_matrix3_d_afd365350a07f54220264968e3dade5c0}{Access} (unsigned int ix, unsigned int iy, unsigned int iz) const 
+\item 
+const Data\+Type \& \hyperlink{class_matrix3_d_a2a5ab3a28925a3b2dcc7011d0d8c18d6}{Read} (unsigned int ix, unsigned int iy, unsigned int iz) const 
+\item 
+Data\+Type \& \hyperlink{class_matrix3_d_a5984d2df3c56ee1ace3297225b0a278f}{Lin\+Access} (unsigned int i) const 
+\item 
+unsigned int \hyperlink{class_matrix3_d_affe8a97dd805a53b1834b0c6b9f5da4e}{get\+Number\+Of\+Elements} () const 
+\item 
+unsigned int $\ast$ \hyperlink{class_matrix3_d_af59a187071d2eaace597398ba649a41d}{get\+Size} () const 
+\item 
+\hyperlink{class_matrix3_d}{Matrix3\+D} \& \hyperlink{class_matrix3_d_a28963379c644b089ee16d9c16a7178f7}{operator=} (Data\+Type d)
+\item 
+void \hyperlink{class_matrix3_d_aa96537d709611e9b80b81a76d1b92713}{Serialize} (F\+I\+L\+E $\ast$f)
+\item 
+void \hyperlink{class_matrix3_d_a1015a0ba243ab11554474c580b5bb2a8}{Deserialize} (F\+I\+L\+E $\ast$f, bool b\+Swap\+Bytes)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_matrix3_d_a06093895c593605780898674095c8ea2}{}\index{Matrix3\+D@{Matrix3\+D}!````~Matrix3\+D@{$\sim$\+Matrix3\+D}}
+\index{````~Matrix3\+D@{$\sim$\+Matrix3\+D}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{$\sim$\+Matrix3\+D}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::$\sim${\bf Matrix3\+D} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_a06093895c593605780898674095c8ea2}
+\hypertarget{class_matrix3_d_a33adec3fea79776994db7e67ddf6ad57}{}\index{Matrix3\+D@{Matrix3\+D}!Matrix3\+D@{Matrix3\+D}}
+\index{Matrix3\+D@{Matrix3\+D}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{Matrix3\+D}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::{\bf Matrix3\+D} (
+\begin{DoxyParamCaption}
+\item[{const {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$ \&}]{m}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_a33adec3fea79776994db7e67ddf6ad57}
+\hypertarget{class_matrix3_d_a2c3146e7a44fdfc7fa7c290336440ca9}{}\index{Matrix3\+D@{Matrix3\+D}!Matrix3\+D@{Matrix3\+D}}
+\index{Matrix3\+D@{Matrix3\+D}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{Matrix3\+D}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::{\bf Matrix3\+D} (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{n\+Size\+X, }
+\item[{unsigned int}]{n\+Size\+Y, }
+\item[{unsigned int}]{n\+Size\+Z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_a2c3146e7a44fdfc7fa7c290336440ca9}
+\hypertarget{class_matrix3_d_a2aebeb5dfb1bfbb36530558ff75882f4}{}\index{Matrix3\+D@{Matrix3\+D}!Matrix3\+D@{Matrix3\+D}}
+\index{Matrix3\+D@{Matrix3\+D}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{Matrix3\+D}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::{\bf Matrix3\+D} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_a2aebeb5dfb1bfbb36530558ff75882f4}
+\hypertarget{class_matrix3_d_a3c295d69dbcfff4b8f6051b5d0f00fd1}{}\index{Matrix3\+D@{Matrix3\+D}!Matrix3\+D@{Matrix3\+D}}
+\index{Matrix3\+D@{Matrix3\+D}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{Matrix3\+D}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::{\bf Matrix3\+D} (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{f, }
+\item[{bool}]{b\+Swap\+Bytes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_a3c295d69dbcfff4b8f6051b5d0f00fd1}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_matrix3_d_abbdd6acc8bee38f2bc25bdff1bacc5f7}{}\index{Matrix3\+D@{Matrix3\+D}!\+\_\+\+Release@{\+\_\+\+Release}}
+\index{\+\_\+\+Release@{\+\_\+\+Release}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{\+\_\+\+Release}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ void {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::\+\_\+\+Release (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_abbdd6acc8bee38f2bc25bdff1bacc5f7}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{da/d8b/class_matrix3_d_abbdd6acc8bee38f2bc25bdff1bacc5f7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_matrix3_d_a159420c44012651ebd73d308fc9481c1}{}\index{Matrix3\+D@{Matrix3\+D}!\+\_\+\+Setup@{\+\_\+\+Setup}}
+\index{\+\_\+\+Setup@{\+\_\+\+Setup}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{\+\_\+\+Setup}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ void {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::\+\_\+\+Setup (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{n\+Size\+X, }
+\item[{unsigned int}]{n\+Size\+Y, }
+\item[{unsigned int}]{n\+Size\+Z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_a159420c44012651ebd73d308fc9481c1}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d8b/class_matrix3_d_a159420c44012651ebd73d308fc9481c1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_matrix3_d_afd365350a07f54220264968e3dade5c0}{}\index{Matrix3\+D@{Matrix3\+D}!Access@{Access}}
+\index{Access@{Access}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{Access}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ Data\+Type\& {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::Access (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{ix, }
+\item[{unsigned int}]{iy, }
+\item[{unsigned int}]{iz}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_afd365350a07f54220264968e3dade5c0}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{da/d8b/class_matrix3_d_afd365350a07f54220264968e3dade5c0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_matrix3_d_a1015a0ba243ab11554474c580b5bb2a8}{}\index{Matrix3\+D@{Matrix3\+D}!Deserialize@{Deserialize}}
+\index{Deserialize@{Deserialize}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{Deserialize}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ void {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::Deserialize (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{f, }
+\item[{bool}]{b\+Swap\+Bytes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_a1015a0ba243ab11554474c580b5bb2a8}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d8b/class_matrix3_d_a1015a0ba243ab11554474c580b5bb2a8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_matrix3_d_affe8a97dd805a53b1834b0c6b9f5da4e}{}\index{Matrix3\+D@{Matrix3\+D}!get\+Number\+Of\+Elements@{get\+Number\+Of\+Elements}}
+\index{get\+Number\+Of\+Elements@{get\+Number\+Of\+Elements}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{get\+Number\+Of\+Elements}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ unsigned int {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::get\+Number\+Of\+Elements (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_affe8a97dd805a53b1834b0c6b9f5da4e}
+\hypertarget{class_matrix3_d_af59a187071d2eaace597398ba649a41d}{}\index{Matrix3\+D@{Matrix3\+D}!get\+Size@{get\+Size}}
+\index{get\+Size@{get\+Size}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{get\+Size}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ unsigned int$\ast$ {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::get\+Size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_af59a187071d2eaace597398ba649a41d}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{da/d8b/class_matrix3_d_af59a187071d2eaace597398ba649a41d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_matrix3_d_a5984d2df3c56ee1ace3297225b0a278f}{}\index{Matrix3\+D@{Matrix3\+D}!Lin\+Access@{Lin\+Access}}
+\index{Lin\+Access@{Lin\+Access}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{Lin\+Access}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ Data\+Type\& {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::Lin\+Access (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{i}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_a5984d2df3c56ee1ace3297225b0a278f}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{da/d8b/class_matrix3_d_a5984d2df3c56ee1ace3297225b0a278f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_matrix3_d_afbdb57acaf83bcd05708f3a8da9779c3}{}\index{Matrix3\+D@{Matrix3\+D}!operator=@{operator=}}
+\index{operator=@{operator=}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ {\bf Matrix3\+D}\& {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$ \&}]{m}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_afbdb57acaf83bcd05708f3a8da9779c3}
+\hypertarget{class_matrix3_d_a28963379c644b089ee16d9c16a7178f7}{}\index{Matrix3\+D@{Matrix3\+D}!operator=@{operator=}}
+\index{operator=@{operator=}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ {\bf Matrix3\+D}\& {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::operator= (
+\begin{DoxyParamCaption}
+\item[{Data\+Type}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_a28963379c644b089ee16d9c16a7178f7}
+\hypertarget{class_matrix3_d_a2a5ab3a28925a3b2dcc7011d0d8c18d6}{}\index{Matrix3\+D@{Matrix3\+D}!Read@{Read}}
+\index{Read@{Read}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{Read}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ const Data\+Type\& {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::Read (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{ix, }
+\item[{unsigned int}]{iy, }
+\item[{unsigned int}]{iz}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_a2a5ab3a28925a3b2dcc7011d0d8c18d6}
+\hypertarget{class_matrix3_d_aa96537d709611e9b80b81a76d1b92713}{}\index{Matrix3\+D@{Matrix3\+D}!Serialize@{Serialize}}
+\index{Serialize@{Serialize}!Matrix3\+D@{Matrix3\+D}}
+\subsubsection[{Serialize}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Data\+Type, bool b\+Primitive\+Type, template$<$ typename T $>$ class allocator$>$ void {\bf Matrix3\+D}$<$ Data\+Type, b\+Primitive\+Type, allocator $>$\+::Serialize (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{f}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_matrix3_d_aa96537d709611e9b80b81a76d1b92713}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Cubism/\hyperlink{_matrix3_d_8h}{Matrix3\+D.\+h}\end{DoxyCompactItemize}

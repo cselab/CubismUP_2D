@@ -1,0 +1,11 @@
+digraph "BlockLab::_release"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="BlockLab::_release",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="BlockLab\< BlockType,\l allocator, ElementTypeT\l \>::~BlockLab",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_block_lab.html#a083218471f59c32fccc335759734667d"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="BlockLab\< BlockType,\l allocator, ElementTypeT\l \>::prepare",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_block_lab.html#ac6236e1c94d13fa1025c8253b9855a04"];
+}

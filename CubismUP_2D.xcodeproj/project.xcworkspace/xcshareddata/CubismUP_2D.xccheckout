@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9A51011F-D362-4F6A-BCB1-7BB3B1544419</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CubismUP_2D</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>856CC37A7745905A59168946C66151544F706C7F</key>
+		<string>scratch-petros.ethz.ch:/export/home/gitroot/SeedMPCF.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CubismUP_2D/CubismUP_2D.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>856CC37A7745905A59168946C66151544F706C7F</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>scratch-petros.ethz.ch:/export/home/gitroot/SeedMPCF.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>856CC37A7745905A59168946C66151544F706C7F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>856CC37A7745905A59168946C66151544F706C7F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Seed</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,6 @@
+<map id="Matrix3D::getSize" name="Matrix3D::getSize">
+<area shape="rect" id="node2" href="$d7/d95/class_block_lab.html#aa45e40066bececd40de75c238c346e79" title="BlockLab\&lt; BlockType,\l allocator, ElementTypeT\l \&gt;::getActualSize" alt="" coords="180,5,348,57"/>
+<area shape="rect" id="node3" href="$d7/d95/class_block_lab.html#ac6236e1c94d13fa1025c8253b9855a04" title="BlockLab\&lt; BlockType,\l allocator, ElementTypeT\l \&gt;::prepare" alt="" coords="180,81,348,133"/>
+<area shape="rect" id="node4" href="$d7/d95/class_block_lab.html#abd79a09ab5b54cf04bfe25c125ea1edf" title="BlockLab\&lt; BlockType,\l allocator, ElementTypeT\l \&gt;::operator()" alt="" coords="180,157,348,209"/>
+<area shape="rect" id="node5" href="$d7/d95/class_block_lab.html#a3e06d4124f7d69923b4ee6345c105cfc" title="BlockLab\&lt; BlockType,\l allocator, ElementTypeT\l \&gt;::read" alt="" coords="180,233,348,285"/>
+</map>

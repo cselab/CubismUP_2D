@@ -1,0 +1,11 @@
+digraph "Grid::_encode"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Grid::_encode",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Grid\< BlockType, allocator\l \>::operator()",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_grid.html#a04a6717ea6f8eb51607eaeaba2127055"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Grid\< BlockType, allocator\l \>::getBlocksInfo",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_grid.html#a39aa8cb7fad1abcfe40fdd77d9b72d8a"];
+}

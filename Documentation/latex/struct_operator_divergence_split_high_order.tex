@@ -1,0 +1,128 @@
+\hypertarget{struct_operator_divergence_split_high_order}{}\section{Operator\+Divergence\+Split\+High\+Order Struct Reference}
+\label{struct_operator_divergence_split_high_order}\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+
+
+{\ttfamily \#include $<$Operator\+Divergence.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{struct_operator_divergence_split_high_order_ae7622c3be06fe1e484b8650fe126d940}{\+\_\+mean} (const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} c, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} e, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} w, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} n, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} s, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+E, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+W, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+N, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+S) const 
+\item 
+void \hyperlink{struct_operator_divergence_split_high_order_a3b424419c1a002fed0ef9f74da3ce809}{\+\_\+harmonic\+Avg} (const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} c, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} e, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} w, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} n, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} s, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+E, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+W, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+N, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+S) const 
+\item 
+\hyperlink{struct_operator_divergence_split_high_order_a707ec7a6c74a6d965fdbd026e5a3c7c9}{Operator\+Divergence\+Split\+High\+Order} (double \hyperlink{struct_operator_divergence_split_high_order_a2e04249619ee9b0fdb81dbb23795bb37}{dt}, double \hyperlink{struct_operator_divergence_split_high_order_a7654e14cf9e52e8c0f4a57b5ec62c1c0}{rho0}, int \hyperlink{struct_operator_divergence_split_high_order_abcbe4e231301629b5a48c5f0b789af2b}{step})
+\item 
+\hyperlink{struct_operator_divergence_split_high_order_a7eaeb8f57838ea962dcf91b60094e5ae}{$\sim$\+Operator\+Divergence\+Split\+High\+Order} ()
+\item 
+{\footnotesize template$<$typename Lab , typename Block\+Type $>$ }\\void \hyperlink{struct_operator_divergence_split_high_order_ac60d292305a45684efcf88b0e9fc1618}{operator()} (\hyperlink{_definitions_8h_ad6f951af9a2a6ebc1975404882b34314}{Lab} \&lab, const \hyperlink{struct_block_info}{Block\+Info} \&info, Block\+Type \&o) const 
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{struct_operator_divergence_split_high_order_a515b56b79c9da531fa0164946a497f04}{stencil\+\_\+start} \mbox{[}3\mbox{]}
+\item 
+int \hyperlink{struct_operator_divergence_split_high_order_a1539bfea9c833b7d7ddf481509a417cd}{stencil\+\_\+end} \mbox{[}3\mbox{]}
+\item 
+double \hyperlink{struct_operator_divergence_split_high_order_a2e04249619ee9b0fdb81dbb23795bb37}{dt}
+\item 
+double \hyperlink{struct_operator_divergence_split_high_order_a7654e14cf9e52e8c0f4a57b5ec62c1c0}{rho0}
+\item 
+int \hyperlink{struct_operator_divergence_split_high_order_abcbe4e231301629b5a48c5f0b789af2b}{step}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{struct_operator_divergence_split_high_order_a707ec7a6c74a6d965fdbd026e5a3c7c9}{}\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}!Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}!Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+\subsubsection[{Operator\+Divergence\+Split\+High\+Order}]{\setlength{\rightskip}{0pt plus 5cm}Operator\+Divergence\+Split\+High\+Order\+::\+Operator\+Divergence\+Split\+High\+Order (
+\begin{DoxyParamCaption}
+\item[{double}]{dt, }
+\item[{double}]{rho0, }
+\item[{int}]{step}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{struct_operator_divergence_split_high_order_a707ec7a6c74a6d965fdbd026e5a3c7c9}
+\hypertarget{struct_operator_divergence_split_high_order_a7eaeb8f57838ea962dcf91b60094e5ae}{}\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}!````~Operator\+Divergence\+Split\+High\+Order@{$\sim$\+Operator\+Divergence\+Split\+High\+Order}}
+\index{````~Operator\+Divergence\+Split\+High\+Order@{$\sim$\+Operator\+Divergence\+Split\+High\+Order}!Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+\subsubsection[{$\sim$\+Operator\+Divergence\+Split\+High\+Order}]{\setlength{\rightskip}{0pt plus 5cm}Operator\+Divergence\+Split\+High\+Order\+::$\sim$\+Operator\+Divergence\+Split\+High\+Order (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{struct_operator_divergence_split_high_order_a7eaeb8f57838ea962dcf91b60094e5ae}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{struct_operator_divergence_split_high_order_a3b424419c1a002fed0ef9f74da3ce809}{}\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}!\+\_\+harmonic\+Avg@{\+\_\+harmonic\+Avg}}
+\index{\+\_\+harmonic\+Avg@{\+\_\+harmonic\+Avg}!Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+\subsubsection[{\+\_\+harmonic\+Avg}]{\setlength{\rightskip}{0pt plus 5cm}void Operator\+Divergence\+Split\+High\+Order\+::\+\_\+harmonic\+Avg (
+\begin{DoxyParamCaption}
+\item[{const {\bf Real}}]{c, }
+\item[{const {\bf Real}}]{e, }
+\item[{const {\bf Real}}]{w, }
+\item[{const {\bf Real}}]{n, }
+\item[{const {\bf Real}}]{s, }
+\item[{{\bf Real} \&}]{avg\+E, }
+\item[{{\bf Real} \&}]{avg\+W, }
+\item[{{\bf Real} \&}]{avg\+N, }
+\item[{{\bf Real} \&}]{avg\+S}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{struct_operator_divergence_split_high_order_a3b424419c1a002fed0ef9f74da3ce809}
+
+
+Here is the caller graph for this function\+:
+% FIG 0
+
+
+\hypertarget{struct_operator_divergence_split_high_order_ae7622c3be06fe1e484b8650fe126d940}{}\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}!\+\_\+mean@{\+\_\+mean}}
+\index{\+\_\+mean@{\+\_\+mean}!Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+\subsubsection[{\+\_\+mean}]{\setlength{\rightskip}{0pt plus 5cm}void Operator\+Divergence\+Split\+High\+Order\+::\+\_\+mean (
+\begin{DoxyParamCaption}
+\item[{const {\bf Real}}]{c, }
+\item[{const {\bf Real}}]{e, }
+\item[{const {\bf Real}}]{w, }
+\item[{const {\bf Real}}]{n, }
+\item[{const {\bf Real}}]{s, }
+\item[{{\bf Real} \&}]{avg\+E, }
+\item[{{\bf Real} \&}]{avg\+W, }
+\item[{{\bf Real} \&}]{avg\+N, }
+\item[{{\bf Real} \&}]{avg\+S}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{struct_operator_divergence_split_high_order_ae7622c3be06fe1e484b8650fe126d940}
+\hypertarget{struct_operator_divergence_split_high_order_ac60d292305a45684efcf88b0e9fc1618}{}\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}!operator()@{operator()}}
+\index{operator()@{operator()}!Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Lab , typename Block\+Type $>$ void Operator\+Divergence\+Split\+High\+Order\+::operator() (
+\begin{DoxyParamCaption}
+\item[{{\bf Lab} \&}]{lab, }
+\item[{const {\bf Block\+Info} \&}]{info, }
+\item[{Block\+Type \&}]{o}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{struct_operator_divergence_split_high_order_ac60d292305a45684efcf88b0e9fc1618}
+
+
+Here is the call graph for this function\+:
+% FIG 1
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{struct_operator_divergence_split_high_order_a2e04249619ee9b0fdb81dbb23795bb37}{}\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}!dt@{dt}}
+\index{dt@{dt}!Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+\subsubsection[{dt}]{\setlength{\rightskip}{0pt plus 5cm}double Operator\+Divergence\+Split\+High\+Order\+::dt}\label{struct_operator_divergence_split_high_order_a2e04249619ee9b0fdb81dbb23795bb37}
+\hypertarget{struct_operator_divergence_split_high_order_a7654e14cf9e52e8c0f4a57b5ec62c1c0}{}\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}!rho0@{rho0}}
+\index{rho0@{rho0}!Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+\subsubsection[{rho0}]{\setlength{\rightskip}{0pt plus 5cm}double Operator\+Divergence\+Split\+High\+Order\+::rho0}\label{struct_operator_divergence_split_high_order_a7654e14cf9e52e8c0f4a57b5ec62c1c0}
+\hypertarget{struct_operator_divergence_split_high_order_a1539bfea9c833b7d7ddf481509a417cd}{}\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}!stencil\+\_\+end@{stencil\+\_\+end}}
+\index{stencil\+\_\+end@{stencil\+\_\+end}!Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+\subsubsection[{stencil\+\_\+end}]{\setlength{\rightskip}{0pt plus 5cm}int Operator\+Divergence\+Split\+High\+Order\+::stencil\+\_\+end\mbox{[}3\mbox{]}}\label{struct_operator_divergence_split_high_order_a1539bfea9c833b7d7ddf481509a417cd}
+\hypertarget{struct_operator_divergence_split_high_order_a515b56b79c9da531fa0164946a497f04}{}\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}!stencil\+\_\+start@{stencil\+\_\+start}}
+\index{stencil\+\_\+start@{stencil\+\_\+start}!Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+\subsubsection[{stencil\+\_\+start}]{\setlength{\rightskip}{0pt plus 5cm}int Operator\+Divergence\+Split\+High\+Order\+::stencil\+\_\+start\mbox{[}3\mbox{]}}\label{struct_operator_divergence_split_high_order_a515b56b79c9da531fa0164946a497f04}
+\hypertarget{struct_operator_divergence_split_high_order_abcbe4e231301629b5a48c5f0b789af2b}{}\index{Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}!step@{step}}
+\index{step@{step}!Operator\+Divergence\+Split\+High\+Order@{Operator\+Divergence\+Split\+High\+Order}}
+\subsubsection[{step}]{\setlength{\rightskip}{0pt plus 5cm}int Operator\+Divergence\+Split\+High\+Order\+::step}\label{struct_operator_divergence_split_high_order_abcbe4e231301629b5a48c5f0b789af2b}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/source/\hyperlink{_operator_divergence_8h}{Operator\+Divergence.\+h}\end{DoxyCompactItemize}

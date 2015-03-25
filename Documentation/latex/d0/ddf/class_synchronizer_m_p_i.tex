@@ -1,0 +1,206 @@
+\hypertarget{class_synchronizer_m_p_i}{}\section{Synchronizer\+M\+P\+I Class Reference}
+\label{class_synchronizer_m_p_i}\index{Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}}
+
+
+{\ttfamily \#include $<$Synchronizer\+M\+P\+I.\+h$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_synchronizer_m_p_i_1_1_my_range}{My\+Range}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_synchronizer_m_p_i_a361cd2e7121eec06007dedc5cae65278}{Synchronizer\+M\+P\+I} (const int synch\+I\+D, \hyperlink{struct_stencil_info}{Stencil\+Info} stencil, vector$<$ \hyperlink{struct_block_info}{Block\+Info} $>$ globalinfos, M\+P\+I\+::\+Cartcomm cartcomm, const int mybpd\mbox{[}3\mbox{]}, const int blocksize\mbox{[}3\mbox{]})
+\item 
+\hyperlink{class_synchronizer_m_p_i_a783e782e542e65144eda9105ae986e3b}{$\sim$\+Synchronizer\+M\+P\+I} ()
+\item 
+virtual void \hyperlink{class_synchronizer_m_p_i_a34c0550eac39387ac5e1d826aab3300e}{sync} (unsigned int gptfloats, M\+P\+I\+::\+Datatype M\+P\+I\+R\+E\+A\+L, const int timestamp)
+\item 
+vector$<$ \hyperlink{struct_block_info}{Block\+Info} $>$ \hyperlink{class_synchronizer_m_p_i_aaa3b9722374a17f0703f09b6ae8f7821}{avail} ()
+\item 
+vector$<$ \hyperlink{struct_block_info}{Block\+Info} $>$ \hyperlink{class_synchronizer_m_p_i_a1fe2fa97907cbae0ddc874cee4462d83}{avail} (const int smallest)
+\item 
+bool \hyperlink{class_synchronizer_m_p_i_aef137611a6b701c39db613c5e9c62812}{done} () const 
+\item 
+\hyperlink{struct_stencil_info}{Stencil\+Info} \hyperlink{class_synchronizer_m_p_i_a3ef18cbe8ce8ce18e7c96dbd09419e11}{getstencil} () const 
+\item 
+void \hyperlink{class_synchronizer_m_p_i_ad67473ef9e13988052feef92c4c3f086}{getpedata} (int mypeindex\mbox{[}3\mbox{]}, int pesize\mbox{[}3\mbox{]}, int mybpd\mbox{[}3\mbox{]}) const 
+\item 
+void \hyperlink{class_synchronizer_m_p_i_abac3624b538d4968e1953a2aee32d449}{fetch} (const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$const ptr\+Block, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$const ptr\+Lab, const int x0, const int y0, const int z0, const int xsize, const int ysize, const int zsize, const int gptfloats, const int rsx, const int rex, const int rsy, const int rey, const int rsz, const int rez) const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_synchronizer_m_p_i_a361cd2e7121eec06007dedc5cae65278}{}\index{Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}!Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}}
+\index{Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}!Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}}
+\subsubsection[{Synchronizer\+M\+P\+I}]{\setlength{\rightskip}{0pt plus 5cm}Synchronizer\+M\+P\+I\+::\+Synchronizer\+M\+P\+I (
+\begin{DoxyParamCaption}
+\item[{const int}]{synch\+I\+D, }
+\item[{{\bf Stencil\+Info}}]{stencil, }
+\item[{vector$<$ {\bf Block\+Info} $>$}]{globalinfos, }
+\item[{M\+P\+I\+::\+Cartcomm}]{cartcomm, }
+\item[{const int}]{mybpd\mbox{[}3\mbox{]}, }
+\item[{const int}]{blocksize\mbox{[}3\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_synchronizer_m_p_i_a361cd2e7121eec06007dedc5cae65278}
+\hypertarget{class_synchronizer_m_p_i_a783e782e542e65144eda9105ae986e3b}{}\index{Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}!````~Synchronizer\+M\+P\+I@{$\sim$\+Synchronizer\+M\+P\+I}}
+\index{````~Synchronizer\+M\+P\+I@{$\sim$\+Synchronizer\+M\+P\+I}!Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}}
+\subsubsection[{$\sim$\+Synchronizer\+M\+P\+I}]{\setlength{\rightskip}{0pt plus 5cm}Synchronizer\+M\+P\+I\+::$\sim$\+Synchronizer\+M\+P\+I (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_synchronizer_m_p_i_a783e782e542e65144eda9105ae986e3b}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_synchronizer_m_p_i_aaa3b9722374a17f0703f09b6ae8f7821}{}\index{Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}!avail@{avail}}
+\index{avail@{avail}!Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}}
+\subsubsection[{avail}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf Block\+Info}$>$ Synchronizer\+M\+P\+I\+::avail (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_synchronizer_m_p_i_aaa3b9722374a17f0703f09b6ae8f7821}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/ddf/class_synchronizer_m_p_i_aaa3b9722374a17f0703f09b6ae8f7821_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_synchronizer_m_p_i_a1fe2fa97907cbae0ddc874cee4462d83}{}\index{Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}!avail@{avail}}
+\index{avail@{avail}!Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}}
+\subsubsection[{avail}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf Block\+Info}$>$ Synchronizer\+M\+P\+I\+::avail (
+\begin{DoxyParamCaption}
+\item[{const int}]{smallest}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_synchronizer_m_p_i_a1fe2fa97907cbae0ddc874cee4462d83}
+\hypertarget{class_synchronizer_m_p_i_aef137611a6b701c39db613c5e9c62812}{}\index{Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}!done@{done}}
+\index{done@{done}!Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}}
+\subsubsection[{done}]{\setlength{\rightskip}{0pt plus 5cm}bool Synchronizer\+M\+P\+I\+::done (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_synchronizer_m_p_i_aef137611a6b701c39db613c5e9c62812}
+\hypertarget{class_synchronizer_m_p_i_abac3624b538d4968e1953a2aee32d449}{}\index{Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}!fetch@{fetch}}
+\index{fetch@{fetch}!Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}}
+\subsubsection[{fetch}]{\setlength{\rightskip}{0pt plus 5cm}void Synchronizer\+M\+P\+I\+::fetch (
+\begin{DoxyParamCaption}
+\item[{const {\bf Real} $\ast$const}]{ptr\+Block, }
+\item[{{\bf Real} $\ast$const}]{ptr\+Lab, }
+\item[{const int}]{x0, }
+\item[{const int}]{y0, }
+\item[{const int}]{z0, }
+\item[{const int}]{xsize, }
+\item[{const int}]{ysize, }
+\item[{const int}]{zsize, }
+\item[{const int}]{gptfloats, }
+\item[{const int}]{rsx, }
+\item[{const int}]{rex, }
+\item[{const int}]{rsy, }
+\item[{const int}]{rey, }
+\item[{const int}]{rsz, }
+\item[{const int}]{rez}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_synchronizer_m_p_i_abac3624b538d4968e1953a2aee32d449}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/ddf/class_synchronizer_m_p_i_abac3624b538d4968e1953a2aee32d449_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=335pt]{d0/ddf/class_synchronizer_m_p_i_abac3624b538d4968e1953a2aee32d449_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_synchronizer_m_p_i_ad67473ef9e13988052feef92c4c3f086}{}\index{Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}!getpedata@{getpedata}}
+\index{getpedata@{getpedata}!Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}}
+\subsubsection[{getpedata}]{\setlength{\rightskip}{0pt plus 5cm}void Synchronizer\+M\+P\+I\+::getpedata (
+\begin{DoxyParamCaption}
+\item[{int}]{mypeindex\mbox{[}3\mbox{]}, }
+\item[{int}]{pesize\mbox{[}3\mbox{]}, }
+\item[{int}]{mybpd\mbox{[}3\mbox{]}}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_synchronizer_m_p_i_ad67473ef9e13988052feef92c4c3f086}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/ddf/class_synchronizer_m_p_i_ad67473ef9e13988052feef92c4c3f086_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_synchronizer_m_p_i_a3ef18cbe8ce8ce18e7c96dbd09419e11}{}\index{Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}!getstencil@{getstencil}}
+\index{getstencil@{getstencil}!Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}}
+\subsubsection[{getstencil}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Stencil\+Info} Synchronizer\+M\+P\+I\+::getstencil (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_synchronizer_m_p_i_a3ef18cbe8ce8ce18e7c96dbd09419e11}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/ddf/class_synchronizer_m_p_i_a3ef18cbe8ce8ce18e7c96dbd09419e11_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_synchronizer_m_p_i_a34c0550eac39387ac5e1d826aab3300e}{}\index{Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}!sync@{sync}}
+\index{sync@{sync}!Synchronizer\+M\+P\+I@{Synchronizer\+M\+P\+I}}
+\subsubsection[{sync}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Synchronizer\+M\+P\+I\+::sync (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{gptfloats, }
+\item[{M\+P\+I\+::\+Datatype}]{M\+P\+I\+R\+E\+A\+L, }
+\item[{const int}]{timestamp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_synchronizer_m_p_i_a34c0550eac39387ac5e1d826aab3300e}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/ddf/class_synchronizer_m_p_i_a34c0550eac39387ac5e1d826aab3300e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=313pt]{d0/ddf/class_synchronizer_m_p_i_a34c0550eac39387ac5e1d826aab3300e_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Cubism/\hyperlink{_synchronizer_m_p_i_8h}{Synchronizer\+M\+P\+I.\+h}\end{DoxyCompactItemize}

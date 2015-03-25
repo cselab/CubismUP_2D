@@ -1,0 +1,136 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		DD58CA991A5D977B00291455 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		DD58CA931A5D977B00291455 = {
+			isa = PBXGroup;
+			children = (
+				DD58CA991A5D977B00291455 /* Makefile */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		DD58CA981A5D977B00291455 /* makefiles */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = DD58CA9A1A5D977B00291455 /* Build configuration list for PBXLegacyTarget "makefiles" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = /Users/cconti/Desktop/Mounts/BrutusHome/Seed/CubismUP_2D/makefiles;
+			dependencies = (
+			);
+			name = makefiles;
+			passBuildSettingsInEnvironment = 1;
+			productName = makefiles;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		DD58CA941A5D977B00291455 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = DD58CA971A5D977B00291455 /* Build configuration list for PBXProject "makefiles" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DD58CA931A5D977B00291455;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DD58CA981A5D977B00291455 /* makefiles */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		DD58CA951A5D977B00291455 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		DD58CA961A5D977B00291455 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		DD58CA9B1A5D977B00291455 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = makefiles;
+			};
+			name = Debug;
+		};
+		DD58CA9C1A5D977B00291455 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = makefiles;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DD58CA971A5D977B00291455 /* Build configuration list for PBXProject "makefiles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD58CA951A5D977B00291455 /* Debug */,
+				DD58CA961A5D977B00291455 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD58CA9A1A5D977B00291455 /* Build configuration list for PBXLegacyTarget "makefiles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD58CA9B1A5D977B00291455 /* Debug */,
+				DD58CA9C1A5D977B00291455 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DD58CA941A5D977B00291455 /* Project object */;
+}

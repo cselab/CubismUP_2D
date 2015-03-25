@@ -1,0 +1,226 @@
+\hypertarget{class_poisson_solver_scalar_f_f_t_w}{}\section{Poisson\+Solver\+Scalar\+F\+F\+T\+W$<$ T\+Grid, T\+Streamer $>$ Class Template Reference}
+\label{class_poisson_solver_scalar_f_f_t_w}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W$<$ T\+Grid, T\+Streamer $>$@{Poisson\+Solver\+Scalar\+F\+F\+T\+W$<$ T\+Grid, T\+Streamer $>$}}
+
+
+{\ttfamily \#include $<$Poisson\+Solver\+Scalar\+F\+F\+T\+W.\+h$>$}
+
+
+
+Inheritance diagram for Poisson\+Solver\+Scalar\+F\+F\+T\+W$<$ T\+Grid, T\+Streamer $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{d6/daa/class_poisson_solver_scalar_f_f_t_w__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Poisson\+Solver\+Scalar\+F\+F\+T\+W$<$ T\+Grid, T\+Streamer $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{d4/d21/class_poisson_solver_scalar_f_f_t_w__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_poisson_solver_scalar_f_f_t_w_ad30e877f71d90ed725b4f6dc073d15b1}{Poisson\+Solver\+Scalar\+F\+F\+T\+W} (const int desired\+\_\+threads)
+\item 
+void \hyperlink{class_poisson_solver_scalar_f_f_t_w_a888b94b2f63f4c95c70da076b30fb31c}{solve} (T\+Grid \&grid, const bool spectral=false)
+\item 
+void \hyperlink{class_poisson_solver_scalar_f_f_t_w_abf3881339c3ce8a3c25a7d609df542d2}{dispose} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef T\+Grid\+::\+Block\+Type \hyperlink{class_poisson_solver_scalar_f_f_t_w_ad496c7981a6167c70ccd329d4b37888d}{Block\+Type}
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_poisson_solver_scalar_f_f_t_w_a0e20043e8672d540cf4cc859d12e20ff}{\+\_\+setup} (\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$\&rhs, const size\+\_\+t nx, const size\+\_\+t ny)
+\item 
+void \hyperlink{class_poisson_solver_scalar_f_f_t_w_af5a5560916d9fbc9a015709b54dbe3cd}{\+\_\+cub2fftw} (T\+Grid \&grid, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$out, const size\+\_\+t nx, const size\+\_\+t ny, const size\+\_\+t ny\+\_\+hat) const 
+\item 
+virtual void \hyperlink{class_poisson_solver_scalar_f_f_t_w_a8e651a6e6e1f0bbf6360afb933d4fac1}{\+\_\+solve} (\hyperlink{_poisson_solver_scalar_f_f_t_w_8h_af35d52b40fd37a740c7a93765c33e7e5}{mycomplex} $\ast$in\+\_\+out, const size\+\_\+t nx, const size\+\_\+t ny, const size\+\_\+t ny\+\_\+hat, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} norm\+\_\+factor, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} h)
+\item 
+virtual void \hyperlink{class_poisson_solver_scalar_f_f_t_w_ac9b65eddfae730b7b8ca9d31d96f8d5b}{\+\_\+solve\+Spectral} (\hyperlink{_poisson_solver_scalar_f_f_t_w_8h_af35d52b40fd37a740c7a93765c33e7e5}{mycomplex} $\ast$in\+\_\+out, const size\+\_\+t nx, const size\+\_\+t ny, const size\+\_\+t ny\+\_\+hat, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} norm\+\_\+factor, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} h)
+\item 
+void \hyperlink{class_poisson_solver_scalar_f_f_t_w_a07bdeb54b169896f3eb02ada52a2213c}{\+\_\+fftw2cub} (\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$out, T\+Grid \&grid, const size\+\_\+t nx, const size\+\_\+t ny, const size\+\_\+t ny\+\_\+hat) const 
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_poisson_solver_scalar_f_f_t_w_a14ffa693193fcc1d5391c452dcf11d34}{initialized}
+\item 
+\hyperlink{_poisson_solver_scalar_f_f_t_w_8h_afe6b9e6e658d7ab1dc0b912d56754891}{myplan} \hyperlink{class_poisson_solver_scalar_f_f_t_w_a7773ce95a3312d7a5213c060586aed4b}{fwd}
+\item 
+\hyperlink{_poisson_solver_scalar_f_f_t_w_8h_afe6b9e6e658d7ab1dc0b912d56754891}{myplan} \hyperlink{class_poisson_solver_scalar_f_f_t_w_a01d910395049c4252d4924baa032b13d}{bwd}
+\item 
+\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$ \hyperlink{class_poisson_solver_scalar_f_f_t_w_ae4f5219ed358cd8d227084a7fa92e686}{data}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Typedef Documentation}
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_ad496c7981a6167c70ccd329d4b37888d}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!Block\+Type@{Block\+Type}}
+\index{Block\+Type@{Block\+Type}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{Block\+Type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ typedef T\+Grid\+::\+Block\+Type {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::{\bf Block\+Type}\hspace{0.3cm}{\ttfamily [protected]}}\label{class_poisson_solver_scalar_f_f_t_w_ad496c7981a6167c70ccd329d4b37888d}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_ad30e877f71d90ed725b4f6dc073d15b1}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{Poisson\+Solver\+Scalar\+F\+F\+T\+W}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::{\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W} (
+\begin{DoxyParamCaption}
+\item[{const int}]{desired\+\_\+threads}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_poisson_solver_scalar_f_f_t_w_ad30e877f71d90ed725b4f6dc073d15b1}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_af5a5560916d9fbc9a015709b54dbe3cd}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!\+\_\+cub2fftw@{\+\_\+cub2fftw}}
+\index{\+\_\+cub2fftw@{\+\_\+cub2fftw}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+cub2fftw}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ void {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::\+\_\+cub2fftw (
+\begin{DoxyParamCaption}
+\item[{T\+Grid \&}]{grid, }
+\item[{{\bf Real} $\ast$}]{out, }
+\item[{const size\+\_\+t}]{nx, }
+\item[{const size\+\_\+t}]{ny, }
+\item[{const size\+\_\+t}]{ny\+\_\+hat}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_poisson_solver_scalar_f_f_t_w_af5a5560916d9fbc9a015709b54dbe3cd}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d16/class_poisson_solver_scalar_f_f_t_w_af5a5560916d9fbc9a015709b54dbe3cd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_a07bdeb54b169896f3eb02ada52a2213c}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!\+\_\+fftw2cub@{\+\_\+fftw2cub}}
+\index{\+\_\+fftw2cub@{\+\_\+fftw2cub}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+fftw2cub}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ void {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::\+\_\+fftw2cub (
+\begin{DoxyParamCaption}
+\item[{{\bf Real} $\ast$}]{out, }
+\item[{T\+Grid \&}]{grid, }
+\item[{const size\+\_\+t}]{nx, }
+\item[{const size\+\_\+t}]{ny, }
+\item[{const size\+\_\+t}]{ny\+\_\+hat}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_poisson_solver_scalar_f_f_t_w_a07bdeb54b169896f3eb02ada52a2213c}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d16/class_poisson_solver_scalar_f_f_t_w_a07bdeb54b169896f3eb02ada52a2213c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_a0e20043e8672d540cf4cc859d12e20ff}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!\+\_\+setup@{\+\_\+setup}}
+\index{\+\_\+setup@{\+\_\+setup}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+setup}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ virtual void {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::\+\_\+setup (
+\begin{DoxyParamCaption}
+\item[{{\bf Real} $\ast$\&}]{rhs, }
+\item[{const size\+\_\+t}]{nx, }
+\item[{const size\+\_\+t}]{ny}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}\label{class_poisson_solver_scalar_f_f_t_w_a0e20043e8672d540cf4cc859d12e20ff}
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_a8e651a6e6e1f0bbf6360afb933d4fac1}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!\+\_\+solve@{\+\_\+solve}}
+\index{\+\_\+solve@{\+\_\+solve}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+solve}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ virtual void {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::\+\_\+solve (
+\begin{DoxyParamCaption}
+\item[{{\bf mycomplex} $\ast$}]{in\+\_\+out, }
+\item[{const size\+\_\+t}]{nx, }
+\item[{const size\+\_\+t}]{ny, }
+\item[{const size\+\_\+t}]{ny\+\_\+hat, }
+\item[{const {\bf Real}}]{norm\+\_\+factor, }
+\item[{const {\bf Real}}]{h}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}\label{class_poisson_solver_scalar_f_f_t_w_a8e651a6e6e1f0bbf6360afb933d4fac1}
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_ac9b65eddfae730b7b8ca9d31d96f8d5b}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!\+\_\+solve\+Spectral@{\+\_\+solve\+Spectral}}
+\index{\+\_\+solve\+Spectral@{\+\_\+solve\+Spectral}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+solve\+Spectral}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ virtual void {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::\+\_\+solve\+Spectral (
+\begin{DoxyParamCaption}
+\item[{{\bf mycomplex} $\ast$}]{in\+\_\+out, }
+\item[{const size\+\_\+t}]{nx, }
+\item[{const size\+\_\+t}]{ny, }
+\item[{const size\+\_\+t}]{ny\+\_\+hat, }
+\item[{const {\bf Real}}]{norm\+\_\+factor, }
+\item[{const {\bf Real}}]{h}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}\label{class_poisson_solver_scalar_f_f_t_w_ac9b65eddfae730b7b8ca9d31d96f8d5b}
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_abf3881339c3ce8a3c25a7d609df542d2}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!dispose@{dispose}}
+\index{dispose@{dispose}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{dispose}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ void {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::dispose (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_poisson_solver_scalar_f_f_t_w_abf3881339c3ce8a3c25a7d609df542d2}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d16/class_poisson_solver_scalar_f_f_t_w_abf3881339c3ce8a3c25a7d609df542d2_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_a888b94b2f63f4c95c70da076b30fb31c}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!solve@{solve}}
+\index{solve@{solve}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{solve}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ void {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::solve (
+\begin{DoxyParamCaption}
+\item[{T\+Grid \&}]{grid, }
+\item[{const bool}]{spectral = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_poisson_solver_scalar_f_f_t_w_a888b94b2f63f4c95c70da076b30fb31c}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d16/class_poisson_solver_scalar_f_f_t_w_a888b94b2f63f4c95c70da076b30fb31c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d16/class_poisson_solver_scalar_f_f_t_w_a888b94b2f63f4c95c70da076b30fb31c_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_a01d910395049c4252d4924baa032b13d}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!bwd@{bwd}}
+\index{bwd@{bwd}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{bwd}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ {\bf myplan} {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::bwd\hspace{0.3cm}{\ttfamily [protected]}}\label{class_poisson_solver_scalar_f_f_t_w_a01d910395049c4252d4924baa032b13d}
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_ae4f5219ed358cd8d227084a7fa92e686}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!data@{data}}
+\index{data@{data}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ {\bf Real}$\ast$ {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::data\hspace{0.3cm}{\ttfamily [protected]}}\label{class_poisson_solver_scalar_f_f_t_w_ae4f5219ed358cd8d227084a7fa92e686}
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_a7773ce95a3312d7a5213c060586aed4b}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!fwd@{fwd}}
+\index{fwd@{fwd}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{fwd}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ {\bf myplan} {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::fwd\hspace{0.3cm}{\ttfamily [protected]}}\label{class_poisson_solver_scalar_f_f_t_w_a7773ce95a3312d7a5213c060586aed4b}
+\hypertarget{class_poisson_solver_scalar_f_f_t_w_a14ffa693193fcc1d5391c452dcf11d34}{}\index{Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}!initialized@{initialized}}
+\index{initialized@{initialized}!Poisson\+Solver\+Scalar\+F\+F\+T\+W@{Poisson\+Solver\+Scalar\+F\+F\+T\+W}}
+\subsubsection[{initialized}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Grid, typename T\+Streamer$>$ bool {\bf Poisson\+Solver\+Scalar\+F\+F\+T\+W}$<$ T\+Grid, T\+Streamer $>$\+::initialized\hspace{0.3cm}{\ttfamily [protected]}}\label{class_poisson_solver_scalar_f_f_t_w_a14ffa693193fcc1d5391c452dcf11d34}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+source/\hyperlink{_poisson_solver_scalar_f_f_t_w_8h}{Poisson\+Solver\+Scalar\+F\+F\+T\+W.\+h}\end{DoxyCompactItemize}

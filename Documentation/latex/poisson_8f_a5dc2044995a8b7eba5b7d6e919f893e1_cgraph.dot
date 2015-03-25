@@ -1,0 +1,48 @@
+digraph "speli4"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="speli4",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="cofx",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_interface_fortran_8h.html#a4f14a409ba34140311990298a81abab4"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="chksn4",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$poisson_8f.html#a2ddc05f3ab4714b20a9d185411ae1ac8"];
+  Node3 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="tris4",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$poisson_8f.html#acc6b03c725e2ea27649e45764c502fb2"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="ortho4",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$poisson_8f.html#a1ac1a469b1d6fa84bbdc9a8743706153"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="genbun",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$genbun_8f.html#a3d194cbf4bd93aac8206ca4df3068ee9"];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="genbunn",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$genbun_8f.html#a84efdaa64a5ea5a70e43a16b743279e9"];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="poisp2",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$genbun_8f.html#aaa1fe08ecf01ed90ae4a2c1cf5be95ce"];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="poisd2",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$genbun_8f.html#a0764fedadc183c9ff523c436a98a570c"];
+  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="trix",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$gnbnaux_8f.html#a7822bc5b65c017cec3010a9f33cb316f"];
+  Node9 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="cosgen",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$gnbnaux_8f.html#aef77c4415ca0759b213e0c9f88223ab3"];
+  Node9 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="merge",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$gnbnaux_8f.html#a231b7bb127bbc680c262deff2cfb3aee"];
+  Node8 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="poisn2",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$genbun_8f.html#a1a3286c2c2ed3988f551533a53fd6940"];
+  Node13 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="tri3",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$gnbnaux_8f.html#a3734e68dfa3022162c3f94650a43d8d9"];
+  Node7 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="minso4",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$poisson_8f.html#a691b584433e3b4a9f083c04664d38ce7"];
+  Node1 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="defe4",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$poisson_8f.html#a355d5a5f4d4f6d5d3949cb08dce619ef"];
+  Node16 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 -> Node17 [color="midnightblue",fontsize="10",style="solid"];
+  Node17 [label="dx4",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$poisson_8f.html#a83808063c1fdd679d4b026ba63bd926d"];
+  Node16 -> Node18 [color="midnightblue",fontsize="10",style="solid"];
+  Node18 [label="dy4",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$poisson_8f.html#a61a13ff9c3d8b209f2d82002f7d95620"];
+}

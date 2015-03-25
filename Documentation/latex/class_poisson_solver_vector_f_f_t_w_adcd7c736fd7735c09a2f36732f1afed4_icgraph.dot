@@ -1,0 +1,11 @@
+digraph "PoissonSolverVectorFFTW::_setup"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="PoissonSolverVectorFFTW\l::_setup",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="PoissonSolverVectorFFTW\l::solveVelocity",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_poisson_solver_vector_f_f_t_w.html#add12bb6cb209a6cd2be3c01bd8ee4ec4"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="PoissonSolverVectorFFTW\l::reproject",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_poisson_solver_vector_f_f_t_w.html#a517b6b196f4cc6fe328e52824d016e0c"];
+}

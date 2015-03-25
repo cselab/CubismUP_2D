@@ -1,0 +1,52 @@
+//
+//  OperatorGravity.h
+//  CubismUP_2D
+//
+//	Operates on
+//		u, v
+//
+//  Created by Christian Conti on 1/22/15.
+//  Copyright (c) 2015 ETHZ. All rights reserved.
+//
+
+#ifndef CubismUP_2D_OperatorGravity_h
+#define CubismUP_2D_OperatorGravity_h
+
+#include "GenericOperator.h"
+
+class OperatorGravity : public GenericOperator
+{
+private:
+	Real smoothHeaviside(Real rR, Real radius, Real eps)
+	{
+		if (rR < radius-eps*.5)
+			return (Real) 1.;
+		else if (rR > radius+eps*.5)
+			return (Real) 0.;
+		else
+			return (Real) ((1.+cos(M_PI*((rR-radius)/eps+.5)))*.5);
+	}
+	
+	const double dt;
+	const Real g[2];
+	const Real hydrostaticFactor;
+	
+public:
+	OperatorGravity(Real g[2], double dt, Real hydrostaticFactor) : dt(dt), hydrostaticFactor(hydrostaticFactor), g{g[0],g[1]} {}
+	~OperatorGravity() {}
+	
+	void operator()(const BlockInfo& info, FluidBlock& block) const
+	{
+		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+			{
+				Real p[2];
+				info.pos(p, ix, iy);
+				
+				block(ix,iy).u += dt * g[0];
+				block(ix,iy).v += dt * g[1];
+			}
+	}
+};
+
+#endif

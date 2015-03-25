@@ -1,0 +1,271 @@
+\hypertarget{class_shape}{}\section{Shape Class Reference}
+\label{class_shape}\index{Shape@{Shape}}
+
+
+{\ttfamily \#include $<$Shape.\+h$>$}
+
+
+
+Inheritance diagram for Shape\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{d6/ddd/class_shape__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_shape_a5569f27971a19b8a929c98715c73e357}{Shape} (\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_a865a04fe67fc785b3cbb44806a214248}{center}\mbox{[}2\mbox{]}, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_a1778439509ada1f3fa64472610221d19}{orientation}, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_a181acdc3063f20a15ba1807f7b6a5d10}{rho\+S}, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_ad7d270a8ffc4056d4990424dffdd0488}{moll\+Chi}, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_af5aa25175d49bc463fada7b11f2735e1}{moll\+Rho}, bool b\+Periodic\mbox{[}2\mbox{]})
+\item 
+virtual \hyperlink{class_shape_ac3b9fc48965274893f25b18aa14ba665}{$\sim$\+Shape} ()
+\item 
+virtual \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_aafa14cb6631bdc7a7a775e83a4bf5cdf}{chi} (\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} p\mbox{[}2\mbox{]}, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} h) const =0
+\item 
+virtual \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_a702acbc7c7ac03d89a994404569f173f}{get\+Char\+Length} () const =0
+\item 
+void \hyperlink{class_shape_a65aa567330590a20cbda09e592e5f862}{update\+Position} (\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} u\mbox{[}2\mbox{]}, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} omega, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} dt)
+\item 
+void \hyperlink{class_shape_a9bd42ded0d37d57cd2c926981fe9cec9}{get\+Position} (\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} com\mbox{[}2\mbox{]})
+\item 
+\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_ae79a82f1fa1a88c95927f02f8664f843}{get\+Orientation} () const 
+\item 
+\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_a9c55b7360f7439a7b422424a34b5713f}{get\+Rho\+S} ()
+\item 
+\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_af43ed0f7e4b90ba50be1c9ea05451353}{rho} (\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} p\mbox{[}2\mbox{]}, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} h)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_acbce5e61869b11226e3a45090387c7e9}{smooth\+Heaviside} (\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} r\+R, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} radius, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} eps)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_a865a04fe67fc785b3cbb44806a214248}{center} \mbox{[}2\mbox{]}
+\item 
+\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_a1778439509ada1f3fa64472610221d19}{orientation}
+\item 
+const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_a181acdc3063f20a15ba1807f7b6a5d10}{rho\+S}
+\item 
+const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_ad7d270a8ffc4056d4990424dffdd0488}{moll\+Chi}
+\item 
+const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_shape_af5aa25175d49bc463fada7b11f2735e1}{moll\+Rho}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_shape_a5569f27971a19b8a929c98715c73e357}{}\index{Shape@{Shape}!Shape@{Shape}}
+\index{Shape@{Shape}!Shape@{Shape}}
+\subsubsection[{Shape}]{\setlength{\rightskip}{0pt plus 5cm}Shape\+::\+Shape (
+\begin{DoxyParamCaption}
+\item[{{\bf Real}}]{center\mbox{[}2\mbox{]}, }
+\item[{{\bf Real}}]{orientation, }
+\item[{const {\bf Real}}]{rho\+S, }
+\item[{const {\bf Real}}]{moll\+Chi, }
+\item[{const {\bf Real}}]{moll\+Rho, }
+\item[{bool}]{b\+Periodic\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_shape_a5569f27971a19b8a929c98715c73e357}
+\hypertarget{class_shape_ac3b9fc48965274893f25b18aa14ba665}{}\index{Shape@{Shape}!````~Shape@{$\sim$\+Shape}}
+\index{````~Shape@{$\sim$\+Shape}!Shape@{Shape}}
+\subsubsection[{$\sim$\+Shape}]{\setlength{\rightskip}{0pt plus 5cm}virtual Shape\+::$\sim$\+Shape (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_shape_ac3b9fc48965274893f25b18aa14ba665}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_shape_aafa14cb6631bdc7a7a775e83a4bf5cdf}{}\index{Shape@{Shape}!chi@{chi}}
+\index{chi@{chi}!Shape@{Shape}}
+\subsubsection[{chi}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Real} Shape\+::chi (
+\begin{DoxyParamCaption}
+\item[{{\bf Real}}]{p\mbox{[}2\mbox{]}, }
+\item[{{\bf Real}}]{h}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_shape_aafa14cb6631bdc7a7a775e83a4bf5cdf}
+
+
+Implemented in \hyperlink{class_ellipse_ab4cc2d14593c52c17a78d9d2a7f4ecb9}{Ellipse}, and \hyperlink{class_disk_a89a8a1a2c88dd07df5fec2c49e6359b4}{Disk}.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/da7/class_shape_aafa14cb6631bdc7a7a775e83a4bf5cdf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_shape_a702acbc7c7ac03d89a994404569f173f}{}\index{Shape@{Shape}!get\+Char\+Length@{get\+Char\+Length}}
+\index{get\+Char\+Length@{get\+Char\+Length}!Shape@{Shape}}
+\subsubsection[{get\+Char\+Length}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Real} Shape\+::get\+Char\+Length (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_shape_a702acbc7c7ac03d89a994404569f173f}
+
+
+Implemented in \hyperlink{class_ellipse_a51028b0d38b83fc0de8c60c27775ed14}{Ellipse}, and \hyperlink{class_disk_a53a89fd99f0f2e35243622f3c96d7f83}{Disk}.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/da7/class_shape_a702acbc7c7ac03d89a994404569f173f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_shape_ae79a82f1fa1a88c95927f02f8664f843}{}\index{Shape@{Shape}!get\+Orientation@{get\+Orientation}}
+\index{get\+Orientation@{get\+Orientation}!Shape@{Shape}}
+\subsubsection[{get\+Orientation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Real} Shape\+::get\+Orientation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_shape_ae79a82f1fa1a88c95927f02f8664f843}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/da7/class_shape_ae79a82f1fa1a88c95927f02f8664f843_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_shape_a9bd42ded0d37d57cd2c926981fe9cec9}{}\index{Shape@{Shape}!get\+Position@{get\+Position}}
+\index{get\+Position@{get\+Position}!Shape@{Shape}}
+\subsubsection[{get\+Position}]{\setlength{\rightskip}{0pt plus 5cm}void Shape\+::get\+Position (
+\begin{DoxyParamCaption}
+\item[{{\bf Real}}]{com\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_shape_a9bd42ded0d37d57cd2c926981fe9cec9}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/da7/class_shape_a9bd42ded0d37d57cd2c926981fe9cec9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_shape_a9c55b7360f7439a7b422424a34b5713f}{}\index{Shape@{Shape}!get\+Rho\+S@{get\+Rho\+S}}
+\index{get\+Rho\+S@{get\+Rho\+S}!Shape@{Shape}}
+\subsubsection[{get\+Rho\+S}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Real} Shape\+::get\+Rho\+S (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_shape_a9c55b7360f7439a7b422424a34b5713f}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/da7/class_shape_a9c55b7360f7439a7b422424a34b5713f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_shape_af43ed0f7e4b90ba50be1c9ea05451353}{}\index{Shape@{Shape}!rho@{rho}}
+\index{rho@{rho}!Shape@{Shape}}
+\subsubsection[{rho}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Real} Shape\+::rho (
+\begin{DoxyParamCaption}
+\item[{{\bf Real}}]{p\mbox{[}2\mbox{]}, }
+\item[{{\bf Real}}]{h}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_shape_af43ed0f7e4b90ba50be1c9ea05451353}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{d7/da7/class_shape_af43ed0f7e4b90ba50be1c9ea05451353_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{d7/da7/class_shape_af43ed0f7e4b90ba50be1c9ea05451353_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_shape_acbce5e61869b11226e3a45090387c7e9}{}\index{Shape@{Shape}!smooth\+Heaviside@{smooth\+Heaviside}}
+\index{smooth\+Heaviside@{smooth\+Heaviside}!Shape@{Shape}}
+\subsubsection[{smooth\+Heaviside}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Real} Shape\+::smooth\+Heaviside (
+\begin{DoxyParamCaption}
+\item[{{\bf Real}}]{r\+R, }
+\item[{{\bf Real}}]{radius, }
+\item[{{\bf Real}}]{eps}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_shape_acbce5e61869b11226e3a45090387c7e9}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{d7/da7/class_shape_acbce5e61869b11226e3a45090387c7e9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_shape_a65aa567330590a20cbda09e592e5f862}{}\index{Shape@{Shape}!update\+Position@{update\+Position}}
+\index{update\+Position@{update\+Position}!Shape@{Shape}}
+\subsubsection[{update\+Position}]{\setlength{\rightskip}{0pt plus 5cm}void Shape\+::update\+Position (
+\begin{DoxyParamCaption}
+\item[{{\bf Real}}]{u\mbox{[}2\mbox{]}, }
+\item[{{\bf Real}}]{omega, }
+\item[{{\bf Real}}]{dt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_shape_a65aa567330590a20cbda09e592e5f862}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/da7/class_shape_a65aa567330590a20cbda09e592e5f862_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_shape_a865a04fe67fc785b3cbb44806a214248}{}\index{Shape@{Shape}!center@{center}}
+\index{center@{center}!Shape@{Shape}}
+\subsubsection[{center}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Real} Shape\+::center\mbox{[}2\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}\label{class_shape_a865a04fe67fc785b3cbb44806a214248}
+\hypertarget{class_shape_ad7d270a8ffc4056d4990424dffdd0488}{}\index{Shape@{Shape}!moll\+Chi@{moll\+Chi}}
+\index{moll\+Chi@{moll\+Chi}!Shape@{Shape}}
+\subsubsection[{moll\+Chi}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Real} Shape\+::moll\+Chi\hspace{0.3cm}{\ttfamily [protected]}}\label{class_shape_ad7d270a8ffc4056d4990424dffdd0488}
+\hypertarget{class_shape_af5aa25175d49bc463fada7b11f2735e1}{}\index{Shape@{Shape}!moll\+Rho@{moll\+Rho}}
+\index{moll\+Rho@{moll\+Rho}!Shape@{Shape}}
+\subsubsection[{moll\+Rho}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Real} Shape\+::moll\+Rho\hspace{0.3cm}{\ttfamily [protected]}}\label{class_shape_af5aa25175d49bc463fada7b11f2735e1}
+\hypertarget{class_shape_a1778439509ada1f3fa64472610221d19}{}\index{Shape@{Shape}!orientation@{orientation}}
+\index{orientation@{orientation}!Shape@{Shape}}
+\subsubsection[{orientation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Real} Shape\+::orientation\hspace{0.3cm}{\ttfamily [protected]}}\label{class_shape_a1778439509ada1f3fa64472610221d19}
+\hypertarget{class_shape_a181acdc3063f20a15ba1807f7b6a5d10}{}\index{Shape@{Shape}!rho\+S@{rho\+S}}
+\index{rho\+S@{rho\+S}!Shape@{Shape}}
+\subsubsection[{rho\+S}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Real} Shape\+::rho\+S\hspace{0.3cm}{\ttfamily [protected]}}\label{class_shape_a181acdc3063f20a15ba1807f7b6a5d10}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+source/\hyperlink{_shape_8h}{Shape.\+h}\end{DoxyCompactItemize}
