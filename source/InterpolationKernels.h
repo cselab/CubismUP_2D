@@ -18,21 +18,9 @@ struct Mp4
 	static Real weight(const Real x)
 	{
 		Real absx = abs(x);
+		
 		// Horner's scheme
 		return (absx<2. && absx>=1.) * (((-.5*absx + 2.5)*absx - 4)*absx + 2) + (absx<1.) * (((1.5*absx - 2.5)*absx + 0.)*absx + 1.);
-		//*
-		Real absx2 = absx*absx;
-		Real absx3 = absx2*absx;
-		
-		//return (absx<2. && absx>=1.) * (-.5*absx3 + 2.5*absx2 - 4.*absx + 2.) + (absx<1.) * (1. - 2.5*absx2 + 1.5*absx3);
-		/*
-		 if (absx<2. && absx>=1.)
-			return .5*(2.-absx)*(2.-absx)*(1.-absx);
-		 else if (absx<1.)
-			return 1. - 2.5*absx2 + 1.5*absx3;
-		 else // outside of support
-			return 0.;
-		 //*/
 	}
 };
 

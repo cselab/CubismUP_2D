@@ -5,6 +5,8 @@
 //	Virtual shape class which defines the interface
 //	Default simple geometries are also provided and can be used as references
 //
+//	This class only contains static information (position, orientation,...), no dynamics are included (e.g. velocities,...)
+//
 //  Created by Christian Conti on 3/6/15.
 //  Copyright (c) 2015 ETHZ. All rights reserved.
 //
@@ -55,6 +57,12 @@ public:
 		orientation += dt*omega;
 	}
 	
+	void setPosition(Real com[2])
+	{
+		center[0] = com[0];
+		center[1] = com[1];
+	}
+	
 	void getPosition(Real com[2])
 	{
 		com[0] = center[0];
@@ -66,7 +74,7 @@ public:
 		return orientation;
 	}
 	
-	Real getRhoS()
+	inline Real getRhoS() const
 	{
 		return rhoS;
 	}

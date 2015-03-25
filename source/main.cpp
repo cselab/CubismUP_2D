@@ -15,6 +15,7 @@ using namespace std;
 
 #include "Definitions.h"
 
+#include "Simulation_Fluid.h"
 #include "Sim_FSI_Fixed.h"
 #include "Sim_FSI_Moving.h"
 #include "Sim_FSI_Gravity.h"
@@ -39,28 +40,16 @@ int main(int argc, const char **argv)
 	parser.set_strict_mode();
 	
 	string simSetting = parser("-sim").asString();
+	Simulation_Fluid * sim;
 	
 	if (simSetting=="fixed")
-	{
-		Sim_FSI_Fixed * sim = new Sim_FSI_Fixed(argc, argv);
-		
-		sim->setup();
-		sim->simulate();
-	}
+		sim = new Sim_FSI_Fixed(argc, argv);
 	else if (simSetting=="moving")
-	{
-		Sim_FSI_Moving * sim = new Sim_FSI_Moving(argc, argv);
-		
-		sim->setup();
-		sim->simulate();
-	}
+		sim = new Sim_FSI_Moving(argc, argv);
 	else if (simSetting=="falling")
-	{
-		Sim_FSI_Gravity * sim = new Sim_FSI_Gravity(argc, argv);
-		
-		sim->setup();
-		sim->simulate();
-	}
+		sim = new Sim_FSI_Gravity(argc, argv);
+	
+	sim->simulate();
 	
 #ifdef _MULTIGRID_
 	MPI_Finalize();

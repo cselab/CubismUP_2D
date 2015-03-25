@@ -14,6 +14,5 @@ var searchData=
   ['mp4',['Mp4',['../dc/db7/struct_mp4.html',1,'']]],
   ['ms6',['Ms6',['../db/d12/struct_ms6.html',1,'']]],
   ['multigridhypre',['MultigridHypre',['../d7/d01/class_multigrid_hypre.html',1,'']]],
-  ['multigridhypresplit',['MultigridHypreSplit',['../d0/d0c/class_multigrid_hypre_split.html',1,'']]],
   ['myrange',['MyRange',['../d6/d85/class_synchronizer_m_p_i_1_1_my_range.html',1,'SynchronizerMPI']]]
 ];

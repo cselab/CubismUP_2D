@@ -1,6 +1,0 @@
-<map id="findMaxUOMP" name="findMaxUOMP">
-<area shape="rect" id="node2" href="$d8/d3d/class_sim___f_s_i___fixed.html#a1e37b29e07ddd05ae1f0c2be321e9bb2" title="Sim_FSI_Fixed::simulate" alt="" coords="167,5,336,31"/>
-<area shape="rect" id="node4" href="$d6/de6/class_sim___f_s_i___gravity.html#add86d6f52de51511f0bb93714fc504c4" title="Sim_FSI_Gravity::simulate" alt="" coords="162,55,341,80"/>
-<area shape="rect" id="node5" href="$db/df6/class_sim___f_s_i___moving.html#ae20d894ac95fb1e13de88147a8bc1b3e" title="Sim_FSI_Moving::simulate" alt="" coords="161,104,341,129"/>
-<area shape="rect" id="node3" href="$df/d0a/main_8cpp.html#a217dbf8b442f20279ea00b898af96f52" title="main" alt="" coords="389,55,439,80"/>
-</map>

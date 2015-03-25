@@ -1,7 +1,0 @@
-<map id="Cubism/GridMPI.h" name="Cubism/GridMPI.h">
-<area shape="rect" id="node3" href="$d1/d07/_block_info_8h.html" title="BlockInfo.h" alt="" coords="6,79,93,104"/>
-<area shape="rect" id="node5" href="$d4/d4e/_stencil_info_8h.html" title="StencilInfo.h" alt="" coords="89,152,184,177"/>
-<area shape="rect" id="node7" href="$de/d4f/_synchronizer_m_p_i_8h.html" title="SynchronizerMPI.h" alt="" coords="281,79,415,104"/>
-<area shape="rect" id="node11" href="$d7/dd2/_p_u_pkernels_m_p_i_8h.html" title="PUPkernelsMPI.h" alt="" coords="410,152,537,177"/>
-<area shape="rect" id="node13" href="$d9/d33/_dependency_cube_m_p_i_8h.html" title="DependencyCubeMPI.h" alt="" coords="561,152,724,177"/>
-</map>

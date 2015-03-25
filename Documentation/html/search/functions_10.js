@@ -1,15 +1,10 @@
 var searchData=
 [
-  ['test',['Test',['../d1/d9b/class_test.html#a4fffafa9f518289d9a4f5d87a695e78e',1,'Test']]],
-  ['testadvection',['TestAdvection',['../d1/d76/class_test_advection.html#ae1c9275e616dbfbb2d7f475f01c67a91',1,'TestAdvection']]],
-  ['testdiffusion',['TestDiffusion',['../d9/d0f/class_test_diffusion.html#afa617e3798e6e5114b79aa2682dce800',1,'TestDiffusion']]],
-  ['testgravity',['TestGravity',['../d2/dcc/class_test_gravity.html#a00cbceb3d84a9f6497c62201cd81de64',1,'TestGravity']]],
-  ['testpenalization',['TestPenalization',['../d0/d08/class_test_penalization.html#a8d68f3d2b3e32c432d9daea295e6c864',1,'TestPenalization']]],
-  ['testpressure',['TestPressure',['../df/ddc/class_test_pressure.html#aa12dc73e28bfcb9a6f4769a86f66cbd4',1,'TestPressure']]],
-  ['testrotation',['TestRotation',['../d0/d20/class_test_rotation.html#a6040531c47b4a23c5a269806995d586d',1,'TestRotation']]],
-  ['testtranslation',['TestTranslation',['../d5/d1e/class_test_translation.html#acabd0a10c541e912d7f9f62f275f7df4',1,'TestTranslation']]],
-  ['testvarcoeffpoisson',['TestVarCoeffPoisson',['../d7/d0a/class_test_var_coeff_poisson.html#a1e01b5afffa76b9b68ffe9872b6ebc76',1,'TestVarCoeffPoisson']]],
-  ['tri3',['tri3',['../d7/dd6/gnbnaux_8f.html#a3734e68dfa3022162c3f94650a43d8d9',1,'tri3(M, A, B, C, K, Y1, Y2, Y3, TCOS, D, W1, W2, W3):&#160;gnbnaux.f'],['../de/dd4/poisson_8f.html#a3734e68dfa3022162c3f94650a43d8d9',1,'tri3(M, A, B, C, K, Y1, Y2, Y3, TCOS, D, W1, W2, W3):&#160;poisson.f']]],
-  ['tris4',['tris4',['../de/dd4/poisson_8f.html#acc6b03c725e2ea27649e45764c502fb2',1,'poisson.f']]],
-  ['trix',['trix',['../d7/dd6/gnbnaux_8f.html#a7822bc5b65c017cec3010a9f33cb316f',1,'trix(IDEGBR, IDEGCR, M, A, B, C, Y, TCOS, D, W):&#160;gnbnaux.f'],['../de/dd4/poisson_8f.html#a7822bc5b65c017cec3010a9f33cb316f',1,'trix(IDEGBR, IDEGCR, M, A, B, C, Y, TCOS, D, W):&#160;poisson.f']]]
+  ['unpack',['unpack',['../d7/dd2/_p_u_pkernels_m_p_i_8h.html#a8b5aa2551611fcb7d92dda8966cbbda3',1,'PUPkernelsMPI.h']]],
+  ['unpack_5fsubregion',['unpack_subregion',['../d7/dd2/_p_u_pkernels_m_p_i_8h.html#a0d024fa525007ee6941795fb3f66f92d',1,'PUPkernelsMPI.h']]],
+  ['unset_5fstrict_5fmode',['unset_strict_mode',['../d3/d52/class_argument_parser.html#a47b9bd39a2587221398c6785560072f8',1,'ArgumentParser']]],
+  ['updateomp',['updateOMP',['../d5/daa/_process_operators_o_m_p_8cpp.html#ae041e454de4e5baf48e022ff1184073b',1,'updateOMP(vector&lt; BlockInfo &gt; &amp;myInfo, FluidGrid &amp;grid):&#160;ProcessOperatorsOMP.cpp'],['../da/d45/_process_operators_o_m_p_8h.html#ae041e454de4e5baf48e022ff1184073b',1,'updateOMP(vector&lt; BlockInfo &gt; &amp;myInfo, FluidGrid &amp;grid):&#160;ProcessOperatorsOMP.cpp']]],
+  ['updateposition',['updatePosition',['../d7/da7/class_shape.html#a65aa567330590a20cbda09e592e5f862',1,'Shape']]],
+  ['updatepressuresomp',['updatePressuresOMP',['../d5/daa/_process_operators_o_m_p_8cpp.html#ad3e32a26df50c8e475277642d2c72b14',1,'updatePressuresOMP(vector&lt; BlockInfo &gt; &amp;myInfo, FluidGrid &amp;grid):&#160;ProcessOperatorsOMP.cpp'],['../da/d45/_process_operators_o_m_p_8h.html#ad3e32a26df50c8e475277642d2c72b14',1,'updatePressuresOMP(vector&lt; BlockInfo &gt; &amp;myInfo, FluidGrid &amp;grid):&#160;ProcessOperatorsOMP.cpp']]],
+  ['uvfrompsi_5fsse',['UVfromPSI_SSE',['../d1/d2c/struct_u_vfrom_p_s_i___s_s_e_3_01double_01_4.html#ab18d50ac5b80e1cbae7d31b2e4db5a63',1,'UVfromPSI_SSE&lt; double &gt;::UVfromPSI_SSE(const double factor, double *ptr_psi, const int bigX, const int bigY, int sX, int sY, double *ptr_u, double *ptr_v)'],['../d1/d2c/struct_u_vfrom_p_s_i___s_s_e_3_01double_01_4.html#acb95bbecc1ef308681377af43761a365',1,'UVfromPSI_SSE&lt; double &gt;::UVfromPSI_SSE(const UVfromPSI_SSE &amp;c)'],['../d5/d4e/struct_u_vfrom_p_s_i___s_s_e_3_01float_01_4.html#ae8cbc637b76f83a4e5ed40a20a9f7576',1,'UVfromPSI_SSE&lt; float &gt;::UVfromPSI_SSE(const float factor, float *ptr_psi, const int bigX, const int bigY, int sX, int sY, float *ptr_u, float *ptr_v)'],['../d5/d4e/struct_u_vfrom_p_s_i___s_s_e_3_01float_01_4.html#a627413c6971bd69a9a4174700071940a',1,'UVfromPSI_SSE&lt; float &gt;::UVfromPSI_SSE(const UVfromPSI_SSE &amp;c)']]]
 ];

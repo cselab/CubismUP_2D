@@ -6,6 +6,7 @@ var hierarchy =
     [ "BlockInfo", "d4/ded/struct_block_info.html", null ],
     [ "BlockLab< TBlock, allocator, ElementTypeT >", "d7/d95/class_block_lab.html", null ],
     [ "BlockLab< BlockType, allocator >", "d7/d95/class_block_lab.html", [
+      [ "BlockLabBottomWall< BlockType, allocator >", "d1/d4e/class_block_lab_bottom_wall.html", null ],
       [ "BlockLabBox< BlockType, allocator >", "db/d2b/class_block_lab_box.html", null ],
       [ "BlockLabDirichlet< BlockType, allocator >", "d6/ddf/class_block_lab_dirichlet.html", null ],
       [ "BlockLabNeumann< BlockType, allocator >", "de/df4/class_block_lab_neumann.html", null ]
@@ -49,7 +50,6 @@ var hierarchy =
       [ "OperatorGradPSplit", "dc/d57/class_operator_grad_p_split.html", null ],
       [ "OperatorGradPSplitHighOrder", "dc/dc8/class_operator_grad_p_split_high_order.html", null ],
       [ "OperatorSplitP", "d5/dc8/class_operator_split_p.html", null ],
-      [ "OperatorVarCoeffPoisson", "d5/d9b/class_operator_var_coeff_poisson.html", null ],
       [ "OperatorVorticity", "d1/d5e/class_operator_vorticity.html", null ]
     ] ],
     [ "GenericOperator", "df/dbc/class_generic_operator.html", [
@@ -79,7 +79,6 @@ var hierarchy =
     [ "Mp4", "dc/db7/struct_mp4.html", null ],
     [ "Ms6", "db/d12/struct_ms6.html", null ],
     [ "MultigridHypre", "d7/d01/class_multigrid_hypre.html", null ],
-    [ "MultigridHypreSplit", "d0/d0c/class_multigrid_hypre_split.html", null ],
     [ "MyBlockLab", null, [
       [ "BlockLabMPI< MyBlockLab >", "d9/dee/class_block_lab_m_p_i.html", null ]
     ] ],
@@ -105,9 +104,12 @@ var hierarchy =
       [ "Disk", "d5/db6/class_disk.html", null ],
       [ "Ellipse", "dc/d25/class_ellipse.html", null ]
     ] ],
-    [ "Sim_FSI_Fixed", "d8/d3d/class_sim___f_s_i___fixed.html", [
-      [ "Sim_FSI_Gravity", "d6/de6/class_sim___f_s_i___gravity.html", null ],
-      [ "Sim_FSI_Moving", "db/df6/class_sim___f_s_i___moving.html", null ]
+    [ "Simulation_Fluid", "d0/d35/class_simulation___fluid.html", [
+      [ "Simulation_FSI", "d7/dce/class_simulation___f_s_i.html", [
+        [ "Sim_FSI_Fixed", "d8/d3d/class_sim___f_s_i___fixed.html", null ],
+        [ "Sim_FSI_Gravity", "d6/de6/class_sim___f_s_i___gravity.html", null ],
+        [ "Sim_FSI_Moving", "db/df6/class_sim___f_s_i___moving.html", null ]
+      ] ]
     ] ],
     [ "StencilInfo", "da/d04/struct_stencil_info.html", null ],
     [ "StreamerDiv", "df/df0/struct_streamer_div.html", null ],

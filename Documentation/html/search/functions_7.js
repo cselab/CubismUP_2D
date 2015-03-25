@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['genbun',['genbun',['../d6/d46/genbun_8f.html#a3d194cbf4bd93aac8206ca4df3068ee9',1,'genbun(NPEROD, N, MPEROD, M, A, B, C, IDIMY, Y, IERROR):&#160;genbun.f'],['../de/dd4/poisson_8f.html#ad1505c36f22eafeef816abf4e9e81554',1,'genbun(NPEROD, N, MPEROD, M, A, B, C, IDIMY, Y, IERROR, W):&#160;poisson.f']]],
-  ['genbunn',['genbunn',['../d6/d46/genbun_8f.html#a84efdaa64a5ea5a70e43a16b743279e9',1,'genbun.f']]],
   ['get_5fsynchronizermpi',['get_SynchronizerMPI',['../d9/d3c/class_grid_m_p_i.html#ae57bf08859c39ed4ea3ee3031b289352',1,'GridMPI']]],
   ['getactualsize',['getActualSize',['../d7/d95/class_block_lab.html#aa45e40066bececd40de75c238c346e79',1,'BlockLab']]],
   ['getagent',['getAgent',['../db/db9/class_profiler.html#a31b511654f7addcef16776092ab6cdf0',1,'Profiler']]],
@@ -23,7 +21,7 @@ var searchData=
   ['getregion',['getRegion',['../d2/d55/struct_dependency_cube_m_p_i_1_1_object.html#a44a7a075a81ef6ec5e35c6152e7b6b30',1,'DependencyCubeMPI::Object::getRegion()'],['../df/d69/struct_dependency_cube_m_p_i_1_1_face.html#aac6960e98b8018d962de087d4052fa6f',1,'DependencyCubeMPI::Face::getRegion()'],['../df/d3d/struct_dependency_cube_m_p_i_1_1_edge.html#a8964aa3679c17660a3647a83514c348d',1,'DependencyCubeMPI::Edge::getRegion()'],['../d9/d0d/struct_dependency_cube_m_p_i_1_1_corner.html#a73d2edfe56f0d484ff3458758e542b30',1,'DependencyCubeMPI::Corner::getRegion()']]],
   ['getresidentblocksinfo',['getResidentBlocksInfo',['../d9/d3c/class_grid_m_p_i.html#ae68d98fcfc60a139a468b2b66743a815',1,'GridMPI']]],
   ['getresidentblocksperdimension',['getResidentBlocksPerDimension',['../d9/d3c/class_grid_m_p_i.html#a2d743c8605ca373df9f174b350c06d76',1,'GridMPI']]],
-  ['getrhos',['getRhoS',['../d7/da7/class_shape.html#a9c55b7360f7439a7b422424a34b5713f',1,'Shape']]],
+  ['getrhos',['getRhoS',['../d7/da7/class_shape.html#a8ce0a2058afdaf2644c84b8d065d5edf',1,'Shape']]],
   ['getsize',['getSize',['../da/d8b/class_matrix3_d.html#af59a187071d2eaace597398ba649a41d',1,'Matrix3D::getSize()'],['../d6/d1d/class_matrix4_d.html#a9c8afb2fce60f2ba1f594502d1c9c11f',1,'Matrix4D::getSize()'],['../d2/d76/class_matrix2_d.html#aec1488d6824828fad81ab3532aad7b52',1,'Matrix2D::getSize()']]],
   ['getstencil',['getstencil',['../d0/ddf/class_synchronizer_m_p_i.html#a3ef18cbe8ce8ce18e7c96dbd09419e11',1,'SynchronizerMPI']]],
   ['gettimestamp',['getTimeStamp',['../d9/d3c/class_grid_m_p_i.html#a225c750fb4e70ed908fb8ec485b31762',1,'GridMPI']]],

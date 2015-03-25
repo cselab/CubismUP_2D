@@ -94,46 +94,6 @@ double findMaxUOMP(vector<BlockInfo>& myInfo, FluidGrid & grid)
 	return maxU;
 };
 
-void removeMeanFlowOMP(Real dt, Real g[2], vector<BlockInfo>& myInfo, FluidGrid & grid)
-{
-	const int N = myInfo.size();
-	/*
-	double meanU = 0;
-	double meanV = 0;
-	double volume = 0;
-#pragma omp parallel for schedule(static) reduction(+:meanU) reduction(+:meanV) reduction(+:volume)
-	for(int i=0; i<N; i++)
-	{
-		BlockInfo info = myInfo[i];
-		FluidBlock& b = *(FluidBlock*)info.ptrBlock;
-		
-		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-			{
-				meanU  += b(ix,iy).u * (1-b(ix,iy).chi);
-				meanV  += b(ix,iy).v * (1-b(ix,iy).chi);
-				volume += (1-b(ix,iy).chi);
-			}
-	}
-	
-	meanU /= volume;
-	meanV /= volume;
-	*/
-#pragma omp parallel for schedule(static)
-	for(int i=0; i<N; i++)
-	{
-		BlockInfo info = myInfo[i];
-		FluidBlock& b = *(FluidBlock*)info.ptrBlock;
-		
-		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-			{
-				b(ix,iy).u -= dt*g[0];//*(1-b(ix,iy).chi);//meanU;
-				b(ix,iy).v -= dt*g[1];//*(1-b(ix,iy).chi);//meanV;
-			}
-	}
-};
-
 void computeBodyVelocity(vector<BlockInfo>& myInfo, FluidGrid & grid, Real ub[2], Real& angularU, Real rhoS, Real g[2], Real dt, Real lambda)
 {
 	double centerTmpX = 0;

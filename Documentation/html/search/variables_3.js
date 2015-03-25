@@ -5,10 +5,12 @@ var searchData=
   ['data_5ffourier',['data_fourier',['../d1/dc1/class_velocity_solver___f_f_t_w.html#a589908f23d4caf65f23017d816c81dce',1,'VelocitySolver_FFTW']]],
   ['daveragetime',['dAverageTime',['../d5/d78/struct_profile_summary_item.html#abf81dcdf80bc064ca974259d2df1780f',1,'ProfileSummaryItem']]],
   ['divu',['divU',['../d2/d12/struct_fluid_element.html#aba2e77832126f3c461bde1230bef0741',1,'FluidElement']]],
-  ['dt',['dt',['../d8/d3d/class_sim___f_s_i___fixed.html#aac96337fe38ebde7c000b48e9cc8a5a9',1,'Sim_FSI_Fixed']]],
+  ['dt',['dt',['../d0/d35/class_simulation___fluid.html#ad7aa765d258a0ba11c46893884960173',1,'Simulation_Fluid']]],
   ['dtbody',['dtBody',['../d6/de6/class_sim___f_s_i___gravity.html#aa5eb5526dc487939dc0ef241e904481c',1,'Sim_FSI_Gravity::dtBody()'],['../db/df6/class_sim___f_s_i___moving.html#a0afe565eb23a49fd97956ff02f0b755a',1,'Sim_FSI_Moving::dtBody()']]],
-  ['dtcfl',['dtCFL',['../d8/d3d/class_sim___f_s_i___fixed.html#a501b1373276553911410c679fa282b0d',1,'Sim_FSI_Fixed']]],
-  ['dtfourier',['dtFourier',['../d8/d3d/class_sim___f_s_i___fixed.html#a5dea9750a2ba748dc420274b88f31f75',1,'Sim_FSI_Fixed']]],
+  ['dtcfl',['dtCFL',['../d8/d3d/class_sim___f_s_i___fixed.html#a501b1373276553911410c679fa282b0d',1,'Sim_FSI_Fixed::dtCFL()'],['../d6/de6/class_sim___f_s_i___gravity.html#acb747fc432b79e9f03348d74bcc929d0',1,'Sim_FSI_Gravity::dtCFL()'],['../db/df6/class_sim___f_s_i___moving.html#ad34f9f64be650bf2c8f4d210042eef1e',1,'Sim_FSI_Moving::dtCFL()']]],
+  ['dtfourier',['dtFourier',['../d8/d3d/class_sim___f_s_i___fixed.html#a5dea9750a2ba748dc420274b88f31f75',1,'Sim_FSI_Fixed::dtFourier()'],['../d6/de6/class_sim___f_s_i___gravity.html#a4264fa344adca71913d1f4f085bd3c36',1,'Sim_FSI_Gravity::dtFourier()'],['../db/df6/class_sim___f_s_i___moving.html#a57d504bdcd3b8b47a0aea90163e16755',1,'Sim_FSI_Moving::dtFourier()']]],
   ['dtime',['dTime',['../d5/d78/struct_profile_summary_item.html#a0b2da66b3214112dd90e2837fa5fad6d',1,'ProfileSummaryItem']]],
-  ['dumper',['dumper',['../d8/d3d/class_sim___f_s_i___fixed.html#a7b3628f6a2828c4d4ad58e45b2f703b1',1,'Sim_FSI_Fixed']]]
+  ['dumper',['dumper',['../d0/d35/class_simulation___fluid.html#a7a23af5af55a67f1d6599c311d071a62',1,'Simulation_Fluid']]],
+  ['dumpfreq',['dumpFreq',['../d0/d35/class_simulation___fluid.html#ae8bb71bdc00d5df69ab62c41993345e9',1,'Simulation_Fluid']]],
+  ['dumptime',['dumpTime',['../d0/d35/class_simulation___fluid.html#a0d1adc2fc5a0cbc9073f261d9a30072f',1,'Simulation_Fluid']]]
 ];

@@ -12,8 +12,9 @@
 #include <cassert>
 #include <sstream>
 #include <cmath>
+#include <cstdio>
 
-//utmost import to be defined before including cubism
+// utmost import to be defined before including cubism
 
 // double precision fftw not installed currently
 #ifndef _SP_COMP_
@@ -32,5 +33,7 @@ typedef float Real;
 #ifdef _MULTIGRID_
 #include <mpi.h>
 #endif
+
+#include "Timer.h"
 
 #endif

@@ -6,6 +6,9 @@
  *  Copyright 2009 CSE Lab, ETH Zurich. All rights reserved.
  *
  */
+
+#pragma once
+
 #define _USE_MATH_DEFINES
 
 #include <math.h>

@@ -1,6 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d7/d95/class_block_lab.html" title="BlockLab\&lt; BlockType,\l allocator \&gt;" alt="" coords="5,68,158,107"/>
-<area shape="rect" id="node2" href="$db/d2b/class_block_lab_box.html" title="BlockLabBox\&lt; BlockType,\l allocator \&gt;" alt="" coords="224,5,400,44"/>
-<area shape="rect" id="node3" href="$d6/ddf/class_block_lab_dirichlet.html" title="BlockLabDirichlet\&lt;\l BlockType, allocator \&gt;" alt="" coords="234,68,390,107"/>
-<area shape="rect" id="node4" href="$de/df4/class_block_lab_neumann.html" title="BlockLabNeumann\&lt; BlockType,\l allocator \&gt;" alt="" coords="206,131,417,169"/>
+<area shape="rect" id="node1" href="$d7/d95/class_block_lab.html" title="BlockLab\&lt; BlockType,\l allocator \&gt;" alt="" coords="5,100,158,139"/>
+<area shape="rect" id="node2" href="$d1/d4e/class_block_lab_bottom_wall.html" title="BlockLabBottomWall\l\&lt; BlockType, allocator \&gt;" alt="" coords="230,5,393,44"/>
+<area shape="rect" id="node3" href="$db/d2b/class_block_lab_box.html" title="BlockLabBox\&lt; BlockType,\l allocator \&gt;" alt="" coords="224,68,400,107"/>
+<area shape="rect" id="node4" href="$d6/ddf/class_block_lab_dirichlet.html" title="BlockLabDirichlet\&lt;\l BlockType, allocator \&gt;" alt="" coords="234,131,390,169"/>
+<area shape="rect" id="node5" href="$de/df4/class_block_lab_neumann.html" title="BlockLabNeumann\&lt; BlockType,\l allocator \&gt;" alt="" coords="206,193,417,232"/>
 </map>

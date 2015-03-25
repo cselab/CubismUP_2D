@@ -2,6 +2,7 @@ var searchData=
 [
   ['blockinfo',['BlockInfo',['../d4/ded/struct_block_info.html#a02f86d450ef17d29635aa21622b641df',1,'BlockInfo::BlockInfo(long long ID, const int idx[3], const double pos[3], const double spacing, double h_gridpoint_, void *ptr=NULL)'],['../d4/ded/struct_block_info.html#a6b27ee44e1fa4f1b7eddb1f2e9dcaba7',1,'BlockInfo::BlockInfo()']]],
   ['blocklab',['BlockLab',['../d7/d95/class_block_lab.html#a0cb8aec5f42c4b1860be8aa218660087',1,'BlockLab']]],
+  ['blocklabbottomwall',['BlockLabBottomWall',['../d1/d4e/class_block_lab_bottom_wall.html#a89c8bb288dd9480f0b6bed2d27d4646d',1,'BlockLabBottomWall']]],
   ['blocklabbox',['BlockLabBox',['../db/d2b/class_block_lab_box.html#a819b297579990253484d7fed5dc878db',1,'BlockLabBox']]],
   ['blocklabdirichlet',['BlockLabDirichlet',['../d6/ddf/class_block_lab_dirichlet.html#aee522a1b0a5e8047dea4558b34df6141',1,'BlockLabDirichlet']]],
   ['blocklabneumann',['BlockLabNeumann',['../de/df4/class_block_lab_neumann.html#ab365064c3cc0d442c730d90cd8c5bd0b',1,'BlockLabNeumann']]],

@@ -9,7 +9,6 @@
 #include "TestPressure.h"
 #include "OperatorDivergence.h"
 #include "OperatorGradP.h"
-//#include "Operators_DFT.h"
 #include "PoissonSolverScalarFFTW.h"
 #include "ProcessOperatorsOMP.h"
 #include "LayerToVTK.h"
@@ -94,7 +93,6 @@ void TestPressure::_ic()
 						//	0-neumann on x=1
 						
 						const int size = 1+1/dh;
-						//info.pos(p, ix, iy);
 						const int by = info.index[1]*FluidBlock::sizeY;
 						p[1] = (by+iy+1.5)/(double)size;
 						double y = p[1]*M_PI_2;
@@ -106,8 +104,7 @@ void TestPressure::_ic()
 	}
 	
 	stringstream ss;
-	ss << path2file << "-ic" << ic << "-bpd" << bpd << "-IC.vti" ;
-	//cout << ss.str() << endl;
+	ss << path2file << "-ic" << ic << "-bpd" << bpd << "-IC.vti";
 	
 	dumper.Write(*grid, ss.str());
 }
@@ -140,15 +137,6 @@ void TestPressure::run()
 {
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	const int size = bpd * FluidBlock::sizeX;
-	
-	/*
-	Layer divergenceBefore(size,size,1);
-	initializeNUMA(divergenceBefore);
-	processOMP<Lab, OperatorDivergenceLayer>(divergenceBefore,vInfo,*grid);
-	stringstream sDivB;
-	sDivB << path2file << bpd << "DivergenceBefore.vti";
-	dumpLayer2VTK(0, sDivB.str(), divergenceBefore, 1);
-	*/
 	
 	if (ic==1 && rank==0)
 		processOMP<Lab, OperatorDivergence>(1, vInfo, *grid);
@@ -195,35 +183,10 @@ void TestPressure::run()
 	if (ic==1 && rank==0)
 		processOMP<Lab, OperatorGradP>(1, vInfo, *grid);
 	
-	/*
-	 Layer divergence(size,size,1);
-	 initializeNUMA(divergence);
-	 processOMP<Lab, OperatorDivergenceLayer>(divergence,vInfo,*grid);
-	 stringstream sDiv;
-	 sDiv << path2file << bpd << "DivergenceBefore.vti";
-	 dumpLayer2VTK(0, sDiv.str(), divergence, 1);
-	 
-	Layer pressureTerm(size,size,2);
-	initializeNUMA(pressureTerm);
-	PressureSolver_FFTW pressureSolver(size, size);
-	pressureSolver(divergence, pressureTerm, (Real)1., (Real)1.);
-	
-	updateOMP(pressureTerm, vInfo, *grid);
-	*/
-	/*
-	Layer divergenceAfter(size,size,1);
-	initializeNUMA(divergenceAfter);
-	processOMP<Lab, OperatorDivergenceLayer>(divergenceAfter,vInfo,*grid);
-	stringstream sDivA;
-	sDivA << path2file << bpd << "DivergenceAfter.vti";
-	dumpLayer2VTK(0, sDivA.str(), divergenceAfter, 1);
-	*/
-	
 	if (rank==0)
 	{
 		stringstream ss;
-		ss << path2file << "-solver" << solver << "-ic" << ic << "-bpd" << bpd << ".vti" ;
-		//cout << ss.str() << endl;
+		ss << path2file << "-solver" << solver << "-ic" << ic << "-bpd" << bpd << ".vti";
 	
 		dumper.Write(*grid, ss.str());
 	}

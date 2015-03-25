@@ -95,7 +95,6 @@ struct FluidVTKStreamer
     }
 };
 
-//*
 template<typename BlockType, template<typename X> class allocator=std::allocator>
 class BlockLabDirichlet : public BlockLab<BlockType,allocator>
 {
@@ -143,6 +142,24 @@ public:
 };
 
 template<typename BlockType, template<typename X> class allocator=std::allocator>
+class BlockLabBottomWall : public BlockLab<BlockType,allocator>
+{
+	typedef typename BlockType::ElementType ElementTypeBlock;
+	
+public:
+	BlockLabBottomWall(): BlockLab<BlockType,allocator>(){}
+	
+	void _apply_bc(const BlockInfo& info, const Real t=0)
+	{
+		BoundaryCondition<BlockType,ElementTypeBlock,allocator> bc(this->m_stencilStart, this->m_stencilEnd, this->m_cacheBlock);
+		
+		// keep periodicity in x direction
+		if (info.index[1]==0)		   bc.template applyBC_mixedBottom<1,0>();
+		if (info.index[1]==this->NY-1) bc.template applyBC_mixedTop<1,1>();
+	}
+};
+
+template<typename BlockType, template<typename X> class allocator=std::allocator>
 class BlockLabBox : public BlockLab<BlockType,allocator>
 {
 	typedef typename BlockType::ElementType ElementTypeBlock;
@@ -154,20 +171,17 @@ public:
 	{
 		BoundaryCondition<BlockType,ElementTypeBlock,allocator> bc(this->m_stencilStart, this->m_stencilEnd, this->m_cacheBlock);
 		
-		//if (info.index[0]==0)		   bc.template applyBC_mixedBottom<0,0>();
-		//if (info.index[0]==this->NX-1) bc.template applyBC_mixedBottom<0,1>();
-		
-		// keep periodicity in x direction
+		if (info.index[0]==0)		   bc.template applyBC_mixedBottom<0,0>();
+		if (info.index[0]==this->NX-1) bc.template applyBC_mixedBottom<0,1>();
 		if (info.index[1]==0)		   bc.template applyBC_mixedBottom<1,0>();
 		if (info.index[1]==this->NY-1) bc.template applyBC_mixedTop<1,1>();
 	}
 };
-//*/
 
 typedef Grid<FluidBlock, std::allocator> FluidGrid;
 typedef BlockProcessing_TBB<FluidBlock> FluidBlockProcessing;
 #ifndef _PERIODIC_
-typedef BlockLabBox<FluidBlock, std::allocator> Lab;
+typedef BlockLabBottomWall<FluidBlock, std::allocator> Lab;
 #else
 typedef BlockLab<FluidBlock, std::allocator> Lab;
 #endif

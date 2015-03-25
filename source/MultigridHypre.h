@@ -53,12 +53,12 @@ private:
 		avgS = 2. * c * s / (c + s);
 	}
 	
+	// fills with 1/rho
 	template<typename Lab>
 	void _fillMatrixVariableOMP(vector<double>& values)
 	{
 		vector<BlockInfo> myInfo = fluidgrid->getBlocksInfo();
 		BlockInfo * ary = &myInfo.front();
-		//const int N = myInfo.size();
 		
 		int Nx = fluidgrid->getBlocksPerDimension(0);
 		int Ny = fluidgrid->getBlocksPerDimension(1);
@@ -114,42 +114,43 @@ private:
 					FluidElement& phiW = lab(ix-1,iy  );
 					
 					Real rhoE, rhoW, rhoN, rhoS;
-					_mean(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
-					//_harmonicAvg(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
+					//_mean(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
+					_harmonicAvg(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
 					
 #ifndef _PERIODIC_
 					//*
 					if (giy>0 && giy<sizeY-1)
 					{
-						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN + 1./rhoS);//-(rhoE + rhoW + rhoN + rhoS);//
+						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN + 1./rhoS);
 						
 						// W,E,S,N
-						values[lidx+1] = 1./rhoW;//rhoW;//
-						values[lidx+2] = 1./rhoE;//rhoE;//
-						values[lidx+3] = 1./rhoS;//rhoS;//
-						values[lidx+4] = 1./rhoN;//rhoN;//
+						values[lidx+1] = 1./rhoW;
+						values[lidx+2] = 1./rhoE;
+						values[lidx+3] = 1./rhoS;
+						values[lidx+4] = 1./rhoN;
 					}
 					else if (giy==0) // neumann bc
 					{
-						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN);//-(rhoE + rhoW + rhoN);//
+						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN);
 						
 						// W,E,S,N
-						values[lidx+1] = 1./rhoW;//rhoW;//
-						values[lidx+2] = 1./rhoE;//rhoE;//
+						values[lidx+1] = 1./rhoW;
+						values[lidx+2] = 1./rhoE;
 						values[lidx+3] = 0;
-						values[lidx+4] = 1./rhoN;//rhoN;//
+						values[lidx+4] = 1./rhoN;
 					}
 					else if (giy==sizeY-1) // dirichlet bc
 					{
-						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN + 1./rhoS);//-(rhoE + rhoW + rhoN + rhoS);//
+						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN + 1./rhoS);
 						
 						// W,E,S,N
-						values[lidx+1] = 1./rhoW;//rhoW;//
-						values[lidx+2] = 1./rhoE;//rhoE;//
-						values[lidx+3] = 1./rhoS;//rhoS;//
+						values[lidx+1] = 1./rhoW;
+						values[lidx+2] = 1./rhoE;
+						values[lidx+3] = 1./rhoS;
 						values[lidx+4] = 0;
 					}
 					 /*/
+					  // needed for walls
 					if (giy>0 && giy<sizeY-1 && gix>0 && gix<sizeX-1)
 					{
 						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN + 1./rhoS);//-(rhoE + rhoW + rhoN + rhoS);//
@@ -203,15 +204,15 @@ private:
 						values[lidx+4] = 1./rhoN;//rhoN;//
 					}
 					*/
-#else
-					values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN + 1./rhoS);//-(rhoE + rhoW + rhoN + rhoS);//
+#else // _PERIODIC_
+					values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN + 1./rhoS);
 					
 					// W,E,S,N
-					values[lidx+1] = 1./rhoW;//rhoW;//
-					values[lidx+2] = 1./rhoE;//rhoE;//
-					values[lidx+3] = 1./rhoS;//rhoS;//
-					values[lidx+4] = 1./rhoN;//rhoN;//
-#endif
+					values[lidx+1] = 1./rhoW;
+					values[lidx+2] = 1./rhoE;
+					values[lidx+3] = 1./rhoS;
+					values[lidx+4] = 1./rhoN;
+#endif // _PERIODIC_
 				}
 			}
 		}
@@ -280,9 +281,9 @@ private:
 		
 #ifdef _PERIODIC_
 		double avg = 0;
-		//#pragma omp parallel for schedule(static) reduction(+:avg)
+#pragma omp parallel for schedule(static) reduction(+:avg)
 		for(int i=0; i<size2; i++)
-		avg += values[i];
+			avg += values[i];
 		avg /= size2;
 #endif
 		
@@ -314,10 +315,10 @@ private:
 				assert(idx>=0);
 				assert(idx<size2);
 #ifndef _PERIODIC_
-				b(ix,iy).tmp  = values[idx];//rankX + rankY*nprocsX;//
+				b(ix,iy).tmp  = values[idx]; // this is used for debugging
 				b(ix,iy).divU = values[idx];
 #else
-				b(ix,iy).tmp  = values[idx]-avg;//rankX + rankY*nprocsX;//
+				b(ix,iy).tmp  = values[idx]-avg; // this is used for debugging
 				b(ix,iy).divU = values[idx]-avg;
 #endif
 			}
@@ -335,7 +336,6 @@ private:
 				assert(blockID<N);
 				FluidBlock& b = (*fluidgrid)(bx+rankX*Nx,by+rankY*Ny);
 				int ierror = MPI_Isend(&b, sizeof(b), MPI_BYTE, 0, blockID, MPI_COMM_WORLD, &request[blockID]);
-				//if (rankX==1 && rankY==0) cout << "Send " << rankX+rankY*nprocsX << " " << blockID << endl;
 			}
 		}
 		else
@@ -353,12 +353,9 @@ private:
 				FluidBlock& b = (*fluidgrid)(bx,by);
 				const int senderID = bx/Nx + (by/Ny)*nprocsX;
 				assert(senderID<nprocsX*nprocsY);
-				//int ierror = MPI_Irecv(&b, sizeof(b), MPI_BYTE, senderID, blockID, MPI_COMM_WORLD, &request[blockID]);
 				int ierror = MPI_Recv(&b, sizeof(b), MPI_BYTE, senderID, blockID, MPI_COMM_WORLD, &status[blockID]);
 			}
 		}
-		
-		//MPI_Barrier(MPI_COMM_WORLD);
 	}
 	
 	inline void _setupMatrix()
@@ -438,7 +435,6 @@ private:
 		
 		vector<BlockInfo> myInfo = fluidgrid->getBlocksInfo();
 		BlockInfo * ary = &myInfo.front();
-		//const int N = myInfo.size();
 		
 		// right hand side - divU
 #pragma omp parallel for schedule(static) collapse(2)
@@ -543,7 +539,7 @@ public:
 		
 #ifndef _PERIODIC_
 		int periodicity[2] = { sizeX,0 };
-		//int periodicity[2] = { 0,0 };
+		//int periodicity[2] = { 0,0 }; // for walled sides
 #else
 		int periodicity[2] = { sizeX,sizeY };
 #endif

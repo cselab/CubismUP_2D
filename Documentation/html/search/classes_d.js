@@ -8,6 +8,8 @@ var searchData=
   ['sim_5ffsi_5ffixed',['Sim_FSI_Fixed',['../d8/d3d/class_sim___f_s_i___fixed.html',1,'']]],
   ['sim_5ffsi_5fgravity',['Sim_FSI_Gravity',['../d6/de6/class_sim___f_s_i___gravity.html',1,'']]],
   ['sim_5ffsi_5fmoving',['Sim_FSI_Moving',['../db/df6/class_sim___f_s_i___moving.html',1,'']]],
+  ['simulation_5ffluid',['Simulation_Fluid',['../d0/d35/class_simulation___fluid.html',1,'']]],
+  ['simulation_5ffsi',['Simulation_FSI',['../d7/dce/class_simulation___f_s_i.html',1,'']]],
   ['stencilinfo',['StencilInfo',['../da/d04/struct_stencil_info.html',1,'']]],
   ['streamerdiv',['StreamerDiv',['../df/df0/struct_streamer_div.html',1,'']]],
   ['synchronizermpi',['SynchronizerMPI',['../d0/ddf/class_synchronizer_m_p_i.html',1,'']]]

@@ -38,8 +38,7 @@ void TestGravity::_ic()
 	
 	
 	stringstream ss;
-	ss << path2file << "-IC.vti" ;
-	//cout << ss.str() << endl;
+	ss << path2file << "-IC.vti";
 	
 	dumper.Write(*grid, ss.str());
 }
@@ -75,8 +74,7 @@ void TestGravity::run()
 	}
 	
 	stringstream ss;
-	ss << path2file << "-bpd" << bpd << ".vti" ;
-	//cout << ss.str() << endl;
+	ss << path2file << "-bpd" << bpd << ".vti";
 	
 	dumper.Write(*grid, ss.str());
 }

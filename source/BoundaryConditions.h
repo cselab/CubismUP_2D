@@ -90,8 +90,7 @@ public:
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
 			{
-				(*this)(ix,iy).rho = 1;//(*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-									//		 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rho*1000;
+				(*this)(ix,iy).rho = 1;
 				(*this)(ix,iy).chi = 0;
 				(*this)(ix,iy).u   = 0;
 				(*this)(ix,iy).v   = 0;

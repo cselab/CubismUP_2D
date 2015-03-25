@@ -1,9 +1,0 @@
-<map id="resetOMP" name="resetOMP">
-<area shape="rect" id="node2" href="$d8/d3d/class_sim___f_s_i___fixed.html#a1e37b29e07ddd05ae1f0c2be321e9bb2" title="Sim_FSI_Fixed::simulate" alt="" coords="140,5,309,31"/>
-<area shape="rect" id="node4" href="$d6/de6/class_sim___f_s_i___gravity.html#add86d6f52de51511f0bb93714fc504c4" title="Sim_FSI_Gravity::simulate" alt="" coords="135,55,314,80"/>
-<area shape="rect" id="node5" href="$db/df6/class_sim___f_s_i___moving.html#ae20d894ac95fb1e13de88147a8bc1b3e" title="Sim_FSI_Moving::simulate" alt="" coords="135,104,315,129"/>
-<area shape="rect" id="node6" href="$d1/d76/class_test_advection.html#a06ea2c54a664b65b02259ba2c0c4ff38" title="TestAdvection::run" alt="" coords="159,153,290,179"/>
-<area shape="rect" id="node8" href="$d9/d0f/class_test_diffusion.html#ae4f122102bda38ee01e0fc38cb77f57b" title="TestDiffusion::run" alt="" coords="163,203,287,228"/>
-<area shape="rect" id="node3" href="$df/d0a/main_8cpp.html#a217dbf8b442f20279ea00b898af96f52" title="main" alt="" coords="363,55,413,80"/>
-<area shape="rect" id="node7" href="$dc/dd0/main_test_8cpp.html#a217dbf8b442f20279ea00b898af96f52" title="main" alt="" coords="363,177,413,203"/>
-</map>

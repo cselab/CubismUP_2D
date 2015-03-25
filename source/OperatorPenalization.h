@@ -39,10 +39,6 @@ public:
 				info.pos(p,ix,iy);
 				block(ix,iy).u = (block(ix,iy).u + dt * lambda * block(ix,iy).chi * (uBody[0] - omegaBody*(p[1]-centerOfMass[1]))) / (1 + dt * lambda * block(ix,iy).chi);
 				block(ix,iy).v = (block(ix,iy).v + dt * lambda * block(ix,iy).chi * (uBody[1] + omegaBody*(p[0]-centerOfMass[0]))) / (1 + dt * lambda * block(ix,iy).chi);
-				/*/
-				block(ix,iy).u = (block(ix,iy).u + dt * lambda * block(ix,iy).chi * uBody[0]) / (1 + dt * lambda * block(ix,iy).chi);
-				block(ix,iy).v = (block(ix,iy).v + dt * lambda * block(ix,iy).chi * uBody[1]) / (1 + dt * lambda * block(ix,iy).chi);
-				//*/
 			}
     }
 };

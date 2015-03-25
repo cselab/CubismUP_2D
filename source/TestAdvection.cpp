@@ -120,8 +120,7 @@ void TestAdvection::_icVortex()
 	
 	
 	stringstream ss;
-	ss << path2file << "-IC.vti" ;
-	//cout << ss.str() << endl;
+	ss << path2file << "-IC.vti";
 	
 	dumper.Write(*grid, ss.str());
 	
@@ -171,8 +170,8 @@ void TestAdvection::run()
 	
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	const double dt = 0.0001;//vInfo[0].h_gridpoint*.5;//1e-8;
-	//*
+	const double dt = 0.0001;//vInfo[0].h_gridpoint*.5;
+	/*
 	if (testCase==0)
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/1. << ")\n";
 	else
@@ -210,8 +209,7 @@ void TestAdvection::run()
 	}
 	
 	stringstream ss;
-	ss << path2file << "-test" << testCase << "-bpd" << bpd << ".vti" ;
-	//cout << ss.str() << endl;
+	ss << path2file << "-test" << testCase << "-bpd" << bpd << ".vti";
 	
 	dumper.Write(*grid, ss.str());
 }

@@ -12,6 +12,5 @@ var searchData=
   ['operators_5fdft_2eh',['Operators_DFT.h',['../d8/de0/_operators___d_f_t_8h.html',1,'']]],
   ['operators_5fdft_5ffftw_2ecpp',['Operators_DFT_FFTW.cpp',['../d2/d0f/_operators___d_f_t___f_f_t_w_8cpp.html',1,'']]],
   ['operatorsplitp_2eh',['OperatorSplitP.h',['../d9/dab/_operator_split_p_8h.html',1,'']]],
-  ['operatorvarcoeffpoisson_2eh',['OperatorVarCoeffPoisson.h',['../d2/de7/_operator_var_coeff_poisson_8h.html',1,'']]],
   ['operatorvorticity_2eh',['OperatorVorticity.h',['../d8/db3/_operator_vorticity_8h.html',1,'']]]
 ];

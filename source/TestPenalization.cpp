@@ -44,7 +44,6 @@ void TestPenalization::run()
 {
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	// TODO: choose dt (CFL)
 	const double dt = 1e-4;
 	Real omega = 0;
 	
@@ -55,8 +54,7 @@ void TestPenalization::run()
 		processOMP<OperatorPenalization>(dt,uBody[0],uBody[1],omega,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
 	
 		stringstream ss;
-		ss << path2file << "-bpd" << bpd << "-step" << i << ".vti" ;
-		//cout << ss.str() << endl;
+		ss << path2file << "-bpd" << bpd << "-step" << i << ".vti";
 	
 		dumper.Write(*grid, ss.str());
 	}

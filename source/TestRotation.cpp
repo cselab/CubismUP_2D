@@ -102,7 +102,6 @@ void TestRotation::run()
 		{
 			stringstream ss;
 			ss << path2file << "-" << bpd << "-" << step << ".vti";
-			//cout << ss.str() << endl;
 			
 			dumper.Write(*grid, ss.str());
 			

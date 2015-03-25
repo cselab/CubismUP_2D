@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['poisson_2ef',['poisson.f',['../de/dd4/poisson_8f.html',1,'']]],
   ['poissonsolverscalarfftw_2ecpp',['PoissonSolverScalarFFTW.cpp',['../d5/d54/_poisson_solver_scalar_f_f_t_w_8cpp.html',1,'']]],
   ['poissonsolverscalarfftw_2eh',['PoissonSolverScalarFFTW.h',['../d7/dc5/_poisson_solver_scalar_f_f_t_w_8h.html',1,'']]],
   ['poissonsolvervectorfftw_2eh',['PoissonSolverVectorFFTW.h',['../d6/d0b/_poisson_solver_vector_f_f_t_w_8h.html',1,'']]],

@@ -1,8 +1,0 @@
-digraph "/Users/cconti/Desktop/Mounts/BrutusHome/Seed/CubismUP_2D/source/InterfaceFFTW.h"
-{
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="/Users/cconti/Desktop\l/Mounts/BrutusHome/Seed\l/CubismUP_2D/source/InterfaceFFTW.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
-  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
-  Node2 [label="/Users/cconti/Desktop\l/Mounts/BrutusHome/Seed\l/CubismUP_2D/source/Operators\l_DFT_FFTW.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_operators___d_f_t___f_f_t_w_8cpp.html"];
-}

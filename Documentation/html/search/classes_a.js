@@ -19,6 +19,5 @@ var searchData=
   ['operatoric',['OperatorIC',['../de/d4a/class_operator_i_c.html',1,'']]],
   ['operatorpenalization',['OperatorPenalization',['../df/d96/class_operator_penalization.html',1,'']]],
   ['operatorsplitp',['OperatorSplitP',['../d5/dc8/class_operator_split_p.html',1,'']]],
-  ['operatorvarcoeffpoisson',['OperatorVarCoeffPoisson',['../d5/d9b/class_operator_var_coeff_poisson.html',1,'']]],
   ['operatorvorticity',['OperatorVorticity',['../d1/d5e/class_operator_vorticity.html',1,'']]]
 ];

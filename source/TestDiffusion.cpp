@@ -56,7 +56,6 @@ TestDiffusion::TestDiffusion(const int argc, const char ** argv, const int bpd) 
 	// output settings
 	path2file = parser("-file").asString("../data/testDiffusion");
 	
-	//bpd = parser("-bpd").asDouble(4);
 	grid = new FluidGrid(bpd,bpd,1);
 	
 	// setup initial condition
@@ -91,8 +90,7 @@ void TestDiffusion::run()
 	}
 	
 	stringstream ss;
-	ss << path2file << "-bpd" << bpd << ".vti" ;
-	//cout << ss.str() << endl;
+	ss << path2file << "-bpd" << bpd << ".vti";
 	
 	dumper.Write(*grid, ss.str());
 }

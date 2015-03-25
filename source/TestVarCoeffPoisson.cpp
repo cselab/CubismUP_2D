@@ -66,8 +66,7 @@ void TestVarCoeffPoisson::_ic()
 	
 	
 	stringstream ss;
-	ss << path2file << "-ic" << ic << "-bpd" << bpd << "-IC.vti" ;
-	//cout << ss.str() << endl;
+	ss << path2file << "-ic" << ic << "-bpd" << bpd << "-IC.vti";
 	
 	dumper.Write(*grid, ss.str());
 }
@@ -100,8 +99,7 @@ void TestVarCoeffPoisson::run()
 	mg();
 #endif
 	
- 	ss << "-ic" << ic << "-bpd" << bpd << ".vti" ;
-	//cout << ss.str() << endl;
+ 	ss << "-ic" << ic << "-bpd" << bpd << ".vti";
 	
 	dumper.Write(*grid, ss.str());
 }

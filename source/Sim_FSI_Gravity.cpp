@@ -7,11 +7,20 @@
 //
 
 #include "Sim_FSI_Gravity.h"
+
 #include "ProcessOperatorsOMP.h"
-#include "Timer.h"
-#include "LayerToVTK.h"
-#include <sstream>
-#include <cmath>
+#include "OperatorIC.h"
+#include "OperatorAdvection.h"
+#include "OperatorDiffusion.h"
+#include "OperatorPenalization.h"
+#include "OperatorDivergence.h"
+#include "OperatorVorticity.h"
+#include "Operators_DFT.h"
+#include "PoissonSolverScalarFFTW.h"
+#include "OperatorGradP.h"
+#include "OperatorComputeShape.h"
+#include "OperatorGravity.h"
+#include "OperatorSplitP.h"
 
 void Sim_FSI_Gravity::_solvePressure()
 {
@@ -140,14 +149,14 @@ void Sim_FSI_Gravity::_dumpSettings(ostream& mystream)
 		mystream << "Physical Settings\n";
 		mystream << "\tradius\t" << shape->getCharLength()*.5 << endl;
 		mystream << "\tnu\t" << nu << endl;
-		mystream << "\tRhoS\t" << rhoS << endl;
+		mystream << "\tRhoS\t" << shape->getRhoS() << endl;
 		Real center[2];
 		shape->getPosition(center);
 		mystream << "\tyPos\t" << center[1] << endl;
 		
 		mystream << "\nSimulation Settings\n";
 		mystream << "\tnsteps\t" << nsteps << endl;
-		mystream << "\tTend\t" << tEnd << endl;
+		mystream << "\tTend\t" << endTime << endl;
 		mystream << "\tlambda\t" << lambda << endl;
 #ifdef _MULTIGRID_
 		mystream << "\tsplit\t" << (bSplit ? "true" : "false") << endl;
@@ -174,59 +183,66 @@ void Sim_FSI_Gravity::_dumpSettings(ostream& mystream)
 	}
 }
 
-void Sim_FSI_Gravity::setup()
+void Sim_FSI_Gravity::_ic()
 {
+#ifdef _MULTIGRID_
+	if (rank==0)
+#endif
+	{
+		Timer timerIC;
+		
+		// setup initial conditions
+		timerIC.start();
+		vector<BlockInfo> vInfo = grid->getBlocksInfo();
+		OperatorIC ic(shape, 0);
+		FluidBlockProcessing::process(vInfo, ic, grid);
+		
+		stringstream ss;
+		ss << path2file << "-IC.vti";
+		dumper.Write(*grid, ss.str());
+		double timeIC = timerIC.stop();
+		
+		cout << "Time IC:\t" << timeIC << endl;
+	}
+}
+
+double Sim_FSI_Gravity::_nonDimensionalTime()
+{
+	return time; // how to nondimensionalize here? based on Galileo number?
+}
+
+Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uBody{0,0}, omegaBody(0), gravity{0,-9.81}, dtCFL(0), dtFourier(0), dtBody(0), re(0), nu(0), CFL(0), minRho(0), bSplit(false)
+#ifdef _MULTIGRID_
+, rank(0), nprocs(0)
+#endif
+{
+#ifdef _MULTIGRID_
+	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+	MPI_Comm_size(MPI_COMM_WORLD,&nprocs);
+	
+	if (rank==0)
+#endif
+	{
+		cout << "====================================================================================================================\n";
+		cout << "\t\t\tFlow past a falling cylinder\n";
+		cout << "====================================================================================================================\n";
+	}
+	
 	// simulation settings
-	nsteps = parser("-nsteps").asInt(1000000);
-	uinf = 0;//parser("-uinf").asDouble(0.1);
-	re = 0;//parser("-Re").asDouble(100);
+	bSplit = parser("-split").asBool(false);
 	nu = parser("-nu").asDouble(1e-2);
-	lambda = parser("-lambda").asDouble(1e8);
-	tEnd = parser("-tend").asDouble(50);
-	rhoS = parser("-rhoS").asDouble(1.1);
 	CFL = parser("-CFL").asDouble(.1);
-	minRho = min(1.,rhoS);
-	
-	// output settings
-	path2file = parser("-file").asString("../data/FlowPastFallingCylinder");
-	
-	// computational space settings
-	parser.set_strict_mode();
-	bpdx = parser("-bpdx").asInt();
-	bpdy = parser("-bpdy").asInt();
-	parser.unset_strict_mode();
+	minRho = min(1.,shape->getRhoS());
 	
 	const float aspectRatio = (float)bpdx/(float)bpdy;
-	Real centerOfMass[2] = {.5*aspectRatio,parser("-ypos").asDouble(.85)};
-	bool bPeriodic[2] = {false,false};
-	string shapeType = parser("-shape").asString("disk");
-	
-	if (shapeType=="disk")
-	{
-		Real radius = parser("-radius").asDouble(0.1);
-		shape = new Disk(centerOfMass, radius, rhoS, 2, 2, bPeriodic);
-	}
-	else if (shapeType=="ellipse")
-	{
-		Real semiAxis[2] = {parser("-semiAxisX").asDouble(0.1),parser("-semiAxisY").asDouble(0.2)};
-		Real angle = parser("-angle").asDouble(0.0);
-		shape = new Ellipse(centerOfMass, semiAxis, angle, rhoS, 2, 2, bPeriodic);
-	}
-		
+	Real center[2] = {.5*aspectRatio,parser("-ypos").asDouble(.85)};
+	shape->setPosition(center);
 	
 	stringstream ss;
 	ss << path2file << "_settings.dat";
 	ofstream myfile(ss.str(), fstream::app);
 	_dumpSettings(cout);
 	_dumpSettings(myfile);
-	
-#ifdef _PERIODIC_
-	if (bpdx!=bpdy)
-	{
-		cout << "Assuming square domain for periodicity in OperatorComputeDisk\n";
-		abort();
-	}
-#endif
 	
 #ifdef _MULTIGRID_
 	if (rank==0)
@@ -236,58 +252,23 @@ void Sim_FSI_Gravity::setup()
 			cout << "Solving full variable coefficient Poisson equation for pressure\n";
 #endif
 	
-	grid = new FluidGrid(bpdx,bpdy,1);
-	assert(grid != NULL);
-	
-	Timer timerIC;
-#ifdef _MULTIGRID_
-	if (rank==0)
-#endif
-	{
-		// setup initial conditions
-		timerIC.start();
-		vector<BlockInfo> vInfo = grid->getBlocksInfo();
-		OperatorIC ic(shape, 0);
-		FluidBlockProcessing::process(vInfo, ic, grid);
-		
-		dt = 1e-8;
-		
-		// this is required to create the initial pressure gradient
-		//processOMP_hydrostaticTerm<OperatorGravity>(gravity, dt, rhoS, vInfo, *grid);
-		//processOMP<Lab, OperatorGradP>(dt, vInfo, *grid);
-		
-	}
-	//_solvePressure(); //  put mgh instead of solving!
-#ifdef _MULTIGRID_
-	if (rank==0)
-#endif
-	{
-		stringstream ss;
-		ss << path2file << "-IC.vti" ;
-		cout << ss.str() << endl;
-		
-		dumper.Write(*grid, ss.str());
-		
-		//_dumpDivergence(-1,minRho,dt);
-		//_diagnostics();
-		
-		double timeIC = timerIC.stop();
-		cout << "Time IC (u, p):\t" << timeIC << endl;// << "\t" << timePoissonIC << endl;
-	}
+	_ic();
 	
 #ifdef _MULTIGRID_
 	MPI_Barrier(MPI_COMM_WORLD);
-	//MPI_Abort(MPI_COMM_WORLD,1);
 #endif
+}
+
+Sim_FSI_Gravity::~Sim_FSI_Gravity()
+{
 }
 
 void Sim_FSI_Gravity::simulate()
 {
-	time = 0;
-	double nextDumpTime = 0;
-	double maxU = uinf;
-	Timer timer, timerPressure;
+	const int sizeX = bpdx * FluidBlock::sizeX;
+	const int sizeY = bpdy * FluidBlock::sizeY;
 	
+	Timer timer;
 	double timeDT = 0;
 	double timeAdvection = 0;
 	double timeDiffusion = 0;
@@ -298,19 +279,15 @@ void Sim_FSI_Gravity::simulate()
 	double timeDiagnostics = 0;
 	double timeDump = 0;
 	
-	double timeDivergence = 0;
-	double timePoisson = 0;
-	double timeUpdatePressure = 0;
-	
 	double vOld = 0;
 	Real oldAccVort[2] = {0,0};
-	
-	const int sizeX = bpdx * FluidBlock::sizeX;
-	const int sizeY = bpdy * FluidBlock::sizeY;
 	
 #ifdef _MULTIGRID_
 	MPI_Barrier(MPI_COMM_WORLD);
 #endif
+	time = 0;
+	double nextDumpTime = 0;
+	double maxU = 0;
 	for(step=0; step<nsteps; ++step)
 	{
 #ifdef _MULTIGRID_
@@ -327,6 +304,10 @@ void Sim_FSI_Gravity::simulate()
 			dtCFL     = maxU==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/abs(maxU);
 			dtBody    = max(abs(uBody[0]),abs(uBody[1]))==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/max(abs(uBody[0]),abs(uBody[1]));
 			dt = min(min(dtCFL,dtFourier),dtBody);
+			if (dumpTime>0)
+				dt = min(dt,nextDumpTime-time);
+			if (endTime>0)
+				dt = min(dt,endTime);
 			//cout << "dt (Fourier, CFL, body): " << dt << " " << dtFourier << " " << dtCFL << " " << dtBody << endl;
 			timeDT += timer.stop();
 			
@@ -334,15 +315,13 @@ void Sim_FSI_Gravity::simulate()
 			
 			// gravity
 			timer.start();
-			processOMP_hydrostaticTerm<OperatorGravity>(gravity, dt, rhoS, vInfo, *grid);
+			processOMP_hydrostaticTerm<OperatorGravity>(gravity, dt, shape->getRhoS(), vInfo, *grid);
 			timeGravity += timer.stop();
 			
 			// pressure
 			timer.start();
 		}
-		//timerPressure.start();
 		_solvePressure();
-		//timeUpdatePressure += timerPressure.stop();
 #ifdef _MULTIGRID_
 		if (rank==0)
 #endif
@@ -365,18 +344,11 @@ void Sim_FSI_Gravity::simulate()
 			updateOMP(vInfo, *grid);
 			timeDiffusion += timer.stop();
 			
-			//_dumpDivergence(step,minRho,dt);
-			
-			// this needs to be debugged, maybe first go back to the original version, instead of the optimized one
-			//Layer vortTmp(sizeX,sizeY,1);
-			//processOMP<Lab, OperatorVorticity>(vortTmp,vInfo,*grid);
-			//computeForcesFromVorticity(vInfo, *grid, uBody, oldAccVort, rhoS);
-			
 			if (step>50)
 			{
 				timer.start();
 				vOld = uBody[1];
-				computeBodyVelocity(vInfo, *grid, uBody, omegaBody, rhoS, gravity, dt, lambda);
+				computeBodyVelocity(vInfo, *grid, uBody, omegaBody, shape->getRhoS(), gravity, dt, lambda);
 				shape->updatePosition(uBody, omegaBody, dt);
 				processOMP<OperatorComputeShape>(shape, vInfo, *grid);
 				timeUB += timer.stop();
@@ -389,16 +361,14 @@ void Sim_FSI_Gravity::simulate()
 			processOMP<OperatorPenalization>(dt,uBody[0],uBody[1],omegaBody,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
 			timePenalization += timer.stop();
 			
-			// body integrals
-			timer.start();
-			timeUB += timer.stop();
+			time += dt;
 			
 			if (step<100)
 			{
 				// this still needs to be corrected to the frame of reference!
 				double accM = (uBody[1]-vOld)/dt;
-				double accT = (rhoS-1)/(rhoS+1) * gravity[1];
-				double accN = (rhoS-1)/(rhoS) * gravity[1];
+				double accT = (shape->getRhoS()-1)/(shape->getRhoS()+1) * gravity[1];
+				double accN = (shape->getRhoS()-1)/(shape->getRhoS()) * gravity[1];
 				cout << "Acceleration with added mass (measured, expected, no added mass)\t" << accM << "\t" << accT << "\t" << accN << endl;
 				stringstream ss;
 				ss << path2file << "_addedmass.dat";
@@ -415,25 +385,9 @@ void Sim_FSI_Gravity::simulate()
 			}
 			
 			//dump some time steps every now and then
-			if (time>nextDumpTime)
-			//if (step % 1 == 0)
-			{
-				nextDumpTime += .05;
-				
-				timer.start();
-				stringstream ss;
-				ss << path2file << "-" << step << ".vti";
-				cout << ss.str() << endl;
-				
-				dumper.Write(*grid, ss.str());
-				
-				Layer vorticity(sizeX,sizeY,1);
-				processOMP<Lab, OperatorVorticity>(vorticity,vInfo,*grid);
-				stringstream sVort;
-				sVort << path2file << "Vorticity-" << step << ".vti";
-				dumpLayer2VTK(step,sVort.str(),vorticity,1);
-				timeDump += timer.stop();
-			}
+			timer.start();
+			_dump(nextDumpTime);
+			timeDump += timer.stop();
 			
 			if (step % 100 == 0)
 			{
@@ -443,19 +397,13 @@ void Sim_FSI_Gravity::simulate()
 				cout << "\tAdvection\t" << setprecision(3) << timeAdvection << "s ( " << setprecision(2) << 100.*timeAdvection/totalTime << " % )\n";
 				cout << "\tDiffusion\t" << setprecision(3) << timeDiffusion << "s ( " << setprecision(2) << 100.*timeDiffusion/totalTime << " % )\n";
 				cout << "\tPressure\t" << setprecision(3) << timePressure << "s ( " << setprecision(2) << 100.*timePressure/totalTime << " % )\n";
-				//cout << "\t\tDivergence\t" << timeDivergence << endl;
-				//cout << "\t\tCut\t\t" << timeCut << endl;
-				//cout << "\t\tPoisson\t\t" << timePoisson << endl;
-				//cout << "\t\tUpdate\t\t" << timeUpdatePressure << endl;
 				cout << "\tPenalization\t" << setprecision(3) << timePenalization << "s ( " << setprecision(2) << 100.*timePenalization/totalTime << " % )\n";
 				cout << "\tDiagnostics\t" << setprecision(3) << timeDiagnostics << "s ( " << setprecision(2) << 100.*timeDiagnostics/totalTime << " % )\n";
 				cout << "\tDump\t\t" << setprecision(3) << timeDump << "s ( " << setprecision(2) << 100.*timeDump/totalTime << " % )\n";
 			}
 			
-			time += dt;
-			
 			// check nondimensional time
-			if (time>tEnd)
+			if ((endTime>0 && _nonDimensionalTime()-endTime < 10*std::numeric_limits<Real>::epsilon()) || (nsteps!=0 && step>nsteps))
 			{
 				timer.start();
 				stringstream ss;
@@ -479,10 +427,6 @@ void Sim_FSI_Gravity::simulate()
 				cout << "\tAdvection\t" << setprecision(3) << timeAdvection << "s ( " << setprecision(2) << 100.*timeAdvection/totalTime << " % )\n";
 				cout << "\tDiffusion\t" << setprecision(3) << timeDiffusion << "s ( " << setprecision(2) << 100.*timeDiffusion/totalTime << " % )\n";
 				cout << "\tPressure\t" << setprecision(3) << timePressure << "s ( " << setprecision(2) << 100.*timePressure/totalTime << " % )\n";
-				//cout << "\t\tDivergence\t" << timeDivergence << endl;
-				//cout << "\t\tCut\t\t" << timeCut << endl;
-				//cout << "\t\tPoisson\t\t" << timePoisson << endl;
-				//cout << "\t\tUpdate\t\t" << timeUpdatePressure << endl;
 				cout << "\tPenalization\t" << setprecision(3) << timePenalization << "s ( " << setprecision(2) << 100.*timePenalization/totalTime << " % )\n";
 				cout << "\tDiagnostics\t" << setprecision(3) << timeDiagnostics << "s ( " << setprecision(2) << 100.*timeDiagnostics/totalTime << " % )\n";
 				cout << "\tDump\t\t" << setprecision(3) << timeDump << "s ( " << setprecision(2) << 100.*timeDump/totalTime << " % )\n";

@@ -9,29 +9,24 @@
 #ifndef __CubismUP_2D__Sim_FSI_Moving__
 #define __CubismUP_2D__Sim_FSI_Moving__
 
-#include <stdio.h>
-#include "Definitions.h"
-#include "Sim_FSI_Fixed.h"
+#include "Simulation_FSI.h"
 
-class Sim_FSI_Moving : public Sim_FSI_Fixed
+class Sim_FSI_Moving : public Simulation_FSI
 {
 protected:
 	Real uBody[2];
-	double dtBody;
+	double dtBody, dtCFL, dtFourier;
+	double re, nu;
 	
 	void _diagnostics();
+	void _ic();
+	double _nonDimensionalTime();
 	
 public:
-	Sim_FSI_Moving(const int argc, const char ** argv) : Sim_FSI_Fixed(argc, argv), uBody{0,0}
-	{
-		cout << "====================================================================================================================\n";
-		cout << "\t\t\tFlow past a moving cylinder\n";
-		cout << "====================================================================================================================\n";
-	}
+	Sim_FSI_Moving(const int argc, const char ** argv);
 	
-	~Sim_FSI_Moving() {}
+	virtual ~Sim_FSI_Moving();
 	
-	void setup();
 	void simulate();
 };
 
