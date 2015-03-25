@@ -18,7 +18,7 @@
 class TestVarCoeffPoisson : public Test
 {
 private:
-	const int testCase, ic;
+	const int ic;
 	const int bpd;
 	
 	string path2file;
@@ -33,7 +33,7 @@ private:
 	void _ic();
 	
 public:
-	TestVarCoeffPoisson(const int argc, const char ** argv, const int testCase, const int ic, const int bpd);
+	TestVarCoeffPoisson(const int argc, const char ** argv, const int ic, const int bpd);
 	~TestVarCoeffPoisson();
 	
 	void run();

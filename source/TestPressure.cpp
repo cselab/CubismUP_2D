@@ -12,7 +12,6 @@
 //#include "Operators_DFT.h"
 #include "PoissonSolverScalarFFTW.h"
 #include "ProcessOperatorsOMP.h"
-#include "InterfaceFortran.h"
 #include "LayerToVTK.h"
 #include <sstream>
 #include <cmath>
@@ -174,143 +173,15 @@ void TestPressure::run()
 		abort();
 #endif
 	}
-	else if (solver==2)
-	{
-		/*
-		int iorder = 2;
-		float startx = 0;
-		float endx = 1;
-		int m = size-1;
-		int bcx = 0; // periodic
-		float starty = 0;
-		float endy = 1;
-		int n = size-1;
-		int bcy = 4; // periodic
-		float * grhs = new float[size*size];
-		float * usol = new float[size*size];
-		float * bdc = new float[size];
-		float * bdd = new float[size];
-		for (int i=0; i<size; i++)
-		{
-			bdc[i] = 0; // this works fine as Neumann
-			bdd[i] = 0;
-		}
-		// fill arrays
-		int idmn = size;
-		float * w = new float[1000000000];
-		w[0] = 1000000000;
-		float pertrb = 0;
-		int ierror = 0;
-		
-#pragma omp parallel for schedule(static)
-		for (int i=0; i<size*size; i++)
-			usol[i] = 0;
-		
-		const int N = vInfo.size();
-#pragma omp parallel for schedule(static)
-		for(int i=0; i<N; i++)
-		{
-			BlockInfo info = vInfo[i];
-			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
-			const int bx = info.index[0]*FluidBlock::sizeX;
-			const int by = info.index[1]*FluidBlock::sizeY;
-			
-			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-					grhs[(bx + ix) + (by + iy)*size] = b(ix,iy).divU;
-		}
-		
-		
-		sepx4_(&iorder, &startx, &endx, &m, &bcx, NULL, NULL, NULL, NULL,
-			   &starty, &endy, &n, &bcy, bdc, bdd,
-			   &cofx, grhs, usol, &idmn, w, &pertrb, &ierror);
-		
-#pragma omp parallel for schedule(static)
-		for(int i=0; i<N; i++)
-		{
-			BlockInfo info = vInfo[i];
-			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
-			const int bx = info.index[0]*FluidBlock::sizeX;
-			const int by = info.index[1]*FluidBlock::sizeY;
-			
-			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-					b(ix,iy).tmp = usol[(bx + ix) + (by + iy)*size];
-		}
-		
-		delete [] w;
-		delete [] grhs;
-		delete [] usol;
-		delete [] bdc;
-		delete [] bdd;
-		*/
-		
-		float startx = 0;
-		float endx = 1;
-		int m = size-1;
-		int bcx = 0;
-		float starty = 0;
-		float endy = 1;
-		int n = size-1;
-		int bcy = 4; // dirichlet at y=1 and Neumann at y=0
-		float * bdc = new float[size];
-		for (int i=0; i<size; i++) bdc[i] = 0;
-		float lambda = 0;
-		float * grhs = new float[size*size];
-		// fill arrays
-		int idmn = size;
-		float pertrb = 0;
-		int ierror = 0;
-		
-		const int N = vInfo.size();
-#pragma omp parallel for schedule(static)
-		for(int i=0; i<N; i++)
-		{
-			BlockInfo info = vInfo[i];
-			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
-			const int bx = info.index[0]*FluidBlock::sizeX;
-			const int by = info.index[1]*FluidBlock::sizeY;
-			
-			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-				{
-					if (by+iy != size-1)
-						grhs[(bx + ix) + (by + iy)*size] = b(ix,iy).divU;
-					else
-						grhs[(bx + ix) + (by + iy)*size] = 0;
-				}
-		}
-		
-		hwscrt_(&startx, &endx, &m, &bcx, NULL, NULL,
-				&starty, &endy, &n, &bcy, bdc, NULL,
-				&lambda, grhs, &idmn, &pertrb, &ierror);
-		
-#pragma omp parallel for schedule(static)
-		for(int i=0; i<N; i++)
-		{
-			BlockInfo info = vInfo[i];
-			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
-			const int bx = info.index[0]*FluidBlock::sizeX;
-			const int by = info.index[1]*FluidBlock::sizeY;
-			
-			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-					b(ix,iy).tmp = grhs[(bx + ix) + (by + iy)*size];
-		}
-		
-		//cout << "ierror " << ierror << endl;
-		delete [] grhs;
-		delete [] bdc;
-	}
 #ifdef _MULTIGRID_
-	else if (solver==3)
+	else if (solver==2)
 	{
 		const bool bConstantCoefficients = true;
 		MultigridHypre mg;
 		mg.setup(grid, bConstantCoefficients, rank, nprocs);
 		mg();
 	}
-	else if (solver==4)
+	else if (solver==3)
 	{
 		cout << "Don't use it for this tests\n";
 		abort();

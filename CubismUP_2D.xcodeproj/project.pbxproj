@@ -16,15 +16,9 @@
 		DD58CADB1A60148E00291455 /* ProcessOperatorsOMP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CADA1A60148E00291455 /* ProcessOperatorsOMP.cpp */; };
 		DD58CAE91A60320400291455 /* TestPressure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CAE71A60320400291455 /* TestPressure.cpp */; };
 		DD58CAEB1A6037FF00291455 /* Operators_DFT_FFTW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CAEA1A6037FF00291455 /* Operators_DFT_FFTW.cpp */; };
-		DD5FA3161A8BB7950009EBDA /* hwscrt.f in Sources */ = {isa = PBXBuildFile; fileRef = DD5FA3151A8BB7950009EBDA /* hwscrt.f */; };
-		DD5FA31B1A8BBEB10009EBDA /* comf.f in Sources */ = {isa = PBXBuildFile; fileRef = DD5FA3171A8BBEB10009EBDA /* comf.f */; };
-		DD5FA31C1A8BBEB10009EBDA /* fish.F in Sources */ = {isa = PBXBuildFile; fileRef = DD5FA3181A8BBEB10009EBDA /* fish.F */; };
-		DD5FA31D1A8BBEB10009EBDA /* genbun.f in Sources */ = {isa = PBXBuildFile; fileRef = DD5FA3191A8BBEB10009EBDA /* genbun.f */; };
-		DD5FA31E1A8BBEB10009EBDA /* gnbnaux.f in Sources */ = {isa = PBXBuildFile; fileRef = DD5FA31A1A8BBEB10009EBDA /* gnbnaux.f */; };
 		DD64F6D61A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD64F6D31A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp */; };
 		DD66B5DE1A7649B6003FE36B /* Sim_FSI_Moving.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD66B5DC1A7649B6003FE36B /* Sim_FSI_Moving.cpp */; };
 		DD66B5E21A764CEC003FE36B /* Sim_FSI_Gravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD66B5E01A764CEC003FE36B /* Sim_FSI_Gravity.cpp */; };
-		DD73D9951A84EF0800311396 /* poisson.f in Sources */ = {isa = PBXBuildFile; fileRef = DD73D9941A84EF0800311396 /* poisson.f */; };
 		DD838C3C1AB6DE8A00018A75 /* TestRotation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD838C3A1AB6DE8A00018A75 /* TestRotation.cpp */; };
 		DD838C401AB6DEA300018A75 /* TestTranslation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD838C3E1AB6DEA300018A75 /* TestTranslation.cpp */; };
 		DDBBA0071A7292670041496C /* TestVarCoeffPoisson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDBBA0051A7292670041496C /* TestVarCoeffPoisson.cpp */; };
@@ -104,12 +98,6 @@
 		DD58CAEC1A60385F00291455 /* InterfaceFFTW.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceFFTW.h; sourceTree = "<group>"; };
 		DD58CAED1A614B0700291455 /* OperatorCut.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorCut.h; sourceTree = "<group>"; };
 		DD58CAEE1A614B6D00291455 /* LayerToVTK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerToVTK.h; sourceTree = "<group>"; };
-		DD5FA3151A8BB7950009EBDA /* hwscrt.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = hwscrt.f; sourceTree = "<group>"; };
-		DD5FA3171A8BBEB10009EBDA /* comf.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = comf.f; sourceTree = "<group>"; };
-		DD5FA3181A8BBEB10009EBDA /* fish.F */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = fish.F; sourceTree = "<group>"; };
-		DD5FA3191A8BBEB10009EBDA /* genbun.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = genbun.f; sourceTree = "<group>"; };
-		DD5FA31A1A8BBEB10009EBDA /* gnbnaux.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = gnbnaux.f; sourceTree = "<group>"; };
-		DD5FA31F1A8BBF510009EBDA /* fish.mod */ = {isa = PBXFileReference; lastKnownFileType = file; path = fish.mod; sourceTree = "<group>"; };
 		DD64F6D01A63C16400D17B72 /* Timer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
 		DD64F6D21A64157D00D17B72 /* OperatorVorticity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorVorticity.h; sourceTree = "<group>"; };
 		DD64F6D31A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PoissonSolverScalarFFTW.cpp; sourceTree = "<group>"; };
@@ -121,8 +109,6 @@
 		DD66B5E01A764CEC003FE36B /* Sim_FSI_Gravity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sim_FSI_Gravity.cpp; sourceTree = "<group>"; };
 		DD66B5E11A764CEC003FE36B /* Sim_FSI_Gravity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sim_FSI_Gravity.h; sourceTree = "<group>"; };
 		DD6717F11A7B952700BFDF78 /* MultigridHypre.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultigridHypre.h; sourceTree = "<group>"; };
-		DD73D9941A84EF0800311396 /* poisson.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = poisson.f; sourceTree = "<group>"; };
-		DD73D9981A84EF5100311396 /* InterfaceFortran.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceFortran.h; sourceTree = "<group>"; };
 		DD7D01CF1AC0691A00695EC9 /* Glowinski.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Glowinski.sh; sourceTree = "<group>"; };
 		DD7D01D01AC0691A00695EC9 /* Kolomenskiy.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Kolomenskiy.sh; sourceTree = "<group>"; };
 		DD838C3A1AB6DE8A00018A75 /* TestRotation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestRotation.cpp; sourceTree = "<group>"; };
@@ -195,7 +181,6 @@
 		DD58CAB01A5E7BA500291455 /* Operators */ = {
 			isa = PBXGroup;
 			children = (
-				DDBB3E961A8A4A9200D7D629 /* Fortran */,
 				DD64F6D71A67D6CE00D17B72 /* PoissonSolverCubism */,
 				DDAD48D01AA9ECA600A2C354 /* GenericOperator.h */,
 				DD58CACE1A5EBDFF00291455 /* ProcessOperatorsOMP.h */,
@@ -311,29 +296,6 @@
 			name = PoissonSolverCubism;
 			sourceTree = "<group>";
 		};
-		DD73D9971A84EF1200311396 /* FishPack */ = {
-			isa = PBXGroup;
-			children = (
-				DD5FA31F1A8BBF510009EBDA /* fish.mod */,
-				DD5FA3171A8BBEB10009EBDA /* comf.f */,
-				DD5FA3181A8BBEB10009EBDA /* fish.F */,
-				DD5FA3191A8BBEB10009EBDA /* genbun.f */,
-				DD5FA31A1A8BBEB10009EBDA /* gnbnaux.f */,
-				DD5FA3151A8BB7950009EBDA /* hwscrt.f */,
-				DD73D9941A84EF0800311396 /* poisson.f */,
-			);
-			name = FishPack;
-			sourceTree = "<group>";
-		};
-		DDBB3E961A8A4A9200D7D629 /* Fortran */ = {
-			isa = PBXGroup;
-			children = (
-				DD73D9981A84EF5100311396 /* InterfaceFortran.h */,
-				DD73D9971A84EF1200311396 /* FishPack */,
-			);
-			name = Fortran;
-			sourceTree = "<group>";
-		};
 		DDD30B7E1AA9901D008F9EE1 /* Shapes */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,11 +385,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD5FA31E1A8BBEB10009EBDA /* gnbnaux.f in Sources */,
 				DD58CAEB1A6037FF00291455 /* Operators_DFT_FFTW.cpp in Sources */,
 				DDBBA0071A7292670041496C /* TestVarCoeffPoisson.cpp in Sources */,
-				DD73D9951A84EF0800311396 /* poisson.f in Sources */,
-				DD5FA3161A8BB7950009EBDA /* hwscrt.f in Sources */,
 				DD66B5DE1A7649B6003FE36B /* Sim_FSI_Moving.cpp in Sources */,
 				DD66B5E21A764CEC003FE36B /* Sim_FSI_Gravity.cpp in Sources */,
 				DD58CAE91A60320400291455 /* TestPressure.cpp in Sources */,
@@ -436,14 +395,11 @@
 				DD58CAAF1A5E7B9E00291455 /* Sim_FSI_Fixed.cpp in Sources */,
 				DD355D241A8118FE00711A51 /* TestPenalization.cpp in Sources */,
 				DD58CAD11A5ECA9000291455 /* TestDiffusion.cpp in Sources */,
-				DD5FA31C1A8BBEB10009EBDA /* fish.F in Sources */,
 				DD838C401AB6DEA300018A75 /* TestTranslation.cpp in Sources */,
 				DD58CADB1A60148E00291455 /* ProcessOperatorsOMP.cpp in Sources */,
 				DD58CAD81A5EF49D00291455 /* TestAdvection.cpp in Sources */,
 				DD355D201A8116B100711A51 /* TestGravity.cpp in Sources */,
-				DD5FA31D1A8BBEB10009EBDA /* genbun.f in Sources */,
 				DD64F6D61A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp in Sources */,
-				DD5FA31B1A8BBEB10009EBDA /* comf.f in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

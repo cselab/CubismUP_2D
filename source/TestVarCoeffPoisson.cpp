@@ -7,7 +7,6 @@
 //
 
 #include "TestVarCoeffPoisson.h"
-#include "OperatorVarCoeffPoisson.h"
 #include <sstream>
 #include <cmath>
 
@@ -73,7 +72,7 @@ void TestVarCoeffPoisson::_ic()
 	dumper.Write(*grid, ss.str());
 }
 
-TestVarCoeffPoisson::TestVarCoeffPoisson(const int argc, const char ** argv, const int testCase, const int ic, const int bpd) : Test(argc, argv), testCase(testCase), ic(ic), bpd(bpd)
+TestVarCoeffPoisson::TestVarCoeffPoisson(const int argc, const char ** argv, const int ic, const int bpd) : Test(argc, argv), ic(ic), bpd(bpd)
 {
 	grid = new FluidGrid(bpd,bpd,1);
 	
@@ -95,24 +94,10 @@ void TestVarCoeffPoisson::run()
 	
 	stringstream ss;
 	ss << path2file;
-	
-	if (testCase == 0)
-	{
-		ss << "Jacobi";
-		processOMP_Jacobi<Lab, OperatorVarCoeffPoisson>(vInfo,*grid);
-	}
-	else if (testCase == 1)
-	{
-		ss << "SRJ";
-		processOMP_SRJ<Lab, OperatorVarCoeffPoisson>(vInfo,*grid);
-	}
 #ifdef _MULTIGRID_
-	else if (testCase == 2)
-	{
-		ss << "Multigrid";
-		mg.setup(grid, false, 0, 1);
-		mg();
-	}
+	ss << "Multigrid";
+	mg.setup(grid, false, 0, 1);
+	mg();
 #endif
 	
  	ss << "-ic" << ic << "-bpd" << bpd << ".vti" ;

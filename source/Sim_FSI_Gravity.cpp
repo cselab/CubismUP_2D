@@ -8,7 +8,6 @@
 
 #include "Sim_FSI_Gravity.h"
 #include "ProcessOperatorsOMP.h"
-#include "InterfaceFortran.h"
 #include "Timer.h"
 #include "LayerToVTK.h"
 #include <sstream>
@@ -35,48 +34,6 @@ void Sim_FSI_Gravity::_solvePressure()
 	abort();
 #endif // _SP_COMP_
 #endif // _SPLIT_
-#ifdef _FORTRAN_SOLVER_
-	processOMP<Lab, OperatorDivergenceSplit>(dt, minRho, step, vInfo, *grid);
-	
-	const int sizeX = bpdx * FluidBlock::sizeX;
-	const int sizeY = bpdy * FluidBlock::sizeY;
-	float startx = 0;
-	float endx = 1;
-	int m = sizeX-1;
-	int bcx = 0;
-	float starty = 0;
-	float endy = 1;
-	int n = sizeY-1;
-	int bcy = 4; // dirichlet at y=1 and Neumann at y=0
-	float * bdc = new float[sizeY];
-	for (int i=0; i<sizeY; i++) bdc[i] = 0;
-	float lambda = 0;
-	float * grhs = new float[sizeX*sizeY];
-	// fill arrays
-	int idmn = sizeX;
-	float pertrb = 0;
-	int ierror = 0;
-	
-	processOMP_preparePoissonFortran(grhs,sizeY,vInfo,*grid);
-	
-	hwscrt_(&startx, &endx, &m, &bcx, NULL, NULL,
-			&starty, &endy, &n, &bcy, bdc, NULL,
-			&lambda, grhs, &idmn, &pertrb, &ierror);
-	
-	if (ierror!=0)
-		cout << "ierror " << ierror << endl;
-	
-	processOMP_readPoissonFortran(grhs,pertrb,ierror,sizeY,vInfo,*grid);
-	delete [] bdc;
-	delete [] grhs;
-	
-	processOMP<Lab, OperatorGradPSplit>(dt, minRho, step, vInfo, *grid);
-#endif
-#ifdef _JACOBI_
-	processOMP<Lab, OperatorDivergence>(dt, vInfo, *grid);
-	processOMP_Jacobi<Lab, OperatorVarCoeffPoisson>(vInfo,*grid);
-	processOMP<Lab, OperatorGradP>(dt, vInfo, *grid);
-#endif
 #ifdef _MULTIGRID_
 	if (rank==0)
 		if (bSplit)
@@ -212,9 +169,6 @@ void Sim_FSI_Gravity::_dumpSettings(ostream& mystream)
 #endif
 #ifdef _JACOBI_
 		mystream << "\tPoisson\tJacobi\n";
-#endif
-#ifdef _FORTRAN_SOLVER_
-		mystream << "\tPoisson\tFishPack\n";
 #endif
 		mystream << "--------------------------------------------------------------------\n";
 	}

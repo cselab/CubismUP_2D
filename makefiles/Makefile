@@ -30,14 +30,8 @@ endif
 ifeq "$(poisson)" "split-fftw"
 	CPPFLAGS+= -D_SPLIT_
 endif
-ifeq "$(poisson)" "jacobi"
-	CPPFLAGS+= -D_JACOBI_
-endif
 ifeq "$(poisson)" "hypre"
 	CPPFLAGS+= -D_MULTIGRID_
-endif
-ifeq "$(poisson)" "fortran"
-	CPPFLAGS+= -D_FORTRAN_SOLVER_
 endif
 
 ifeq "$(multiphase)" "true"
@@ -53,7 +47,7 @@ fftw-lib ?= /cluster/work/infk/wvanrees/apps/fftw-3.3.2/lib
 hypre-inc ?= /cluster/work/infk/cconti/hypre-2.10.0b/src/hypre/include
 hypre-lib ?= /cluster/work/infk/cconti/hypre-2.10.0b/src/hypre/lib
 
-CPPFLAGS += -std=c++11 -fopenmp -fpermissive -lgfortran
+CPPFLAGS += -std=c++11 -fopenmp -fpermissive
 CPPFLAGS += -DNTHREADS=$(nthreads)
 CPPFLAGS += -I../source/ -I../Cubism/ -I$(vtk-inc) -I$(tbb-inc) -I$(fftw-inc)
 
@@ -94,8 +88,8 @@ endif
 BUILDDIR = .
 SRC_DIR = $(BUILDDIR)/../source/
 CUBISM_DIR = $(BUILDDIR)/../Cubism/
-OBJECTS = comf.o fish.o genbun.o gnbnaux.o hwscrt.o PoissonSolverScalarFFTW.o Operators_DFT_FFTW.o ProcessOperatorsOMP.o Sim_FSI_Gravity.o Sim_FSI_Moving.o Sim_FSI_Fixed.o Profiler.o main.o
-OBJECTS_TEST = comf.o fish.o genbun.o gnbnaux.o hwscrt.o PoissonSolverScalarFFTW.o Operators_DFT_FFTW.o ProcessOperatorsOMP.o TestRotation.o TestTranslation.o TestPenalization.o TestGravity.o TestVarCoeffPoisson.o TestPressure.o TestAdvection.o TestDiffusion.o Profiler.o mainTest.o
+OBJECTS = PoissonSolverScalarFFTW.o Operators_DFT_FFTW.o ProcessOperatorsOMP.o Sim_FSI_Gravity.o Sim_FSI_Moving.o Sim_FSI_Fixed.o Profiler.o main.o
+OBJECTS_TEST = PoissonSolverScalarFFTW.o Operators_DFT_FFTW.o ProcessOperatorsOMP.o TestRotation.o TestTranslation.o TestPenalization.o TestGravity.o TestVarCoeffPoisson.o TestPressure.o TestAdvection.o TestDiffusion.o Profiler.o mainTest.o
 
 VPATH := $(SRC_DIR):$(CUBISM_DIR)
 
@@ -120,10 +114,6 @@ test: $(OBJECTS_TEST)
 %.o: $(SRC_DIR)/%.cpp
 #	echo PRODUCING $@
 	$(CC) $(CPPFLAGS) -c -o $@ $<
-
-%.o: $(SRC_DIR)/%.f
-#	echo PRODUCING $@
-	gfortran -w -c -o $@ $<
 
 clean:
 	rm -f simulation test

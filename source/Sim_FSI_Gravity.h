@@ -14,7 +14,6 @@
 #include "Sim_FSI_Fixed.h"
 #include "OperatorGravity.h"
 #include "OperatorSplitP.h"
-#include "OperatorVarCoeffPoisson.h"
 #ifdef _MULTIGRID_
 #include "MultigridHypre.h"
 #endif

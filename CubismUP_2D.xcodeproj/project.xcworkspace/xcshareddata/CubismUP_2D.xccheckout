@@ -10,31 +10,31 @@
 	<string>CubismUP_2D</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>856CC37A7745905A59168946C66151544F706C7F</key>
-		<string>scratch-petros.ethz.ch:/export/home/gitroot/SeedMPCF.git</string>
+		<key>AAC7B52B3EDB4AA393AB1D9DF82BDC1D62EED6C7</key>
+		<string>scratch-petros:/export/home/gitroot/CubismUP_2D.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CubismUP_2D/CubismUP_2D.xcodeproj</string>
+	<string>CubismUP_2D.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>856CC37A7745905A59168946C66151544F706C7F</key>
-		<string>../../..</string>
+		<key>AAC7B52B3EDB4AA393AB1D9DF82BDC1D62EED6C7</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>scratch-petros.ethz.ch:/export/home/gitroot/SeedMPCF.git</string>
+	<string>scratch-petros:/export/home/gitroot/CubismUP_2D.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>856CC37A7745905A59168946C66151544F706C7F</string>
+	<string>AAC7B52B3EDB4AA393AB1D9DF82BDC1D62EED6C7</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>856CC37A7745905A59168946C66151544F706C7F</string>
+			<string>AAC7B52B3EDB4AA393AB1D9DF82BDC1D62EED6C7</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Seed</string>
+			<string>CubismUP_2D</string>
 		</dict>
 	</array>
 </dict>

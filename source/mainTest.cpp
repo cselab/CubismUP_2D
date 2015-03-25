@@ -89,12 +89,10 @@ int main(int argc, const char **argv)
 			cout << "\t\tPressure Test - Stencil - ";
 		else if (solver==1)
 			cout << "\t\tPressure Test - Spectral - ";
-		else if (solver==2)
-			cout << "\t\tPressure Test - FishPack - ";
 #ifdef _MULTIGRID_
-		else if (solver==3)
+		else if (solver==2)
 			cout << "\t\tPressure Test - Multigrid (Constant Coefficents) - ";
-		else if (solver==4)
+		else if (solver==3)
 			cout << "\t\tPressure Test - Multigrid (Variable Coefficents) - ";
 #endif
 		else
@@ -123,19 +121,7 @@ int main(int argc, const char **argv)
 	else if (test=="poisson")
 	{
 		cout << "========================================================================================\n";
-		if (solver==0)
-			cout << "\t\tPoisson Test - Jacobi - ";
-		else if (solver==1)
-			cout << "\t\tPoisson Test - SRJ - ";
-#ifdef _MULTIGRID_
-		else if (solver==2)
-			cout << "\t\tPoisson Test - Multigrid - ";
-#endif
-		else
-		{
-			cout << "Solver case " << solver << " doesn't exist\n";
-			abort();
-		}
+		cout << "\t\tPoisson Test - Multigrid - ";
 		
 		if (ic==0)
 			cout << "Constant Coefficients\n";
@@ -147,7 +133,7 @@ int main(int argc, const char **argv)
 		
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
-			TestVarCoeffPoisson * poisson = new TestVarCoeffPoisson(argc, argv, solver, ic, bpd);
+			TestVarCoeffPoisson * poisson = new TestVarCoeffPoisson(argc, argv, ic, bpd);
 			poisson->run();
 			poisson->check();
 			delete poisson;

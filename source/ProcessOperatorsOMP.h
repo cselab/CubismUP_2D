@@ -209,8 +209,4 @@ double findMaxUOMP(vector<BlockInfo>& myInfo, FluidGrid & grid);
 void removeMeanFlowOMP(Real dt, Real g[2], vector<BlockInfo>& myInfo, FluidGrid & grid);
 void computeBodyVelocity(vector<BlockInfo>& myInfo, FluidGrid & grid, Real ub[2], Real& angularU, Real rhoS, Real g[2], Real dt, Real lambda);
 void computeForcesFromVorticity(vector<BlockInfo>& myInfo, FluidGrid & grid, Real ub[2], Real oldAccVort[2], Real rhoS);
-
-void processOMP_preparePoissonFortran(float * grhs, float * usol, const int nY, vector<BlockInfo>& vInfo, FluidGrid & grid);
-void processOMP_preparePoissonFortran(float * grhs, const int nY, vector<BlockInfo>& vInfo, FluidGrid & grid);
-void processOMP_readPoissonFortran(float * usol, float pertrb, int ierror, const int nY, vector<BlockInfo>& vInfo, FluidGrid & grid);
 #endif
