@@ -203,8 +203,10 @@ void processOMP(Layer& outputField, const Real rho0, const Real dt, const int st
 }
 
 void updateOMP(vector<BlockInfo>& myInfo, FluidGrid & grid);
+void updateRhoOMP(vector<BlockInfo>& myInfo, FluidGrid & grid);
 void updatePressuresOMP(vector<BlockInfo>& myInfo, FluidGrid & grid);
 void resetOMP(vector<BlockInfo>& myInfo, FluidGrid & grid);
+void resetRhoOMP(vector<BlockInfo>& myInfo, FluidGrid & grid);
 double findMaxUOMP(vector<BlockInfo>& myInfo, FluidGrid & grid);
 void computeBodyVelocity(vector<BlockInfo>& myInfo, FluidGrid & grid, Real ub[2], Real& angularU, Real rhoS, Real g[2], Real dt, Real lambda);
 void computeForcesFromVorticity(vector<BlockInfo>& myInfo, FluidGrid & grid, Real ub[2], Real oldAccVort[2], Real rhoS);

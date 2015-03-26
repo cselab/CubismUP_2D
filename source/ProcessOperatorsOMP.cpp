@@ -20,14 +20,30 @@ void updateOMP(vector<BlockInfo>& myInfo, FluidGrid & grid)
 		FluidBlock& b = *(FluidBlock*)info.ptrBlock;
 		
 		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-		for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-		{
-			b(ix,iy).u = b(ix,iy).tmpU;
-			b(ix,iy).v = b(ix,iy).tmpV;
+			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+			{
+				b(ix,iy).u = b(ix,iy).tmpU;
+				b(ix,iy).v = b(ix,iy).tmpV;
 #ifdef _MULTIPHASE_
-			b(ix,iy).rho = b(ix,iy).tmp;
+				b(ix,iy).rho = b(ix,iy).tmp;
 #endif // _MULTIPHASE_
-		}
+			}
+	}
+};
+
+void updateRhoOMP(vector<BlockInfo>& myInfo, FluidGrid & grid)
+{
+	const int N = myInfo.size();
+	
+#pragma omp parallel for schedule(static)
+	for(int i=0; i<N; i++)
+	{
+		BlockInfo info = myInfo[i];
+		FluidBlock& b = *(FluidBlock*)info.ptrBlock;
+		
+		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+				b(ix,iy).rho = b(ix,iy).tmp;
 	}
 };
 
@@ -69,6 +85,22 @@ void resetOMP(vector<BlockInfo>& myInfo, FluidGrid & grid)
 				b(ix,iy).tmp = 0;
 #endif // _MULTIPHASE_
 			}
+	}
+};
+
+void resetRhoOMP(vector<BlockInfo>& myInfo, FluidGrid & grid)
+{
+	const int N = myInfo.size();
+	
+#pragma omp parallel for schedule(static)
+	for(int i=0; i<N; i++)
+	{
+		BlockInfo info = myInfo[i];
+		FluidBlock& b = *(FluidBlock*)info.ptrBlock;
+		
+		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+				b(ix,iy).tmp = 0;
 	}
 };
 

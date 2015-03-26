@@ -182,9 +182,9 @@ void TestAdvection::run()
 	
 	for(int step=0; step<nsteps; ++step)
 	{
-		resetOMP(vInfo, *grid);
-		processOMP< Lab,OperatorAdvection<Mp4> >(dt,vInfo,*grid);
-		updateOMP(vInfo, *grid);
+		resetRhoOMP(vInfo, *grid);
+		processOMP< Lab,OperatorTransport<Mp4> >(dt,vInfo,*grid);
+		updateRhoOMP(vInfo, *grid);
 		
 		//dump some time steps every now and then
 		if(step % 10 == 0)
