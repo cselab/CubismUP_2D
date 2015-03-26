@@ -38,14 +38,24 @@ ifeq "$(multiphase)" "true"
 	CPPFLAGS+= -D_MULTIPHASE_
 endif
 
-vtk-inc ?= /cluster/work/infk/cconti/VTK5.8_gcc/include/vtk-5.8/
-vtk-lib ?= /cluster/work/infk/cconti/VTK5.8_gcc/lib/vtk-5.8/
-tbb-inc ?= /cluster/apps/intel/Compiler/11.1/069/tbb/include/
-tbb-lib ?= /cluster/apps/intel/Compiler/11.1/069/tbb/lib/intel64/
-fftw-inc ?= /cluster/work/infk/wvanrees/apps/fftw-3.3.2/include
-fftw-lib ?= /cluster/work/infk/wvanrees/apps/fftw-3.3.2/lib
-hypre-inc ?= /cluster/work/infk/cconti/hypre-2.10.0b/src/hypre/include
-hypre-lib ?= /cluster/work/infk/cconti/hypre-2.10.0b/src/hypre/lib
+vtk-inc ?= 
+vtk-lib ?= 
+tbb-inc ?= 
+tbb-lib ?= 
+fftw-inc ?= 
+fftw-lib ?= 
+hypre-inc ?= 
+hypre-lib ?= 
+
+
+ifneq "$(findstring brutus,$(shell hostname))" ""
+include make.brutus
+endif
+
+
+ifneq "$(findstring euler,$(shell hostname))" ""
+include make.euler
+endif
 
 CPPFLAGS += -std=c++11 -fopenmp -fpermissive
 CPPFLAGS += -DNTHREADS=$(nthreads)
