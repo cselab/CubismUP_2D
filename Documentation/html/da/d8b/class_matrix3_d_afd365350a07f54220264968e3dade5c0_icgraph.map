@@ -1,6 +1,0 @@
-<map id="Matrix3D::Access" name="Matrix3D::Access">
-<area shape="rect" id="node2" href="$d7/d95/class_block_lab.html#aefd27fed8fbb1d3d60fe1457ae90f248" title="BlockLab\&lt; BlockType,\l allocator, ElementTypeT\l \&gt;::load" alt="" coords="178,5,346,57"/>
-<area shape="rect" id="node3" href="$d7/d95/class_block_lab.html#abd79a09ab5b54cf04bfe25c125ea1edf" title="BlockLab\&lt; BlockType,\l allocator, ElementTypeT\l \&gt;::operator()" alt="" coords="178,81,346,133"/>
-<area shape="rect" id="node4" href="$d7/d95/class_block_lab.html#a3e06d4124f7d69923b4ee6345c105cfc" title="BlockLab\&lt; BlockType,\l allocator, ElementTypeT\l \&gt;::read" alt="" coords="178,157,346,209"/>
-<area shape="rect" id="node5" href="$db/d64/class_boundary_condition.html#aadcfe05da7761b68191835b09d4d2cf0" title="BoundaryCondition::\loperator()" alt="" coords="191,233,334,272"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="Simulation_FSI" name="Simulation_FSI">
-<area shape="rect" id="node3" href="$d8/d3d/class_sim___f_s_i___fixed.html" title="Sim_FSI_Fixed" alt="" coords="5,152,118,177"/>
-<area shape="rect" id="node4" href="$d6/de6/class_sim___f_s_i___gravity.html" title="Sim_FSI_Gravity" alt="" coords="142,152,264,177"/>
-<area shape="rect" id="node5" href="$db/df6/class_sim___f_s_i___moving.html" title="Sim_FSI_Moving" alt="" coords="288,152,411,177"/>
-<area shape="rect" id="node2" href="$d0/d35/class_simulation___fluid.html" title="Simulation_Fluid" alt="" coords="143,5,263,31"/>
-</map>

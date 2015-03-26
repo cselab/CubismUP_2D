@@ -1,9 +1,0 @@
-<map id="Timer::start" name="Timer::start">
-<area shape="rect" id="node2" href="$d8/d3d/class_sim___f_s_i___fixed.html#ab30e00522a9a55a6555f3e8cca945899" title="Sim_FSI_Fixed::_ic" alt="" coords="163,12,300,37"/>
-<area shape="rect" id="node4" href="$d8/d3d/class_sim___f_s_i___fixed.html#a1e37b29e07ddd05ae1f0c2be321e9bb2" title="Sim_FSI_Fixed::simulate" alt="" coords="147,61,316,87"/>
-<area shape="rect" id="node5" href="$d6/de6/class_sim___f_s_i___gravity.html#af85ffd4ea8c6745eaecf72093186473e" title="Sim_FSI_Gravity::_ic" alt="" coords="158,111,305,136"/>
-<area shape="rect" id="node6" href="$d6/de6/class_sim___f_s_i___gravity.html#add86d6f52de51511f0bb93714fc504c4" title="Sim_FSI_Gravity::simulate" alt="" coords="142,160,321,185"/>
-<area shape="rect" id="node7" href="$db/df6/class_sim___f_s_i___moving.html#a45d9af44039a61a6a4164f90869edd27" title="Sim_FSI_Moving::_ic" alt="" coords="158,209,305,235"/>
-<area shape="rect" id="node8" href="$db/df6/class_sim___f_s_i___moving.html#ae20d894ac95fb1e13de88147a8bc1b3e" title="Sim_FSI_Moving::simulate" alt="" coords="142,259,321,284"/>
-<area shape="rect" id="node3" href="$d8/d3d/class_sim___f_s_i___fixed.html#aafc7f4d24e8753e801d70b9a69b2456c" title="Sim_FSI_Fixed::Sim\l_FSI_Fixed" alt="" coords="369,5,512,44"/>
-</map>

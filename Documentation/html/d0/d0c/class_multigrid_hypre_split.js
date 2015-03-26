@@ -1,7 +1,0 @@
-var class_multigrid_hypre_split =
-[
-    [ "MultigridHypreSplit", "d0/d0c/class_multigrid_hypre_split.html#a4aa23c8608e8cef9a132aa78ae6977d4", null ],
-    [ "~MultigridHypreSplit", "d0/d0c/class_multigrid_hypre_split.html#a236d23f0faa9b221043d437071f10ab6", null ],
-    [ "operator()", "d0/d0c/class_multigrid_hypre_split.html#a45420265b518eea159e9b7d8abedcc38", null ],
-    [ "setup", "d0/d0c/class_multigrid_hypre_split.html#a74904a89baa6f7bbe4647c905ae588df", null ]
-];

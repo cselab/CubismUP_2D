@@ -1,9 +1,0 @@
-<map id="SynchronizerMPI::sync" name="SynchronizerMPI::sync">
-<area shape="rect" id="node2" href="$d3/d21/class_dependency_cube_m_p_i.html#abd4e8187ccfe651ded18f8c5c10fa691" title="DependencyCubeMPI::\lprepare" alt="" coords="226,5,385,44"/>
-<area shape="rect" id="node3" href="$d7/dd2/_p_u_pkernels_m_p_i_8h.html#a7a485735d2946aa4b92203577ff84081" title="pack" alt="" coords="281,68,330,93"/>
-<area shape="rect" id="node4" href="$d7/dd2/_p_u_pkernels_m_p_i_8h.html#ae1600280d9525d09b4d580fbf4ed81db" title="pack_stripes" alt="" coords="257,117,354,143"/>
-<area shape="rect" id="node5" href="$d3/d21/class_dependency_cube_m_p_i.html#a057adc047896117c998e5709d8a83d43" title="DependencyCubeMPI::face" alt="" coords="213,167,398,192"/>
-<area shape="rect" id="node6" href="$d3/d21/class_dependency_cube_m_p_i.html#a3c346f1108cb4f571a250b5a6e3cd868" title="DependencyCubeMPI::edge" alt="" coords="211,216,400,241"/>
-<area shape="rect" id="node7" href="$d3/d21/class_dependency_cube_m_p_i.html#a797a6e9d3cb5d7edf9439f4abbf27b05" title="DependencyCubeMPI::\lcorner" alt="" coords="226,265,385,304"/>
-<area shape="rect" id="node8" href="$d3/d21/class_dependency_cube_m_p_i.html#a65a7562678c7f9d7ab63780ffbdfac87" title="DependencyCubeMPI::\lmake_dependencies" alt="" coords="226,328,385,367"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="Sim_FSI_Moving::_ic" name="Sim_FSI_Moving::_ic">
-<area shape="rect" id="node2" href="$d8/d08/class_timer.html#a3a8b5272198d029779dc9302a54305a8" title="Timer::start" alt="" coords="233,5,321,31"/>
-<area shape="rect" id="node3" href="$da/d74/class_grid.html#a39aa8cb7fad1abcfe40fdd77d9b72d8a" title="Grid::getBlocksInfo" alt="" coords="210,55,344,80"/>
-<area shape="rect" id="node4" href="$d0/d8d/class_block_processing___t_b_b.html#afb4ac5aee8af3d4e9f3a0f572bdd0a04" title="BlockProcessing_TBB\l::process" alt="" coords="201,104,354,143"/>
-<area shape="rect" id="node5" href="$d8/d08/class_timer.html#a988f79aa183d9d5473c13106f5babe48" title="Timer::stop" alt="" coords="233,167,321,192"/>
-</map>
