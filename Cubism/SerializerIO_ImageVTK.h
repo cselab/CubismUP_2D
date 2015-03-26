@@ -47,10 +47,14 @@ public:
 		
 		img->SetExtent(0,NX-1,0,NY-1,0,NZ-1);
 		img->SetDimensions(NX, NY, NZ);
+#ifndef _VTK62_
 		img->SetScalarTypeToFloat();
 		img->SetNumberOfScalarComponents(NC);
 		
 		img->AllocateScalars();
+#else
+		img->AllocateScalars(VTK_FLOAT, NC);
+#endif
 		img->SetSpacing(1./NX, 1./NX, 1./NX);
 		img->SetOrigin(0,0,0);
 		
@@ -79,7 +83,11 @@ public:
 		
 		vtkXMLImageDataWriter * writer = vtkXMLImageDataWriter::New();
 		writer->SetFileName(fileName.c_str());
+#ifndef _VTK62_
 		writer->SetInput(img);
+#else
+		writer->SetInputData(img);
+#endif
 		writer->Write();
 		
 		writer->Delete();
@@ -108,10 +116,14 @@ public:
 		
 		img->SetExtent(0,NX+5,0,NY+5,0,NZ-1);
 		img->SetDimensions(NX+6, NY+6, NZ);
+#ifndef _VTK62_
 		img->SetScalarTypeToFloat();
 		img->SetNumberOfScalarComponents(NC);
 		
 		img->AllocateScalars();
+#else
+		img->AllocateScalars(VTK_FLOAT, NC);
+#endif
 		img->SetSpacing(1./NX, 1./NX, 1./NX);
 		img->SetOrigin(0,0,0);
 		
@@ -145,7 +157,11 @@ public:
 		
 		vtkXMLImageDataWriter * writer = vtkXMLImageDataWriter::New();
 		writer->SetFileName(fileName.c_str());
+#ifndef _VTK62_
 		writer->SetInput(img);
+#else
+		writer->SetInputData(img);
+#endif
 		writer->Write();
 		
 		writer->Delete();

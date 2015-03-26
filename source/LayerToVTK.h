@@ -36,9 +36,13 @@ inline void dumpLayer2VTK(int istep, string sFileNamePattern, const Layer& scala
 	{
 		grid->SetExtent(0,sizeX-1,0,sizeY-1,0,0);
 		grid->SetDimensions(sizeX, sizeY, 1);
+#ifndef _VTK62_
 		grid->SetScalarTypeToFloat();
 		grid->SetNumberOfScalarComponents(1);
 		grid->AllocateScalars();
+#else
+		grid->AllocateScalars(VTK_FLOAT,1);
+#endif
 		grid->SetSpacing(1./sizeX, 1./sizeX, 1);
 		grid->SetOrigin(0,0,0);
 		
@@ -50,9 +54,13 @@ inline void dumpLayer2VTK(int istep, string sFileNamePattern, const Layer& scala
 	{
 		grid->SetExtent(0,sizeX-1,0,sizeY-1,0,0);
 		grid->SetDimensions(sizeX, sizeY, 2);
+#ifndef _VTK62_
 		grid->SetScalarTypeToFloat();
 		grid->SetNumberOfScalarComponents(1);
 		grid->AllocateScalars();
+#else
+		grid->AllocateScalars(VTK_FLOAT,1);
+#endif
 		grid->SetSpacing(1./sizeX, 1./sizeX, 1);
 		grid->SetOrigin(0,0,0);
 		
@@ -66,7 +74,11 @@ inline void dumpLayer2VTK(int istep, string sFileNamePattern, const Layer& scala
 	
 	vtkXMLImageDataWriter * writer = vtkXMLImageDataWriter::New();
 	writer->SetFileName(sFileName.c_str());
+#ifndef _VTK62_
 	writer->SetInput(grid);
+#else
+	writer->SetInputData(grid);
+#endif
 	writer->Write();
 	
 	writer->Delete();
