@@ -47,7 +47,7 @@ void TestPenalization::run()
 	const double dt = 1e-4;
 	Real omega = 0;
 	
-	for (int i=0; i<100; i++)
+	for (int i=0; i<10; i++)
 	{
 		Real centerOfMass[2] = {0,0};
 		shape->getPosition(centerOfMass);
