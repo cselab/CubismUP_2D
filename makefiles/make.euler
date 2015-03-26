@@ -1,3 +1,4 @@
+CPPFLAGS += -D_VTK62_
 vtk-inc = /cluster/home/cconti/libraries/VTK_gcc4.8.2/include/vtk-6.2/
 vtk-lib = /cluster/home/cconti/libraries/VTK_gcc4.8.2/lib/
 tbb-inc = /cluster/apps/intel/composer_xe_2015.0.090/tbb/include/

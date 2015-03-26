@@ -66,6 +66,8 @@ LDFLAGS = $(CPPFLAGS)
 
 LIBS += -lstdc++ -lm \
 	-L$(vtk-lib) \
+	-lvtkHybrid \
+	-lvtkVolumeRendering \
 	-lvtkRendering \
 	-lvtkIO \
 	-lvtkGenericFiltering \
