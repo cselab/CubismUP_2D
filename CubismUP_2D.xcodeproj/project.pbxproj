@@ -22,6 +22,7 @@
 		DD838C3C1AB6DE8A00018A75 /* TestRotation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD838C3A1AB6DE8A00018A75 /* TestRotation.cpp */; };
 		DD838C401AB6DEA300018A75 /* TestTranslation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD838C3E1AB6DEA300018A75 /* TestTranslation.cpp */; };
 		DDBBA0071A7292670041496C /* TestVarCoeffPoisson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDBBA0051A7292670041496C /* TestVarCoeffPoisson.cpp */; };
+		DDC1D0A51AC44F7800BC2E88 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = DDC1D0A41AC44F7800BC2E88 /* Makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -125,6 +126,9 @@
 		DDBBA0061A7292670041496C /* TestVarCoeffPoisson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestVarCoeffPoisson.h; sourceTree = "<group>"; };
 		DDC1D09E1AC2CB9D00BC2E88 /* Simulation_Fluid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Simulation_Fluid.h; sourceTree = "<group>"; };
 		DDC1D09F1AC2D0B600BC2E88 /* Simulation_FSI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Simulation_FSI.h; sourceTree = "<group>"; };
+		DDC1D0A41AC44F7800BC2E88 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = Makefile; path = makefiles/Makefile; sourceTree = "<group>"; };
+		DDC1D0A61AC4501B00BC2E88 /* make.brutus */ = {isa = PBXFileReference; lastKnownFileType = text; name = make.brutus; path = makefiles/make.brutus; sourceTree = "<group>"; };
+		DDC1D0A71AC4501B00BC2E88 /* make.euler */ = {isa = PBXFileReference; lastKnownFileType = text; name = make.euler; path = makefiles/make.euler; sourceTree = "<group>"; };
 		DDD30B801AA99056008F9EE1 /* Shape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shape.h; sourceTree = "<group>"; };
 		DDDA9F371A78D69E0042FA80 /* OperatorSplitP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorSplitP.h; sourceTree = "<group>"; };
 		DDFAAA101A5D971200BCE3E7 /* CubismUP_2D */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CubismUP_2D; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -310,6 +314,9 @@
 			isa = PBXGroup;
 			children = (
 				DD58CA9F1A5D977C00291455 /* makefiles.xcodeproj */,
+				DDC1D0A41AC44F7800BC2E88 /* Makefile */,
+				DDC1D0A61AC4501B00BC2E88 /* make.brutus */,
+				DDC1D0A71AC4501B00BC2E88 /* make.euler */,
 				DD58CAB31A5E8A7000291455 /* Cubism */,
 				DD58CAA31A5D9A3700291455 /* launch */,
 				DD58CA9D1A5D977C00291455 /* source */,
@@ -393,6 +400,7 @@
 				DD66B5E21A764CEC003FE36B /* Sim_FSI_Gravity.cpp in Sources */,
 				DD58CAE91A60320400291455 /* TestPressure.cpp in Sources */,
 				DD58CAD41A5ECB8200291455 /* mainTest.cpp in Sources */,
+				DDC1D0A51AC44F7800BC2E88 /* Makefile in Sources */,
 				DD838C3C1AB6DE8A00018A75 /* TestRotation.cpp in Sources */,
 				DD58CAAF1A5E7B9E00291455 /* Sim_FSI_Fixed.cpp in Sources */,
 				DD355D241A8118FE00711A51 /* TestPenalization.cpp in Sources */,

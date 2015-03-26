@@ -65,15 +65,6 @@ LDFLAGS = $(CPPFLAGS)
 
 LIBS += -lstdc++ -lm \
 	-L$(vtk-lib) \
-#	-lvtkHybrid \
-#	-lvtkVolumeRendering \
-	-lvtkRendering \
-	-lvtkIO \
-	-lvtkGenericFiltering \
-	-lvtkGraphics \
-	-lvtkImaging \
-	-lvtkFiltering \
-	-lvtkCommon \
 	-lvtkftgl \
 	-lvtkfreetype \
 	-lvtkDICOMParser \
@@ -82,7 +73,8 @@ LIBS += -lstdc++ -lm \
 	-lvtkpng \
 	-lvtkjpeg \
 	-lvtkzlib \
-	-lvtksys -lz \
+	-lvtksys \
+	 -lz \
 	-L$(tbb-lib) -ltbb -ltbbmalloc \
 	-L$(fftw-lib) -lfftw3 -lfftw3f  -lfftw3f_threads
 
