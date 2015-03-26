@@ -47,11 +47,12 @@ fftw-lib ?=
 hypre-inc ?= 
 hypre-lib ?= 
 
+# needed in order to compile on nodes
+include make.brutus
 
 ifneq "$(findstring brutus,$(shell hostname))" ""
 include make.brutus
 endif
-
 
 ifneq "$(findstring euler,$(shell hostname))" ""
 include make.euler
@@ -65,8 +66,6 @@ LDFLAGS = $(CPPFLAGS)
 
 LIBS += -lstdc++ -lm \
 	-L$(vtk-lib) \
-	-lvtkHybrid \
-	-lvtkVolumeRendering \
 	-lvtkRendering \
 	-lvtkIO \
 	-lvtkGenericFiltering \
