@@ -403,7 +403,7 @@ void Sim_FSI_Gravity::simulate()
 			}
 			
 			// check nondimensional time
-			if ((endTime>0 && _nonDimensionalTime()-endTime < 10*std::numeric_limits<Real>::epsilon()) || (nsteps!=0 && step>=nsteps))
+			if ((endTime>0 && abs(_nonDimensionalTime()-endTime) < 10*std::numeric_limits<Real>::epsilon()) || (nsteps!=0 && step>=nsteps))
 			{
 				timer.start();
 				stringstream ss;
