@@ -1,0 +1,1 @@
+export OMP_NUM_THREADS=48;mpirun -np 32 ../makefiles/simulation -file /cluster/scratch_xp/public/cconti/CubismUP/FallingCylinder_Kolomenskiy_CFL0.1_bpd16_vort -CFL 0.1 -bpdx 16 -bpdy 16 -radius .0125 -tend 2. -rhoS 2 -ypos .85 -nu 0.0001551888 -sim falling
