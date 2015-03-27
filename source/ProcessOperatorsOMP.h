@@ -12,6 +12,23 @@
 #include "Definitions.h"
 #include "Shape.h"
 
+// IC
+template<typename Kernel>
+void processOMP(Shape * shape, Real uinf, vector<BlockInfo>& myInfo, FluidGrid & grid)
+{
+	BlockInfo * ary = &myInfo.front();
+	const int N = myInfo.size();
+	
+#pragma omp parallel
+	{
+		Kernel kernel(shape, uinf);
+		
+#pragma omp for schedule(static)
+		for (int i=0; i<N; i++)
+		kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
+	}
+}
+
 // -gradp, divergence, advection
 template<typename Lab, typename Kernel>
 void processOMP(double dt, vector<BlockInfo>& myInfo, FluidGrid & grid)
@@ -27,7 +44,7 @@ void processOMP(double dt, vector<BlockInfo>& myInfo, FluidGrid & grid)
 		mylab.prepare(grid, kernel.stencil_start, kernel.stencil_end, true);
 		
 #pragma omp for schedule(static)
-		for(int i=0; i<N; i++)
+		for (int i=0; i<N; i++)
 		{
 			mylab.load(ary[i], 0);
 			
@@ -51,7 +68,7 @@ void processOMP(double dt, double coeff, vector<BlockInfo>& myInfo, FluidGrid & 
 		mylab.prepare(grid, kernel.stencil_start, kernel.stencil_end, false);
 		
 #pragma omp for schedule(static)
-		for(int i=0; i<N; i++)
+		for (int i=0; i<N; i++)
 		{
 			mylab.load(ary[i], 0);
 			kernel(mylab, ary[i], *(FluidBlock*)ary[i].ptrBlock);
@@ -74,7 +91,7 @@ void processOMP(double dt, double rho0, int step, vector<BlockInfo>& myInfo, Flu
 		mylab.prepare(grid, kernel.stencil_start, kernel.stencil_end, false);
 		
 #pragma omp for schedule(static)
-		for(int i=0; i<N; i++)
+		for (int i=0; i<N; i++)
 		{
 			mylab.load(ary[i], 0);
 			kernel(mylab, ary[i], *(FluidBlock*)ary[i].ptrBlock);
@@ -95,7 +112,7 @@ void processOMP(double dt, Real uBody, Real vBody, Real omegaBody, Real xCenterO
 		
 #pragma omp for schedule(static)
 		for(int i=0; i<N; i++)
-			kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
+		kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
 	}
 }
 
@@ -111,8 +128,8 @@ void processOMP(Shape * shape, vector<BlockInfo>& myInfo, FluidGrid & grid)
 		Kernel kernel(shape);
 		
 #pragma omp for schedule(static)
-		for(int i=0; i<N; i++)
-			kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
+		for (int i=0; i<N; i++)
+		kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
 	}
 }
 
@@ -127,19 +144,19 @@ void processOMP_hydrostaticTerm(Real v[2], double factor, double rhoS, vector<Bl
 	Real volF = 0;
 	
 #pragma omp parallel for schedule(static) reduction(+:volS) reduction(+:volF)
-	for(int i=0; i<N; i++)
+	for (int i=0; i<N; i++)
 	{
 		BlockInfo info = myInfo[i];
 		FluidBlock& b = *(FluidBlock*)info.ptrBlock;
 		
 		Real dh = info.h_gridpoint;
 		
-		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-			{
-				volS += b(ix,iy).chi*dh*dh;
-				volF += (1-b(ix,iy).chi)*dh*dh;
-			}
+		for (int iy=0; iy<FluidBlock::sizeY; ++iy)
+		for (int ix=0; ix<FluidBlock::sizeX; ++ix)
+		{
+			volS += b(ix,iy).chi*dh*dh;
+			volF += (1-b(ix,iy).chi)*dh*dh;
+		}
 	}
 	
 	Real hydrostaticFactor = (rhoS*volS+1.*volF)/(volS+volF);
@@ -149,8 +166,8 @@ void processOMP_hydrostaticTerm(Real v[2], double factor, double rhoS, vector<Bl
 		Kernel kernel(v, factor, hydrostaticFactor);
 		
 #pragma omp for schedule(static)
-		for(int i=0; i<N; i++)
-			kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
+		for (int i=0; i<N; i++)
+		kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
 	}
 }
 
@@ -169,7 +186,7 @@ void processOMP(Layer& outputField, vector<BlockInfo>& myInfo, FluidGrid & grid)
 		mylab.prepare(grid, kernel.stencil_start, kernel.stencil_end, true);
 		
 #pragma omp for schedule(static)
-		for(int i=0; i<N; i++)
+		for (int i=0; i<N; i++)
 		{
 			mylab.load(ary[i], 0, false);
 			
@@ -193,7 +210,7 @@ void processOMP(Layer& outputField, const Real rho0, const Real dt, const int st
 		mylab.prepare(grid, kernel.stencil_start, kernel.stencil_end, true);
 		
 #pragma omp for schedule(static)
-		for(int i=0; i<N; i++)
+		for (int i=0; i<N; i++)
 		{
 			mylab.load(ary[i], 0, false);
 			

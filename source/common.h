@@ -28,7 +28,6 @@ typedef float Real;
 #include <Grid.h>
 #include <BlockInfo.h>
 #include <SerializerIO_ImageVTK.h>
-#include <BlockProcessing.h>
 #include <BlockLab.h>
 #ifdef _MULTIGRID_
 #include <mpi.h>

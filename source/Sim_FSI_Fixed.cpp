@@ -65,8 +65,7 @@ void Sim_FSI_Fixed::_ic()
 	
 	timerIC.start();
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
-	OperatorIC ic(shape, uinf);
-	FluidBlockProcessing::process(vInfo, ic, grid);
+	processOMP<OperatorIC>(shape, uinf, vInfo, *grid);
 	
 	stringstream ss;
 	ss << path2file << "-IC.vti";
@@ -252,7 +251,7 @@ void Sim_FSI_Fixed::simulate()
 			cout << "\tDiagnostics\t" << setprecision(3) << timeDiagnostics << "s ( " << setprecision(2) << 100.*timeDiagnostics/totalTime << " % )\n";
 			cout << "\tDump\t\t" << setprecision(3) << timeDump << "s ( " << setprecision(2) << 100.*timeDump/totalTime << " % )\n";
 			
-			break;
+			exit(0);
 		}
     }
 }

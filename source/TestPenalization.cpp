@@ -19,8 +19,7 @@ void TestPenalization::_ic()
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	bool bPeriodic[2] = {false,false};
 	shape = new Disk(center, radius, (Real).1, (Real)2, (Real)2, bPeriodic);
-	OperatorIC ic(shape, 1.);
-	FluidBlockProcessing::process(vInfo, ic, grid);
+	processOMP<OperatorIC>(shape, 1., vInfo, *grid);
 }
 
 TestPenalization::TestPenalization(const int argc, const char ** argv, const int bpd) : Test(argc, argv), bpd(bpd), lambda(1e4), uBody{0,0.5}

@@ -192,8 +192,7 @@ void Sim_FSI_Gravity::_ic()
 		// setup initial conditions
 		timerIC.start();
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
-		OperatorIC ic(shape, 0);
-		FluidBlockProcessing::process(vInfo, ic, grid);
+		processOMP<OperatorIC>(shape, 0, vInfo, *grid);
 		
 		stringstream ss;
 		ss << path2file << "-IC.vti";
@@ -431,7 +430,7 @@ void Sim_FSI_Gravity::simulate()
 				cout << "\tDiagnostics\t" << setprecision(3) << timeDiagnostics << "s ( " << setprecision(2) << 100.*timeDiagnostics/totalTime << " % )\n";
 				cout << "\tDump\t\t" << setprecision(3) << timeDump << "s ( " << setprecision(2) << 100.*timeDump/totalTime << " % )\n";
 				
-				break;
+				exit(0);
 			}
 		}
 	}

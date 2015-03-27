@@ -39,9 +39,7 @@ ifeq "$(multiphase)" "true"
 endif
 
 vtk-inc ?= 
-vtk-lib ?= 
-tbb-inc ?= 
-tbb-lib ?= 
+vtk-lib ?=
 fftw-inc ?= 
 fftw-lib ?= 
 hypre-inc ?= 
@@ -60,7 +58,7 @@ endif
 
 CPPFLAGS += -std=c++11 -fopenmp -fpermissive
 CPPFLAGS += -DNTHREADS=$(nthreads)
-CPPFLAGS += -I../source/ -I../Cubism/ -I$(vtk-inc) -I$(tbb-inc) -I$(fftw-inc)
+CPPFLAGS += -I../source/ -I../Cubism/ -I$(vtk-inc) -I$(fftw-inc)
 
 LDFLAGS = $(CPPFLAGS)
 
@@ -84,7 +82,6 @@ LIBS += -lstdc++ -lm \
 	-lvtkjpeg \
 	-lvtkzlib \
 	-lvtksys -lz \
-	-L$(tbb-lib) -ltbb -ltbbmalloc \
 	-L$(fftw-lib) -lfftw3 -lfftw3f  -lfftw3f_threads
 
 ifeq "$(poisson)" "hypre"

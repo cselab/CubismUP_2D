@@ -179,7 +179,6 @@ public:
 };
 
 typedef Grid<FluidBlock, std::allocator> FluidGrid;
-typedef BlockProcessing_TBB<FluidBlock> FluidBlockProcessing;
 #ifndef _PERIODIC_
 typedef BlockLabBottomWall<FluidBlock, std::allocator> Lab;
 #else // _PERIODIC_
