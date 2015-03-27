@@ -42,7 +42,7 @@ protected:
 	virtual void _ic() = 0;
 	virtual double _nonDimensionalTime() = 0;
 	
-	virtual void _dump(double nextDumpTime)
+	virtual void _dump(double & nextDumpTime)
 	{
 		const int sizeX = bpdx * FluidBlock::sizeX;
 		const int sizeY = bpdy * FluidBlock::sizeY;
