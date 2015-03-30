@@ -101,7 +101,7 @@ protected:
 	}
 	
 public:
-	CoordinatorPressure(const int rank, const int nprocs, const double minRho, int * step, const bool bSplit, FluidGrid * grid) : GenericCoordinator(grid), rank(rank), nprocs(nprocs), minRho(minRho), step(step), bSplit(bSplit)
+	CoordinatorPressure(const double minRho, int * step, const bool bSplit, FluidGrid * grid, const int rank, const int nprocs) : GenericCoordinator(grid), rank(rank), nprocs(nprocs), minRho(minRho), step(step), bSplit(bSplit)
 #ifdef _SPLIT_
 #ifdef _SP_COMP_
 	, pressureSolver(NTHREADS)

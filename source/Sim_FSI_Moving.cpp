@@ -140,7 +140,7 @@ void Sim_FSI_Moving::simulate()
 		if (dumpTime>0)
 			dt = min(dt,nextDumpTime-_nonDimensionalTime());
 		if (endTime>0)
-			dt = min(dt,endTime);
+			dt = min(dt,endTime-_nonDimensionalTime());
 		if (verbose)
 			cout << "dt (Fourier, CFL, body): " << dtFourier << " " << dtCFL << " " << dtBody << endl;
 		profiler.pop_stop();

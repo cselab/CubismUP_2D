@@ -171,16 +171,13 @@ double Sim_FSI_Gravity::_nonDimensionalTime()
 }
 
 Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uBody{0,0}, omegaBody(0), gravity{0,-9.81}, dtCFL(0), dtFourier(0), dtBody(0), re(0), nu(0), CFL(0), minRho(0), bSplit(false)
-#ifdef _MULTIGRID_
-, rank(0), nprocs(0)
-#endif // _MULTIGRID_
 {
 #ifdef _MULTIGRID_
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 	MPI_Comm_size(MPI_COMM_WORLD,&nprocs);
+#endif // _MULTIGRID_
 	
 	if (rank==0)
-#endif // _MULTIGRID_
 	{
 		cout << "====================================================================================================================\n";
 		cout << "\t\t\tFlow past a falling cylinder\n";
@@ -203,36 +200,26 @@ Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulatio
 	_dumpSettings(cout);
 	_dumpSettings(myfile);
 	
-#ifdef _MULTIGRID_
 	if (rank==0)
 		if (bSplit)
 			cout << "Using split method with constant coefficients Poisson solver\n";
 		else
 			cout << "Solving full variable coefficient Poisson equation for pressure\n";
-#endif // _MULTIGRID_
 	
 	_ic();
 	
 	pipeline.clear();
+	pipeline.push_back(new CoordinatorGravity(gravity, grid));
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
+	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs));
 	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid));
-	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
-#ifdef _MULTIGRID_
-	pipeline.push_back(new CoordinatorPressure<Lab>(rank, nprocs, minRho, &step, bSplit, grid));
-#else // _MULTIGRID_
-	pipeline.push_back(new CoordinatorPressure<Lab>(0, 1, minRho, &step, bSplit, grid));
-#endif // _MULTIGRID_
-	pipeline.push_back(new CoordinatorGravity(gravity, grid));
-	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
 	
-#ifdef _MULTIGRID_
 	if (rank==0)
-#endif // _MULTIGRID_
 	{
-	cout << "Coordinator/Operator ordering:\n";
-	for (int c=0; c<pipeline.size(); c++)
-		cout << "\t" << pipeline[c]->getName() << endl;
+		cout << "Coordinator/Operator ordering:\n";
+		for (int c=0; c<pipeline.size(); c++)
+			cout << "\t" << pipeline[c]->getName() << endl;
 	}
 	
 #ifdef _MULTIGRID_
@@ -260,11 +247,8 @@ void Sim_FSI_Gravity::simulate()
 	double maxU = 0;
 	while (true)
 	{
-#ifdef _MULTIGRID_
 		if (rank==0)
-#endif // _MULTIGRID_
 		{
-			//cout << "step " << step << endl;
 			vector<BlockInfo> vInfo = grid->getBlocksInfo();
 			
 			// choose dt (CFL, Fourier)
@@ -277,62 +261,48 @@ void Sim_FSI_Gravity::simulate()
 			if (dumpTime>0)
 				dt = min(dt,nextDumpTime-_nonDimensionalTime());
 			if (endTime>0)
-				dt = min(dt,endTime);
+				dt = min(dt,endTime-_nonDimensionalTime());
 			if (verbose)
 				cout << "dt (Fourier, CFL, body): " << dt << " " << dtFourier << " " << dtCFL << " " << dtBody << endl;
 			profiler.pop_stop();
-			
-			// gravity
-			profiler.push_start(pipeline[5]->getName());
-			(*pipeline[5])(dt);
-			profiler.pop_stop();
-			
-			// pressure
-			profiler.push_start(pipeline[4]->getName());
 		}
-		(*pipeline[4])(dt);
-#ifdef _MULTIGRID_
-		if (rank==0)
-#endif // _MULTIGRID_
+		
+		for (int c=0; c<pipeline.size(); c++)
 		{
+#ifdef _MULTIGRID_
+			MPI_Barrier(MPI_COMM_WORLD);
+#endif // _MULTIGRID_
+			profiler.push_start(pipeline[c]->getName());
+			if (rank == 0 || pipeline[c]->getName()=="Pressure")
+				(*pipeline[c])(dt);
 			profiler.pop_stop();
+		}
+		
+		if (step==100)
+		{
+			vector<GenericCoordinator *>::iterator it = pipeline.begin();
+			pipeline.insert(it+4, new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
+			pipeline.insert(it+5, new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
 			
-			vector<BlockInfo> vInfo = grid->getBlocksInfo();
-			
-			// advection
-			profiler.push_start(pipeline[0]->getName());
-			(*pipeline[0])(dt);
-			profiler.pop_stop();
-			
-			// diffusion
-			profiler.push_start(pipeline[1]->getName());
-			(*pipeline[1])(dt);
-			profiler.pop_stop();
-			
-			if (step>50)
+			if (rank==0)
 			{
-				profiler.push_start("Body");
-				vOld = uBody[1];
-				(*pipeline[6])(dt);
-				//computeBodyVelocity(vInfo, *grid, uBody, omegaBody, shape->getRhoS(), gravity, dt, lambda);
-				(*pipeline[3])(dt);
-				profiler.pop_stop();
+				cout << "Coordinator/Operator ordering:\n";
+				for (int c=0; c<pipeline.size(); c++)
+					cout << "\t" << pipeline[c]->getName() << endl;
 			}
-			
-			// penalization
-			profiler.push_start(pipeline[2]->getName());
-			(*pipeline[2])(dt);
-			profiler.pop_stop();
-			
-			time += dt;
-			step++;
-			
+		}
+		
+		time += dt;
+		step++;
+		
+		if (rank==0)
+		{
 			if (step<100)
 			{
 				// this still needs to be corrected to the frame of reference!
 				double accM = (uBody[1]-vOld)/dt;
 				double accT = (shape->getRhoS()-1)/(shape->getRhoS()+1) * gravity[1];
-				double accN = (shape->getRhoS()-1)/(shape->getRhoS()) * gravity[1];
+				double accN = (shape->getRhoS()-1)/(shape->getRhoS()  ) * gravity[1];
 				cout << "Acceleration with added mass (measured, expected, no added mass)\t" << accM << "\t" << accT << "\t" << accN << endl;
 				stringstream ss;
 				ss << path2file << "_addedmass.dat";
@@ -355,9 +325,12 @@ void Sim_FSI_Gravity::simulate()
 			
 			if (step % 100 == 0)
 				profiler.printSummary();
-			
-			// check nondimensional time
-			if ((endTime>0 && abs(_nonDimensionalTime()-endTime) < 10*std::numeric_limits<Real>::epsilon()) || (nsteps!=0 && step>=nsteps))
+		}
+		
+		// check nondimensional time
+		if ((endTime>0 && abs(_nonDimensionalTime()-endTime) < 10*std::numeric_limits<Real>::epsilon()) || (nsteps!=0 && step>=nsteps))
+		{
+			if (rank==0)
 			{
 				profiler.push_start("Dump");
 				stringstream ss;
@@ -366,6 +339,7 @@ void Sim_FSI_Gravity::simulate()
 				
 				dumper.Write(*grid, ss.str());
 				
+				vector<BlockInfo> vInfo = grid->getBlocksInfo();
 				Layer vorticity(sizeX,sizeY,1);
 				processOMP<Lab, OperatorVorticity>(vorticity,vInfo,*grid);
 				stringstream sVort;
@@ -373,11 +347,9 @@ void Sim_FSI_Gravity::simulate()
 				dumpLayer2VTK(step,sVort.str(),vorticity,1);
 				profiler.pop_stop();
 				
-				
 				profiler.printSummary();
-				
-				exit(0);
 			}
+			exit(0);
 		}
 	}
 }

@@ -26,6 +26,8 @@ protected:
 	ArgumentParser parser;
 	Profiler profiler;
 	
+	int rank, nprocs;
+	
 	vector<GenericCoordinator *> pipeline;
 	
 	// grid
@@ -74,7 +76,7 @@ protected:
 	}
 	
 public:
-	Simulation_Fluid(const int argc, const char ** argv) : parser(argc,argv), step(0), time(0), dt(0)
+	Simulation_Fluid(const int argc, const char ** argv) : parser(argc,argv), step(0), time(0), dt(0), rank(0), nprocs(1)
 	{
 		// initialize grid
 		parser.set_strict_mode();

@@ -10,9 +10,6 @@
 #define __CubismUP_2D__Sim_FSI_Gravity__
 
 #include "Simulation_FSI.h"
-//#ifdef _MULTIGRID_
-//#include "MultigridHypre.h"
-//#endif // _MULTIGRID_
 
 class Sim_FSI_Gravity : public Simulation_FSI
 {
@@ -25,11 +22,6 @@ protected:
 	bool bSplit;
 	
 	Real gravity[2];
-	
-#ifdef _MULTIGRID_
-//	MultigridHypre mg;
-	int rank, nprocs;
-#endif // _MULTIGRID_
 	
 	void _diagnostics();
 	void _ic();
