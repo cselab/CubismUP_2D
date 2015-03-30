@@ -123,6 +123,8 @@
 		DDBBA0061A7292670041496C /* TestVarCoeffPoisson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestVarCoeffPoisson.h; sourceTree = "<group>"; };
 		DDBFCB871AC92C640031708C /* CoordinatorComputeShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorComputeShape.h; sourceTree = "<group>"; };
 		DDBFCB881AC937670031708C /* CoordinatorPressure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorPressure.h; sourceTree = "<group>"; };
+		DDBFCB8A1AC974E40031708C /* CoordinatorGravity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorGravity.h; sourceTree = "<group>"; };
+		DDBFCB8B1AC984F80031708C /* CoordinatorBodyVelocities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorBodyVelocities.h; sourceTree = "<group>"; };
 		DDC1D09E1AC2CB9D00BC2E88 /* Simulation_Fluid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Simulation_Fluid.h; sourceTree = "<group>"; };
 		DDC1D09F1AC2D0B600BC2E88 /* Simulation_FSI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Simulation_FSI.h; sourceTree = "<group>"; };
 		DDD30B801AA99056008F9EE1 /* Shape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shape.h; sourceTree = "<group>"; };
@@ -303,6 +305,8 @@
 				DDA9C8201AC5CA51008D69E4 /* CoordinatorPenalization.h */,
 				DDBFCB871AC92C640031708C /* CoordinatorComputeShape.h */,
 				DDBFCB881AC937670031708C /* CoordinatorPressure.h */,
+				DDBFCB8A1AC974E40031708C /* CoordinatorGravity.h */,
+				DDBFCB8B1AC984F80031708C /* CoordinatorBodyVelocities.h */,
 			);
 			name = Coordinators;
 			sourceTree = "<group>";

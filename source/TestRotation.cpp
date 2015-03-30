@@ -8,9 +8,9 @@
 
 #include "TestRotation.h"
 #include "ProcessOperatorsOMP.h"
-//#include "OperatorComputeShape.h"
 #include "OperatorVorticity.h"
 #include "CoordinatorComputeShape.h"
+#include "CoordinatorBodyVelocities.h"
 #include <sstream>
 #include <cmath>
 
@@ -78,7 +78,9 @@ void TestRotation::run()
 	
 	Real u[2] = {0,0};
 	Real omega = 0;
+	Real lambda = 1;
 	CoordinatorComputeShape coordComputeShape(&u[0], &u[1], &omega, shape, grid);
+	CoordinatorBodyVelocities coordBodyVelocities(&u[0], &u[1], &omega, lambda, grid);
 	
 	for (int step=0; step<100; step++)
 	{
@@ -87,18 +89,10 @@ void TestRotation::run()
 		if (testCase==0)
 			omega = M_PI/50.; // 1 complete turn
 		else if (testCase==1)
-		{
-			Real uBody[2] = {0,0};
-			Real rhoS = shape->getRhoS();
-			Real gravity[2] = {0,0};
-			Real lambda = 1;
-			computeBodyVelocity(vInfo, *grid, uBody, omega, rhoS, gravity, dt, lambda);
-		}
+			coordBodyVelocities(dt);
 		else
 			abort();
 		
-		//shape->updatePosition(u,omega,dt);
-		//processOMP<OperatorComputeShape>(shape, vInfo, *grid);
 		coordComputeShape(dt);
 		
 		// dump

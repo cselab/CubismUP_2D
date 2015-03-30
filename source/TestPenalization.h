@@ -11,7 +11,6 @@
 
 #include <stdio.h>
 #include "Test.h"
-//#include "OperatorPenalization.h"
 #include "Shape.h"
 
 class TestPenalization : public Test

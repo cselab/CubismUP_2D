@@ -185,9 +185,6 @@ void TestAdvection::run()
 	
 	for(int step=0; step<nsteps; ++step)
 	{
-		//resetRhoOMP(vInfo, *grid);
-		//processOMP< Lab,OperatorTransport<Mp4> >(dt,vInfo,*grid);
-		//updateRhoOMP(vInfo, *grid);
 		coordTransport(dt);
 		
 		//dump some time steps every now and then

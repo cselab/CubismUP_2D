@@ -8,9 +8,9 @@
 
 #include "TestTranslation.h"
 #include "ProcessOperatorsOMP.h"
-//#include "OperatorComputeShape.h"
 #include "OperatorVorticity.h"
 #include "CoordinatorComputeShape.h"
+#include "CoordinatorBodyVelocities.h"
 #include <sstream>
 
 void TestTranslation::_ic()
@@ -73,7 +73,9 @@ void TestTranslation::run()
 	
 	Real u[2] = {0,0};
 	Real omega = 0;
+	Real lambda = 1;
 	CoordinatorComputeShape coordComputeShape(&u[0], &u[1], &omega, shape, grid);
+	CoordinatorBodyVelocities coordBodyVelocities(&u[0], &u[1], &omega, lambda, grid);
 	
 	for (int step=0; step<50; step++)
 	{
@@ -86,17 +88,10 @@ void TestTranslation::run()
 			u[1] = 1;
 		}
 		else if (testCase==1)
-		{
-			Real rhoS = shape->getRhoS();
-			Real gravity[2] = {0,0};
-			Real lambda = 1;
-			computeBodyVelocity(vInfo, *grid, u, omega, rhoS, gravity, dt, lambda);
-		}
+			coordBodyVelocities(dt);
 		else
 			abort();
 		
-		//shape->updatePosition(u,omega,dt);
-		//processOMP<OperatorComputeShape>(shape, vInfo, *grid);
 		coordComputeShape(dt);
 		
 		// dump

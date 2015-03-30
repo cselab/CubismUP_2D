@@ -7,8 +7,6 @@
 //
 
 #include "TestPenalization.h"
-//#include "ProcessOperatorsOMP.h"
-//#include "OperatorIC.h"
 #include <sstream>
 #include <cmath>
 

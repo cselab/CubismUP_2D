@@ -40,9 +40,8 @@ public:
 				// assume fluid with density 1
 				block(ix,iy).rho = shape->rho(p, info.h_gridpoint);
 				
-				// this is for testing purposes only! do it the clean way!!
-				block(ix,iy).p = 0;//9.81*(1-p[1]);//
-				block(ix,iy).divU = 0;//9.81*(1-p[1]);//
+				block(ix,iy).p = 0;
+				block(ix,iy).divU = 0;
 				block(ix,iy).pOld = 0;
             }
     }

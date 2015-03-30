@@ -24,6 +24,7 @@ class Simulation_Fluid
 {
 protected:
 	ArgumentParser parser;
+	Profiler profiler;
 	
 	vector<GenericCoordinator *> pipeline;
 	

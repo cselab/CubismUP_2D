@@ -8,6 +8,7 @@
 
 #include "TestGravity.h"
 #include "ProcessOperatorsOMP.h"
+#include "CoordinatorGravity.h"
 #include <sstream>
 #include <cmath>
 
@@ -66,9 +67,11 @@ void TestGravity::run()
 	
 	const int nsteps = 1000;
 	
+	CoordinatorGravity coordGravity(gravity, grid);
+	
 	for(int step=0; step<nsteps; ++step)
 	{
-		processOMP_hydrostaticTerm<OperatorGravity>(gravity, dt, 1., vInfo, *grid);
+		coordGravity(dt);
 		
 		time += dt;
 	}

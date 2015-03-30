@@ -18,7 +18,7 @@
 //#include "PoissonSolverScalarFFTW.h"
 //#include "OperatorGradP.h"
 //#include "OperatorComputeShape.h"
-#include "OperatorGravity.h"
+//#include "OperatorGravity.h"
 //#include "OperatorSplitP.h"
 
 #include "CoordinatorIC.h"
@@ -27,6 +27,8 @@
 #include "CoordinatorPenalization.h"
 #include "CoordinatorComputeShape.h"
 #include "CoordinatorPressure.h"
+#include "CoordinatorGravity.h"
+#include "CoordinatorBodyVelocities.h"
 
 void Sim_FSI_Gravity::_dumpDivergence(const int step, const Real rho0, const Real dt)
 {
@@ -151,19 +153,15 @@ void Sim_FSI_Gravity::_ic()
 	if (rank==0)
 #endif // _MULTIGRID_
 	{
-		Timer timerIC;
-		
 		// setup initial conditions
-		timerIC.start();
 		CoordinatorIC coordIC(shape,0,grid);
+		profiler.push_start(coordIC.getName());
 		coordIC(0);
 		
 		stringstream ss;
 		ss << path2file << "-IC.vti";
 		dumper.Write(*grid, ss.str());
-		double timeIC = timerIC.stop();
-		
-		cout << "Time IC:\t" << timeIC << endl;
+		profiler.pop_stop();
 	}
 }
 
@@ -225,6 +223,17 @@ Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulatio
 #else // _MULTIGRID_
 	pipeline.push_back(new CoordinatorPressure<Lab>(0, 1, minRho, &step, bSplit, grid));
 #endif // _MULTIGRID_
+	pipeline.push_back(new CoordinatorGravity(gravity, grid));
+	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
+	
+#ifdef _MULTIGRID_
+	if (rank==0)
+#endif // _MULTIGRID_
+	{
+	cout << "Coordinator/Operator ordering:\n";
+	for (int c=0; c<pipeline.size(); c++)
+		cout << "\t" << pipeline[c]->getName() << endl;
+	}
 	
 #ifdef _MULTIGRID_
 	MPI_Barrier(MPI_COMM_WORLD);
@@ -239,17 +248,6 @@ void Sim_FSI_Gravity::simulate()
 {
 	const int sizeX = bpdx * FluidBlock::sizeX;
 	const int sizeY = bpdy * FluidBlock::sizeY;
-	
-	Timer timer;
-	double timeDT = 0;
-	double timeAdvection = 0;
-	double timeDiffusion = 0;
-	double timePressure = 0;
-	double timeGravity = 0;
-	double timeUB = 0;
-	double timePenalization = 0;
-	double timeDiagnostics = 0;
-	double timeDump = 0;
 	
 	double vOld = 0;
 	Real oldAccVort[2] = {0,0};
@@ -270,7 +268,7 @@ void Sim_FSI_Gravity::simulate()
 			vector<BlockInfo> vInfo = grid->getBlocksInfo();
 			
 			// choose dt (CFL, Fourier)
-			timer.start();
+			profiler.push_start("DT");
 			maxU = findMaxUOMP(vInfo,*grid);
 			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;
 			dtCFL     = maxU==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/abs(maxU);
@@ -282,60 +280,49 @@ void Sim_FSI_Gravity::simulate()
 				dt = min(dt,endTime);
 			if (verbose)
 				cout << "dt (Fourier, CFL, body): " << dt << " " << dtFourier << " " << dtCFL << " " << dtBody << endl;
-			timeDT += timer.stop();
+			profiler.pop_stop();
 			
 			// gravity
-			timer.start();
-			processOMP_hydrostaticTerm<OperatorGravity>(gravity, dt, shape->getRhoS(), vInfo, *grid);
-			timeGravity += timer.stop();
+			profiler.push_start(pipeline[5]->getName());
+			(*pipeline[5])(dt);
+			profiler.pop_stop();
 			
 			// pressure
-			timer.start();
+			profiler.push_start(pipeline[4]->getName());
 		}
 		(*pipeline[4])(dt);
-		//_solvePressure();
 #ifdef _MULTIGRID_
 		if (rank==0)
 #endif // _MULTIGRID_
 		{
-			timePressure += timer.stop();
+			profiler.pop_stop();
 			
 			vector<BlockInfo> vInfo = grid->getBlocksInfo();
 			
 			// advection
-			timer.start();
-			//resetOMP(vInfo, *grid);
+			profiler.push_start(pipeline[0]->getName());
 			(*pipeline[0])(dt);
-			//processOMP< Lab,OperatorAdvection<Mp4> >(dt,vInfo,*grid);
-			//updateOMP(vInfo, *grid);
-			timeAdvection += timer.stop();
+			profiler.pop_stop();
 			
 			// diffusion
-			timer.start();
-			//resetOMP(vInfo, *grid);
+			profiler.push_start(pipeline[1]->getName());
 			(*pipeline[1])(dt);
-			//processOMP<Lab,OperatorDiffusion>(dt,nu,vInfo,*grid);
-			//updateOMP(vInfo, *grid);
-			timeDiffusion += timer.stop();
+			profiler.pop_stop();
 			
 			if (step>50)
 			{
-				timer.start();
+				profiler.push_start("Body");
 				vOld = uBody[1];
-				computeBodyVelocity(vInfo, *grid, uBody, omegaBody, shape->getRhoS(), gravity, dt, lambda);
+				(*pipeline[6])(dt);
+				//computeBodyVelocity(vInfo, *grid, uBody, omegaBody, shape->getRhoS(), gravity, dt, lambda);
 				(*pipeline[3])(dt);
-				//shape->updatePosition(uBody, omegaBody, dt);
-				//processOMP<OperatorComputeShape>(shape, vInfo, *grid);
-				timeUB += timer.stop();
+				profiler.pop_stop();
 			}
 			
 			// penalization
-			timer.start();
-			//Real centerOfMass[2] = {0,0};
-			//shape->getPosition(centerOfMass);
+			profiler.push_start(pipeline[2]->getName());
 			(*pipeline[2])(dt);
-			//processOMP<OperatorPenalization>(dt,uBody[0],uBody[1],omegaBody,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
-			timePenalization += timer.stop();
+			profiler.pop_stop();
 			
 			time += dt;
 			step++;
@@ -356,33 +343,23 @@ void Sim_FSI_Gravity::simulate()
 			// compute diagnostics
 			if (step % 10 == 0)
 			{
-				timer.start();
+				profiler.push_start("Diagnostics");
 				_diagnostics();
-				timeDiagnostics += timer.stop();
+				profiler.pop_stop();
 			}
 			
 			//dump some time steps every now and then
-			timer.start();
+			profiler.push_start("Dump");
 			_dump(nextDumpTime);
-			timeDump += timer.stop();
+			profiler.pop_stop();
 			
 			if (step % 100 == 0)
-			{
-				double totalTime = timeDT + timeAdvection + timeDiffusion + timePressure + timePenalization + timeDiagnostics + timeDump;
-				cout << "=== Timing Report ===\n";
-				cout << "\tDT\t\t" << setprecision(3) << timeDT << "s ( " << setprecision(2) << 100.*timeDT/totalTime << " % )\n";
-				cout << "\tAdvection\t" << setprecision(3) << timeAdvection << "s ( " << setprecision(2) << 100.*timeAdvection/totalTime << " % )\n";
-				cout << "\tDiffusion\t" << setprecision(3) << timeDiffusion << "s ( " << setprecision(2) << 100.*timeDiffusion/totalTime << " % )\n";
-				cout << "\tPressure\t" << setprecision(3) << timePressure << "s ( " << setprecision(2) << 100.*timePressure/totalTime << " % )\n";
-				cout << "\tPenalization\t" << setprecision(3) << timePenalization << "s ( " << setprecision(2) << 100.*timePenalization/totalTime << " % )\n";
-				cout << "\tDiagnostics\t" << setprecision(3) << timeDiagnostics << "s ( " << setprecision(2) << 100.*timeDiagnostics/totalTime << " % )\n";
-				cout << "\tDump\t\t" << setprecision(3) << timeDump << "s ( " << setprecision(2) << 100.*timeDump/totalTime << " % )\n";
-			}
+				profiler.printSummary();
 			
 			// check nondimensional time
 			if ((endTime>0 && abs(_nonDimensionalTime()-endTime) < 10*std::numeric_limits<Real>::epsilon()) || (nsteps!=0 && step>=nsteps))
 			{
-				timer.start();
+				profiler.push_start("Dump");
 				stringstream ss;
 				ss << path2file << "-Final.vti";
 				cout << ss.str() << endl;
@@ -394,19 +371,10 @@ void Sim_FSI_Gravity::simulate()
 				stringstream sVort;
 				sVort << path2file << "Vorticity-Final.vti";
 				dumpLayer2VTK(step,sVort.str(),vorticity,1);
-				timeDump += timer.stop();
+				profiler.pop_stop();
 				
 				
-				
-				double totalTime = timeDT + timeAdvection + timeDiffusion + timePressure + timePenalization + timeDiagnostics + timeDump;
-				cout << "=== Final Timing Report ===\n";
-				cout << "\tDT\t\t" << setprecision(3) << timeDT << "s ( " << setprecision(2) << 100.*timeDT/totalTime << " % )\n";
-				cout << "\tAdvection\t" << setprecision(3) << timeAdvection << "s ( " << setprecision(2) << 100.*timeAdvection/totalTime << " % )\n";
-				cout << "\tDiffusion\t" << setprecision(3) << timeDiffusion << "s ( " << setprecision(2) << 100.*timeDiffusion/totalTime << " % )\n";
-				cout << "\tPressure\t" << setprecision(3) << timePressure << "s ( " << setprecision(2) << 100.*timePressure/totalTime << " % )\n";
-				cout << "\tPenalization\t" << setprecision(3) << timePenalization << "s ( " << setprecision(2) << 100.*timePenalization/totalTime << " % )\n";
-				cout << "\tDiagnostics\t" << setprecision(3) << timeDiagnostics << "s ( " << setprecision(2) << 100.*timeDiagnostics/totalTime << " % )\n";
-				cout << "\tDump\t\t" << setprecision(3) << timeDump << "s ( " << setprecision(2) << 100.*timeDump/totalTime << " % )\n";
+				profiler.printSummary();
 				
 				exit(0);
 			}

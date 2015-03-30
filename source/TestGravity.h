@@ -11,7 +11,6 @@
 
 #include <stdio.h>
 #include "Test.h"
-#include "OperatorGravity.h"
 
 class TestGravity : public Test
 {

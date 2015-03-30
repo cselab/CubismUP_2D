@@ -83,10 +83,6 @@ void TestDiffusion::run()
 	
 	for(int step=0; step<nsteps; ++step)
 	{
-		//resetOMP(vInfo, *grid);
-		//processOMP<Lab,OperatorDiffusionHighOrder>(dt,nu,vInfo,*grid); // this does not work correctly!
-		//processOMP<Lab,OperatorDiffusion>(dt,nu,vInfo,*grid);
-		//updateOMP(vInfo, *grid);
 		coordDiffusion(dt);
 		
 		time += dt;

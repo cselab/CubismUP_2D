@@ -12,11 +12,7 @@
 #include "GenericCoordinator.h"
 #include "OperatorDivergence.h"
 #include "OperatorGradP.h"
-#ifdef _SPLIT_
-#ifdef _SP_COMP_
 #include "PoissonSolverScalarFFTW.h"
-#endif // _SP_COMP_
-#endif // _SPLIT_
 #ifdef _MULTIGRID_
 #include "MultigridHypre.h"
 #endif // _MULTIGRID_
@@ -124,10 +120,8 @@ public:
 		// pressure
 #ifdef _SPLIT_
 #ifdef _SP_COMP_
-		//processOMP<Lab, OperatorDivergenceSplit>(dt, minRho, step, vInfo, *grid);
 		computeSplit<OperatorDivergenceSplit>(dt);
 		pressureSolver.solve(*grid,false);
-		//processOMP<Lab, OperatorGradPSplit>(dt, minRho, step, vInfo, *grid);
 		computeSplit<OperatorGradPSplit>(dt);
 #else // _SP_COMP_
 		cout << "FFTW double precision not supported - aborting now!\n";
@@ -138,25 +132,78 @@ public:
 		if (rank==0)
 			if (bSplit)
 				computeSplit<OperatorDivergenceSplit>(dt);
-		//processOMP<Lab, OperatorDivergenceSplit>(dt, minRho, step, vInfo, *grid);
 			else
 				compute<OperatorDivergence>(dt);
-		//processOMP<Lab, OperatorDivergence>(dt, vInfo, *grid);
 		mg.setup(grid, bSplit, rank, nprocs);
 		mg();
 		if (rank==0)
 			if (bSplit)
 				computeSplit<OperatorGradPSplit>(dt);
-		//processOMP<Lab, OperatorGradPSplit>(dt, minRho, step, vInfo, *grid);
 			else
 				compute<OperatorGradP>(dt);
-		//processOMP<Lab, OperatorGradP>(dt, vInfo, *grid);
 #endif // _MULTIGRID_
 		
 #ifdef _MULTIGRID_
 		if (rank==0)
 #endif // _MULTIGRID_
 			updatePressure();
+	}
+	
+	string getName()
+	{
+		return "Pressure";
+	}
+};
+
+template <typename Lab>
+class CoordinatorPressureSimple : public GenericCoordinator
+{
+protected:
+#ifdef _SP_COMP_
+	PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver;
+#endif // _SP_COMP_
+	
+	template <typename Operator>
+	void compute(const double dt)
+	{
+		BlockInfo * ary = &vInfo.front();
+		const int N = vInfo.size();
+		
+#pragma omp parallel
+		{
+			Operator kernel(dt);
+			
+			Lab mylab;
+			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
+			
+#pragma omp for schedule(static)
+			for (int i=0; i<N; i++)
+			{
+				mylab.load(ary[i], 0);
+				
+				kernel(mylab, ary[i], *(FluidBlock*)ary[i].ptrBlock);
+			}
+		}
+	}
+	
+public:
+	CoordinatorPressureSimple(FluidGrid * grid) : GenericCoordinator(grid)
+#ifdef _SP_COMP_
+	, pressureSolver(NTHREADS)
+#endif // _SP_COMP_
+	{
+	}
+	
+	void operator()(const double dt)
+	{
+		compute<OperatorDivergence>(dt);
+#ifdef _SP_COMP_
+		pressureSolver.solve(*grid,true);
+#else // _SP_COMP_
+		cout << "FFTW double precision not supported - aborting now!\n";
+		abort();
+#endif // _SP_COMP_
+		compute<OperatorGradP>(dt);
 	}
 	
 	string getName()

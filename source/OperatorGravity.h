@@ -29,10 +29,9 @@ private:
 	
 	const double dt;
 	const Real g[2];
-	const Real hydrostaticFactor;
 	
 public:
-	OperatorGravity(Real g[2], double dt, Real hydrostaticFactor) : dt(dt), hydrostaticFactor(hydrostaticFactor), g{g[0],g[1]} {}
+	OperatorGravity(Real g[2], double dt) : dt(dt), g{g[0],g[1]} {}
 	~OperatorGravity() {}
 	
 	void operator()(const BlockInfo& info, FluidBlock& block) const

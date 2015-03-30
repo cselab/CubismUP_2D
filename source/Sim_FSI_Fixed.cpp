@@ -9,13 +9,8 @@
 #include "Sim_FSI_Fixed.h"
 
 #include "ProcessOperatorsOMP.h"
-//#include "OperatorIC.h"
-//#include "OperatorAdvection.h"
-//#include "OperatorDiffusion.h"
-//#include "OperatorPenalization.h"
 #include "OperatorDivergence.h"
 #include "OperatorVorticity.h"
-#include "PoissonSolverScalarFFTW.h"
 #include "OperatorGradP.h"
 #include "OperatorComputeShape.h"
 
@@ -23,6 +18,7 @@
 #include "CoordinatorAdvection.h"
 #include "CoordinatorDiffusion.h"
 #include "CoordinatorPenalization.h"
+#include "CoordinatorPressure.h"
 
 
 void Sim_FSI_Fixed::_diagnostics()
@@ -65,18 +61,14 @@ void Sim_FSI_Fixed::_diagnostics()
 
 void Sim_FSI_Fixed::_ic()
 {
-	Timer timerIC;
-	
-	timerIC.start();
 	CoordinatorIC coordIC(shape,uinf,grid);
+	profiler.push_start(coordIC.getName());
 	coordIC(0);
 	
 	stringstream ss;
 	ss << path2file << "-IC.vti";
 	dumper.Write(*grid, ss.str());
-	double timeIC = timerIC.stop();
-	
-	cout << "Time IC:\t" << timeIC << endl;
+	profiler.pop_stop();
 }
 
 double Sim_FSI_Fixed::_nonDimensionalTime()
@@ -111,7 +103,12 @@ Sim_FSI_Fixed::Sim_FSI_Fixed(const int argc, const char ** argv) : Simulation_FS
 	pipeline.clear();
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
+	pipeline.push_back(new CoordinatorPressureSimple<Lab>(grid));
 	pipeline.push_back(new CoordinatorPenalizationFixed(shape, lambda, grid));
+	
+	cout << "Coordinator/Operator ordering:\n";
+	for (int c=0; c<pipeline.size(); c++)
+		cout << "\t" << pipeline[c]->getName() << endl;
 }
 
 Sim_FSI_Fixed::~Sim_FSI_Fixed()
@@ -124,22 +121,6 @@ void Sim_FSI_Fixed::simulate()
 	const int sizeX = bpdx * FluidBlock::sizeX;
 	const int sizeY = bpdy * FluidBlock::sizeY;
 	
-	Timer timer;
-	double timeDT = 0;
-	double timeAdvection = 0;
-	double timeDiffusion = 0;
-	double timePressure = 0;
-	double timePenalization = 0;
-	double timeDiagnostics = 0;
-	double timeDump = 0;
-	
-#ifdef _SP_COMP_
-	PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
-#else // _SP_COMP_
-	cout << "FFTW double precision not supported - aborting now!\n";
-	abort();
-#endif // _SP_COMP_
-	
 	time = 0;
 	double nextDumpTime = 0;
 	double maxU = uinf;
@@ -147,8 +128,8 @@ void Sim_FSI_Fixed::simulate()
 	{
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
 		
-        // choose dt (CFL, Fourier)
-		timer.start();
+		// choose dt (CFL, Fourier)
+		profiler.push_start("DT");
 		maxU = findMaxUOMP(vInfo,*grid);
 		dtFourier = .1*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;
 		dtCFL     = .1*vInfo[0].h_gridpoint/abs(maxU);
@@ -159,45 +140,14 @@ void Sim_FSI_Fixed::simulate()
 			dt = min(dt,endTime);
 		if (verbose)
 			cout << "dt (Fourier, CFL): " << dtFourier << " " << dtCFL << endl;
-		timeDT += timer.stop();
-        
-        // the operators could be put into a vector pipeline
+		profiler.pop_stop();
 		
-		// advection
-		timer.start();
-		//resetOMP(vInfo, *grid);
-		//processOMP< Lab,OperatorAdvection<Mp4> >(dt,vInfo,*grid);
-		//updateOMP(vInfo, *grid);
-		(*pipeline[0])(dt);
-		timeAdvection += timer.stop();
-		
-		// diffusion
-		timer.start();
-		//resetOMP(vInfo, *grid);
-		//processOMP<Lab,OperatorDiffusion>(dt,nu,vInfo,*grid);
-		//updateOMP(vInfo, *grid);
-		(*pipeline[1])(dt);
-		timeDiffusion += timer.stop();
-		
-		// pressure
-		timer.start();
-		processOMP<Lab, OperatorDivergence>(dt, vInfo, *grid);
-#ifdef _SP_COMP_
-		pressureSolver.solve(*grid,true);
-#else // _SP_COMP_
-		cout << "FFTW double precision not supported - aborting now!\n";
-		abort();
-#endif // _SP_COMP_
-		processOMP<Lab, OperatorGradP>(dt, vInfo, *grid);
-		timePressure += timer.stop();
-		 
-		// penalization
-		timer.start();
-		//Real centerOfMass[2] = {0,0};
-		//shape->getPosition(centerOfMass);
-		//processOMP<OperatorPenalization>(dt,0,0,0,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
-		(*pipeline[2])(dt);
-		timePenalization += timer.stop();
+		for (int c=0; c<pipeline.size(); c++)
+		{
+			profiler.push_start(pipeline[c]->getName());
+			(*pipeline[c])(dt);
+			profiler.pop_stop();
+		}
 		
 		time += dt;
 		step++;
@@ -206,37 +156,27 @@ void Sim_FSI_Fixed::simulate()
 		// compute diagnostics
 		if (step % 10 == 0)
 		{
-			timer.start();
+			profiler.push_start("Diagnostics");
 			_diagnostics();
-			timeDiagnostics += timer.stop();
+			profiler.pop_stop();
 		}
 		
 		//dump some time steps every now and then
-		timer.start();
+		profiler.push_start("Dump");
 		_dump(nextDumpTime);
-		timeDump += timer.stop();
+		profiler.pop_stop();
 		
 			
 		if (step % 1000 == 0)
-		{
-			double totalTime = timeDT + timeAdvection + timeDiffusion + timePressure + timePenalization + timeDiagnostics + timeDump;
-			cout << "=== Timing Report ===\n";
-			cout << "\tDT\t\t" << setprecision(3) << timeDT << "s ( " << setprecision(2) << 100.*timeDT/totalTime << " % )\n";
-			cout << "\tAdvection\t" << setprecision(3) << timeAdvection << "s ( " << setprecision(2) << 100.*timeAdvection/totalTime << " % )\n";
-			cout << "\tDiffusion\t" << setprecision(3) << timeDiffusion << "s ( " << setprecision(2) << 100.*timeDiffusion/totalTime << " % )\n";
-			cout << "\tPressure\t" << setprecision(3) << timePressure << "s ( " << setprecision(2) << 100.*timePressure/totalTime << " % )\n";
-			cout << "\tPenalization\t" << setprecision(3) << timePenalization << "s ( " << setprecision(2) << 100.*timePenalization/totalTime << " % )\n";
-			cout << "\tDiagnostics\t" << setprecision(3) << timeDiagnostics << "s ( " << setprecision(2) << 100.*timeDiagnostics/totalTime << " % )\n";
-			cout << "\tDump\t\t" << setprecision(3) << timeDump << "s ( " << setprecision(2) << 100.*timeDump/totalTime << " % )\n";
-        }
+			profiler.printSummary();
 		
 		// check nondimensional time
 		if ((endTime>0 && abs(_nonDimensionalTime()-endTime) < 10*std::numeric_limits<Real>::epsilon()) || (nsteps!=0 && step>=nsteps))
 		{
 			if (verbose)
 				cout << "Finished at time " << _nonDimensionalTime() << " (target end time " << endTime << ") in " << step << " step of " << nsteps << endl;
-				
-			timer.start();
+			
+			profiler.push_start("Dump");
 			stringstream ss;
 			ss << path2file << "-Final.vti";
 			cout << ss.str() << endl;
@@ -248,19 +188,9 @@ void Sim_FSI_Fixed::simulate()
 			stringstream sVort;
 			sVort << path2file << "Vorticity-Final.vti";
 			dumpLayer2VTK(step,sVort.str(),vorticity,1);
-			timeDump += timer.stop();
+			profiler.pop_stop();
 			
-			
-			
-			double totalTime = timeDT + timeAdvection + timeDiffusion + timePressure + timePenalization + timeDiagnostics + timeDump;
-			cout << "=== Final Timing Report ===\n";
-			cout << "\tDT\t\t" << setprecision(3) << timeDT << "s ( " << setprecision(2) << 100.*timeDT/totalTime << " % )\n";
-			cout << "\tAdvection\t" << setprecision(3) << timeAdvection << "s ( " << setprecision(2) << 100.*timeAdvection/totalTime << " % )\n";
-			cout << "\tDiffusion\t" << setprecision(3) << timeDiffusion << "s ( " << setprecision(2) << 100.*timeDiffusion/totalTime << " % )\n";
-			cout << "\tPressure\t" << setprecision(3) << timePressure << "s ( " << setprecision(2) << 100.*timePressure/totalTime << " % )\n";
-			cout << "\tPenalization\t" << setprecision(3) << timePenalization << "s ( " << setprecision(2) << 100.*timePenalization/totalTime << " % )\n";
-			cout << "\tDiagnostics\t" << setprecision(3) << timeDiagnostics << "s ( " << setprecision(2) << 100.*timeDiagnostics/totalTime << " % )\n";
-			cout << "\tDump\t\t" << setprecision(3) << timeDump << "s ( " << setprecision(2) << 100.*timeDump/totalTime << " % )\n";
+			profiler.printSummary();
 			
 			exit(0);
 		}

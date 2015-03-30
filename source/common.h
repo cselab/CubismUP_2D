@@ -32,6 +32,7 @@ typedef float Real;
 #ifdef _MULTIGRID_
 #include <mpi.h>
 #endif // _MULTIGRID_
+#include <Profiler.h>
 
 #include "Timer.h"
 
