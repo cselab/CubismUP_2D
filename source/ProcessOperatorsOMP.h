@@ -14,7 +14,7 @@
 
 // IC
 template<typename Kernel>
-void processOMP(Shape * shape, Real uinf, vector<BlockInfo>& myInfo, FluidGrid & grid)
+void processOMP(Shape * shape, const double uinf, vector<BlockInfo>& myInfo, FluidGrid & grid)
 {
 	BlockInfo * ary = &myInfo.front();
 	const int N = myInfo.size();

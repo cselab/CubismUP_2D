@@ -9,60 +9,24 @@
 #include "Sim_FSI_Gravity.h"
 
 #include "ProcessOperatorsOMP.h"
-#include "OperatorIC.h"
-#include "OperatorAdvection.h"
-#include "OperatorDiffusion.h"
-#include "OperatorPenalization.h"
-#include "OperatorDivergence.h"
+//#include "OperatorIC.h"
+//#include "OperatorAdvection.h"
+//#include "OperatorDiffusion.h"
+//#include "OperatorPenalization.h"
+//#include "OperatorDivergence.h"
 #include "OperatorVorticity.h"
-#include "Operators_DFT.h"
-#include "PoissonSolverScalarFFTW.h"
-#include "OperatorGradP.h"
-#include "OperatorComputeShape.h"
+//#include "PoissonSolverScalarFFTW.h"
+//#include "OperatorGradP.h"
+//#include "OperatorComputeShape.h"
 #include "OperatorGravity.h"
-#include "OperatorSplitP.h"
+//#include "OperatorSplitP.h"
 
-void Sim_FSI_Gravity::_solvePressure()
-{
-	// need an interface that is the same for all solvers - this way the defines can be removed more cleanly
-#ifdef _MULTIGRID_
-	MPI_Barrier(MPI_COMM_WORLD);
-#endif // _MULTIGRID_
-	
-	vector<BlockInfo> vInfo = grid->getBlocksInfo();
-	
-	// pressure
-#ifdef _SPLIT_
-#ifdef _SP_COMP_
-	PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
-	processOMP<Lab, OperatorDivergenceSplit>(dt, minRho, step, vInfo, *grid);
-	pressureSolver.solve(*grid,false);
-	processOMP<Lab, OperatorGradPSplit>(dt, minRho, step, vInfo, *grid);
-#else // _SP_COMP_
-	cout << "FFTW double precision not supported - aborting now!\n";
-	abort();
-#endif // _SP_COMP_
-#endif // _SPLIT_
-#ifdef _MULTIGRID_
-	if (rank==0)
-		if (bSplit)
-			processOMP<Lab, OperatorDivergenceSplit>(dt, minRho, step, vInfo, *grid);
-		else
-			processOMP<Lab, OperatorDivergence>(dt, vInfo, *grid);
-	mg.setup(grid, bSplit, rank, nprocs);
-	mg();
-	if (rank==0)
-		if (bSplit)
-			processOMP<Lab, OperatorGradPSplit>(dt, minRho, step, vInfo, *grid);
-		else
-			processOMP<Lab, OperatorGradP>(dt, vInfo, *grid);
-#endif // _MULTIGRID_
-	
-#ifdef _MULTIGRID_
-	if (rank==0)
-#endif // _MULTIGRID_
-		updatePressuresOMP(vInfo, *grid);
-}
+#include "CoordinatorIC.h"
+#include "CoordinatorAdvection.h"
+#include "CoordinatorDiffusion.h"
+#include "CoordinatorPenalization.h"
+#include "CoordinatorComputeShape.h"
+#include "CoordinatorPressure.h"
 
 void Sim_FSI_Gravity::_dumpDivergence(const int step, const Real rho0, const Real dt)
 {
@@ -191,8 +155,8 @@ void Sim_FSI_Gravity::_ic()
 		
 		// setup initial conditions
 		timerIC.start();
-		vector<BlockInfo> vInfo = grid->getBlocksInfo();
-		processOMP<OperatorIC>(shape, 0, vInfo, *grid);
+		CoordinatorIC coordIC(shape,0,grid);
+		coordIC(0);
 		
 		stringstream ss;
 		ss << path2file << "-IC.vti";
@@ -251,6 +215,17 @@ Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulatio
 	
 	_ic();
 	
+	pipeline.clear();
+	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
+	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
+	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid));
+	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
+#ifdef _MULTIGRID_
+	pipeline.push_back(new CoordinatorPressure<Lab>(rank, nprocs, minRho, &step, bSplit, grid));
+#else // _MULTIGRID_
+	pipeline.push_back(new CoordinatorPressure<Lab>(0, 1, minRho, &step, bSplit, grid));
+#endif // _MULTIGRID_
+	
 #ifdef _MULTIGRID_
 	MPI_Barrier(MPI_COMM_WORLD);
 #endif // _MULTIGRID_
@@ -302,14 +277,12 @@ void Sim_FSI_Gravity::simulate()
 			dtBody    = max(abs(uBody[0]),abs(uBody[1]))==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/max(abs(uBody[0]),abs(uBody[1]));
 			dt = min(min(dtCFL,dtFourier),dtBody);
 			if (dumpTime>0)
-				dt = min(dt,nextDumpTime-time);
+				dt = min(dt,nextDumpTime-_nonDimensionalTime());
 			if (endTime>0)
 				dt = min(dt,endTime);
 			if (verbose)
 				cout << "dt (Fourier, CFL, body): " << dt << " " << dtFourier << " " << dtCFL << " " << dtBody << endl;
 			timeDT += timer.stop();
-			
-			//lambda = 1./dt;
 			
 			// gravity
 			timer.start();
@@ -319,7 +292,8 @@ void Sim_FSI_Gravity::simulate()
 			// pressure
 			timer.start();
 		}
-		_solvePressure();
+		(*pipeline[4])(dt);
+		//_solvePressure();
 #ifdef _MULTIGRID_
 		if (rank==0)
 #endif // _MULTIGRID_
@@ -330,16 +304,18 @@ void Sim_FSI_Gravity::simulate()
 			
 			// advection
 			timer.start();
-			resetOMP(vInfo, *grid);
-			processOMP< Lab,OperatorAdvection<Mp4> >(dt,vInfo,*grid);
-			updateOMP(vInfo, *grid);
+			//resetOMP(vInfo, *grid);
+			(*pipeline[0])(dt);
+			//processOMP< Lab,OperatorAdvection<Mp4> >(dt,vInfo,*grid);
+			//updateOMP(vInfo, *grid);
 			timeAdvection += timer.stop();
 			
 			// diffusion
 			timer.start();
-			resetOMP(vInfo, *grid);
-			processOMP<Lab,OperatorDiffusion>(dt,nu,vInfo,*grid);
-			updateOMP(vInfo, *grid);
+			//resetOMP(vInfo, *grid);
+			(*pipeline[1])(dt);
+			//processOMP<Lab,OperatorDiffusion>(dt,nu,vInfo,*grid);
+			//updateOMP(vInfo, *grid);
 			timeDiffusion += timer.stop();
 			
 			if (step>50)
@@ -347,16 +323,18 @@ void Sim_FSI_Gravity::simulate()
 				timer.start();
 				vOld = uBody[1];
 				computeBodyVelocity(vInfo, *grid, uBody, omegaBody, shape->getRhoS(), gravity, dt, lambda);
-				shape->updatePosition(uBody, omegaBody, dt);
-				processOMP<OperatorComputeShape>(shape, vInfo, *grid);
+				(*pipeline[3])(dt);
+				//shape->updatePosition(uBody, omegaBody, dt);
+				//processOMP<OperatorComputeShape>(shape, vInfo, *grid);
 				timeUB += timer.stop();
 			}
 			
 			// penalization
 			timer.start();
-			Real centerOfMass[2] = {0,0};
-			shape->getPosition(centerOfMass);
-			processOMP<OperatorPenalization>(dt,uBody[0],uBody[1],omegaBody,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
+			//Real centerOfMass[2] = {0,0};
+			//shape->getPosition(centerOfMass);
+			(*pipeline[2])(dt);
+			//processOMP<OperatorPenalization>(dt,uBody[0],uBody[1],omegaBody,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
 			timePenalization += timer.stop();
 			
 			time += dt;

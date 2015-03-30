@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include "Test.h"
-#include "OperatorDiffusion.h"
+//#include "OperatorDiffusion.h"
 
 class TestDiffusion : public Test
 {

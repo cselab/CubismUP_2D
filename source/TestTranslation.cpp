@@ -8,8 +8,9 @@
 
 #include "TestTranslation.h"
 #include "ProcessOperatorsOMP.h"
-#include "OperatorComputeShape.h"
+//#include "OperatorComputeShape.h"
 #include "OperatorVorticity.h"
+#include "CoordinatorComputeShape.h"
 #include <sstream>
 
 void TestTranslation::_ic()
@@ -70,12 +71,13 @@ void TestTranslation::run()
 	const int sizeX = bpd * FluidBlock::sizeX;
 	const int sizeY = bpd * FluidBlock::sizeY;
 	
+	Real u[2] = {0,0};
+	Real omega = 0;
+	CoordinatorComputeShape coordComputeShape(&u[0], &u[1], &omega, shape, grid);
+	
 	for (int step=0; step<50; step++)
 	{
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
-		
-		Real u[2] = {0,0};
-		Real omega = 0;
 		const Real dt = 1e-2;
 		
 		if (testCase==0)
@@ -93,8 +95,9 @@ void TestTranslation::run()
 		else
 			abort();
 		
-		shape->updatePosition(u,omega,dt);
-		processOMP<OperatorComputeShape>(shape, vInfo, *grid);
+		//shape->updatePosition(u,omega,dt);
+		//processOMP<OperatorComputeShape>(shape, vInfo, *grid);
+		coordComputeShape(dt);
 		
 		// dump
 		if (step%10==0)

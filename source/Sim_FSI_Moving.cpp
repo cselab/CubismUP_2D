@@ -9,16 +9,21 @@
 #include "Sim_FSI_Moving.h"
 
 #include "ProcessOperatorsOMP.h"
-#include "OperatorIC.h"
-#include "OperatorAdvection.h"
-#include "OperatorDiffusion.h"
-#include "OperatorPenalization.h"
+//#include "OperatorIC.h"
+//#include "OperatorAdvection.h"
+//#include "OperatorDiffusion.h"
+//#include "OperatorPenalization.h"
 #include "OperatorDivergence.h"
 #include "OperatorVorticity.h"
-#include "Operators_DFT.h"
 #include "PoissonSolverScalarFFTW.h"
 #include "OperatorGradP.h"
-#include "OperatorComputeShape.h"
+//#include "OperatorComputeShape.h"
+
+#include "CoordinatorIC.h"
+#include "CoordinatorAdvection.h"
+#include "CoordinatorDiffusion.h"
+#include "CoordinatorPenalization.h"
+#include "CoordinatorComputeShape.h"
 
 void Sim_FSI_Moving::_diagnostics()
 {
@@ -54,7 +59,7 @@ void Sim_FSI_Moving::_diagnostics()
 	ss << path2file << "_diagnostics.dat";
 	ofstream myfile(ss.str(), fstream::app);
 	if (verbose)
-		cout << step << " " << time << " " << bpdx << " " << dt << " " << dtCFL << " " << dtFourier << " " << drag << " " << lambda << endl;
+		cout << step << " " << _nonDimensionalTime() << " " << bpdx << " " << dt << " " << dtCFL << " " << dtFourier << " " << drag << " " << lambda << endl;
 	myfile << step << " " << _nonDimensionalTime() << " " << bpdx << " " << dt << " " << dtCFL << " " << dtFourier << " " << cD << " " << lambda << endl;
 }
 
@@ -63,8 +68,8 @@ void Sim_FSI_Moving::_ic()
 	Timer timerIC;
 	
 	timerIC.start();
-	vector<BlockInfo> vInfo = grid->getBlocksInfo();
-	processOMP<OperatorIC>(shape, 0, vInfo, *grid);
+	CoordinatorIC coordIC(shape,0,grid);
+	coordIC(0);
 	
 	stringstream ss;
 	ss << path2file << "-IC.vti";
@@ -79,7 +84,7 @@ double Sim_FSI_Moving::_nonDimensionalTime()
 	return time*abs(uBody[0])/shape->getCharLength();
 }
 
-Sim_FSI_Moving::Sim_FSI_Moving(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uBody{0,0}, re(0), nu(0), dtBody(0), dtCFL(0), dtFourier(0)
+Sim_FSI_Moving::Sim_FSI_Moving(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uBody{0,0}, omegaBody(0), re(0), nu(0), dtBody(0), dtCFL(0), dtFourier(0)
 {
 	int rank = 0;
 #ifdef _MULTIGRID_
@@ -102,6 +107,12 @@ Sim_FSI_Moving::Sim_FSI_Moving(const int argc, const char ** argv) : Simulation_
 	nu = shape->getCharLength()*abs(uBody[0])/re;
 	
 	_ic();
+	
+	pipeline.clear();
+	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
+	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
+	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid));
+	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
 	
 	assert(uBody[1] == 0);
 }
@@ -147,7 +158,7 @@ void Sim_FSI_Moving::simulate()
 		dtBody    = .1*vInfo[0].h_gridpoint/abs(uBody[0]);
 		dt = min(min(dtCFL,dtFourier),dtBody);
 		if (dumpTime>0)
-			dt = min(dt,nextDumpTime-time);
+			dt = min(dt,nextDumpTime-_nonDimensionalTime());
 		if (endTime>0)
 			dt = min(dt,endTime);
 		if (verbose)
@@ -158,16 +169,18 @@ void Sim_FSI_Moving::simulate()
 		
 		// advection
 		timer.start();
-		resetOMP(vInfo, *grid);
-		processOMP< Lab,OperatorAdvection<Mp4> >(dt,vInfo,*grid);
-		updateOMP(vInfo, *grid);
+		//resetOMP(vInfo, *grid);
+		//processOMP< Lab,OperatorAdvection<Mp4> >(dt,vInfo,*grid);
+		//updateOMP(vInfo, *grid);
+		(*pipeline[0])(dt);
 		timeAdvection += timer.stop();
 		
 		// diffusion
 		timer.start();
-		resetOMP(vInfo, *grid);
-		processOMP<Lab,OperatorDiffusion>(dt,nu,vInfo,*grid);
-		updateOMP(vInfo, *grid);
+		//resetOMP(vInfo, *grid);
+		//processOMP<Lab,OperatorDiffusion>(dt,nu,vInfo,*grid);
+		//updateOMP(vInfo, *grid);
+		(*pipeline[1])(dt);
 		timeDiffusion += timer.stop();
 		
 		// pressure
@@ -184,17 +197,17 @@ void Sim_FSI_Moving::simulate()
 		
 		// penalization
 		timer.start();
-		const Real omega = 0;
-		Real g[2] = {0,0};
-		Real centerOfMass[2] = {0,0};
-		shape->getPosition(centerOfMass);
-		processOMP<OperatorPenalization>(dt,uBody[0],uBody[1],omega,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
+		//Real centerOfMass[2] = {0,0};
+		//shape->getPosition(centerOfMass);
+		//processOMP<OperatorPenalization>(dt,uBody[0],uBody[1],omegaBody,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
+		(*pipeline[2])(dt);
 		timePenalization += timer.stop();
 		
 		// body
 		timer.start();
-		shape->updatePosition(uBody, omega, dt);
-		processOMP<OperatorComputeShape>(shape, vInfo, *grid);
+		//shape->updatePosition(uBody, omega, dt);
+		//processOMP<OperatorComputeShape>(shape, vInfo, *grid);
+		(*pipeline[3])(dt);
 		timeUB += timer.stop();
 		
 		time += dt;

@@ -7,10 +7,13 @@
 //
 
 #include "TestPenalization.h"
-#include "ProcessOperatorsOMP.h"
-#include "OperatorIC.h"
+//#include "ProcessOperatorsOMP.h"
+//#include "OperatorIC.h"
 #include <sstream>
 #include <cmath>
+
+#include "CoordinatorIC.h"
+#include "CoordinatorPenalization.h"
 
 void TestPenalization::_ic()
 {
@@ -19,7 +22,9 @@ void TestPenalization::_ic()
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	bool bPeriodic[2] = {false,false};
 	shape = new Disk(center, radius, (Real).1, (Real)2, (Real)2, bPeriodic);
-	processOMP<OperatorIC>(shape, 1., vInfo, *grid);
+	
+	CoordinatorIC coordIC(shape,1.,grid);
+	coordIC(0);
 }
 
 TestPenalization::TestPenalization(const int argc, const char ** argv, const int bpd) : Test(argc, argv), bpd(bpd), lambda(1e4), uBody{0,0.5}
@@ -44,13 +49,15 @@ void TestPenalization::run()
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
 	const double dt = 1e-4;
-	Real omega = 0;
+	Real omegaBody = 0;
+	CoordinatorPenalization coordPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid);
 	
 	for (int i=0; i<10; i++)
 	{
-		Real centerOfMass[2] = {0,0};
-		shape->getPosition(centerOfMass);
-		processOMP<OperatorPenalization>(dt,uBody[0],uBody[1],omega,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
+		//Real centerOfMass[2] = {0,0};
+		//shape->getPosition(centerOfMass);
+		//processOMP<OperatorPenalization>(dt,uBody[0],uBody[1],omegaBody,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
+		coordPenalization(dt);
 	
 		stringstream ss;
 		ss << path2file << "-bpd" << bpd << "-step" << i << ".vti";

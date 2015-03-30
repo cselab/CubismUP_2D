@@ -15,7 +15,6 @@
 		DD58CAD81A5EF49D00291455 /* TestAdvection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CAD61A5EF49D00291455 /* TestAdvection.cpp */; };
 		DD58CADB1A60148E00291455 /* ProcessOperatorsOMP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CADA1A60148E00291455 /* ProcessOperatorsOMP.cpp */; };
 		DD58CAE91A60320400291455 /* TestPressure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CAE71A60320400291455 /* TestPressure.cpp */; };
-		DD58CAEB1A6037FF00291455 /* Operators_DFT_FFTW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CAEA1A6037FF00291455 /* Operators_DFT_FFTW.cpp */; };
 		DD64F6D61A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD64F6D31A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp */; };
 		DD66B5DE1A7649B6003FE36B /* Sim_FSI_Moving.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD66B5DC1A7649B6003FE36B /* Sim_FSI_Moving.cpp */; };
 		DD66B5E21A764CEC003FE36B /* Sim_FSI_Gravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD66B5E01A764CEC003FE36B /* Sim_FSI_Gravity.cpp */; };
@@ -70,12 +69,10 @@
 		DD58CAC01A5E8A7000291455 /* SynchronizerMPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynchronizerMPI.h; sourceTree = "<group>"; };
 		DD58CAC11A5E8A7000291455 /* GridMPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridMPI.h; sourceTree = "<group>"; };
 		DD58CAC21A5E8A7000291455 /* SerializerIO_VP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SerializerIO_VP.h; sourceTree = "<group>"; };
-		DD58CAC31A5E8A7000291455 /* BlockProcessingMPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockProcessingMPI.h; sourceTree = "<group>"; };
 		DD58CAC41A5E8A7000291455 /* StencilInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StencilInfo.h; sourceTree = "<group>"; };
 		DD58CAC51A5E8A7000291455 /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
 		DD58CAC61A5E8A7000291455 /* Matrix3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix3D.h; sourceTree = "<group>"; };
 		DD58CAC71A5E8A7000291455 /* Profiler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Profiler.h; sourceTree = "<group>"; };
-		DD58CAC91A5E8A7000291455 /* BlockProcessing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockProcessing.h; sourceTree = "<group>"; };
 		DD58CACA1A5E8A7000291455 /* Indexers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Indexers.h; sourceTree = "<group>"; };
 		DD58CACB1A5E8A7000291455 /* PUPkernelsMPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PUPkernelsMPI.h; sourceTree = "<group>"; };
 		DD58CACC1A5E8A7000291455 /* BlockLab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockLab.h; sourceTree = "<group>"; };
@@ -90,13 +87,9 @@
 		DD58CADA1A60148E00291455 /* ProcessOperatorsOMP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProcessOperatorsOMP.cpp; sourceTree = "<group>"; };
 		DD58CAE31A60299800291455 /* Layer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
 		DD58CAE41A60299800291455 /* Matrix2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix2D.h; sourceTree = "<group>"; };
-		DD58CAE51A60299800291455 /* Operators_DFT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Operators_DFT.h; sourceTree = "<group>"; };
 		DD58CAE61A602C1700291455 /* OperatorDivergence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorDivergence.h; sourceTree = "<group>"; };
 		DD58CAE71A60320400291455 /* TestPressure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPressure.cpp; sourceTree = "<group>"; };
 		DD58CAE81A60320400291455 /* TestPressure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPressure.h; sourceTree = "<group>"; };
-		DD58CAEA1A6037FF00291455 /* Operators_DFT_FFTW.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Operators_DFT_FFTW.cpp; sourceTree = "<group>"; };
-		DD58CAEC1A60385F00291455 /* InterfaceFFTW.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceFFTW.h; sourceTree = "<group>"; };
-		DD58CAED1A614B0700291455 /* OperatorCut.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorCut.h; sourceTree = "<group>"; };
 		DD58CAEE1A614B6D00291455 /* LayerToVTK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerToVTK.h; sourceTree = "<group>"; };
 		DD64F6D01A63C16400D17B72 /* Timer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
 		DD64F6D21A64157D00D17B72 /* OperatorVorticity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorVorticity.h; sourceTree = "<group>"; };
@@ -118,11 +111,18 @@
 		DD838C411ABAD1F200018A75 /* launchValidationDrag.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = launchValidationDrag.sh; sourceTree = "<group>"; };
 		DD9DC1441AB2F6B0009BFBEE /* Fields.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Fields.sh; sourceTree = "<group>"; };
 		DD9DC1461AB2F6B6009BFBEE /* Namkoong.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Namkoong.sh; sourceTree = "<group>"; };
+		DDA9C81C1AC5C07D008D69E4 /* GenericCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenericCoordinator.h; sourceTree = "<group>"; };
+		DDA9C81D1AC5C1D1008D69E4 /* CoordinatorIC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorIC.h; sourceTree = "<group>"; };
+		DDA9C81E1AC5C807008D69E4 /* CoordinatorAdvection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorAdvection.h; sourceTree = "<group>"; };
+		DDA9C81F1AC5C9C6008D69E4 /* CoordinatorDiffusion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorDiffusion.h; sourceTree = "<group>"; };
+		DDA9C8201AC5CA51008D69E4 /* CoordinatorPenalization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorPenalization.h; sourceTree = "<group>"; };
 		DDAD48CD1AA9C62400A2C354 /* Test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
 		DDAD48CF1AA9EBCD00A2C354 /* InterpolationKernels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterpolationKernels.h; sourceTree = "<group>"; };
 		DDAD48D01AA9ECA600A2C354 /* GenericOperator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenericOperator.h; sourceTree = "<group>"; };
 		DDBBA0051A7292670041496C /* TestVarCoeffPoisson.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestVarCoeffPoisson.cpp; sourceTree = "<group>"; };
 		DDBBA0061A7292670041496C /* TestVarCoeffPoisson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestVarCoeffPoisson.h; sourceTree = "<group>"; };
+		DDBFCB871AC92C640031708C /* CoordinatorComputeShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorComputeShape.h; sourceTree = "<group>"; };
+		DDBFCB881AC937670031708C /* CoordinatorPressure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorPressure.h; sourceTree = "<group>"; };
 		DDC1D09E1AC2CB9D00BC2E88 /* Simulation_Fluid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Simulation_Fluid.h; sourceTree = "<group>"; };
 		DDC1D09F1AC2D0B600BC2E88 /* Simulation_FSI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Simulation_FSI.h; sourceTree = "<group>"; };
 		DDD30B801AA99056008F9EE1 /* Shape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shape.h; sourceTree = "<group>"; };
@@ -150,6 +150,7 @@
 				DD64F6D01A63C16400D17B72 /* Timer.h */,
 				DD58CAB11A5E7BB400291455 /* Simulations */,
 				DD58CAD21A5ECB1C00291455 /* TestingUnits */,
+				DDA9C81B1AC5C031008D69E4 /* Coordinators */,
 				DD58CAB01A5E7BA500291455 /* Operators */,
 				DDD30B7E1AA9901D008F9EE1 /* Shapes */,
 			);
@@ -182,22 +183,20 @@
 			isa = PBXGroup;
 			children = (
 				DD64F6D71A67D6CE00D17B72 /* PoissonSolverCubism */,
+				DD58CADD1A6022D800291455 /* Layer */,
 				DDAD48D01AA9ECA600A2C354 /* GenericOperator.h */,
-				DD58CACE1A5EBDFF00291455 /* ProcessOperatorsOMP.h */,
-				DD58CADA1A60148E00291455 /* ProcessOperatorsOMP.cpp */,
 				DD58CAAB1A5DA52D00291455 /* OperatorIC.h */,
-				DD0C48C11A710A2B00CC0C89 /* OperatorComputeShape.h */,
-				DDAD48CF1AA9EBCD00A2C354 /* InterpolationKernels.h */,
 				DD58CAA51A5DA20200291455 /* OperatorAdvection.h */,
 				DD58CAA81A5DA2ED00291455 /* OperatorDiffusion.h */,
 				DD58CAA91A5DA2FF00291455 /* OperatorPenalization.h */,
+				DD0C48C11A710A2B00CC0C89 /* OperatorComputeShape.h */,
 				DD58CAE61A602C1700291455 /* OperatorDivergence.h */,
 				DD64F6D21A64157D00D17B72 /* OperatorVorticity.h */,
 				DD64F6DA1A68299500D17B72 /* OperatorGradP.h */,
 				DD0C48C21A712FA500CC0C89 /* OperatorGravity.h */,
 				DDDA9F371A78D69E0042FA80 /* OperatorSplitP.h */,
+				DDAD48CF1AA9EBCD00A2C354 /* InterpolationKernels.h */,
 				DD6717F11A7B952700BFDF78 /* MultigridHypre.h */,
-				DD58CADD1A6022D800291455 /* FFTW */,
 			);
 			name = Operators;
 			sourceTree = "<group>";
@@ -234,13 +233,11 @@
 				DD58CAC01A5E8A7000291455 /* SynchronizerMPI.h */,
 				DD58CAC11A5E8A7000291455 /* GridMPI.h */,
 				DD58CAC21A5E8A7000291455 /* SerializerIO_VP.h */,
-				DD58CAC31A5E8A7000291455 /* BlockProcessingMPI.h */,
 				DD58CAC41A5E8A7000291455 /* StencilInfo.h */,
 				DD58CAC51A5E8A7000291455 /* Grid.h */,
 				DD58CAC61A5E8A7000291455 /* Matrix3D.h */,
 				DD58CAC71A5E8A7000291455 /* Profiler.h */,
 				DD58CABB1A5E8A7000291455 /* Profiler.cpp */,
-				DD58CAC91A5E8A7000291455 /* BlockProcessing.h */,
 				DD58CACA1A5E8A7000291455 /* Indexers.h */,
 				DD58CACB1A5E8A7000291455 /* PUPkernelsMPI.h */,
 				DD58CACC1A5E8A7000291455 /* BlockLab.h */,
@@ -274,18 +271,14 @@
 			name = TestingUnits;
 			sourceTree = "<group>";
 		};
-		DD58CADD1A6022D800291455 /* FFTW */ = {
+		DD58CADD1A6022D800291455 /* Layer */ = {
 			isa = PBXGroup;
 			children = (
-				DD58CAED1A614B0700291455 /* OperatorCut.h */,
 				DD58CAE31A60299800291455 /* Layer.h */,
 				DD58CAEE1A614B6D00291455 /* LayerToVTK.h */,
 				DD58CAE41A60299800291455 /* Matrix2D.h */,
-				DD58CAEC1A60385F00291455 /* InterfaceFFTW.h */,
-				DD58CAE51A60299800291455 /* Operators_DFT.h */,
-				DD58CAEA1A6037FF00291455 /* Operators_DFT_FFTW.cpp */,
 			);
-			name = FFTW;
+			name = Layer;
 			sourceTree = "<group>";
 		};
 		DD64F6D71A67D6CE00D17B72 /* PoissonSolverCubism */ = {
@@ -296,6 +289,22 @@
 				DD64F6D51A67D6C800D17B72 /* PoissonSolverVectorFFTW.h */,
 			);
 			name = PoissonSolverCubism;
+			sourceTree = "<group>";
+		};
+		DDA9C81B1AC5C031008D69E4 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				DD58CACE1A5EBDFF00291455 /* ProcessOperatorsOMP.h */,
+				DD58CADA1A60148E00291455 /* ProcessOperatorsOMP.cpp */,
+				DDA9C81C1AC5C07D008D69E4 /* GenericCoordinator.h */,
+				DDA9C81D1AC5C1D1008D69E4 /* CoordinatorIC.h */,
+				DDA9C81E1AC5C807008D69E4 /* CoordinatorAdvection.h */,
+				DDA9C81F1AC5C9C6008D69E4 /* CoordinatorDiffusion.h */,
+				DDA9C8201AC5CA51008D69E4 /* CoordinatorPenalization.h */,
+				DDBFCB871AC92C640031708C /* CoordinatorComputeShape.h */,
+				DDBFCB881AC937670031708C /* CoordinatorPressure.h */,
+			);
+			name = Coordinators;
 			sourceTree = "<group>";
 		};
 		DDD30B7E1AA9901D008F9EE1 /* Shapes */ = {
@@ -387,7 +396,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD58CAEB1A6037FF00291455 /* Operators_DFT_FFTW.cpp in Sources */,
 				DDBBA0071A7292670041496C /* TestVarCoeffPoisson.cpp in Sources */,
 				DD66B5DE1A7649B6003FE36B /* Sim_FSI_Moving.cpp in Sources */,
 				DD66B5E21A764CEC003FE36B /* Sim_FSI_Gravity.cpp in Sources */,

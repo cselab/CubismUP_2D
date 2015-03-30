@@ -14,7 +14,7 @@
 class Sim_FSI_Moving : public Simulation_FSI
 {
 protected:
-	Real uBody[2];
+	Real uBody[2], omegaBody;
 	double dtBody, dtCFL, dtFourier;
 	double re, nu;
 	

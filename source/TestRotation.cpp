@@ -8,8 +8,9 @@
 
 #include "TestRotation.h"
 #include "ProcessOperatorsOMP.h"
-#include "OperatorComputeShape.h"
+//#include "OperatorComputeShape.h"
 #include "OperatorVorticity.h"
+#include "CoordinatorComputeShape.h"
 #include <sstream>
 #include <cmath>
 
@@ -73,14 +74,16 @@ void TestRotation::run()
 	const int sizeX = bpd * FluidBlock::sizeX;
 	const int sizeY = bpd * FluidBlock::sizeY;
 	
+	const Real dt = 1.;
+	
+	Real u[2] = {0,0};
+	Real omega = 0;
+	CoordinatorComputeShape coordComputeShape(&u[0], &u[1], &omega, shape, grid);
+	
 	for (int step=0; step<100; step++)
 	{
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
 		
-		const Real u[2] = {0,0};
-		const Real dt = 1.;
-		
-		Real omega;
 		if (testCase==0)
 			omega = M_PI/50.; // 1 complete turn
 		else if (testCase==1)
@@ -94,8 +97,9 @@ void TestRotation::run()
 		else
 			abort();
 		
-		shape->updatePosition(u,omega,dt);
-		processOMP<OperatorComputeShape>(shape, vInfo, *grid);
+		//shape->updatePosition(u,omega,dt);
+		//processOMP<OperatorComputeShape>(shape, vInfo, *grid);
+		coordComputeShape(dt);
 		
 		// dump
 		if (step%5==0)

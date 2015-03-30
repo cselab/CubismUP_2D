@@ -7,7 +7,8 @@
 //
 
 #include "TestDiffusion.h"
-#include "ProcessOperatorsOMP.h"
+//#include "ProcessOperatorsOMP.h"
+#include "CoordinatorDiffusion.h"
 #include <sstream>
 #include <cmath>
 
@@ -78,13 +79,15 @@ void TestDiffusion::run()
 	//cout << "Using dt " << dt << " (Fourier time step: " << vInfo[0].h_gridpoint*vInfo[0].h_gridpoint*.5/nu << ")\n";
 	
 	const int nsteps = 1;
+	CoordinatorDiffusion<Lab> coordDiffusion(nu, grid);
 	
 	for(int step=0; step<nsteps; ++step)
 	{
-		resetOMP(vInfo, *grid);
+		//resetOMP(vInfo, *grid);
 		//processOMP<Lab,OperatorDiffusionHighOrder>(dt,nu,vInfo,*grid); // this does not work correctly!
-		processOMP<Lab,OperatorDiffusion>(dt,nu,vInfo,*grid);
-		updateOMP(vInfo, *grid);
+		//processOMP<Lab,OperatorDiffusion>(dt,nu,vInfo,*grid);
+		//updateOMP(vInfo, *grid);
+		coordDiffusion(dt);
 		
 		time += dt;
 	}

@@ -160,7 +160,7 @@ void computeBodyVelocity(vector<BlockInfo>& myInfo, FluidGrid & grid, Real ub[2]
 	centerTmpX /= mass;
 	centerTmpY /= mass;
 	
-	/*
+	//*
 #pragma omp parallel for schedule(static) reduction(+:u) reduction(+:v) reduction(+:momOfInertia) reduction(+:angularMomentum)
 	for(int i=0; i<N; i++)
 	{
@@ -186,7 +186,7 @@ void computeBodyVelocity(vector<BlockInfo>& myInfo, FluidGrid & grid, Real ub[2]
 	ub[1] = v / mass;
 	angularU = angularMomentum / momOfInertia;
 	
-	//*/
+	/*/
 #pragma omp parallel for schedule(static) reduction(+:u) reduction(+:v)
 	for(int i=0; i<N; i++)
 	{

@@ -12,6 +12,8 @@
 #include <sstream>
 #include <cmath>
 
+#include "CoordinatorAdvection.h"
+
 /*
  class BS4
  {
@@ -179,12 +181,14 @@ void TestAdvection::run()
 	//*/
 	
 	const int nsteps = 10000;
+	CoordinatorTransport<Lab> coordTransport(grid);
 	
 	for(int step=0; step<nsteps; ++step)
 	{
-		resetRhoOMP(vInfo, *grid);
-		processOMP< Lab,OperatorTransport<Mp4> >(dt,vInfo,*grid);
-		updateRhoOMP(vInfo, *grid);
+		//resetRhoOMP(vInfo, *grid);
+		//processOMP< Lab,OperatorTransport<Mp4> >(dt,vInfo,*grid);
+		//updateRhoOMP(vInfo, *grid);
+		coordTransport(dt);
 		
 		//dump some time steps every now and then
 		if(step % 10 == 0)

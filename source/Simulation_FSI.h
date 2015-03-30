@@ -16,7 +16,6 @@
 
 #include "Simulation_Fluid.h"
 #include "Shape.h"
-#include "Operators_DFT.h"
 
 class Simulation_FSI : public Simulation_Fluid
 {
@@ -30,7 +29,7 @@ protected:
 public:
 	Simulation_FSI(const int argc, const char ** argv) : Simulation_Fluid(argc,argv)
 	{
-		lambda = parser("-lambda").asDouble(1e8);
+		lambda = parser("-lambda").asDouble(1e5);
 		
 		double rhoS = parser("-rhoS").asDouble(1);
 		Real centerOfMass[2] = {0,0};

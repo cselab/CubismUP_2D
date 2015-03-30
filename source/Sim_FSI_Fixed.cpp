@@ -9,16 +9,20 @@
 #include "Sim_FSI_Fixed.h"
 
 #include "ProcessOperatorsOMP.h"
-#include "OperatorIC.h"
-#include "OperatorAdvection.h"
-#include "OperatorDiffusion.h"
-#include "OperatorPenalization.h"
+//#include "OperatorIC.h"
+//#include "OperatorAdvection.h"
+//#include "OperatorDiffusion.h"
+//#include "OperatorPenalization.h"
 #include "OperatorDivergence.h"
 #include "OperatorVorticity.h"
-#include "Operators_DFT.h"
 #include "PoissonSolverScalarFFTW.h"
 #include "OperatorGradP.h"
 #include "OperatorComputeShape.h"
+
+#include "CoordinatorIC.h"
+#include "CoordinatorAdvection.h"
+#include "CoordinatorDiffusion.h"
+#include "CoordinatorPenalization.h"
 
 
 void Sim_FSI_Fixed::_diagnostics()
@@ -55,7 +59,7 @@ void Sim_FSI_Fixed::_diagnostics()
 	ss << path2file << "_diagnostics.dat";
 	ofstream myfile(ss.str(), fstream::app);
 	if (verbose)
-		cout << step << " " << time << " " << bpdx << " " << dt << " " << dtCFL << " " << dtFourier << " " << drag << " " << lambda << endl;
+		cout << step << " " << _nonDimensionalTime() << " " << bpdx << " " << dt << " " << dtCFL << " " << dtFourier << " " << drag << " " << lambda << endl;
 	myfile << step << " " << _nonDimensionalTime() << " " << bpdx << " " << dt << " " << dtCFL << " " << dtFourier << " " << cD << " " << lambda << endl;
 }
 
@@ -64,8 +68,8 @@ void Sim_FSI_Fixed::_ic()
 	Timer timerIC;
 	
 	timerIC.start();
-	vector<BlockInfo> vInfo = grid->getBlocksInfo();
-	processOMP<OperatorIC>(shape, uinf, vInfo, *grid);
+	CoordinatorIC coordIC(shape,uinf,grid);
+	coordIC(0);
 	
 	stringstream ss;
 	ss << path2file << "-IC.vti";
@@ -103,6 +107,11 @@ Sim_FSI_Fixed::Sim_FSI_Fixed(const int argc, const char ** argv) : Simulation_FS
 	nu = shape->getCharLength()*uinf/re;
 	
 	_ic();
+	
+	pipeline.clear();
+	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
+	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
+	pipeline.push_back(new CoordinatorPenalizationFixed(shape, lambda, grid));
 }
 
 Sim_FSI_Fixed::~Sim_FSI_Fixed()
@@ -145,7 +154,7 @@ void Sim_FSI_Fixed::simulate()
 		dtCFL     = .1*vInfo[0].h_gridpoint/abs(maxU);
 		dt = min(dtCFL,dtFourier);
 		if (dumpTime>0)
-			dt = min(dt,nextDumpTime-time);
+			dt = min(dt,nextDumpTime-_nonDimensionalTime());
 		if (endTime>0)
 			dt = min(dt,endTime);
 		if (verbose)
@@ -156,16 +165,18 @@ void Sim_FSI_Fixed::simulate()
 		
 		// advection
 		timer.start();
-		resetOMP(vInfo, *grid);
-		processOMP< Lab,OperatorAdvection<Mp4> >(dt,vInfo,*grid);
-		updateOMP(vInfo, *grid);
+		//resetOMP(vInfo, *grid);
+		//processOMP< Lab,OperatorAdvection<Mp4> >(dt,vInfo,*grid);
+		//updateOMP(vInfo, *grid);
+		(*pipeline[0])(dt);
 		timeAdvection += timer.stop();
 		
 		// diffusion
 		timer.start();
-		resetOMP(vInfo, *grid);
-		processOMP<Lab,OperatorDiffusion>(dt,nu,vInfo,*grid);
-		updateOMP(vInfo, *grid);
+		//resetOMP(vInfo, *grid);
+		//processOMP<Lab,OperatorDiffusion>(dt,nu,vInfo,*grid);
+		//updateOMP(vInfo, *grid);
+		(*pipeline[1])(dt);
 		timeDiffusion += timer.stop();
 		
 		// pressure
@@ -182,10 +193,10 @@ void Sim_FSI_Fixed::simulate()
 		 
 		// penalization
 		timer.start();
-		Real g[2] = {0,0};
-		Real centerOfMass[2] = {0,0};
-		shape->getPosition(centerOfMass);
-		processOMP<OperatorPenalization>(dt,0,0,0,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
+		//Real centerOfMass[2] = {0,0};
+		//shape->getPosition(centerOfMass);
+		//processOMP<OperatorPenalization>(dt,0,0,0,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
+		(*pipeline[2])(dt);
 		timePenalization += timer.stop();
 		
 		time += dt;

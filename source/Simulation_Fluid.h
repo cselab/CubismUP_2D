@@ -15,11 +15,17 @@
 #include "Definitions.h"
 #include "ProcessOperatorsOMP.h"
 #include "OperatorVorticity.h"
+#include "GenericCoordinator.h"
+#include "GenericOperator.h"
+
+#include <vector>
 
 class Simulation_Fluid
 {
 protected:
 	ArgumentParser parser;
+	
+	vector<GenericCoordinator *> pipeline;
 	
 	// grid
 	int bpdx, bpdy;
@@ -92,6 +98,13 @@ public:
 	virtual ~Simulation_Fluid()
 	{
 		delete grid;
+		
+		while(!pipeline.empty())
+		{
+			GenericCoordinator * g = pipeline.back();
+			pipeline.pop_back();
+			delete g;
+		}
 	}
 	
 	virtual void simulate() = 0;

@@ -96,8 +96,8 @@ endif
 BUILDDIR = .
 SRC_DIR = $(BUILDDIR)/../source/
 CUBISM_DIR = $(BUILDDIR)/../Cubism/
-OBJECTS = PoissonSolverScalarFFTW.o Operators_DFT_FFTW.o ProcessOperatorsOMP.o Sim_FSI_Gravity.o Sim_FSI_Moving.o Sim_FSI_Fixed.o Profiler.o main.o
-OBJECTS_TEST = PoissonSolverScalarFFTW.o Operators_DFT_FFTW.o ProcessOperatorsOMP.o TestRotation.o TestTranslation.o TestPenalization.o TestGravity.o TestVarCoeffPoisson.o TestPressure.o TestAdvection.o TestDiffusion.o Profiler.o mainTest.o
+OBJECTS = PoissonSolverScalarFFTW.o ProcessOperatorsOMP.o Sim_FSI_Gravity.o Sim_FSI_Moving.o Sim_FSI_Fixed.o Profiler.o main.o
+OBJECTS_TEST = PoissonSolverScalarFFTW.o ProcessOperatorsOMP.o TestRotation.o TestTranslation.o TestPenalization.o TestGravity.o TestVarCoeffPoisson.o TestPressure.o TestAdvection.o TestDiffusion.o Profiler.o mainTest.o
 
 VPATH := $(SRC_DIR):$(CUBISM_DIR)
 
@@ -106,8 +106,8 @@ VPATH := $(SRC_DIR):$(CUBISM_DIR)
 all: simulation test
 
 simulation: $(OBJECTS)
-	echo Linking
-#echo OBJECTS = $(OBJECTS)
+#	echo Linking
+#	echo OBJECTS = $(OBJECTS)
 #	echo ************************
 	$(LD) $(OBJECTS) -o $@ $(LIBS) $(LDFLAGS)
 #	echo ************************

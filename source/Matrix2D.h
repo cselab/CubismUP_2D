@@ -1,5 +1,5 @@
 /*
- *  Matrix3D.h
+ *  Matrix2D.h
  *  ReactionDiffusion
  *
  *  Created by Diego Rossinelli on 10/19/06.
