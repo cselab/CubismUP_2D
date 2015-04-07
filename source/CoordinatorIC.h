@@ -35,8 +35,10 @@ public:
 			
 #pragma omp for schedule(static)
 			for (int i=0; i<N; i++)
-			kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
+				kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
 		}
+		
+		check("IC - end");
 	}
 	
 	string getName()

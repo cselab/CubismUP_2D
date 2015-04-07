@@ -26,32 +26,143 @@ protected:
 	// body
 	Shape * shape;
 	
-public:
-	Simulation_FSI(const int argc, const char ** argv) : Simulation_Fluid(argc,argv)
+	
+	void _outputSettings(ostream& outStream)
 	{
-		lambda = parser("-lambda").asDouble(1e5);
+		outStream << "Simulation_FSI\n";
+		outStream << "lambda " << lambda << endl;
+		shape->outputSettings(outStream);
 		
-		double rhoS = parser("-rhoS").asDouble(1);
-		Real centerOfMass[2] = {0,0};
-		bool bPeriodic[2] = {false,false};
+		Simulation_Fluid::_outputSettings(outStream);
+	}
+	
+	virtual void _inputSettings(istream& inStream)
+	{
+		string variableName;
 		
-		string shapeType = parser("-shape").asString("disk");
-		if (shapeType=="disk")
+		inStream >> variableName;
+		if (variableName != "Simulation_FSI")
 		{
-			Real radius = parser("-radius").asDouble(0.1);
-			shape = new Disk(centerOfMass, radius, rhoS, 2, 2, bPeriodic);
+			cout << "Error in deserialization - Simulation_FSI\n";
+			abort();
 		}
-		else if (shapeType=="ellipse")
+		
+		// read data
+		inStream >> variableName;
+		assert(variableName=="lambda");
+		inStream >> lambda;
+		
+		inStream >> variableName;
+		Real center[2];
+		bool bPeriodic[2] = {false,false};
+		Real rhoS;
+		Real mollChi, mollRho;
+		if (variableName=="Disk")
 		{
-			Real semiAxis[2] = {parser("-semiAxisX").asDouble(0.1),parser("-semiAxisY").asDouble(0.2)};
-			Real angle = parser("-angle").asDouble(0.0);
-			shape = new Ellipse(centerOfMass, semiAxis, angle, rhoS, 2, 2, bPeriodic);
+			Real radius;
+			
+			inStream >> variableName;
+			assert(variableName=="radius");
+			inStream >> radius;
+			inStream >> variableName;
+			assert(variableName=="centerX");
+			inStream >> center[0];
+			inStream >> variableName;
+			assert(variableName=="centerY");
+			inStream >> center[1];
+			inStream >> variableName;
+			assert(variableName=="orientation");
+			inStream >> variableName;
+			inStream >> variableName;
+			assert(variableName=="rhoS");
+			inStream >> rhoS;
+			inStream >> variableName;
+			assert(variableName=="mollChi");
+			inStream >> mollChi;
+			inStream >> variableName;
+			assert(variableName=="mollRho");
+			inStream >> mollRho;
+			
+			shape = new Disk(center, radius, rhoS, mollChi, mollRho, bPeriodic);
+		}
+		else if (variableName=="Ellipse")
+		{
+			Real semiAxis[2];
+			Real angle;
+			
+			
+			inStream >> variableName;
+			assert(variableName=="semiAxisX");
+			inStream >> semiAxis[0];
+			inStream >> variableName;
+			assert(variableName=="semiAxisY");
+			inStream >> semiAxis[1];
+			inStream >> variableName;
+			assert(variableName=="centerX");
+			inStream >> center[0];
+			inStream >> variableName;
+			assert(variableName=="centerY");
+			inStream >> center[1];
+			inStream >> variableName;
+			assert(variableName=="orientation");
+			inStream >> angle;
+			inStream >> variableName;
+			assert(variableName=="rhoS");
+			inStream >> rhoS;
+			inStream >> variableName;
+			assert(variableName=="mollChi");
+			inStream >> mollChi;
+			inStream >> variableName;
+			assert(variableName=="mollRho");
+			inStream >> mollRho;
+			shape = new Ellipse(center, semiAxis, angle, rhoS, mollChi, mollRho, bPeriodic);
 		}
 		else
 		{
 			cout << "Error - this shape is not currently implemented! Aborting now\n";
 			abort();
 		}
+		
+		Simulation_Fluid::_inputSettings(inStream);
+	}
+	
+public:
+	Simulation_FSI(const int argc, const char ** argv) : Simulation_Fluid(argc,argv)
+	{
+	}
+	
+	virtual void init()
+	{
+		Simulation_Fluid::init();
+		
+		if (!bRestart)
+		{
+			lambda = parser("-lambda").asDouble(1e5);
+			
+			double rhoS = parser("-rhoS").asDouble(1);
+			Real centerOfMass[2] = {0,0};
+			bool bPeriodic[2] = {false,false};
+			
+			string shapeType = parser("-shape").asString("disk");
+			if (shapeType=="disk")
+			{
+				Real radius = parser("-radius").asDouble(0.1);
+				shape = new Disk(centerOfMass, radius, rhoS, 2, 2, bPeriodic);
+			}
+			else if (shapeType=="ellipse")
+			{
+				Real semiAxis[2] = {parser("-semiAxisX").asDouble(0.1),parser("-semiAxisY").asDouble(0.2)};
+				Real angle = parser("-angle").asDouble(0.0);
+				shape = new Ellipse(centerOfMass, semiAxis, angle, rhoS, 2, 2, bPeriodic);
+			}
+			else
+			{
+				cout << "Error - this shape is not currently implemented! Aborting now\n";
+				abort();
+			}
+		}
+		
+		// nothing needs to be done on restart
 	}
 	
 	virtual ~Simulation_FSI()

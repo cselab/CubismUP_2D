@@ -314,6 +314,9 @@ private:
 				const int idx = gix + giy*sX;
 				assert(idx>=0);
 				assert(idx<size2);
+				
+				assert(!std::isnan(values[idx]));
+				
 #ifndef _PERIODIC_
 				b(ix,iy).tmp  = values[idx]; // this is used for debugging
 				b(ix,iy).divU = values[idx];

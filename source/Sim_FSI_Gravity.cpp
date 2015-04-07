@@ -30,22 +30,6 @@
 #include "CoordinatorGravity.h"
 #include "CoordinatorBodyVelocities.h"
 
-void Sim_FSI_Gravity::_dumpDivergence(const int step, const Real rho0, const Real dt)
-{
-	vector<BlockInfo> vInfo = grid->getBlocksInfo();
-	const int size = bpdx * FluidBlock::sizeX;
-	Layer divergence(size,size,1);
-	Layer divergenceSplit(size,size,1);
-	processOMP<Lab, OperatorDivergenceLayer>(divergence, vInfo, *grid);
-	processOMP<Lab, OperatorDivergenceSplitLayer>(divergenceSplit, rho0, dt, step, vInfo, *grid);
-	
-	stringstream sDiv, sDivSplit;
-	sDiv << path2file << "Divergence-" << step << ".vti";
-	sDivSplit << path2file << "DivergenceSplit-" << step << ".vti";
-	dumpLayer2VTK(step,sDiv.str(),divergence,1);
-	dumpLayer2VTK(step,sDivSplit.str(),divergenceSplit,1);
-}
-
 void Sim_FSI_Gravity::_diagnostics()
 {
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
@@ -106,44 +90,43 @@ void Sim_FSI_Gravity::_diagnostics()
 	myfile << step << " " << time << " " << dt << " " << bpdx << " " << lambda << " " << cD << " " << Re_uBody << " " << center[0] << " " << center[1] << " " << uBody[0] << " " << uBody[1] << " " << shape->getOrientation() << endl;
 }
 
-void Sim_FSI_Gravity::_dumpSettings(ostream& mystream)
+void Sim_FSI_Gravity::_dumpSettings(ostream& outStream)
 {
 #ifdef _MULTIGRID_
 	if (rank==0)
 #endif // _MULTIGRID_
 	{
-		mystream << "--------------------------------------------------------------------\n";
-		mystream << "Physical Settings\n";
-		mystream << "\tradius\t" << shape->getCharLength()*.5 << endl;
-		mystream << "\tnu\t" << nu << endl;
-		mystream << "\tRhoS\t" << shape->getRhoS() << endl;
+		outStream << "--------------------------------------------------------------------\n";
+		outStream << "Physical Settings\n";
+		outStream << "\tradius\t" << shape->getCharLength()*.5 << endl;
+		outStream << "\tnu\t" << nu << endl;
+		outStream << "\tRhoS\t" << shape->getRhoS() << endl;
 		Real center[2];
 		shape->getPosition(center);
-		mystream << "\tyPos\t" << center[1] << endl;
+		outStream << "\tyPos\t" << center[1] << endl;
 		
-		mystream << "\nSimulation Settings\n";
-		mystream << "\tnsteps\t" << nsteps << endl;
-		mystream << "\tTend\t" << endTime << endl;
-		mystream << "\tlambda\t" << lambda << endl;
+		outStream << "\nSimulation Settings\n";
+		outStream << "\tnsteps\t" << nsteps << endl;
+		outStream << "\tTend\t" << endTime << endl;
+		outStream << "\tlambda\t" << lambda << endl;
 #ifdef _MULTIGRID_
-		mystream << "\tsplit\t" << (bSplit ? "true" : "false") << endl;
+		outStream << "\tsplit\t" << (bSplit ? "true" : "false") << endl;
 #endif // _MULTIGRID_
-		mystream << "\tCFL\t" << CFL << endl;
-		mystream << "\tpath2file\t" << path2file << endl;
-		mystream << "\tbpdx\t" << bpdx << endl;
-		mystream << "\tbpdy\t" << bpdy << endl;
+		outStream << "\tpath2file\t" << path2file << endl;
+		outStream << "\tbpdx\t" << bpdx << endl;
+		outStream << "\tbpdy\t" << bpdy << endl;
 #ifdef _PERIODIC_
-		mystream << "\tBC\t\tperiodic\n";
+		outStream << "\tBC\t\tperiodic\n";
 #else // _PERIODIC_
-		mystream << "\tBC\tmixed\n";
+		outStream << "\tBC\tmixed\n";
 #endif // _PERIODIC_
 #ifdef _MULTIGRID_
-		mystream << "\tPoisson\tMultigrid\n";
+		outStream << "\tPoisson\tMultigrid\n";
 #endif // _MULTIGRID_
 #ifdef _SPLIT_
-		mystream << "\tPoisson\tFFTW Split\n";
+		outStream << "\tPoisson\tFFTW Split\n";
 #endif // _SPLIT_
-		mystream << "--------------------------------------------------------------------\n";
+		outStream << "--------------------------------------------------------------------\n";
 	}
 }
 
@@ -170,7 +153,50 @@ double Sim_FSI_Gravity::_nonDimensionalTime()
 	return time; // how to nondimensionalize here? based on Galileo number?
 }
 
-Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uBody{0,0}, omegaBody(0), gravity{0,-9.81}, dtCFL(0), dtFourier(0), dtBody(0), re(0), nu(0), CFL(0), minRho(0), bSplit(false)
+void Sim_FSI_Gravity::_outputSettings(ostream &outStream)
+{
+	outStream << "Gravity_FSI\n";
+	outStream << "uBody " << uBody[0] << endl;
+	outStream << "vBody " << uBody[1] << endl;
+	outStream << "omegaBody " << omegaBody << endl;
+	outStream << "re " << re << endl;
+	outStream << "nu " << nu << endl;
+	
+	Simulation_FSI::_outputSettings(outStream);
+}
+
+void Sim_FSI_Gravity::_inputSettings(istream& inStream)
+{
+	string variableName;
+	
+	inStream >> variableName;
+	if (variableName != "Gravity_FSI")
+	{
+		cout << "Error in deserialization - Simulation_Gravity_FSI\n";
+		abort();
+	}
+	
+	// read data
+	inStream >> variableName;
+	assert(variableName=="uBody");
+	inStream >> uBody[0];
+	inStream >> variableName;
+	assert(variableName=="vBody");
+	inStream >> uBody[1];
+	inStream >> variableName;
+	assert(variableName=="omegaBody");
+	inStream >> omegaBody;
+	inStream >> variableName;
+	assert(variableName=="re");
+	inStream >> re;
+	inStream >> variableName;
+	assert(variableName=="nu");
+	inStream >> nu;
+	
+	Simulation_FSI::_inputSettings(inStream);
+}
+
+Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uBody{0,0}, omegaBody(0), gravity{0,-9.81}, dtCFL(0), dtFourier(0), dtBody(0), re(0), nu(0), minRho(0), bSplit(false), stepStartBody(100)
 {
 #ifdef _MULTIGRID_
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
@@ -183,36 +209,49 @@ Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulatio
 		cout << "\t\t\tFlow past a falling cylinder\n";
 		cout << "====================================================================================================================\n";
 	}
+}
+
+Sim_FSI_Gravity::~Sim_FSI_Gravity()
+{
+}
+
+void Sim_FSI_Gravity::init()
+{
+	Simulation_FSI::init();
 	
-	// simulation settings
-	bSplit = parser("-split").asBool(false);
-	nu = parser("-nu").asDouble(1e-2);
-	CFL = parser("-CFL").asDouble(.1);
-	minRho = min((Real)1.,shape->getRhoS());
-	
-	const float aspectRatio = (float)bpdx/(float)bpdy;
-	Real center[2] = {.5*aspectRatio,parser("-ypos").asDouble(.85)};
-	shape->setPosition(center);
-	
-	stringstream ss;
-	ss << path2file << "_settings.dat";
-	ofstream myfile(ss.str(), fstream::app);
-	_dumpSettings(cout);
-	_dumpSettings(myfile);
-	
-	if (rank==0)
-		if (bSplit)
-			cout << "Using split method with constant coefficients Poisson solver\n";
-		else
-			cout << "Solving full variable coefficient Poisson equation for pressure\n";
-	
-	_ic();
+	if (!bRestart)
+	{
+		// simulation settings
+		bSplit = parser("-split").asBool(false);
+		nu = parser("-nu").asDouble(1e-2);
+		minRho = min((Real)1.,shape->getRhoS());
+		
+		const float aspectRatio = (float)bpdx/(float)bpdy;
+		Real center[2] = {.5*aspectRatio,parser("-ypos").asDouble(.85)};
+		shape->setPosition(center);
+		
+		stringstream ss;
+		ss << path2file << "_settings.dat";
+		ofstream myfile(ss.str(), fstream::app);
+		_dumpSettings(cout);
+		_dumpSettings(myfile);
+		
+		if (rank==0)
+			if (bSplit)
+				cout << "Using split method with constant coefficients Poisson solver\n";
+			else
+				cout << "Solving full variable coefficient Poisson equation for pressure\n";
+		
+		_ic();
+	}
 	
 	pipeline.clear();
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
 	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs));
+	if (step>=stepStartBody) pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
+	if (step>=stepStartBody) pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
 	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid));
 	
 	if (rank==0)
@@ -221,14 +260,6 @@ Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulatio
 		for (int c=0; c<pipeline.size(); c++)
 			cout << "\t" << pipeline[c]->getName() << endl;
 	}
-	
-#ifdef _MULTIGRID_
-	MPI_Barrier(MPI_COMM_WORLD);
-#endif // _MULTIGRID_
-}
-
-Sim_FSI_Gravity::~Sim_FSI_Gravity()
-{
 }
 
 void Sim_FSI_Gravity::simulate()
@@ -237,14 +268,13 @@ void Sim_FSI_Gravity::simulate()
 	const int sizeY = bpdy * FluidBlock::sizeY;
 	
 	double vOld = 0;
-	Real oldAccVort[2] = {0,0};
 	
 #ifdef _MULTIGRID_
 	MPI_Barrier(MPI_COMM_WORLD);
 #endif // _MULTIGRID_
-	time = 0;
-	double nextDumpTime = 0;
+	double nextDumpTime = time;
 	double maxU = 0;
+	
 	while (true)
 	{
 		if (rank==0)
@@ -257,6 +287,9 @@ void Sim_FSI_Gravity::simulate()
 			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;
 			dtCFL     = maxU==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/abs(maxU);
 			dtBody    = max(abs(uBody[0]),abs(uBody[1]))==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/max(abs(uBody[0]),abs(uBody[1]));
+			assert(!std::isnan(maxU));
+			assert(!std::isnan(uBody[0]));
+			assert(!std::isnan(uBody[1]));
 			dt = min(min(dtCFL,dtFourier),dtBody);
 			if (dumpTime>0)
 				dt = min(dt,nextDumpTime-_nonDimensionalTime());
@@ -266,19 +299,21 @@ void Sim_FSI_Gravity::simulate()
 				cout << "dt (Fourier, CFL, body): " << dt << " " << dtFourier << " " << dtCFL << " " << dtBody << endl;
 			profiler.pop_stop();
 		}
+		MPI_Bcast(&dt,1,MPI_DOUBLE,0,MPI_COMM_WORLD);
 		
-		for (int c=0; c<pipeline.size(); c++)
-		{
+		if (dt!=0)
+			for (int c=0; c<pipeline.size(); c++)
+			{
 #ifdef _MULTIGRID_
-			MPI_Barrier(MPI_COMM_WORLD);
+				MPI_Barrier(MPI_COMM_WORLD);
 #endif // _MULTIGRID_
-			profiler.push_start(pipeline[c]->getName());
-			if (rank == 0 || pipeline[c]->getName()=="Pressure")
-				(*pipeline[c])(dt);
-			profiler.pop_stop();
-		}
+				profiler.push_start(pipeline[c]->getName());
+				if (rank == 0 || pipeline[c]->getName()=="Pressure")
+					(*pipeline[c])(dt);
+				profiler.pop_stop();
+			}
 		
-		if (step==100)
+		if (step==stepStartBody)
 		{
 			vector<GenericCoordinator *>::iterator it = pipeline.begin();
 			pipeline.insert(it+4, new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));

@@ -25,6 +25,8 @@ public:
 	
 	void operator()(const double dt)
 	{
+		check("shape - start");
+		
 		BlockInfo * ary = &vInfo.front();
 		const int N = vInfo.size();
 		
@@ -39,6 +41,8 @@ public:
 			for(int i=0; i<N; i++)
 				kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
 		}
+		
+		check("shape - end");
 	}
 	
 	string getName()

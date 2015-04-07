@@ -43,6 +43,10 @@ public:
 				block(ix,iy).p = 0;
 				block(ix,iy).divU = 0;
 				block(ix,iy).pOld = 0;
+				
+				block(ix,iy).tmpU = 0;
+				block(ix,iy).tmpV = 0;
+				block(ix,iy).tmp  = 0;
             }
     }
 };

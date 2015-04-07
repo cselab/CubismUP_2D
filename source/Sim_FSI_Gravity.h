@@ -17,25 +17,28 @@ protected:
 	Real uBody[2], omegaBody;
 	double dtCFL, dtFourier, dtBody;
 	double re, nu;
-	double CFL;
 	double minRho;
 	bool bSplit;
 	
 	Real gravity[2];
 	
+	int stepStartBody; // could become time
+	
 	void _diagnostics();
 	void _ic();
 	double _nonDimensionalTime();
 	
-	// should this stuff be moved?
-	void _dumpSettings(ostream& mystream);
-	void _dumpDivergence(const int step, const Real rho0, const Real dt);
+	void _outputSettings(ostream& outStream);
+	void _inputSettings(istream& inStream);
+	
+	// should this stuff be moved? - serialize method will do that
+	void _dumpSettings(ostream& outStream);
 	
 public:
 	Sim_FSI_Gravity(const int argc, const char ** argv);
-	
 	~Sim_FSI_Gravity();
-
+	
+	void init();
 	void simulate();
 };
 

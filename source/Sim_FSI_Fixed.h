@@ -21,11 +21,14 @@ protected:
 	void _ic();
 	double _nonDimensionalTime();
 	
+	void _outputSettings(ostream& outStream);
+	void _inputSettings(istream& inStream);
+	
 public:
 	Sim_FSI_Fixed(const int argc, const char ** argv);
-	
 	virtual ~Sim_FSI_Fixed();
 	
+	void init();
     void simulate();
 };
 

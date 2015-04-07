@@ -26,7 +26,7 @@ using namespace std;
 #include "BlockInfo.h"
 
 template<typename TGrid, typename Streamer>
-void DumpHDF5_MPI(TGrid &grid, const int iCounter, const string f_name, const string dump_path=".")
+void DumpHDF5_MPI(TGrid &grid, const string f_name, const string dump_path=".")
 {
 #ifdef _USE_HDF_
 	typedef typename TGrid::BlockType B;
@@ -150,7 +150,7 @@ void DumpHDF5_MPI(TGrid &grid, const int iCounter, const string f_name, const st
 		fprintf(xmf, "<Xdmf Version=\"2.0\">\n");
 		fprintf(xmf, " <Domain>\n");
 		fprintf(xmf, "   <Grid GridType=\"Uniform\">\n");
-		fprintf(xmf, "     <Time Value=\"%05d\"/>\n", iCounter);
+		fprintf(xmf, "     <Time Value=\"%05d\"/>\n", 0);
 		fprintf(xmf, "     <Topology TopologyType=\"3DCORECTMesh\" Dimensions=\"%d %d %d\"/>\n", (int)dims[0], (int)dims[1], (int)dims[2]);
 		fprintf(xmf, "     <Geometry GeometryType=\"ORIGIN_DXDYDZ\">\n");
 		fprintf(xmf, "       <DataItem Name=\"Origin\" Dimensions=\"3\" NumberType=\"Float\" Precision=\"4\" Format=\"XML\">\n");

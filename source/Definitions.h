@@ -35,6 +35,80 @@ struct FluidElement
 };
 
 
+struct FluidVTKStreamer
+{
+	static const int channels = 8;
+	
+	void operate(FluidElement input, Real output[8])
+	{
+		output[0] = input.rho;
+		output[1] = input.u;
+		output[2] = input.v;
+		output[3] = input.p;
+		output[4] = input.chi;
+		output[5] = input.divU;
+		output[6] = input.pOld;
+		output[7] = input.tmp;
+	}
+};
+
+// this is used for serialization - important that ALL the quantities are streamed
+struct StreamerGridPoint
+{
+	static const int channels = 10;
+	
+	void operate(const FluidElement& input, Real output[10]) const
+	{
+		abort();
+		output[0] = input.rho;
+		output[1] = input.u;
+		output[2] = input.v;
+		output[3] = input.chi;
+		output[4] = input.p;
+		output[5] = input.pOld;
+		output[6] = input.tmpU;
+		output[7] = input.tmpV;
+		output[8] = input.tmp;
+		output[9] = input.divU;
+	}
+	
+	void operate(const Real input[10], FluidElement& output) const
+	{
+		abort();
+		output.rho  = input[0];
+		output.u    = input[1];
+		output.v    = input[2];
+		output.chi  = input[3];
+		output.p    = input[4];
+		output.pOld = input[5];
+		output.tmpU = input[6];
+		output.tmpV = input[7];
+		output.tmp  = input[8];
+		output.divU = input[9];
+	}
+};
+
+struct StreamerGridPointASCII
+{
+	void operate(const FluidElement& input, ofstream& output) const
+	{
+		output << input.rho << " " << input.u << " " << input.v << " " << input.chi << " " << input.p << " " << input.pOld << " " << input.tmpU << " " << input.tmpV << " " << input.tmp << " " << input.divU;
+	}
+	
+	void operate(ifstream& input, FluidElement& output) const
+	{
+		input >> output.rho;
+		input >> output.u;
+		input >> output.v;
+		input >> output.chi;
+		input >> output.p;
+		input >> output.pOld;
+		input >> output.tmpU;
+		input >> output.tmpV;
+		input >> output.tmp;
+		input >> output.divU;
+	}
+};
 
 struct StreamerDiv
 {
@@ -75,25 +149,36 @@ struct FluidBlock
         assert(iy>=0); assert(iy<sizeY);
         
         return data[0][iy][ix];
-    }
+	}
+	
+	template <typename Streamer>
+	inline void Write(ofstream& output, Streamer streamer) const
+	{
+		for(int iy=0; iy<sizeY; iy++)
+			for(int ix=0; ix<sizeX; ix++)
+				streamer.operate(data[0][iy][ix], output);
+	}
+	
+	template <typename Streamer>
+	inline void Read(ifstream& input, Streamer streamer)
+	{
+		for(int iy=0; iy<sizeY; iy++)
+			for(int ix=0; ix<sizeX; ix++)
+				streamer.operate(input, data[0][iy][ix]);
+	}
 };
 
-struct FluidVTKStreamer
+template <> inline void FluidBlock::Write<StreamerGridPoint>(ofstream& output, StreamerGridPoint streamer) const
 {
-    static const int channels = 8;
-    
-    void operate(FluidElement input, Real output[8])
-    {
-        output[0] = input.rho;
-        output[1] = input.u;
-        output[2] = input.v;
-		output[3] = input.p;
-        output[4] = input.chi;
-		output[5] = input.divU;
-		output[6] = input.pOld;
-		output[7] = input.tmp;
-    }
-};
+	output.write((const char *)&data[0][0][0], sizeof(FluidElement)*sizeX*sizeY);
+}
+
+template <> inline void FluidBlock::Read<StreamerGridPoint>(ifstream& input, StreamerGridPoint streamer)
+{
+	input.read((char *)&data[0][0][0], sizeof(FluidElement)*sizeX*sizeY);
+}
+
+
 
 template<typename BlockType, template<typename X> class allocator=std::allocator>
 class BlockLabDirichlet : public BlockLab<BlockType,allocator>

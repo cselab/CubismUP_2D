@@ -76,6 +76,37 @@ double Sim_FSI_Fixed::_nonDimensionalTime()
 	return time*abs(uinf)/shape->getCharLength();
 }
 
+void Sim_FSI_Fixed::_outputSettings(ostream &outStream)
+{
+	outStream << "Fixed_FSI\n";
+	outStream << "uinf " << uinf << endl;
+	outStream << "re " << re << endl;
+	
+	Simulation_FSI::_outputSettings(outStream);
+}
+
+void Sim_FSI_Fixed::_inputSettings(istream& inStream)
+{
+	string variableName;
+	
+	inStream >> variableName;
+	if (variableName != "Fixed_FSI")
+	{
+		cout << "Error in deserialization - Simulation_Fixed_FSI\n";
+		abort();
+	}
+	
+	// read data
+	inStream >> variableName;
+	assert(variableName=="uinf");
+	inStream >> uinf;
+	inStream >> variableName;
+	assert(variableName=="re");
+	inStream >> re;
+	
+	Simulation_FSI::_inputSettings(inStream);
+}
+
 Sim_FSI_Fixed::Sim_FSI_Fixed(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uinf(0), re(0), nu(0), dtCFL(0), dtFourier(0)
 {
 	int rank = 0;
@@ -89,16 +120,28 @@ Sim_FSI_Fixed::Sim_FSI_Fixed(const int argc, const char ** argv) : Simulation_FS
 		cout << "\t\t\tFlow past a fixed body\n";
 		cout << "====================================================================================================================\n";
 	}
+}
+
+Sim_FSI_Fixed::~Sim_FSI_Fixed()
+{
+}
+
+void Sim_FSI_Fixed::init()
+{
+	Simulation_FSI::init();
 	
-	// simulation settings
-	uinf = parser("-uinf").asDouble(0.1);
-	re = parser("-Re").asDouble(100);
-	
-	Real center[2] = {.15,.5};
-	shape->setPosition(center);
-	nu = shape->getCharLength()*uinf/re;
-	
-	_ic();
+	if (!bRestart)
+	{
+		// simulation settings
+		uinf = parser("-uinf").asDouble(0.1);
+		re = parser("-Re").asDouble(100);
+		
+		Real center[2] = {.15,.5};
+		shape->setPosition(center);
+		nu = shape->getCharLength()*uinf/re;
+		
+		_ic();
+	}
 	
 	pipeline.clear();
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
@@ -111,18 +154,13 @@ Sim_FSI_Fixed::Sim_FSI_Fixed(const int argc, const char ** argv) : Simulation_FS
 		cout << "\t" << pipeline[c]->getName() << endl;
 }
 
-Sim_FSI_Fixed::~Sim_FSI_Fixed()
-{
-}
-
 void Sim_FSI_Fixed::simulate()
 {
 	const Real uBody[2] = {0,0};
 	const int sizeX = bpdx * FluidBlock::sizeX;
 	const int sizeY = bpdy * FluidBlock::sizeY;
 	
-	time = 0;
-	double nextDumpTime = 0;
+	double nextDumpTime = time;
 	double maxU = uinf;
     while (true)
 	{
@@ -131,8 +169,8 @@ void Sim_FSI_Fixed::simulate()
 		// choose dt (CFL, Fourier)
 		profiler.push_start("DT");
 		maxU = findMaxUOMP(vInfo,*grid);
-		dtFourier = .1*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;
-		dtCFL     = .1*vInfo[0].h_gridpoint/abs(maxU);
+		dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;
+		dtCFL     = CFL*vInfo[0].h_gridpoint/abs(maxU);
 		dt = min(dtCFL,dtFourier);
 		if (dumpTime>0)
 			dt = min(dt,nextDumpTime-_nonDimensionalTime());

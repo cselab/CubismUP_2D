@@ -67,6 +67,8 @@ public:
 	
 	void operator()(const double dt)
 	{
+		check("advection - start");
+		
 		BlockInfo * ary = &vInfo.front();
 		const int N = vInfo.size();
 		
@@ -89,6 +91,8 @@ public:
 		}
 		
 		update();
+		
+		check("advection - end");
 	}
 	
 	string getName()

@@ -24,6 +24,8 @@ public:
 	
 	void operator()(const double dt)
 	{
+		check("gravity - start");
+		
 		BlockInfo * ary = &vInfo.front();
 		const int N = vInfo.size();
 		
@@ -35,6 +37,8 @@ public:
 			for (int i=0; i<N; i++)
 				kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
 		}
+		
+		check("gravity - end");
 	}
 	
 	string getName()

@@ -104,7 +104,7 @@ public:
 	
 	string getName()
 	{
-		return "ComputeBodyVelocities";
+		return "BodyVelocities";
 	}
 };
 

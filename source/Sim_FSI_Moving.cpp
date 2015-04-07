@@ -76,6 +76,49 @@ double Sim_FSI_Moving::_nonDimensionalTime()
 	return time*abs(uBody[0])/shape->getCharLength();
 }
 
+void Sim_FSI_Moving::_outputSettings(ostream &outStream)
+{
+	outStream << "Moving_FSI\n";
+	outStream << "uBody " << uBody[0] << endl;
+	outStream << "vBody " << uBody[1] << endl;
+	outStream << "omegaBody " << omegaBody << endl;
+	outStream << "re " << re << endl;
+	outStream << "nu " << nu << endl;
+	
+	Simulation_FSI::_outputSettings(outStream);
+}
+
+void Sim_FSI_Moving::_inputSettings(istream& inStream)
+{
+	string variableName;
+	
+	inStream >> variableName;
+	if (variableName != "Moving_FSI")
+	{
+		cout << "Error in deserialization - Simulation_Moving_FSI\n";
+		abort();
+	}
+	
+	// read data
+	inStream >> variableName;
+	assert(variableName=="uBody");
+	inStream >> uBody[0];
+	inStream >> variableName;
+	assert(variableName=="vBody");
+	inStream >> uBody[1];
+	inStream >> variableName;
+	assert(variableName=="omegaBody");
+	inStream >> omegaBody;
+	inStream >> variableName;
+	assert(variableName=="re");
+	inStream >> re;
+	inStream >> variableName;
+	assert(variableName=="nu");
+	inStream >> nu;
+	
+	Simulation_FSI::_inputSettings(inStream);
+}
+
 Sim_FSI_Moving::Sim_FSI_Moving(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uBody{0,0}, omegaBody(0), re(0), nu(0), dtBody(0), dtCFL(0), dtFourier(0)
 {
 	int rank = 0;
@@ -89,16 +132,28 @@ Sim_FSI_Moving::Sim_FSI_Moving(const int argc, const char ** argv) : Simulation_
 		cout << "\t\t\tFlow past a moving cylinder\n";
 		cout << "====================================================================================================================\n";
 	}
+}
+
+Sim_FSI_Moving::~Sim_FSI_Moving()
+{
+}
+
+void Sim_FSI_Moving::init()
+{
+	Simulation_FSI::init();
 	
-	// simulation settings
-	re = parser("-Re").asDouble(100);
-	
-	uBody[0] = - parser("-uBody").asDouble(0.1);
-	Real center[2] = {.85,.5};
-	shape->setPosition(center);
-	nu = shape->getCharLength()*abs(uBody[0])/re;
-	
-	_ic();
+	if (!bRestart)
+	{
+		// simulation settings
+		re = parser("-Re").asDouble(100);
+		
+		uBody[0] = - parser("-uBody").asDouble(0.1);
+		Real center[2] = {.85,.5};
+		shape->setPosition(center);
+		nu = shape->getCharLength()*abs(uBody[0])/re;
+		
+		_ic();
+	}
 	
 	pipeline.clear();
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
@@ -114,17 +169,12 @@ Sim_FSI_Moving::Sim_FSI_Moving(const int argc, const char ** argv) : Simulation_
 	assert(uBody[1] == 0);
 }
 
-Sim_FSI_Moving::~Sim_FSI_Moving()
-{
-}
-
 void Sim_FSI_Moving::simulate()
 {
 	const int sizeX = bpdx * FluidBlock::sizeX;
 	const int sizeY = bpdy * FluidBlock::sizeY;
 	
-	time = 0;
-	double nextDumpTime = 0;
+	double nextDumpTime = time;
 	double maxU = uBody[0];
 	while (true)
 	{
@@ -133,9 +183,9 @@ void Sim_FSI_Moving::simulate()
 		// choose dt (CFL, Fourier)
 		profiler.push_start("DT");
 		maxU = findMaxUOMP(vInfo,*grid);
-		dtFourier = .1*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;
-		dtCFL     = .1*vInfo[0].h_gridpoint/abs(maxU);
-		dtBody    = .1*vInfo[0].h_gridpoint/abs(uBody[0]);
+		dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;
+		dtCFL     = CFL*vInfo[0].h_gridpoint/abs(maxU);
+		dtBody    = CFL*vInfo[0].h_gridpoint/abs(uBody[0]);
 		dt = min(min(dtCFL,dtFourier),dtBody);
 		if (dumpTime>0)
 			dt = min(dt,nextDumpTime-_nonDimensionalTime());

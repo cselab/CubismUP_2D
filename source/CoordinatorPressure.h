@@ -117,6 +117,8 @@ public:
 		MPI_Barrier(MPI_COMM_WORLD);
 #endif // _MULTIGRID_
 		
+		check("pressure - start");
+		
 		// pressure
 #ifdef _SPLIT_
 #ifdef _SP_COMP_
@@ -134,8 +136,13 @@ public:
 				computeSplit<OperatorDivergenceSplit>(dt);
 			else
 				compute<OperatorDivergence>(dt);
+		check("pressure - preMG");
 		mg.setup(grid, bSplit, rank, nprocs);
 		mg();
+#ifdef _MULTIGRID_
+		MPI_Barrier(MPI_COMM_WORLD);
+#endif // _MULTIGRID_
+		check("pressure - postMG");
 		if (rank==0)
 			if (bSplit)
 				computeSplit<OperatorGradPSplit>(dt);
@@ -147,6 +154,8 @@ public:
 		if (rank==0)
 #endif // _MULTIGRID_
 			updatePressure();
+		
+		check("pressure - end");
 	}
 	
 	string getName()

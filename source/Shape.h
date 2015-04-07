@@ -20,7 +20,8 @@ protected:
 	Real center[2], orientation;
 	const Real rhoS;
 	
-	const Real mollChi, mollRho;
+	const Real mollChi;
+	const Real mollRho; // currently not used - need to change in rho method
 	
 	Real smoothHeaviside(Real rR, Real radius, Real eps)
 	{
@@ -85,6 +86,16 @@ public:
 		
 		return rhoS*mask + 1.*(1.-mask);
 	}
+	
+	virtual void outputSettings(ostream &outStream)
+	{
+		outStream << "centerX " << center[0] << endl;
+		outStream << "centerY " << center[1] << endl;
+		outStream << "orientation " << orientation << endl;
+		outStream << "rhoS " << rhoS << endl;
+		outStream << "mollChi " << mollChi << endl;
+		outStream << "mollRho " << mollRho << endl;
+	}
 };
 
 class Disk : public Shape
@@ -106,6 +117,14 @@ public:
 	Real getCharLength() const
 	{
 		return 2 * radius;
+	}
+	
+	void outputSettings(ostream &outStream)
+	{
+		outStream << "Disk\n";
+		outStream << "radius " << radius << endl;
+		
+		Shape::outputSettings(outStream);
 	}
 };
 
@@ -131,6 +150,15 @@ public:
 	Real getCharLength() const
 	{
 		return 2 * semiAxis[1];
+	}
+	
+	void outputSettings(ostream &outStream)
+	{
+		outStream << "Ellipse\n";
+		outStream << "semiAxisX " << semiAxis[0] << endl;
+		outStream << "semiAxisY " << semiAxis[1] << endl;
+		
+		Shape::outputSettings(outStream);
 	}
 };
 

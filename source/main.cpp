@@ -49,6 +49,7 @@ int main(int argc, const char **argv)
 	else if (simSetting=="falling")
 		sim = new Sim_FSI_Gravity(argc, argv);
 	
+	sim->init();
 	sim->simulate();
 	
 #ifdef _MULTIGRID_

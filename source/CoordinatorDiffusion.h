@@ -69,6 +69,8 @@ public:
 	
 	void operator()(const double dt)
 	{
+		check("diffusion - start");
+		
 		BlockInfo * ary = &vInfo.front();
 		const int N = vInfo.size();
 		
@@ -90,6 +92,8 @@ public:
 		}
 		
 		update();
+		
+		check("diffusion - end");
 	}
 	
 	string getName()

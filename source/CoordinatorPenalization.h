@@ -61,6 +61,8 @@ public:
 	
 	void operator()(const double dt)
 	{
+		check("penalization - start");
+		
 		BlockInfo * ary = &vInfo.front();
 		const int N = vInfo.size();
 		
@@ -74,6 +76,8 @@ public:
 			for(int i=0; i<N; i++)
 				kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
 		}
+		
+		check("penalization - end");
 	}
 	
 	string getName()
