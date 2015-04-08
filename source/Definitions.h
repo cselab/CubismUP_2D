@@ -180,6 +180,88 @@ template <> inline void FluidBlock::Read<StreamerGridPoint>(ifstream& input, Str
 
 
 
+struct StreamerSerialization
+{
+	static const int NCHANNELS = 10;
+	
+	FluidBlock& ref;
+	
+	StreamerSerialization(FluidBlock& b): ref(b) {}
+	
+	void operate(const int ix, const int iy, const int iz, Real output[10]) const
+	{
+		const FluidElement& input = ref.data[iz][iy][ix];
+		
+		output[0] = input.rho;
+		output[1] = input.u;
+		output[2] = input.v;
+		output[3] = input.chi;
+		output[4] = input.p;
+		output[5] = input.pOld;
+		output[6] = input.tmpU;
+		output[7] = input.tmpV;
+		output[8] = input.tmp;
+		output[9] = input.divU;
+	}
+	
+	void operate(const Real input[10], const int ix, const int iy, const int iz) const
+	{
+		FluidElement& output = ref.data[iz][iy][ix];
+		
+		output.rho  = input[0];
+		output.u    = input[1];
+		output.v    = input[2];
+		output.chi  = input[3];
+		output.p    = input[4];
+		output.pOld = input[5];
+		output.tmpU = input[6];
+		output.tmpV = input[7];
+		output.tmp  = input[8];
+		output.divU = input[9];
+	}
+	
+	void operate(const int ix, const int iy, const int iz, Real *ovalue, const int field) const
+	{
+		const FluidElement& input = ref.data[iz][iy][ix];
+		
+		switch(field) {
+			case 0: *ovalue = input.rho; break;
+			case 1: *ovalue = input.u; break;
+			case 2: *ovalue = input.v; break;
+			case 3: *ovalue = input.chi; break;
+			case 4: *ovalue = input.p; break;
+			case 5: *ovalue = input.pOld; break;
+			case 6: *ovalue = input.tmpU; break;
+			case 7: *ovalue = input.tmpV; break;
+			case 8: *ovalue = input.tmp; break;
+			case 9: *ovalue = input.divU; break;
+			default: printf("unknown field\n"); abort(); break;
+		}
+	}
+	
+	void operate(const Real ivalue, const int ix, const int iy, const int iz, const int field) const
+	{
+		FluidElement& output = ref.data[iz][iy][ix];
+		
+		switch(field) {
+			case 0:  output.rho  = ivalue; break;
+			case 1:  output.u    = ivalue; break;
+			case 2:  output.v    = ivalue; break;
+			case 3:  output.chi  = ivalue; break;
+			case 4:  output.p    = ivalue; break;
+			case 5:  output.pOld = ivalue; break;
+			case 6:  output.tmpU = ivalue; break;
+			case 7:  output.tmpV = ivalue; break;
+			case 8:  output.tmp  = ivalue; break;
+			case 9:  output.divU = ivalue; break;
+			default: printf("unknown field\n"); abort(); break;
+		}
+	}
+	
+	static const char * getAttributeName() { return "Tensor"; }
+};
+
+
 template<typename BlockType, template<typename X> class allocator=std::allocator>
 class BlockLabDirichlet : public BlockLab<BlockType,allocator>
 {

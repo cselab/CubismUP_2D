@@ -111,7 +111,7 @@ protected:
 		const int sizeY = bpdy * FluidBlock::sizeY;
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
 		
-		if((dumpFreq>0 && step % dumpFreq == 0) || (dumpTime>0 && abs(_nonDimensionalTime()-nextDumpTime) < 10*std::numeric_limits<Real>::epsilon()))
+		if(rank==0 && (dumpFreq>0 && step % dumpFreq == 0) || (dumpTime>0 && abs(_nonDimensionalTime()-nextDumpTime) < 10*std::numeric_limits<Real>::epsilon()))
 		{
 			nextDumpTime += dumpTime;
 			
@@ -208,6 +208,14 @@ protected:
 			ss << path4serialization << "Serialized-" << bPing << ".dat";
 			cout << ss.str() << endl;
 			
+			//stringstream serializedGrid;
+			//serializedGrid << path4serialization << "SerializedGrid-" << bPing << ".grid";
+			//SerializerIO<FluidGrid, StreamerGridPoint>().Write(*grid,serializedGrid.str());
+			
+			stringstream serializedGrid;
+			serializedGrid << "SerializedGrid-" << bPing << ".grid";
+			DumpZBin<FluidGrid, StreamerSerialization>(*grid, serializedGrid.str(), path4serialization);
+			
 			ofstream file;
 			file.open(ss.str());
 			
@@ -217,10 +225,6 @@ protected:
 				
 				file.close();
 			}
-			
-			stringstream serializedGrid;
-			serializedGrid << path4serialization << "SerializedGrid-" << bPing << ".grid";
-			SerializerIO<FluidGrid, StreamerGridPoint>().Write(*grid,serializedGrid.str());
 			
 			bPing = !bPing;
 		}
@@ -237,8 +241,8 @@ protected:
 		
 		
 		// direct comparison of the two quantities leads to segfault
-		bPing = st0.st_size>st1.st_size ? false : true;
-		ss << (bPing ? ss0.str() : ss1.str());
+		bPing = st0.st_mtime<st1.st_mtime ? false : true;
+		ss << (!bPing ? ss0.str() : ss1.str());
 		
 		ifstream file;
 		file.open(ss.str());
@@ -253,9 +257,16 @@ protected:
 		grid = new FluidGrid(bpdx,bpdy,1);
 		assert(grid != NULL);
 		
-		stringstream serializedGrid;
-		serializedGrid << path4serialization << "SerializedGrid-" << bPing << ".grid";
-		SerializerIO<FluidGrid, StreamerGridPoint>().Read(*grid,serializedGrid.str());
+		if (rank==0)
+		{
+			//stringstream serializedGrid;
+			//serializedGrid << path4serialization << "SerializedGrid-" << bPing << ".grid";
+			//SerializerIO<FluidGrid, StreamerGridPoint>().Read(*grid,serializedGrid.str());
+			
+			stringstream serializedGrid;
+			serializedGrid << "SerializedGrid-" << bPing << ".grid";
+			ReadZBin<FluidGrid, StreamerSerialization>(*grid, serializedGrid.str(), path4serialization);
+		}
 	}
 	
 public:
@@ -323,6 +334,12 @@ public:
 			{
 				cout << " done - parameters:\n";
 				_outputSettings(cout);
+			}
+			
+			if (rank==0)
+			{
+				double d = _nonDimensionalTime();
+				_dump(d);
 			}
 			
 #ifdef _MULTIGRID_

@@ -245,6 +245,10 @@ void Sim_FSI_Gravity::init()
 		_ic();
 	}
 	
+	CoordinatorComputeShape * c = new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid);
+	(*c)(0);
+	delete c;
+	
 	pipeline.clear();
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
@@ -302,6 +306,7 @@ void Sim_FSI_Gravity::simulate()
 		MPI_Bcast(&dt,1,MPI_DOUBLE,0,MPI_COMM_WORLD);
 		
 		if (dt!=0)
+		{
 			for (int c=0; c<pipeline.size(); c++)
 			{
 #ifdef _MULTIGRID_
@@ -312,6 +317,10 @@ void Sim_FSI_Gravity::simulate()
 					(*pipeline[c])(dt);
 				profiler.pop_stop();
 			}
+		
+			time += dt;
+			step++;
+		}
 		
 		if (step==stepStartBody)
 		{
@@ -327,18 +336,15 @@ void Sim_FSI_Gravity::simulate()
 			}
 		}
 		
-		time += dt;
-		step++;
-		
 		if (rank==0)
 		{
-			if (step<100)
+			//if (step<100)
 			{
 				// this still needs to be corrected to the frame of reference!
 				double accM = (uBody[1]-vOld)/dt;
 				double accT = (shape->getRhoS()-1)/(shape->getRhoS()+1) * gravity[1];
 				double accN = (shape->getRhoS()-1)/(shape->getRhoS()  ) * gravity[1];
-				cout << "Acceleration with added mass (measured, expected, no added mass)\t" << accM << "\t" << accT << "\t" << accN << endl;
+				if (verbose) cout << "Acceleration with added mass (measured, expected, no added mass)\t" << accM << "\t" << accT << "\t" << accN << endl;
 				stringstream ss;
 				ss << path2file << "_addedmass.dat";
 				ofstream myfile(ss.str(), fstream::app);

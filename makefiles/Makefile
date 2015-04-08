@@ -43,7 +43,7 @@ vtk-lib ?=
 fftw-inc ?= 
 fftw-lib ?= 
 hypre-inc ?= 
-hypre-lib ?= 
+hypre-lib ?=
 
 # needed in order to compile on nodes
 include make.brutus
@@ -59,6 +59,7 @@ endif
 CPPFLAGS += -std=c++11 -fopenmp -fpermissive
 CPPFLAGS += -DNTHREADS=$(nthreads)
 CPPFLAGS += -I../source/ -I../Cubism/ -I$(vtk-inc) -I$(fftw-inc)
+CPPFLAGS += -D_USE_FPZIP_  -I../tools/fpzip/inc
 
 LDFLAGS = $(CPPFLAGS)
 
@@ -83,6 +84,7 @@ LIBS += -lstdc++ -lm \
 	-lvtkzlib \
 	-lvtksys -lz \
 	-L$(fftw-lib) -lfftw3 -lfftw3f  -lfftw3f_threads
+LIBS += -L../tools/fpzip/lib -lfpzip
 
 ifeq "$(poisson)" "hypre"
 	CC=mpic++

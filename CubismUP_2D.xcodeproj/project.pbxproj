@@ -129,6 +129,9 @@
 		DDC1D09F1AC2D0B600BC2E88 /* Simulation_FSI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Simulation_FSI.h; sourceTree = "<group>"; };
 		DDD30B801AA99056008F9EE1 /* Shape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shape.h; sourceTree = "<group>"; };
 		DDDA9F371A78D69E0042FA80 /* OperatorSplitP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorSplitP.h; sourceTree = "<group>"; };
+		DDE251611AD5054700F6029B /* LosslessCompression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LosslessCompression.h; sourceTree = "<group>"; };
+		DDE251621AD5054700F6029B /* ZBinDumper_MPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBinDumper_MPI.h; sourceTree = "<group>"; };
+		DDE251631AD5054700F6029B /* ZBinDumper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBinDumper.h; sourceTree = "<group>"; };
 		DDFAAA101A5D971200BCE3E7 /* CubismUP_2D */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CubismUP_2D; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -222,28 +225,31 @@
 		DD58CAB31A5E8A7000291455 /* Cubism */ = {
 			isa = PBXGroup;
 			children = (
+				DD58CABD1A5E8A7000291455 /* ArgumentParser.h */,
 				DD58CAB41A5E8A7000291455 /* SerializerIO.h */,
 				DD58CAC21A5E8A7000291455 /* SerializerIO_VP.h */,
 				DD58CAB91A5E8A7000291455 /* SerializerIO_ImageVTK.h */,
-				DD58CAB51A5E8A7000291455 /* GridMorton.h */,
+				DDE251631AD5054700F6029B /* ZBinDumper.h */,
+				DDE251621AD5054700F6029B /* ZBinDumper_MPI.h */,
+				DDE251611AD5054700F6029B /* LosslessCompression.h */,
+				DD58CACD1A5E8A7000291455 /* HDF5Dumper.h */,
+				DD58CABE1A5E8A7000291455 /* HDF5Dumper_MPI.h */,
 				DD58CAB61A5E8A7000291455 /* DependencyCubeMPI.h */,
+				DD58CAC01A5E8A7000291455 /* SynchronizerMPI.h */,
+				DD58CAC41A5E8A7000291455 /* StencilInfo.h */,
+				DD58CAC61A5E8A7000291455 /* Matrix3D.h */,
+				DD58CABF1A5E8A7000291455 /* Matrix4D.h */,
+				DD58CAC51A5E8A7000291455 /* Grid.h */,
+				DD58CAB51A5E8A7000291455 /* GridMorton.h */,
+				DD58CAC11A5E8A7000291455 /* GridMPI.h */,
+				DD58CABA1A5E8A7000291455 /* BlockInfo.h */,
+				DD58CACC1A5E8A7000291455 /* BlockLab.h */,
 				DD58CAB71A5E8A7000291455 /* BlockLabMPI.h */,
 				DD58CAB81A5E8A7000291455 /* Timer.h */,
-				DD58CABA1A5E8A7000291455 /* BlockInfo.h */,
-				DD58CABD1A5E8A7000291455 /* ArgumentParser.h */,
-				DD58CABE1A5E8A7000291455 /* HDF5Dumper_MPI.h */,
-				DD58CABF1A5E8A7000291455 /* Matrix4D.h */,
-				DD58CAC01A5E8A7000291455 /* SynchronizerMPI.h */,
-				DD58CAC11A5E8A7000291455 /* GridMPI.h */,
-				DD58CAC41A5E8A7000291455 /* StencilInfo.h */,
-				DD58CAC51A5E8A7000291455 /* Grid.h */,
-				DD58CAC61A5E8A7000291455 /* Matrix3D.h */,
 				DD58CAC71A5E8A7000291455 /* Profiler.h */,
 				DD58CABB1A5E8A7000291455 /* Profiler.cpp */,
 				DD58CACA1A5E8A7000291455 /* Indexers.h */,
 				DD58CACB1A5E8A7000291455 /* PUPkernelsMPI.h */,
-				DD58CACC1A5E8A7000291455 /* BlockLab.h */,
-				DD58CACD1A5E8A7000291455 /* HDF5Dumper.h */,
 			);
 			path = Cubism;
 			sourceTree = "<group>";
