@@ -84,14 +84,21 @@ void Sim_Multiphase::_ic()
 		/*
 		Shape * shape;
 		Real radius = parser("-radius").asDouble(0.1);
-		Real centerOfMass[2] = {.5,.85};
+		Real centerOfMass[2];
+		centerOfMass[0] = .5;
+		if (rhoS >= 1)
+			centerOfMass[1] = .85;
+		else
+			centerOfMass[1] = .15;
+		
 		bool bPeriodic[2] = {false,false};
 		shape = new Disk(centerOfMass, radius, rhoS, 2, 2, bPeriodic);
 		CoordinatorIC coordIC(shape,0,grid);
 		profiler.push_start(coordIC.getName());
-		//*/
+		/*/
 		CoordinatorIC_RT coordIC(grid);
 		profiler.push_start(coordIC.getName());
+		*/
 		coordIC(0);
 		
 		stringstream ss;
@@ -99,7 +106,7 @@ void Sim_Multiphase::_ic()
 		dumper.Write(*grid, ss.str());
 		profiler.pop_stop();
 		
-		//delete shape;
+		delete shape;
 	}
 }
 

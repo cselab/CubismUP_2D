@@ -25,12 +25,12 @@ private:
 public:
 	OperatorAdvection(double dt) : dt(dt)
 	{
-		stencil_start[0] = -1;//RemeshingKernel::support_start-2;
-		stencil_start[1] = -1;//RemeshingKernel::support_start-2;
+		stencil_start[0] = RemeshingKernel::support_start-2;
+		stencil_start[1] = RemeshingKernel::support_start-2;
 		stencil_start[2] = 0;
 		
-		stencil_end[0] = 2;//RemeshingKernel::support_end+1;
-		stencil_end[1] = 2;//RemeshingKernel::support_end+1;
+		stencil_end[0] = RemeshingKernel::support_end+1;
+		stencil_end[1] = RemeshingKernel::support_end+1;
 		stencil_end[2] = 1;
 	}
 	~OperatorAdvection() {}
