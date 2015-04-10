@@ -21,6 +21,7 @@
 		DD838C3C1AB6DE8A00018A75 /* TestRotation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD838C3A1AB6DE8A00018A75 /* TestRotation.cpp */; };
 		DD838C401AB6DEA300018A75 /* TestTranslation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD838C3E1AB6DEA300018A75 /* TestTranslation.cpp */; };
 		DDBBA0071A7292670041496C /* TestVarCoeffPoisson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDBBA0051A7292670041496C /* TestVarCoeffPoisson.cpp */; };
+		DDE251681AD5699200F6029B /* Sim_Multiphase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE251661AD5699100F6029B /* Sim_Multiphase.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -132,6 +133,10 @@
 		DDE251611AD5054700F6029B /* LosslessCompression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LosslessCompression.h; sourceTree = "<group>"; };
 		DDE251621AD5054700F6029B /* ZBinDumper_MPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBinDumper_MPI.h; sourceTree = "<group>"; };
 		DDE251631AD5054700F6029B /* ZBinDumper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBinDumper.h; sourceTree = "<group>"; };
+		DDE251641AD528D800F6029B /* CoordinatorUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorUpdate.h; sourceTree = "<group>"; };
+		DDE251651AD54A6900F6029B /* CoordinatorCleanTmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorCleanTmp.h; sourceTree = "<group>"; };
+		DDE251661AD5699100F6029B /* Sim_Multiphase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sim_Multiphase.cpp; sourceTree = "<group>"; };
+		DDE251671AD5699100F6029B /* Sim_Multiphase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sim_Multiphase.h; sourceTree = "<group>"; };
 		DDFAAA101A5D971200BCE3E7 /* CubismUP_2D */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CubismUP_2D; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -218,6 +223,8 @@
 				DD66B5DC1A7649B6003FE36B /* Sim_FSI_Moving.cpp */,
 				DD66B5E11A764CEC003FE36B /* Sim_FSI_Gravity.h */,
 				DD66B5E01A764CEC003FE36B /* Sim_FSI_Gravity.cpp */,
+				DDE251671AD5699100F6029B /* Sim_Multiphase.h */,
+				DDE251661AD5699100F6029B /* Sim_Multiphase.cpp */,
 			);
 			name = Simulations;
 			sourceTree = "<group>";
@@ -313,6 +320,8 @@
 				DDBFCB881AC937670031708C /* CoordinatorPressure.h */,
 				DDBFCB8A1AC974E40031708C /* CoordinatorGravity.h */,
 				DDBFCB8B1AC984F80031708C /* CoordinatorBodyVelocities.h */,
+				DDE251641AD528D800F6029B /* CoordinatorUpdate.h */,
+				DDE251651AD54A6900F6029B /* CoordinatorCleanTmp.h */,
 			);
 			name = Coordinators;
 			sourceTree = "<group>";
@@ -419,6 +428,7 @@
 				DD58CADB1A60148E00291455 /* ProcessOperatorsOMP.cpp in Sources */,
 				DD58CAD81A5EF49D00291455 /* TestAdvection.cpp in Sources */,
 				DD355D201A8116B100711A51 /* TestGravity.cpp in Sources */,
+				DDE251681AD5699200F6029B /* Sim_Multiphase.cpp in Sources */,
 				DD64F6D61A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

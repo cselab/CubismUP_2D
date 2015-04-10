@@ -16,6 +16,7 @@ using namespace std;
 #include "Definitions.h"
 
 #include "Simulation_Fluid.h"
+#include "Sim_Multiphase.h"
 #include "Sim_FSI_Fixed.h"
 #include "Sim_FSI_Moving.h"
 #include "Sim_FSI_Gravity.h"
@@ -48,6 +49,8 @@ int main(int argc, const char **argv)
 		sim = new Sim_FSI_Moving(argc, argv);
 	else if (simSetting=="falling")
 		sim = new Sim_FSI_Gravity(argc, argv);
+	else if (simSetting=="multiphase")
+		sim = new Sim_Multiphase(argc, argv);
 	
 	sim->init();
 	sim->simulate();

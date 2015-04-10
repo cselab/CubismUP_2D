@@ -77,6 +77,7 @@ public:
 #pragma omp parallel
 		{
 			OperatorAdvection<Mp4> kernel(dt);
+			//OperatorAdvection<Ms6> kernel(dt);
 			
 			Lab mylab;
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
@@ -105,6 +106,7 @@ template <typename Lab>
 class CoordinatorTransport : public GenericCoordinator
 {
 protected:
+	/*
 	inline void reset()
 	{
 		const int N = vInfo.size();
@@ -136,6 +138,7 @@ protected:
 					b(ix,iy).rho = b(ix,iy).tmp;
 		}
 	}
+	 */
 	
 public:
 	CoordinatorTransport(FluidGrid * grid) : GenericCoordinator(grid)
@@ -147,7 +150,7 @@ public:
 		BlockInfo * ary = &vInfo.front();
 		const int N = vInfo.size();
 		
-		reset();
+		//reset();
 		
 #pragma omp parallel
 		{
@@ -165,7 +168,7 @@ public:
 			}
 		}
 		
-		update();
+		//update();
 	}
 	
 	string getName()

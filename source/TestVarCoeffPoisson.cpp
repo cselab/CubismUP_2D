@@ -49,7 +49,7 @@ void TestVarCoeffPoisson::_ic()
 				{
 					// variable coefficients - v1
 					b(ix, iy).rho = (M_PI*(cos(x) + 2));
-					b(ix, iy).u   = sin(x); // expected solution - why the factor 1/4?
+					b(ix, iy).u   = .25*sin(x); // expected solution - why the factor 1/4?
 					b(ix, iy).divU = -2*M_PI*sin(x)/((cos(x)+2)*(cos(x)+2)); // rhs
 					
 					// variable coefficients - v2

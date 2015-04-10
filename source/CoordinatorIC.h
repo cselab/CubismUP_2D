@@ -47,4 +47,34 @@ public:
 	}
 };
 
+class CoordinatorIC_RT : public GenericCoordinator
+{
+public:
+	CoordinatorIC_RT(FluidGrid * grid) : GenericCoordinator(grid)
+	{
+	}
+	
+	void operator()(const double dt)
+	{
+		BlockInfo * ary = &vInfo.front();
+		const int N = vInfo.size();
+		
+#pragma omp parallel
+		{
+			OperatorIC_RT kernel;
+			
+#pragma omp for schedule(static)
+			for (int i=0; i<N; i++)
+				kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
+		}
+		
+		check("IC - end");
+	}
+	
+	string getName()
+	{
+		return "IC_RT";
+	}
+};
+
 #endif

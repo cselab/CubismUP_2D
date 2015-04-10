@@ -19,6 +19,8 @@
 #include "CoordinatorDiffusion.h"
 #include "CoordinatorPenalization.h"
 #include "CoordinatorPressure.h"
+#include "CoordinatorUpdate.h"
+#include "CoordinatorCleanTmp.h"
 
 
 void Sim_FSI_Fixed::_diagnostics()
@@ -144,8 +146,10 @@ void Sim_FSI_Fixed::init()
 	}
 	
 	pipeline.clear();
+	pipeline.push_back(new CoordinatorCleanTmp(grid));
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
+	pipeline.push_back(new CoordinatorUpdate(grid));
 	pipeline.push_back(new CoordinatorPressureSimple<Lab>(grid));
 	pipeline.push_back(new CoordinatorPenalizationFixed(shape, lambda, grid));
 	

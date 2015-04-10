@@ -60,7 +60,7 @@ protected:
 #endif // _MULTIPHASE_
 				}
 		}
-	}
+	 }
 	
 public:
 	CoordinatorDiffusion(const double coeff, FluidGrid * grid) : GenericCoordinator(grid), coeff(coeff)

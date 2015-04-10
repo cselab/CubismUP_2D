@@ -17,16 +17,6 @@
 class OperatorGravity : public GenericOperator
 {
 private:
-	Real smoothHeaviside(Real rR, Real radius, Real eps)
-	{
-		if (rR < radius-eps*.5)
-			return (Real) 1.;
-		else if (rR > radius+eps*.5)
-			return (Real) 0.;
-		else
-			return (Real) ((1.+cos(M_PI*((rR-radius)/eps+.5)))*.5);
-	}
-	
 	const double dt;
 	const Real g[2];
 	
@@ -42,6 +32,8 @@ public:
 				Real p[2];
 				info.pos(p, ix, iy);
 				
+				//block(ix,iy).tmpU += block(ix,iy).u + dt * g[0];
+				//block(ix,iy).tmpV += block(ix,iy).v + dt * g[1];
 				block(ix,iy).u += dt * g[0];
 				block(ix,iy).v += dt * g[1];
 			}

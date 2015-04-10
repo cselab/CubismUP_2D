@@ -9,6 +9,8 @@
 #include "TestDiffusion.h"
 //#include "ProcessOperatorsOMP.h"
 #include "CoordinatorDiffusion.h"
+#include "CoordinatorUpdate.h"
+#include "CoordinatorCleanTmp.h"
 #include <sstream>
 #include <cmath>
 
@@ -38,6 +40,9 @@ void TestDiffusion::_ic()
 				b(ix, iy).u   = _analytical(p[0],p[1],0);
 				b(ix, iy).v   = 0;
 				b(ix, iy).chi = 0;
+				
+				b(ix, iy).tmpU = 0;
+				b(ix, iy).tmpV = 0;
 			}
 	}
 	
@@ -79,11 +84,15 @@ void TestDiffusion::run()
 	//cout << "Using dt " << dt << " (Fourier time step: " << vInfo[0].h_gridpoint*vInfo[0].h_gridpoint*.5/nu << ")\n";
 	
 	const int nsteps = 1;
+	CoordinatorCleanTmp coordClean(grid);
 	CoordinatorDiffusion<Lab> coordDiffusion(nu, grid);
+	CoordinatorUpdate coordUpdate(grid);
 	
 	for(int step=0; step<nsteps; ++step)
 	{
+		coordClean(dt);
 		coordDiffusion(dt);
+		coordUpdate(dt);
 		
 		time += dt;
 	}

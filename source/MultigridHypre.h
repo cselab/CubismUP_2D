@@ -37,6 +37,14 @@ private:
 	
 	FluidGrid * fluidgrid;
 	
+	inline void _neighbor(Real c, Real e, Real w, Real n, Real s, Real& avgE, Real& avgW, Real& avgN, Real& avgS)
+	{
+		avgE = c;
+		avgW = w;
+		avgN = n;
+		avgS = c;
+	}
+	
 	inline void _mean(Real c, Real e, Real w, Real n, Real s, Real& avgE, Real& avgW, Real& avgN, Real& avgS)
 	{
 		avgE = .5 * (c + e);
@@ -114,8 +122,9 @@ private:
 					FluidElement& phiW = lab(ix-1,iy  );
 					
 					Real rhoE, rhoW, rhoN, rhoS;
-					//_mean(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
-					_harmonicAvg(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
+					//_neighbor(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
+					_mean(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
+					//_harmonicAvg(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
 					
 #ifndef _PERIODIC_
 					//*

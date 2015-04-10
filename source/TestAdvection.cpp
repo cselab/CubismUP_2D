@@ -13,6 +13,8 @@
 #include <cmath>
 
 #include "CoordinatorAdvection.h"
+#include "CoordinatorUpdate.h"
+#include "CoordinatorCleanTmp.h"
 
 /*
  class BS4
@@ -116,6 +118,10 @@ void TestAdvection::_icVortex()
 				}
 				b(ix, iy).chi = 0;
 				
+				b(ix, iy).tmpU = 0;
+				b(ix, iy).tmpV = 0;
+				b(ix, iy).tmp  = 0;
+				
 				//*/
 			}
 	}
@@ -136,6 +142,38 @@ void TestAdvection::_icVortex()
 	dumpLayer2VTK(0,sVort.str(),*vorticityIC,1);
 }
 
+void TestAdvection::_icBurger()
+{
+	vector<BlockInfo> vInfo = grid->getBlocksInfo();
+	const double dh = vInfo[0].h_gridpoint;
+	
+#pragma omp parallel for
+	for(int i=0; i<(int)vInfo.size(); i++)
+	{
+		BlockInfo info = vInfo[i];
+		FluidBlock& b = *(FluidBlock*)info.ptrBlock;
+		
+		for(int iy=0; iy<FluidBlock::sizeY; iy++)
+			for(int ix=0; ix<FluidBlock::sizeX; ix++)
+			{
+				double p[3];
+				info.pos(p, ix, iy);
+				
+				b(ix, iy).rho = 1;
+				b(ix, iy).u   = 1-cos(p[0]*M_PI*2);
+				b(ix, iy).v   = 0;
+				b(ix, iy).chi = 0;
+			}
+	}
+	
+	
+	stringstream ss;
+	ss << path2file << "-IC.vti" ;
+	//cout << ss.str() << endl;
+	
+	dumper.Write(*grid, ss.str());
+}
+
 TestAdvection::TestAdvection(const int argc, const char ** argv, int testCase, const int bpd) : Test(argc, argv), time(0), testCase(testCase), bpd(bpd)
 {
 	grid = new FluidGrid(bpd,bpd,1);
@@ -151,8 +189,10 @@ TestAdvection::TestAdvection(const int argc, const char ** argv, int testCase, c
 	else if (testCase==1)
 	{
 		// output settings
-		path2file = parser("-file").asString("../data/testAdvectionVortex");
-		_icVortex();
+		//path2file = parser("-file").asString("../data/testAdvectionVortex");
+		//_icVortex();
+		path2file = parser("-file").asString("../data/testAdvectionBurger");
+		_icBurger();
 	}
 	else
 	{
@@ -172,23 +212,29 @@ void TestAdvection::run()
 	
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	const double dt = 0.0001;//vInfo[0].h_gridpoint*.5;
+	const double dt = 0.00001;
 	/*
-	if (testCase==0)
+	 if (testCase==0)
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/1. << ")\n";
-	else
+	 else
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/.25 << ")\n";
-	//*/
+	 //*/
 	
-	const int nsteps = 10000;
-	CoordinatorTransport<Lab> coordTransport(grid);
+	const int nsteps = 5000;//500;
+	CoordinatorCleanTmp coordClean(grid);
+	CoordinatorAdvection<Lab> coordAdvection(grid);
+	//CoordinatorTransport<Lab> coordTransport(grid);
+	CoordinatorUpdate coordUpdate(grid);
 	
 	for(int step=0; step<nsteps; ++step)
 	{
-		coordTransport(dt);
+		//coordClean(dt);
+		coordAdvection(dt);
+		//coordTransport(dt);
+		//coordUpdate(dt);
 		
 		//dump some time steps every now and then
-		if(step % 10 == 0)
+		if(step % 100 == 0)
 		{
 			stringstream ss;
 			ss << path2file << "-" << step << ".vti" ;
@@ -211,7 +257,7 @@ void TestAdvection::run()
 	
 	stringstream ss;
 	ss << path2file << "-test" << testCase << "-bpd" << bpd << ".vti";
-	
+	//cout << ss.str() << endl;
 	dumper.Write(*grid, ss.str());
 }
 
@@ -234,9 +280,9 @@ void TestAdvection::check()
 	
 	const int sizeX = bpd * FluidBlock::sizeX;
 	const int sizeY = bpd * FluidBlock::sizeY;
-	Layer vorticity(sizeX,sizeY,1);
-	Layer vorticityDiff(sizeX,sizeY,1);
-	processOMP<Lab, OperatorVorticity>(vorticity,vInfo,*grid);
+	//Layer vorticity(sizeX,sizeY,1);
+	//Layer vorticityDiff(sizeX,sizeY,1);
+	//processOMP<Lab, OperatorVorticity>(vorticity,vInfo,*grid);
 	
 	if (testCase==0)
 	{
@@ -264,21 +310,51 @@ void TestAdvection::check()
 	}
 	else
 	{
-#pragma omp parallel for reduction(max:uLinf) reduction(+:uL1) reduction(+:uL2)
-		for (int iy=0; iy<sizeY; iy++)
+		/*
+		 #pragma omp parallel for reduction(max:uLinf) reduction(+:uL1) reduction(+:uL2)
+		 for (int iy=0; iy<sizeY; iy++)
 			for (int ix=0; ix<sizeX; ix++)
 			{
-				double error = vorticity(ix,iy)-(*vorticityIC)(ix,iy);
-				vorticityDiff(ix,iy) = error;
-				
-				uLinf = max(uLinf,abs(error));
-				uL1 += abs(error);
-				uL2 += error*error;
+		 double error = vorticity(ix,iy)-(*vorticityIC)(ix,iy);
+		 vorticityDiff(ix,iy) = error;
+		 
+		 uLinf = max(uLinf,abs(error));
+		 uL1 += abs(error);
+		 uL2 += error*error;
 			}
+		 */
+		
+#pragma omp parallel for reduction(max:uLinf) reduction(+:uL1) reduction(+:uL2)
+		for(int i=0; i<(int)vInfo.size(); i++)
+		{
+			BlockInfo info = vInfo[i];
+			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
+			
+			for(int iy=0; iy<FluidBlock::sizeY; iy++)
+				for(int ix=0; ix<FluidBlock::sizeX; ix++)
+				{
+					// 1D Burger's
+					double p[3];
+					info.pos(p, ix, iy);
+					double pIC = p[0] - b(ix,iy).u * time; // why this factor 2?
+					double error = b(ix, iy).u - (1-cos(pIC*M_PI*2));
+					
+					b(ix,iy).u = 1-cos(pIC*M_PI*2);
+					
+					uLinf = max(uLinf,abs(error));
+					uL1 += abs(error);
+					uL2 += error*error;
+				}
+		}
 	}
-	stringstream sVort;
-	sVort << path2file << "VorticityDiff-" << bpd << ".vti";
-	dumpLayer2VTK(0,sVort.str(),vorticityDiff,1);
+	
+	//stringstream sVort;
+	//sVort << path2file << "VorticityDiff-" << bpd << ".vti";
+	//dumpLayer2VTK(0,sVort.str(),vorticityDiff,1);
+	
+	stringstream ssol;
+	ssol << path2file << "-solution" << testCase << "-bpd" << bpd << ".vti";
+	dumper.Write(*grid, ssol.str());
 	
 	uL1 *= dh*dh;
 	uL2 = sqrt(uL2)*dh;

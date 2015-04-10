@@ -9,6 +9,8 @@
 #include "TestGravity.h"
 #include "ProcessOperatorsOMP.h"
 #include "CoordinatorGravity.h"
+#include "CoordinatorUpdate.h"
+#include "CoordinatorCleanTmp.h"
 #include <sstream>
 #include <cmath>
 
@@ -34,6 +36,8 @@ void TestGravity::_ic()
 				b(ix, iy).v   = p[0];
 				b(ix, iy).p   = 0;
 				b(ix, iy).chi = 0;
+				b(ix, iy).tmpU = 0;
+				b(ix, iy).tmpV = 0;
 			}
 	}
 	
@@ -67,11 +71,15 @@ void TestGravity::run()
 	
 	const int nsteps = 1000;
 	
+	CoordinatorCleanTmp coordClean(grid);
 	CoordinatorGravity coordGravity(gravity, grid);
+	CoordinatorUpdate coordUpdate(grid);
 	
 	for(int step=0; step<nsteps; ++step)
 	{
+		coordClean(dt);
 		coordGravity(dt);
+		coordUpdate(dt);
 		
 		time += dt;
 	}

@@ -23,18 +23,18 @@ private:
 public:
 	OperatorIC(Shape * shape, const double uinf) : shape(shape), uinf(uinf) {}
 	
-    ~OperatorIC() {}
-    
-    void operator()(const BlockInfo& info, FluidBlock& block) const
-    {
-        for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-            for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-            {
-                Real p[2];
-                info.pos(p, ix, iy);
+	~OperatorIC() {}
+	
+	void operator()(const BlockInfo& info, FluidBlock& block) const
+	{
+		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+			{
+				Real p[2];
+				info.pos(p, ix, iy);
 				
 				block(ix,iy).u = uinf;
-                block(ix,iy).v = 0;
+				block(ix,iy).v = 0;
 				block(ix,iy).chi = shape->chi(p, info.h_gridpoint);
 				
 				// assume fluid with density 1
@@ -47,8 +47,41 @@ public:
 				block(ix,iy).tmpU = 0;
 				block(ix,iy).tmpV = 0;
 				block(ix,iy).tmp  = 0;
-            }
-    }
+			}
+	}
+};
+
+class OperatorIC_RT : public GenericOperator
+{
+public:
+	OperatorIC_RT() {}
+	
+	~OperatorIC_RT() {}
+	
+	void operator()(const BlockInfo& info, FluidBlock& block) const
+	{
+		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+			{
+				Real p[2];
+				info.pos(p, ix, iy);
+				
+				Real wave = .5 + .05*cos(8*M_PI*p[0]);
+				block(ix,iy).rho = p[1]>wave ? 10 : 1;
+				block(ix,iy).u = 0;
+				block(ix,iy).v = 0;
+				block(ix,iy).chi = 0;
+				
+				block(ix,iy).p = 0;
+				block(ix,iy).divU = 0;
+				block(ix,iy).pOld = 0;
+				
+				block(ix,iy).tmpU = 0;
+				block(ix,iy).tmpV = 0;
+				block(ix,iy).tmp  = 0;
+
+			}
+	}
 };
 
 

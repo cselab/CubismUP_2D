@@ -52,9 +52,6 @@ void TestPenalization::run()
 	
 	for (int i=0; i<10; i++)
 	{
-		//Real centerOfMass[2] = {0,0};
-		//shape->getPosition(centerOfMass);
-		//processOMP<OperatorPenalization>(dt,uBody[0],uBody[1],omegaBody,centerOfMass[0],centerOfMass[1],lambda,vInfo,*grid);
 		coordPenalization(dt);
 	
 		stringstream ss;

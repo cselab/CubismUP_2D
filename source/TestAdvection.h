@@ -31,6 +31,7 @@ private:
 	
 	void _icLinear();
 	void _icVortex();
+	void _icBurger();
 	
 public:
 	TestAdvection(const int argc, const char ** argv, int testCase, const int bpd);
