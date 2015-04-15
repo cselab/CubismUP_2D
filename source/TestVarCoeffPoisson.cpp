@@ -49,15 +49,14 @@ void TestVarCoeffPoisson::_ic()
 				{
 					// variable coefficients - v1
 					b(ix, iy).rho = (M_PI*(cos(x) + 2));
-					b(ix, iy).u   = .25*sin(x); // expected solution - why the factor 1/4?
+					b(ix, iy).u   = sin(x); // expected solution - why the factor 1/4?
 					b(ix, iy).divU = -2*M_PI*sin(x)/((cos(x)+2)*(cos(x)+2)); // rhs
 					
-					// variable coefficients - v2
 					/*
-					 b(ix, iy).rho = sin(x);
-					 b(ix, iy).u   = M_PI * M_PI * cos(2.*x); // expected solution
-					 b(ix, iy).divU = sin(x); // rhs
-					 //*/
+					b(ix, iy).rho = (M_PI*(cos(x) + 2));
+					b(ix, iy).u   = cos(x); // not converging
+					b(ix, iy).divU = -2*M_PI*(cos(x)+1)/((cos(x)+2)*(cos(x)+2)); // rhs
+					 */
 				}
 				else
 					abort();
@@ -73,7 +72,7 @@ void TestVarCoeffPoisson::_ic()
 
 TestVarCoeffPoisson::TestVarCoeffPoisson(const int argc, const char ** argv, const int ic, const int bpd) : Test(argc, argv), ic(ic), bpd(bpd)
 {
-	grid = new FluidGrid(bpd,bpd,1);
+	grid = new FluidGrid(bpd,1,1);
 	
 	// output settings
 	path2file = parser("-file").asString("../data/testVarCoeffPoisson");
@@ -138,6 +137,8 @@ void TestVarCoeffPoisson::check()
 				double y = p[1]*M_PI;
 				
 				double error = b(ix,iy).tmp - b(ix,iy).u;
+				//if (error > 1e5)
+				//	cout << error << "\t" << b(ix,iy).tmp << "\t" << b(ix,iy).u << endl;
 				
 				Linf = max(Linf,abs(error));
 				L1 += abs(error);

@@ -12,11 +12,11 @@ bs ?= 32
 CPPFLAGS+= -w
 
 ifeq "$(bc)" "periodic"
-CPPFLAGS+= -D_PERIODIC_
+	CPPFLAGS += -D_PERIODIC_
 endif
 
 ifeq "$(precision)" "single"
-CPPFLAGS+= -D_SP_COMP_
+	CPPFLAGS += -D_SP_COMP_
 endif
 
 CPPFLAGS+= -D_BS_=$(bs)
@@ -24,18 +24,18 @@ CPPFLAGS+= -D_BS_=$(bs)
 ifeq "$(config)" "production"
 	CPPFLAGS += -DNDEBUG -O3
 else
-	CPPFLAGS = -g
+	CPPFLAGS += -g
 endif
 
 ifeq "$(poisson)" "split-fftw"
-	CPPFLAGS+= -D_SPLIT_
+	CPPFLAGS += -D_SPLIT_
 endif
 ifeq "$(poisson)" "hypre"
-	CPPFLAGS+= -D_MULTIGRID_
+	CPPFLAGS += -D_MULTIGRID_
 endif
 
 ifeq "$(multiphase)" "true"
-	CPPFLAGS+= -D_MULTIPHASE_
+	CPPFLAGS += -D_MULTIPHASE_
 endif
 
 vtk-inc ?= 
@@ -98,7 +98,7 @@ endif
 BUILDDIR = .
 SRC_DIR = $(BUILDDIR)/../source/
 CUBISM_DIR = $(BUILDDIR)/../Cubism/
-OBJECTS = PoissonSolverScalarFFTW.o ProcessOperatorsOMP.o Sim_Multiphase.o Sim_FSI_Gravity.o Sim_FSI_Moving.o Sim_FSI_Fixed.o Profiler.o main.o
+OBJECTS = PoissonSolverScalarFFTW.o ProcessOperatorsOMP.o Sim_Jet.o Sim_RayleighTaylor.o Sim_Bubble.o Sim_FSI_Gravity.o Sim_FSI_Moving.o Sim_FSI_Fixed.o Profiler.o main.o
 OBJECTS_TEST = PoissonSolverScalarFFTW.o ProcessOperatorsOMP.o TestRotation.o TestTranslation.o TestPenalization.o TestGravity.o TestVarCoeffPoisson.o TestPressure.o TestAdvection.o TestDiffusion.o Profiler.o mainTest.o
 
 VPATH := $(SRC_DIR):$(CUBISM_DIR)

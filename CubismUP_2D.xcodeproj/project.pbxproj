@@ -21,7 +21,9 @@
 		DD838C3C1AB6DE8A00018A75 /* TestRotation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD838C3A1AB6DE8A00018A75 /* TestRotation.cpp */; };
 		DD838C401AB6DEA300018A75 /* TestTranslation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD838C3E1AB6DEA300018A75 /* TestTranslation.cpp */; };
 		DDBBA0071A7292670041496C /* TestVarCoeffPoisson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDBBA0051A7292670041496C /* TestVarCoeffPoisson.cpp */; };
-		DDE251681AD5699200F6029B /* Sim_Multiphase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE251661AD5699100F6029B /* Sim_Multiphase.cpp */; };
+		DDE2516D1AD8228A00F6029B /* Sim_RayleighTaylor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE2516B1AD8228A00F6029B /* Sim_RayleighTaylor.cpp */; };
+		DDE251701AD822C400F6029B /* Sim_Jet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE2516E1AD822C400F6029B /* Sim_Jet.cpp */; };
+		DDE251731AD822D100F6029B /* Sim_Bubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE251711AD822D100F6029B /* Sim_Bubble.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -135,8 +137,13 @@
 		DDE251631AD5054700F6029B /* ZBinDumper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBinDumper.h; sourceTree = "<group>"; };
 		DDE251641AD528D800F6029B /* CoordinatorUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorUpdate.h; sourceTree = "<group>"; };
 		DDE251651AD54A6900F6029B /* CoordinatorCleanTmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorCleanTmp.h; sourceTree = "<group>"; };
-		DDE251661AD5699100F6029B /* Sim_Multiphase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sim_Multiphase.cpp; sourceTree = "<group>"; };
-		DDE251671AD5699100F6029B /* Sim_Multiphase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sim_Multiphase.h; sourceTree = "<group>"; };
+		DDE251671AD5699100F6029B /* Simulation_MP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Simulation_MP.h; sourceTree = "<group>"; };
+		DDE2516B1AD8228A00F6029B /* Sim_RayleighTaylor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sim_RayleighTaylor.cpp; sourceTree = "<group>"; };
+		DDE2516C1AD8228A00F6029B /* Sim_RayleighTaylor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sim_RayleighTaylor.h; sourceTree = "<group>"; };
+		DDE2516E1AD822C400F6029B /* Sim_Jet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sim_Jet.cpp; sourceTree = "<group>"; };
+		DDE2516F1AD822C400F6029B /* Sim_Jet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sim_Jet.h; sourceTree = "<group>"; };
+		DDE251711AD822D100F6029B /* Sim_Bubble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sim_Bubble.cpp; sourceTree = "<group>"; };
+		DDE251721AD822D100F6029B /* Sim_Bubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sim_Bubble.h; sourceTree = "<group>"; };
 		DDFAAA101A5D971200BCE3E7 /* CubismUP_2D */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CubismUP_2D; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -216,15 +223,8 @@
 			children = (
 				DD58CA9E1A5D977C00291455 /* main.cpp */,
 				DDC1D09E1AC2CB9D00BC2E88 /* Simulation_Fluid.h */,
-				DDC1D09F1AC2D0B600BC2E88 /* Simulation_FSI.h */,
-				DD58CAAE1A5E7B9E00291455 /* Sim_FSI_Fixed.h */,
-				DD58CAAD1A5E7B9E00291455 /* Sim_FSI_Fixed.cpp */,
-				DD66B5DD1A7649B6003FE36B /* Sim_FSI_Moving.h */,
-				DD66B5DC1A7649B6003FE36B /* Sim_FSI_Moving.cpp */,
-				DD66B5E11A764CEC003FE36B /* Sim_FSI_Gravity.h */,
-				DD66B5E01A764CEC003FE36B /* Sim_FSI_Gravity.cpp */,
-				DDE251671AD5699100F6029B /* Sim_Multiphase.h */,
-				DDE251661AD5699100F6029B /* Sim_Multiphase.cpp */,
+				DDE251691AD8223E00F6029B /* FSI */,
+				DDE2516A1AD8225100F6029B /* Multiphase */,
 			);
 			name = Simulations;
 			sourceTree = "<group>";
@@ -334,6 +334,34 @@
 			name = Shapes;
 			sourceTree = "<group>";
 		};
+		DDE251691AD8223E00F6029B /* FSI */ = {
+			isa = PBXGroup;
+			children = (
+				DDC1D09F1AC2D0B600BC2E88 /* Simulation_FSI.h */,
+				DD58CAAE1A5E7B9E00291455 /* Sim_FSI_Fixed.h */,
+				DD58CAAD1A5E7B9E00291455 /* Sim_FSI_Fixed.cpp */,
+				DD66B5DD1A7649B6003FE36B /* Sim_FSI_Moving.h */,
+				DD66B5DC1A7649B6003FE36B /* Sim_FSI_Moving.cpp */,
+				DD66B5E11A764CEC003FE36B /* Sim_FSI_Gravity.h */,
+				DD66B5E01A764CEC003FE36B /* Sim_FSI_Gravity.cpp */,
+			);
+			name = FSI;
+			sourceTree = "<group>";
+		};
+		DDE2516A1AD8225100F6029B /* Multiphase */ = {
+			isa = PBXGroup;
+			children = (
+				DDE251671AD5699100F6029B /* Simulation_MP.h */,
+				DDE2516C1AD8228A00F6029B /* Sim_RayleighTaylor.h */,
+				DDE2516B1AD8228A00F6029B /* Sim_RayleighTaylor.cpp */,
+				DDE2516F1AD822C400F6029B /* Sim_Jet.h */,
+				DDE2516E1AD822C400F6029B /* Sim_Jet.cpp */,
+				DDE251721AD822D100F6029B /* Sim_Bubble.h */,
+				DDE251711AD822D100F6029B /* Sim_Bubble.cpp */,
+			);
+			name = Multiphase;
+			sourceTree = "<group>";
+		};
 		DDFAAA071A5D971200BCE3E7 = {
 			isa = PBXGroup;
 			children = (
@@ -425,11 +453,13 @@
 				DD355D241A8118FE00711A51 /* TestPenalization.cpp in Sources */,
 				DD58CAD11A5ECA9000291455 /* TestDiffusion.cpp in Sources */,
 				DD838C401AB6DEA300018A75 /* TestTranslation.cpp in Sources */,
+				DDE251701AD822C400F6029B /* Sim_Jet.cpp in Sources */,
 				DD58CADB1A60148E00291455 /* ProcessOperatorsOMP.cpp in Sources */,
 				DD58CAD81A5EF49D00291455 /* TestAdvection.cpp in Sources */,
 				DD355D201A8116B100711A51 /* TestGravity.cpp in Sources */,
-				DDE251681AD5699200F6029B /* Sim_Multiphase.cpp in Sources */,
 				DD64F6D61A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp in Sources */,
+				DDE2516D1AD8228A00F6029B /* Sim_RayleighTaylor.cpp in Sources */,
+				DDE251731AD822D100F6029B /* Sim_Bubble.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

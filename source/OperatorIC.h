@@ -53,21 +53,28 @@ public:
 
 class OperatorIC_RT : public GenericOperator
 {
+protected:
+	const double rhoS;
+	
 public:
-	OperatorIC_RT() {}
+	OperatorIC_RT(const double rhoS) : rhoS(rhoS) {}
 	
 	~OperatorIC_RT() {}
 	
 	void operator()(const BlockInfo& info, FluidBlock& block) const
 	{
+		Real d = .25;
+		
 		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
 			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
 			{
 				Real p[2];
 				info.pos(p, ix, iy);
 				
-				Real wave = .5 + .05*cos(8*M_PI*p[0]);
-				block(ix,iy).rho = p[1]>wave ? 10 : 1;
+				Real y = p[1] - d*2.;
+				Real x = p[0] - d*.5;
+				Real eta = -.1*d*cos(2*M_PI*x/d);
+				block(ix,iy).rho = 2. + tanh((y-eta)/(.01*d));
 				block(ix,iy).u = 0;
 				block(ix,iy).v = 0;
 				block(ix,iy).chi = 0;
@@ -79,7 +86,6 @@ public:
 				block(ix,iy).tmpU = 0;
 				block(ix,iy).tmpV = 0;
 				block(ix,iy).tmp  = 0;
-
 			}
 	}
 };

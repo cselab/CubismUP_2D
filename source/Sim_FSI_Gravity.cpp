@@ -193,6 +193,9 @@ Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulatio
 #ifdef _MULTIGRID_
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 	MPI_Comm_size(MPI_COMM_WORLD,&nprocs);
+	
+	if (rank!=0)
+		omp_set_num_threads(1);
 #endif // _MULTIGRID_
 	
 	if (rank==0)
@@ -293,7 +296,9 @@ void Sim_FSI_Gravity::simulate()
 				cout << "dt (Fourier, CFL, body): " << dt << " " << dtFourier << " " << dtCFL << " " << dtBody << endl;
 			profiler.pop_stop();
 		}
+#ifdef _MULTIGRID_
 		MPI_Bcast(&dt,1,MPI_DOUBLE,0,MPI_COMM_WORLD);
+#endif // _MULTIGRID_
 		
 		if (dt!=0)
 		{

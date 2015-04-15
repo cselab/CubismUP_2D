@@ -473,9 +473,11 @@ private:
 		HYPRE_StructVectorSetBoxValues(b, ilower, iupper, &values[0]);
 		
 		// initial guess
+		/*
 #pragma omp parallel for schedule(static)
 		for (int i = 0; i < size2; i ++)
 			values[i] = 0.0;
+		 */
 		
 		HYPRE_StructVectorSetBoxValues(x, ilower, iupper, &values[0]);
 		
@@ -631,7 +633,7 @@ public:
 		
 		MPI_Barrier(MPI_COMM_WORLD);
 		
-		if (nranks>1)
+		if (nranks>1 && rankX==0 && rankY==0)
 			omp_set_num_threads(NTHREADS);
 	}
 };

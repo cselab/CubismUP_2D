@@ -80,10 +80,10 @@ void TestDiffusion::run()
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
 	// TODO: choose dt (Fourier)
-	const double dt = 1e-7;
+	const double dt = 1e-8;
 	//cout << "Using dt " << dt << " (Fourier time step: " << vInfo[0].h_gridpoint*vInfo[0].h_gridpoint*.5/nu << ")\n";
 	
-	const int nsteps = 1;
+	const int nsteps = 100;
 	CoordinatorCleanTmp coordClean(grid);
 	CoordinatorDiffusion<Lab> coordDiffusion(nu, grid);
 	CoordinatorUpdate coordUpdate(grid);

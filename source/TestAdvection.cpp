@@ -160,7 +160,7 @@ void TestAdvection::_icBurger()
 				info.pos(p, ix, iy);
 				
 				b(ix, iy).rho = 1;
-				b(ix, iy).u   = 1-cos(p[0]*M_PI*2);
+				b(ix, iy).u   = ix<FluidBlock::sizeX/2 ? p[0] : (1-p[0]);//1-p[0];//1-cos(p[0]*M_PI*2);
 				b(ix, iy).v   = 0;
 				b(ix, iy).chi = 0;
 			}
@@ -212,7 +212,7 @@ void TestAdvection::run()
 	
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	const double dt = 0.00001;
+	const double dt = 0.5;//0.00001;
 	/*
 	 if (testCase==0)
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/1. << ")\n";
@@ -220,7 +220,7 @@ void TestAdvection::run()
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/.25 << ")\n";
 	 //*/
 	
-	const int nsteps = 5000;//500;
+	const int nsteps = 1;//5000;//500;
 	CoordinatorCleanTmp coordClean(grid);
 	CoordinatorAdvection<Lab> coordAdvection(grid);
 	//CoordinatorTransport<Lab> coordTransport(grid);

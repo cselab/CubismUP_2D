@@ -89,7 +89,7 @@ protected:
 							cout << "dump" << endl;
 						
 						if (b(ix,iy).rho <= 0)
-							cout << "dump" << endl;
+							cout << "dump " << b(ix,iy).rho << "\t" << info.index[0] << " " << info.index[1] << " " << ix << " " << iy << endl;
 						
 						assert(b(ix,iy).rho > 0);
 						assert(!std::isnan(b(ix,iy).rho));

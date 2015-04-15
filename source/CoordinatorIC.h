@@ -49,8 +49,11 @@ public:
 
 class CoordinatorIC_RT : public GenericCoordinator
 {
+protected:
+	const double rhoS;
+	
 public:
-	CoordinatorIC_RT(FluidGrid * grid) : GenericCoordinator(grid)
+	CoordinatorIC_RT(const double rhoS, FluidGrid * grid) : GenericCoordinator(grid), rhoS(rhoS)
 	{
 	}
 	
@@ -61,7 +64,7 @@ public:
 		
 #pragma omp parallel
 		{
-			OperatorIC_RT kernel;
+			OperatorIC_RT kernel(rhoS);
 			
 #pragma omp for schedule(static)
 			for (int i=0; i<N; i++)

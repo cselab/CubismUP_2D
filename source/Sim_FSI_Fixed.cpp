@@ -114,6 +114,9 @@ Sim_FSI_Fixed::Sim_FSI_Fixed(const int argc, const char ** argv) : Simulation_FS
 	int rank = 0;
 #ifdef _MULTIGRID_
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+	
+	if (rank!=0)
+		omp_set_num_threads(1);
 #endif // _MULTIGRID_
 	
 	if (rank==0)

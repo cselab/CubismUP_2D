@@ -132,10 +132,12 @@ public:
 #endif // _SPLIT_
 #ifdef _MULTIGRID_
 		if (rank==0)
+		{
 			if (bSplit)
 				computeSplit<OperatorDivergenceSplit>(dt);
 			else
 				compute<OperatorDivergence>(dt);
+		}
 		check("pressure - preMG");
 		mg.setup(grid, bSplit, rank, nprocs);
 		mg();
@@ -144,10 +146,12 @@ public:
 #endif // _MULTIGRID_
 		check("pressure - postMG");
 		if (rank==0)
+		{
 			if (bSplit)
 				computeSplit<OperatorGradPSplit>(dt);
 			else
 				compute<OperatorGradP>(dt);
+		}
 #endif // _MULTIGRID_
 		
 #ifdef _MULTIGRID_
