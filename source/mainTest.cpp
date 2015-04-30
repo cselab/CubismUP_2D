@@ -24,6 +24,8 @@ using namespace std;
 #include "TestPenalization.h"
 #include "TestTranslation.h"
 #include "TestRotation.h"
+#include "TestTravelingWave.h"
+#include "TestShearLayer.h"
 #include "Definitions.h"
 
 int main(int argc, const char **argv)
@@ -200,6 +202,39 @@ int main(int argc, const char **argv)
 			delete rotation;
 		}
 	}
+	else if (test=="travelingwave")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tTraveling Wave Test\n";
+		cout << "========================================================================================\n";
+		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
+		{
+			TestTravelingWave * wave = new TestTravelingWave(argc, argv, bpd);
+			wave->run();
+			wave->check();
+			delete wave;
+		}
+	}
+	else if (test=="shearlayer")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tShear Layer Test\n";
+		cout << "========================================================================================\n";
+		/*
+		// reference run
+		TestShearLayer * shearlayer = new TestShearLayer(argc, argv, 32);
+		shearlayer->run();
+		delete shearlayer;
+		*/
+		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
+		{
+			TestShearLayer * shearlayer = new TestShearLayer(argc, argv, bpd);
+			shearlayer->run();
+			shearlayer->check();
+			delete shearlayer;
+		}
+	}
+	
 	
 #ifdef _MULTIGRID_
 	MPI_Finalize();

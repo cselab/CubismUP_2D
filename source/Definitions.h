@@ -323,6 +323,7 @@ public:
 		// keep periodicity in x direction
 		if (info.index[1]==0)		   bc.template applyBC_mixedBottom<1,0>();
 		if (info.index[1]==this->NY-1) bc.template applyBC_mixedTop<1,1>();
+		//if (info.index[1]==this->NY-1) bc.template applyBC_mixedBottom<1,1>();
 	}
 };
 

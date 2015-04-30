@@ -20,6 +20,8 @@
 		DD66B5E21A764CEC003FE36B /* Sim_FSI_Gravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD66B5E01A764CEC003FE36B /* Sim_FSI_Gravity.cpp */; };
 		DD838C3C1AB6DE8A00018A75 /* TestRotation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD838C3A1AB6DE8A00018A75 /* TestRotation.cpp */; };
 		DD838C401AB6DEA300018A75 /* TestTranslation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD838C3E1AB6DEA300018A75 /* TestTranslation.cpp */; };
+		DD8BE00D1AEF7C6E008467AA /* TestTravelingWave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8BE00B1AEF7C6E008467AA /* TestTravelingWave.cpp */; };
+		DD8BE0121AEFACAE008467AA /* TestShearLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD8BE0101AEFACAE008467AA /* TestShearLayer.cpp */; };
 		DDBBA0071A7292670041496C /* TestVarCoeffPoisson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDBBA0051A7292670041496C /* TestVarCoeffPoisson.cpp */; };
 		DDE2516D1AD8228A00F6029B /* Sim_RayleighTaylor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE2516B1AD8228A00F6029B /* Sim_RayleighTaylor.cpp */; };
 		DDE251701AD822C400F6029B /* Sim_Jet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDE2516E1AD822C400F6029B /* Sim_Jet.cpp */; };
@@ -43,6 +45,8 @@
 		DD0C48BE1A7100B300CC0C89 /* launchInteractiveSimulation.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = launchInteractiveSimulation.sh; sourceTree = "<group>"; };
 		DD0C48C11A710A2B00CC0C89 /* OperatorComputeShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorComputeShape.h; sourceTree = "<group>"; };
 		DD0C48C21A712FA500CC0C89 /* OperatorGravity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorGravity.h; sourceTree = "<group>"; };
+		DD2A4CE71ADFA06200C3C034 /* Guermond.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Guermond.sh; sourceTree = "<group>"; };
+		DD2A4CEB1ADFA09500C3C034 /* Jets.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Jets.sh; sourceTree = "<group>"; };
 		DD355D1E1A8116B100711A51 /* TestGravity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestGravity.cpp; sourceTree = "<group>"; };
 		DD355D1F1A8116B100711A51 /* TestGravity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestGravity.h; sourceTree = "<group>"; };
 		DD355D221A8118FE00711A51 /* TestPenalization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPenalization.cpp; sourceTree = "<group>"; };
@@ -112,6 +116,12 @@
 		DD838C3E1AB6DEA300018A75 /* TestTranslation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestTranslation.cpp; sourceTree = "<group>"; };
 		DD838C3F1AB6DEA300018A75 /* TestTranslation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTranslation.h; sourceTree = "<group>"; };
 		DD838C411ABAD1F200018A75 /* launchValidationDrag.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = launchValidationDrag.sh; sourceTree = "<group>"; };
+		DD8BE00B1AEF7C6E008467AA /* TestTravelingWave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestTravelingWave.cpp; sourceTree = "<group>"; };
+		DD8BE00C1AEF7C6E008467AA /* TestTravelingWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTravelingWave.h; sourceTree = "<group>"; };
+		DD8BE00F1AEF7EFC008467AA /* TravelingWave.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = TravelingWave.sh; sourceTree = "<group>"; };
+		DD8BE0101AEFACAE008467AA /* TestShearLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestShearLayer.cpp; sourceTree = "<group>"; };
+		DD8BE0111AEFACAE008467AA /* TestShearLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestShearLayer.h; sourceTree = "<group>"; };
+		DD8BE0131AEFB422008467AA /* ShearLayer.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ShearLayer.sh; sourceTree = "<group>"; };
 		DD9DC1441AB2F6B0009BFBEE /* Fields.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Fields.sh; sourceTree = "<group>"; };
 		DD9DC1461AB2F6B6009BFBEE /* Namkoong.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Namkoong.sh; sourceTree = "<group>"; };
 		DDA9C81C1AC5C07D008D69E4 /* GenericCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenericCoordinator.h; sourceTree = "<group>"; };
@@ -158,6 +168,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD2A4CE91ADFA07100C3C034 /* FallingBodies */ = {
+			isa = PBXGroup;
+			children = (
+				DD7D01D01AC0691A00695EC9 /* Kolomenskiy.sh */,
+				DD7D01CF1AC0691A00695EC9 /* Glowinski.sh */,
+				DD9DC1441AB2F6B0009BFBEE /* Fields.sh */,
+				DD9DC1461AB2F6B6009BFBEE /* Namkoong.sh */,
+			);
+			name = FallingBodies;
+			sourceTree = "<group>";
+		};
+		DD2A4CEA1ADFA08800C3C034 /* RTI */ = {
+			isa = PBXGroup;
+			children = (
+				DD2A4CEB1ADFA09500C3C034 /* Jets.sh */,
+				DD2A4CE71ADFA06200C3C034 /* Guermond.sh */,
+			);
+			name = RTI;
+			sourceTree = "<group>";
+		};
 		DD58CA9D1A5D977C00291455 /* source */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,10 +214,10 @@
 		DD58CAA31A5D9A3700291455 /* launch */ = {
 			isa = PBXGroup;
 			children = (
-				DD9DC1461AB2F6B6009BFBEE /* Namkoong.sh */,
-				DD9DC1441AB2F6B0009BFBEE /* Fields.sh */,
-				DD7D01CF1AC0691A00695EC9 /* Glowinski.sh */,
-				DD7D01D01AC0691A00695EC9 /* Kolomenskiy.sh */,
+				DD2A4CEA1ADFA08800C3C034 /* RTI */,
+				DD2A4CE91ADFA07100C3C034 /* FallingBodies */,
+				DD8BE00F1AEF7EFC008467AA /* TravelingWave.sh */,
+				DD8BE0131AEFB422008467AA /* ShearLayer.sh */,
 				DD58CAA41A5D9A3700291455 /* launchSimulation.sh */,
 				DD838C411ABAD1F200018A75 /* launchValidationDrag.sh */,
 				DD0C48BE1A7100B300CC0C89 /* launchInteractiveSimulation.sh */,
@@ -282,6 +312,10 @@
 				DD838C3A1AB6DE8A00018A75 /* TestRotation.cpp */,
 				DD838C3F1AB6DEA300018A75 /* TestTranslation.h */,
 				DD838C3E1AB6DEA300018A75 /* TestTranslation.cpp */,
+				DD8BE00C1AEF7C6E008467AA /* TestTravelingWave.h */,
+				DD8BE00B1AEF7C6E008467AA /* TestTravelingWave.cpp */,
+				DD8BE0111AEFACAE008467AA /* TestShearLayer.h */,
+				DD8BE0101AEFACAE008467AA /* TestShearLayer.cpp */,
 			);
 			name = TestingUnits;
 			sourceTree = "<group>";
@@ -456,8 +490,10 @@
 				DDE251701AD822C400F6029B /* Sim_Jet.cpp in Sources */,
 				DD58CADB1A60148E00291455 /* ProcessOperatorsOMP.cpp in Sources */,
 				DD58CAD81A5EF49D00291455 /* TestAdvection.cpp in Sources */,
+				DD8BE0121AEFACAE008467AA /* TestShearLayer.cpp in Sources */,
 				DD355D201A8116B100711A51 /* TestGravity.cpp in Sources */,
 				DD64F6D61A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp in Sources */,
+				DD8BE00D1AEF7C6E008467AA /* TestTravelingWave.cpp in Sources */,
 				DDE2516D1AD8228A00F6029B /* Sim_RayleighTaylor.cpp in Sources */,
 				DDE251731AD822D100F6029B /* Sim_Bubble.cpp in Sources */,
 			);

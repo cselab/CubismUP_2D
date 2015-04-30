@@ -44,7 +44,12 @@ void Sim_RayleighTaylor::_ic()
 
 double Sim_RayleighTaylor::_nonDimensionalTime()
 {
-	return time; // how to nondimensionalize here? based on Galileo number?
+	return time;
+	/*
+	const double At = (rhoS-1.)/(rhoS+1.);
+	// the .25 is given by the wavelength
+	return time/sqrt(.25/(gravity[1]*At)); // how to nondimensionalize here? based on Galileo number?
+	 */
 }
 
 void Sim_RayleighTaylor::_outputSettings(ostream &outStream)
@@ -94,16 +99,19 @@ void Sim_RayleighTaylor::init()
 {
 	Simulation_MP::init();
 	
-	nu = .00039;
-	rhoS = 3;
-	/* Schott
-	 gravity[0] = 0;
-	 gravity[1] = -10;
-	nu = .006349;
-	rhoS = 1.5;
-	*/
-	
-	_ic();
+	if (!bRestart)
+	{
+		nu = .00039;
+		rhoS = 3;
+		/* Schott
+		 gravity[0] = 0;
+		 gravity[1] = -10;
+		 nu = .006349;
+		 rhoS = 1.5;
+		 */
+		
+		_ic();
+	}
 	
 	pipeline.clear();
 	pipeline.push_back(new CoordinatorCleanTmp(grid));

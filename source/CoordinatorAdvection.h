@@ -76,6 +76,7 @@ public:
 		
 #pragma omp parallel
 		{
+			//OperatorAdvection kernel(dt);
 			OperatorAdvection<Mp4> kernel(dt);
 			//OperatorAdvection<Ms6> kernel(dt);
 			

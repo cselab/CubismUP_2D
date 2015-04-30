@@ -88,11 +88,6 @@ public:
 				else
 					cout << "Solving full variable coefficient Poisson equation for pressure\n";
 		}
-		else
-		{
-			cout << "not ready for restart yet\n";
-			abort();
-		}
 	}
 	
 	void simulate()

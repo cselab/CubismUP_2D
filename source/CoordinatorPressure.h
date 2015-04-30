@@ -176,6 +176,25 @@ protected:
 	PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver;
 #endif // _SP_COMP_
 	
+	inline void updatePressure()
+	{
+		const int N = vInfo.size();
+		
+#pragma omp parallel for schedule(static)
+		for(int i=0; i<N; i++)
+		{
+			BlockInfo info = vInfo[i];
+			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
+			
+			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+				{
+					b(ix,iy).pOld = b(ix,iy).p;
+					b(ix,iy).p    = b(ix,iy).divU;
+				}
+		}
+	}
+	
 	template <typename Operator>
 	void compute(const double dt)
 	{
@@ -217,6 +236,8 @@ public:
 		abort();
 #endif // _SP_COMP_
 		compute<OperatorGradP>(dt);
+		
+		updatePressure();
 	}
 	
 	string getName()
