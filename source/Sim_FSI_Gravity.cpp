@@ -271,6 +271,7 @@ void Sim_FSI_Gravity::simulate()
 #endif // _MULTIGRID_
 	double nextDumpTime = time;
 	double maxU = 0;
+	double maxA = 0;
 	
 	while (true)
 	{
@@ -285,9 +286,15 @@ void Sim_FSI_Gravity::simulate()
 			dtCFL     = maxU==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/abs(maxU);
 			dtBody    = max(abs(uBody[0]),abs(uBody[1]))==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/max(abs(uBody[0]),abs(uBody[1]));
 			assert(!std::isnan(maxU));
+			assert(!std::isnan(maxA));
 			assert(!std::isnan(uBody[0]));
 			assert(!std::isnan(uBody[1]));
 			dt = min(min(dtCFL,dtFourier),dtBody);
+#ifdef _PARTICLES_
+			maxA = findMaxAOMP<Lab>(vInfo,*grid);
+			dtLCFL = maxA==0 ? 1e5 : LCFL/abs(maxA);
+			dt = min(dt,dtLCFL);
+#endif
 			if (dumpTime>0)
 				dt = min(dt,nextDumpTime-_nonDimensionalTime());
 			if (endTime>0)

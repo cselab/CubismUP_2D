@@ -15,7 +15,7 @@ class Sim_FSI_Fixed : public Simulation_FSI
 {
 protected:
     double uinf, re, nu;
-	double dtCFL, dtFourier;
+	double dtCFL, dtLCFL, dtFourier;
 	
 	void _diagnostics();
 	void _ic();

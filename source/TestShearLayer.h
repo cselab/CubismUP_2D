@@ -16,7 +16,7 @@ class TestShearLayer : public Test
 {
 protected:
 	double nu;
-	double dtCFL, dtFourier;
+	double dtCFL, dtLCFL, dtFourier;
 	double time, endTime;
 	const int bpd, bpdRef;
 	

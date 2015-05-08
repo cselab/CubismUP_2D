@@ -24,7 +24,9 @@ protected:
 	{
 #ifndef NDEBUG
 		int rank;
+#ifdef _MULTIGRID_
 		MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+#endif // _MULTIGRID_
 		
 		if (rank==0)
 		{

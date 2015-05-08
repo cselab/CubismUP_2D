@@ -183,6 +183,8 @@ void Sim_FSI_Moving::simulate()
 	
 	double nextDumpTime = time;
 	double maxU = uBody[0];
+	double maxA = 0;
+	
 	while (true)
 	{
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
@@ -194,6 +196,11 @@ void Sim_FSI_Moving::simulate()
 		dtCFL     = CFL*vInfo[0].h_gridpoint/abs(maxU);
 		dtBody    = CFL*vInfo[0].h_gridpoint/abs(uBody[0]);
 		dt = min(min(dtCFL,dtFourier),dtBody);
+#ifdef _PARTICLES_
+		maxA = findMaxAOMP<Lab>(vInfo,*grid);
+		dtLCFL = maxA==0 ? 1e5 : LCFL/abs(maxA);
+		dt = min(dt,dtLCFL);
+#endif
 		if (dumpTime>0)
 			dt = min(dt,nextDumpTime-_nonDimensionalTime());
 		if (endTime>0)

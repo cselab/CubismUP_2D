@@ -48,7 +48,7 @@ protected:
 	double dt, time, endTime;
 	
 	// simulation settings
-	double CFL;
+	double CFL, LCFL;
 	
 	// verbose
 	bool verbose;

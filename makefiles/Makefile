@@ -9,6 +9,7 @@ poisson ?= hypre
 multiphase ?= false
 bs ?= 32
 vertexcentered ?= false
+particles ?= true
 
 CPPFLAGS+= -w
 
@@ -41,6 +42,10 @@ endif
 
 ifeq "$(vertexcentered)" "true"
 	CPPFLAGS += -D_VERTEXCENTERED_
+endif
+
+ifeq "$(particles)" "true"
+	CPPFLAGS += -D_PARTICLES_
 endif
 
 vtk-inc ?= 

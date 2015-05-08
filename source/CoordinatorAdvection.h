@@ -76,9 +76,12 @@ public:
 		
 #pragma omp parallel
 		{
-			//OperatorAdvection kernel(dt);
+#ifndef _PARTICLES_
+			OperatorAdvectionFD kernel(dt);
+#else // _PARTICLES_
 			OperatorAdvection<Mp4> kernel(dt);
 			//OperatorAdvection<Ms6> kernel(dt);
+#endif // _PARTICLES_
 			
 			Lab mylab;
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);

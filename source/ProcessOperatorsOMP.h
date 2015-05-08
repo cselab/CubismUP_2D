@@ -12,6 +12,45 @@
 #include "Definitions.h"
 #include "Shape.h"
 
+template<typename Lab>
+double findMaxAOMP(vector<BlockInfo>& myInfo, FluidGrid & grid)
+{
+	double maxA = 0;
+	
+	BlockInfo * ary = &myInfo.front();
+	const int N = myInfo.size();
+	
+	const int stencil_start[3] = {-1,-1, 0};
+	const int stencil_end[3]   = { 2, 2, 1};
+	
+#pragma omp parallel
+	{
+		Lab lab;
+		lab.prepare(grid, stencil_start, stencil_end, true);
+		
+#pragma omp for schedule(static) reduction(max:maxA)
+		for (int i=0; i<N; i++)
+		{
+			BlockInfo info = myInfo[i];
+			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
+			
+			const double inv2h = info.h_gridpoint;
+			
+			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+				{
+					double dudx = (lab(ix+1,iy  ).u-lab(ix-1,iy  ).u) * inv2h;
+					double dudy = (lab(ix  ,iy+1).u-lab(ix  ,iy-1).u) * inv2h;
+					double dvdx = (lab(ix+1,iy  ).v-lab(ix-1,iy  ).v) * inv2h;
+					double dvdy = (lab(ix  ,iy+1).v-lab(ix  ,iy-1).v) * inv2h;
+					
+					maxA = max(max(dudx,dudy),max(dvdx,dvdy));
+				}
+		}
+	}
+	
+	return maxA;
+}
 
 // -gradp, divergence, advection
 template<typename Lab, typename Kernel>

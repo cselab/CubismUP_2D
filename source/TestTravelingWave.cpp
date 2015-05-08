@@ -110,8 +110,10 @@ TestTravelingWave::~TestTravelingWave()
 void TestTravelingWave::run()
 {
 	double maxU = 0;
+	double maxA = 0;
 	double dt = 0;
 	const double CFL = 0.01;//0.05;//0.1;//
+	const double LCFL = .1;
 	
 	while (true)
 	{
@@ -126,6 +128,11 @@ void TestTravelingWave::run()
 			dtCFL     = CFL*vInfo[0].h_gridpoint/abs(maxU);
 			assert(!std::isnan(maxU));
 			dt = min(dtCFL,dtFourier);
+#ifdef _PARTICLES_
+			maxA = findMaxAOMP<Lab>(vInfo,*grid);
+			dtLCFL = maxA==0 ? 1e5 : LCFL/abs(maxA);
+			dt = min(dt,dtLCFL);
+#endif
 			if (endTime>0)
 				dt = min(dt,endTime-time);
 		}

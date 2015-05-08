@@ -14,7 +14,7 @@
 class Simulation_MP: public Simulation_Fluid
 {
 protected:
-	double dtCFL, dtFourier;
+	double dtCFL, dtLCFL, dtFourier;
 	double re, nu;
 	double minRho, rhoS;
 	bool bSplit;

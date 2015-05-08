@@ -152,8 +152,10 @@ TestShearLayer::~TestShearLayer()
 void TestShearLayer::run()
 {
 	double maxU = 0;
+	double maxA = 0;
 	double dt = 0;
-	const double CFL = 0.001;
+	const double CFL = 0.01;
+	const double LCFL = 0.01;
 	const double dumpTime = endTime/100.;
 	double nextDumpTime = dumpTime;
 	int step = 0;
@@ -168,6 +170,11 @@ void TestShearLayer::run()
 		dtCFL     = CFL*vInfo[0].h_gridpoint/abs(maxU);
 		assert(!std::isnan(maxU));
 		dt = min(dtCFL,dtFourier);
+#ifdef _PARTICLES_
+		maxA = findMaxAOMP<Lab>(vInfo,*grid);
+		dtLCFL = maxA==0 ? 1e5 : LCFL/abs(maxA);
+		dt = min(dt,dtLCFL);
+#endif
 		dt = min(dt,nextDumpTime-time);
 		dt = min(dt,endTime-time);
 		
