@@ -14,7 +14,7 @@
 #include "CoordinatorDiffusion.h"
 #include "CoordinatorPressure.h"
 
-#define _THIN_
+//#define _THIN_
 
 void TestShearLayer::_getRefs(const int ix, const int iy, const int ratio, Real &u, Real &v)
 {
@@ -120,7 +120,7 @@ nu(0.002),
 #else
 nu(0.0001),
 #endif
-endTime(1)
+endTime(2)
 {
 	// output settings
 	path2file = parser("-file").asString("../data/testShearLayer");

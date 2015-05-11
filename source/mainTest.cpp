@@ -225,7 +225,7 @@ int main(int argc, const char **argv)
 		TestShearLayer * shearlayer = new TestShearLayer(argc, argv, 32);
 		shearlayer->run();
 		delete shearlayer;
-		*/
+		//*/
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
 			TestShearLayer * shearlayer = new TestShearLayer(argc, argv, bpd);

@@ -44,7 +44,7 @@ ifeq "$(vertexcentered)" "true"
 	CPPFLAGS += -D_VERTEXCENTERED_
 endif
 
-ifeq "$(particles)" "true"
+ifeq "$(particles)" "false"
 	CPPFLAGS += -D_PARTICLES_
 endif
 
