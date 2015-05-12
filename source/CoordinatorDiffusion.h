@@ -40,6 +40,28 @@ protected:
 		}
 	};
 	
+	inline void resetHeun()
+	{
+		const int N = vInfo.size();
+		
+#pragma omp parallel for schedule(static)
+		for(int i=0; i<N; i++)
+		{
+			BlockInfo info = vInfo[i];
+			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
+			
+			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+				{
+					b(ix,iy).tmpU = -b(ix,iy).tmpU/2.;
+					b(ix,iy).tmpV = -b(ix,iy).tmpV/2.;
+#ifdef _MULTIPHASE_
+					b(ix,iy).tmp = -b(ix,iy).tmp/2;
+#endif // _MULTIPHASE_
+				}
+		}
+	};
+	
 	inline void update()
 	{
 		const int N = vInfo.size();
@@ -62,19 +84,10 @@ protected:
 		}
 	 }
 	
-public:
-	CoordinatorDiffusion(const double coeff, FluidGrid * grid) : GenericCoordinator(grid), coeff(coeff)
+	inline void diffuse(const double dt)
 	{
-	}
-	
-	void operator()(const double dt)
-	{
-		check("diffusion - start");
-		
 		BlockInfo * ary = &vInfo.front();
 		const int N = vInfo.size();
-		
-		reset();
 		
 #pragma omp parallel
 		{
@@ -90,9 +103,25 @@ public:
 				kernel(mylab, ary[i], *(FluidBlock*)ary[i].ptrBlock);
 			}
 		}
+	}
+	
+public:
+	CoordinatorDiffusion(const double coeff, FluidGrid * grid) : GenericCoordinator(grid), coeff(coeff)
+	{
+	}
+	
+	void operator()(const double dt)
+	{
+		check("diffusion - start");
 		
+		reset();
+		diffuse(dt);
 		update();
-		
+		/*
+		resetHeun();
+		diffuse(dt/2);
+		update();
+		*/
 		check("diffusion - end");
 	}
 	

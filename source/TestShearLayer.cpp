@@ -14,7 +14,7 @@
 #include "CoordinatorDiffusion.h"
 #include "CoordinatorPressure.h"
 
-//#define _THIN_
+#define _THIN_
 
 void TestShearLayer::_getRefs(const int ix, const int iy, const int ratio, Real &u, Real &v)
 {
@@ -120,7 +120,7 @@ nu(0.002),
 #else
 nu(0.0001),
 #endif
-endTime(2)
+endTime(1)
 {
 	// output settings
 	path2file = parser("-file").asString("../data/testShearLayer");
@@ -154,8 +154,8 @@ void TestShearLayer::run()
 	double maxU = 0;
 	double maxA = 0;
 	double dt = 0;
-	const double CFL = 0.01;
-	const double LCFL = 0.01;
+	const double CFL = .5;
+	const double LCFL = .1;
 	const double dumpTime = endTime/100.;
 	double nextDumpTime = dumpTime;
 	int step = 0;
@@ -177,6 +177,14 @@ void TestShearLayer::run()
 #endif
 		dt = min(dt,nextDumpTime-time);
 		dt = min(dt,endTime-time);
+		
+		//*
+		if (dt==dtFourier) cout << "Diffusion limited\n";
+		else if (dt==dtCFL) cout << "Advection CFL limited\n";
+		else if (dt==dtLCFL) cout << "Advection LCFL limited\n";
+		else if (dt==nextDumpTime-time) cout << "dump limited\n";
+		else if (dt==endTime-time) cout << "endTime limited\n";
+		//*/
 		
 		for (int c=0; c<pipeline.size(); c++)
 			(*pipeline[c])(dt);

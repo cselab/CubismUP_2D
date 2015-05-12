@@ -101,8 +101,13 @@ void Sim_RayleighTaylor::init()
 	
 	if (!bRestart)
 	{
-		nu = .00039;
-		rhoS = 3;
+		// Herrmann
+		nu = .00256;
+		rhoS = 1.225/.1694;
+		
+		// Guermond
+		//nu = .00039;
+		//rhoS = 3;
 		/* Schott
 		 gravity[0] = 0;
 		 gravity[1] = -10;
@@ -140,6 +145,7 @@ void Sim_RayleighTaylor::simulate()
 	double nextDumpTime = time;
 	double maxU = 0;
 	double maxA = 0;
+	LCFL= 0.1;
 	
 	while (true)
 	{
@@ -157,14 +163,16 @@ void Sim_RayleighTaylor::simulate()
 #ifdef _PARTICLES_
 			maxA = findMaxAOMP<Lab>(vInfo,*grid);
 			dtLCFL = maxA==0 ? 1e5 : LCFL/abs(maxA);
-			dt = min(dt,dtLCFL);
+			//dt = min(dt,dtLCFL);
 #endif
 			if (dumpTime>0)
 				dt = min(dt,nextDumpTime-_nonDimensionalTime());
 			if (endTime>0)
 				dt = min(dt,endTime-_nonDimensionalTime());
+			//dt = .00025;
+			//cout << maxU << " " << maxA << endl;
 			if (verbose)
-				cout << "dt (Fourier, CFL): " << dt << " " << dtFourier << " " << dtCFL << endl;
+				cout << "dt (Fourier, CFL, LCFL): " << dt << " " << dtFourier << " " << dtCFL << " " << dtLCFL << endl;
 			profiler.pop_stop();
 		}
 #ifdef _MULTIGRID_
@@ -200,6 +208,7 @@ void Sim_RayleighTaylor::simulate()
 			
 			//dump some time steps every now and then
 			profiler.push_start("Dump");
+			nextDumpTime = _nonDimensionalTime();
 			_dump(nextDumpTime);
 			profiler.pop_stop();
 			
@@ -218,7 +227,7 @@ void Sim_RayleighTaylor::simulate()
 				cout << ss.str() << endl;
 				
 				dumper.Write(*grid, ss.str());
-				
+				/*
 				vector<BlockInfo> vInfo = grid->getBlocksInfo();
 				Layer vorticity(sizeX,sizeY,1);
 				processOMP<Lab, OperatorVorticity>(vorticity,vInfo,*grid);
@@ -226,7 +235,7 @@ void Sim_RayleighTaylor::simulate()
 				sVort << path2file << "Vorticity-Final.vti";
 				dumpLayer2VTK(step,sVort.str(),vorticity,1);
 				profiler.pop_stop();
-				
+				*/
 				profiler.printSummary();
 			}
 			exit(0);

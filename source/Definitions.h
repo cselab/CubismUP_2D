@@ -22,14 +22,16 @@ struct FluidElement
 {
     Real rho, u, v, chi, p, pOld;
 	Real tmpU, tmpV, tmp;
+	Real rk2u, rk2v;
 	Real divU;
     
-    FluidElement() : rho(0), u(0), v(0), chi(0), p(0), pOld(0), divU(0), tmpU(0), tmpV(0), tmp(0) {}
+    FluidElement() : rho(0), u(0), v(0), chi(0), p(0), pOld(0), divU(0), tmpU(0), tmpV(0), rk2u(0), rk2v(0), tmp(0) {}
     
     void clear()
     {
         rho = u = v = chi = p = pOld = 0;
 		tmpU = tmpV = tmp = 0;
+		rk2u = rk2v = 0;
 		divU = 0;
     }
 };
@@ -182,7 +184,7 @@ template <> inline void FluidBlock::Read<StreamerGridPoint>(ifstream& input, Str
 
 struct StreamerSerialization
 {
-	static const int NCHANNELS = 10;
+	static const int NCHANNELS = 12;
 	
 	FluidBlock& ref;
 	
@@ -202,6 +204,8 @@ struct StreamerSerialization
 		output[7] = input.tmpV;
 		output[8] = input.tmp;
 		output[9] = input.divU;
+		output[10] = input.rk2u;
+		output[11] = input.rk2v;
 	}
 	
 	void operate(const Real input[10], const int ix, const int iy, const int iz) const
@@ -218,6 +222,8 @@ struct StreamerSerialization
 		output.tmpV = input[7];
 		output.tmp  = input[8];
 		output.divU = input[9];
+		output.rk2u = input[10];
+		output.rk2v = input[11];
 	}
 	
 	void operate(const int ix, const int iy, const int iz, Real *ovalue, const int field) const
@@ -235,6 +241,8 @@ struct StreamerSerialization
 			case 7: *ovalue = input.tmpV; break;
 			case 8: *ovalue = input.tmp; break;
 			case 9: *ovalue = input.divU; break;
+			case 10: *ovalue = input.rk2u; break;
+			case 11: *ovalue = input.rk2v; break;
 			default: printf("unknown field\n"); abort(); break;
 		}
 	}
@@ -254,6 +262,8 @@ struct StreamerSerialization
 			case 7:  output.tmpV = ivalue; break;
 			case 8:  output.tmp  = ivalue; break;
 			case 9:  output.divU = ivalue; break;
+			case 10: output.rk2u = ivalue; break;
+			case 11: output.rk2v = ivalue; break;
 			default: printf("unknown field\n"); abort(); break;
 		}
 	}
@@ -280,6 +290,8 @@ public:
 		p.u   = 0;
 		p.v   = 0;
 		p.tmp = 0;
+		p.rk2u = 0;
+		p.rk2v = 0;
 		if (info.index[0]==0)          bc.template applyBC_dirichlet<0,0>(p);
 		if (info.index[0]==this->NX-1) bc.template applyBC_dirichlet<0,1>(p);
 		if (info.index[1]==0)		   bc.template applyBC_dirichlet<1,0>(p);

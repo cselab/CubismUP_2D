@@ -21,9 +21,10 @@ class OperatorAdvection : public GenericLabOperator
 {
 private:
 	double dt;
+	const int stage;
 	
 public:
-	OperatorAdvection(double dt) : dt(dt)
+	OperatorAdvection(double dt, const int stage) : dt(dt), stage(stage)
 	{
 		stencil_start[0] = RemeshingKernel::support_start-2;
 		stencil_start[1] = RemeshingKernel::support_start-2;
@@ -55,8 +56,8 @@ public:
 				
 				FluidElement& particle = lab(ix,iy);
 				
-				p[0] += dt * particle.u;
-				p[1] += dt * particle.v;
+				p[0] += dt * (particle.u * (stage==0) + particle.rk2u * (stage==1));
+				p[1] += dt * (particle.v * (stage==0) + particle.rk2v * (stage==1));
 				
 				// nearest point with lower index
 #ifndef _VERTEXCENTERED_
@@ -103,9 +104,10 @@ class OperatorTransport : public GenericLabOperator
 {
 private:
 	double dt;
+	const int stage;
 	
 public:
-	OperatorTransport(double dt) : dt(dt)
+	OperatorTransport(double dt, const int stage) : dt(dt), stage(stage)
 	{
 		stencil_start[0] = RemeshingKernel::support_start-2;
 		stencil_start[1] = RemeshingKernel::support_start-2;
@@ -138,8 +140,8 @@ public:
 				
 				FluidElement& particle = lab(ix,iy);
 				
-				p[0] += dt * particle.u;
-				p[1] += dt * particle.v;
+				p[0] += dt * (particle.u * (stage==0) + particle.rk2u * (stage==1));
+				p[1] += dt * (particle.v * (stage==0) + particle.rk2v * (stage==1));
 				
 				// nearest point with lower index
 				const double px = p[0]*invdh-.5;
@@ -176,10 +178,13 @@ class OperatorAdvectionFD : public GenericLabOperator
 {
 private:
 	double dt;
+	const int stage;
 	
 public:
-	OperatorAdvectionFD(double dt) : dt(dt)
+	OperatorAdvectionFD(double dt, const int stage) : dt(dt), stage(stage)
 	{
+		cout << "rk stages not supported, also bugged\n";
+		abort();
 		stencil_start[0] = -1;
 		stencil_start[1] = -1;
 		stencil_start[2] = 0;

@@ -98,6 +98,8 @@
 		DD58CAE71A60320400291455 /* TestPressure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPressure.cpp; sourceTree = "<group>"; };
 		DD58CAE81A60320400291455 /* TestPressure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPressure.h; sourceTree = "<group>"; };
 		DD58CAEE1A614B6D00291455 /* LayerToVTK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerToVTK.h; sourceTree = "<group>"; };
+		DD609B751B00D8C600E2C31A /* testAdvection.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = testAdvection.sh; sourceTree = "<group>"; };
+		DD609B761B00D8C600E2C31A /* testDiffusion.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = testDiffusion.sh; sourceTree = "<group>"; };
 		DD64F6D01A63C16400D17B72 /* Timer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
 		DD64F6D21A64157D00D17B72 /* OperatorVorticity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorVorticity.h; sourceTree = "<group>"; };
 		DD64F6D31A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PoissonSolverScalarFFTW.cpp; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		DD8BE0101AEFACAE008467AA /* TestShearLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestShearLayer.cpp; sourceTree = "<group>"; };
 		DD8BE0111AEFACAE008467AA /* TestShearLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestShearLayer.h; sourceTree = "<group>"; };
 		DD8BE0131AEFB422008467AA /* ShearLayer.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ShearLayer.sh; sourceTree = "<group>"; };
+		DD90D83C1B01D8B800013E04 /* Herrmann.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Herrmann.sh; sourceTree = "<group>"; };
 		DD9DC1441AB2F6B0009BFBEE /* Fields.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Fields.sh; sourceTree = "<group>"; };
 		DD9DC1461AB2F6B6009BFBEE /* Namkoong.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Namkoong.sh; sourceTree = "<group>"; };
 		DDA9C81C1AC5C07D008D69E4 /* GenericCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenericCoordinator.h; sourceTree = "<group>"; };
@@ -184,6 +187,7 @@
 			children = (
 				DD2A4CEB1ADFA09500C3C034 /* Jets.sh */,
 				DD2A4CE71ADFA06200C3C034 /* Guermond.sh */,
+				DD90D83C1B01D8B800013E04 /* Herrmann.sh */,
 			);
 			name = RTI;
 			sourceTree = "<group>";
@@ -216,6 +220,8 @@
 			children = (
 				DD2A4CEA1ADFA08800C3C034 /* RTI */,
 				DD2A4CE91ADFA07100C3C034 /* FallingBodies */,
+				DD609B751B00D8C600E2C31A /* testAdvection.sh */,
+				DD609B761B00D8C600E2C31A /* testDiffusion.sh */,
 				DD8BE00F1AEF7EFC008467AA /* TravelingWave.sh */,
 				DD8BE0131AEFB422008467AA /* ShearLayer.sh */,
 				DD58CAA41A5D9A3700291455 /* launchSimulation.sh */,

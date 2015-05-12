@@ -66,6 +66,8 @@ public:
 				(*this)(ix,iy).v   = p.v;
 				(*this)(ix,iy).chi = p.chi;
 				(*this)(ix,iy).tmp = p.tmp;
+				(*this)(ix,iy).rk2u = p.rk2u;
+				(*this)(ix,iy).rk2v = p.rk2v;
 			}
 	}
 	
@@ -94,6 +96,8 @@ public:
 				(*this)(ix,iy).chi = 0;
 				(*this)(ix,iy).u   = 0;
 				(*this)(ix,iy).v   = 0;
+				(*this)(ix,iy).rk2u = 0;
+				(*this)(ix,iy).rk2v = 0;
 				(*this)(ix,iy).p   = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
 											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).p;
 				(*this)(ix,iy).pOld = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
@@ -118,6 +122,10 @@ public:
 											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).u;
 				(*this)(ix,iy).v   = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
 											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).v;
+				(*this)(ix,iy).rk2u = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
+											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rk2u;
+				(*this)(ix,iy).rk2v = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
+											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rk2v;
 				(*this)(ix,iy).p   = 0;
 				(*this)(ix,iy).pOld = 0;
 				(*this)(ix,iy).divU = 0;

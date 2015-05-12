@@ -64,6 +64,7 @@ public:
 	void operator()(const BlockInfo& info, FluidBlock& block) const
 	{
 		Real d = .25;
+		Real a = .05;//.25
 		
 		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
 			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
@@ -73,7 +74,7 @@ public:
 				
 				Real y = p[1] - d*2.;
 				Real x = p[0] - d*.5;
-				Real eta = -.1*d*cos(2*M_PI*x/d);
+				Real eta = -.1*a*cos(2*M_PI*x/d);
 				block(ix,iy).rho = 2. + tanh((y-eta)/(.01*d));
 				block(ix,iy).u = 0;
 				block(ix,iy).v = 0;

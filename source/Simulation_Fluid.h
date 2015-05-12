@@ -312,7 +312,8 @@ public:
 			path2file = parser("-file").asString("../data/Simulation_Fluid");
 			path4serialization = parser("-serialization").asString(path2file);
 			
-			CFL = parser("-CFL").asDouble(.1);
+			CFL = parser("-CFL").asDouble(.5);
+			LCFL = parser("-LCFL").asDouble(.1);
 			
 			verbose = parser("-verbose").asBool(false);
 		}
