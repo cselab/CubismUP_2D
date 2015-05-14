@@ -23,13 +23,13 @@ protected:
 	template<int dir, int side>
 	void _setup()
 	{
-		s[0] =	dir==0? (side==0? stencilStart[0]: TBlock::sizeX) : stencilStart[0];
-		s[1] =	dir==1? (side==0? stencilStart[1]: TBlock::sizeY) : stencilStart[1];
-		s[2] =	dir==2? (side==0? stencilStart[2]: TBlock::sizeZ) : stencilStart[2];
+		s[0] =	dir==0 ? (side==0 ? stencilStart[0]: TBlock::sizeX) : stencilStart[0];
+		s[1] =	dir==1 ? (side==0 ? stencilStart[1]: TBlock::sizeY) : stencilStart[1];
+		s[2] =	dir==2 ? (side==0 ? stencilStart[2]: TBlock::sizeZ) : stencilStart[2];
 		
-		e[0] =	dir==0? (side==0? 0: TBlock::sizeX + stencilEnd[0]-1) : TBlock::sizeX +  stencilEnd[0]-1;
-		e[1] =	dir==1? (side==0? 0: TBlock::sizeY + stencilEnd[1]-1) : TBlock::sizeY +  stencilEnd[1]-1;
-		e[2] =	dir==2? (side==0? 0: TBlock::sizeZ + stencilEnd[2]-1) : TBlock::sizeZ +  stencilEnd[2]-1;
+		e[0] =	dir==0 ? (side==0 ? 0: TBlock::sizeX + stencilEnd[0]-1) : TBlock::sizeX +  stencilEnd[0]-1;
+		e[1] =	dir==1 ? (side==0 ? 0: TBlock::sizeY + stencilEnd[1]-1) : TBlock::sizeY +  stencilEnd[1]-1;
+		e[2] =	dir==2 ? (side==0 ? 0: TBlock::sizeZ + stencilEnd[2]-1) : TBlock::sizeZ +  stencilEnd[2]-1;
 	}
 public:
 	
@@ -92,7 +92,8 @@ public:
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
 			{
-				(*this)(ix,iy).rho = 1;
+				(*this)(ix,iy).rho = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
+											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rho;
 				(*this)(ix,iy).chi = 0;
 				(*this)(ix,iy).u   = 0;
 				(*this)(ix,iy).v   = 0;
@@ -123,9 +124,9 @@ public:
 				(*this)(ix,iy).v   = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
 											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).v;
 				(*this)(ix,iy).rk2u = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rk2u;
+											  dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rk2u;
 				(*this)(ix,iy).rk2v = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rk2v;
+											  dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rk2v;
 				(*this)(ix,iy).p   = 0;
 				(*this)(ix,iy).pOld = 0;
 				(*this)(ix,iy).divU = 0;

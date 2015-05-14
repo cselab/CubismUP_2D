@@ -16,6 +16,9 @@ CPPFLAGS+= -w
 ifeq "$(bc)" "periodic"
 	CPPFLAGS += -D_PERIODIC_
 endif
+ifeq "$(bc)" "pipe"
+	CPPFLAGS += -D_PIPE_
+endif
 
 ifeq "$(precision)" "single"
 	CPPFLAGS += -D_SP_COMP_
@@ -109,7 +112,7 @@ BUILDDIR = .
 SRC_DIR = $(BUILDDIR)/../source/
 CUBISM_DIR = $(BUILDDIR)/../Cubism/
 OBJECTS = PoissonSolverScalarFFTW.o ProcessOperatorsOMP.o Sim_Jet.o Sim_RayleighTaylor.o Sim_Bubble.o Sim_FSI_Gravity.o Sim_FSI_Moving.o Sim_FSI_Fixed.o Profiler.o main.o
-OBJECTS_TEST = PoissonSolverScalarFFTW.o ProcessOperatorsOMP.o TestShearLayer.o TestTravelingWave.o TestRotation.o TestTranslation.o TestPenalization.o TestGravity.o TestVarCoeffPoisson.o TestPressure.o TestAdvection.o TestDiffusion.o Profiler.o mainTest.o
+OBJECTS_TEST = PoissonSolverScalarFFTW.o ProcessOperatorsOMP.o TestPoiseuille.o TestShearLayer.o TestTravelingWave.o TestRotation.o TestTranslation.o TestPenalization.o TestGravity.o TestVarCoeffPoisson.o TestPressure.o TestAdvection.o TestDiffusion.o Profiler.o mainTest.o
 
 VPATH := $(SRC_DIR):$(CUBISM_DIR)
 

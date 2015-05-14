@@ -26,6 +26,7 @@ using namespace std;
 #include "TestRotation.h"
 #include "TestTravelingWave.h"
 #include "TestShearLayer.h"
+#include "TestPoiseuille.h"
 #include "Definitions.h"
 
 int main(int argc, const char **argv)
@@ -232,6 +233,19 @@ int main(int argc, const char **argv)
 			shearlayer->run();
 			shearlayer->check();
 			delete shearlayer;
+		}
+	}
+	else if (test=="poiseuille")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tPoiseuille Test\n";
+		cout << "========================================================================================\n";
+		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
+		{
+			TestPoiseuille * wave = new TestPoiseuille(argc, argv, bpd);
+			wave->run();
+			wave->check();
+			delete wave;
 		}
 	}
 	

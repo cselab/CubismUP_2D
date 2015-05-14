@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DD355D201A8116B100711A51 /* TestGravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD355D1E1A8116B100711A51 /* TestGravity.cpp */; };
 		DD355D241A8118FE00711A51 /* TestPenalization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD355D221A8118FE00711A51 /* TestPenalization.cpp */; };
+		DD54FE9E1B03A33F00101525 /* TestPoiseuille.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD54FE9C1B03A33F00101525 /* TestPoiseuille.cpp */; };
 		DD58CAAF1A5E7B9E00291455 /* Sim_FSI_Fixed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CAAD1A5E7B9E00291455 /* Sim_FSI_Fixed.cpp */; };
 		DD58CAD11A5ECA9000291455 /* TestDiffusion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CACF1A5ECA8600291455 /* TestDiffusion.cpp */; };
 		DD58CAD41A5ECB8200291455 /* mainTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CAD31A5ECB8200291455 /* mainTest.cpp */; };
@@ -51,6 +52,9 @@
 		DD355D1F1A8116B100711A51 /* TestGravity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestGravity.h; sourceTree = "<group>"; };
 		DD355D221A8118FE00711A51 /* TestPenalization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPenalization.cpp; sourceTree = "<group>"; };
 		DD355D231A8118FE00711A51 /* TestPenalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPenalization.h; sourceTree = "<group>"; };
+		DD54FE9C1B03A33F00101525 /* TestPoiseuille.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPoiseuille.cpp; sourceTree = "<group>"; };
+		DD54FE9D1B03A33F00101525 /* TestPoiseuille.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPoiseuille.h; sourceTree = "<group>"; };
+		DD54FEA01B03A5B300101525 /* Poiseuille.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Poiseuille.sh; sourceTree = "<group>"; };
 		DD58CA9E1A5D977C00291455 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DD58CA9F1A5D977C00291455 /* makefiles.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = makefiles.xcodeproj; path = makefiles/makefiles.xcodeproj; sourceTree = "<group>"; };
 		DD58CAA41A5D9A3700291455 /* launchSimulation.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = launchSimulation.sh; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 				DD609B751B00D8C600E2C31A /* testAdvection.sh */,
 				DD609B761B00D8C600E2C31A /* testDiffusion.sh */,
 				DD8BE00F1AEF7EFC008467AA /* TravelingWave.sh */,
+				DD54FEA01B03A5B300101525 /* Poiseuille.sh */,
 				DD8BE0131AEFB422008467AA /* ShearLayer.sh */,
 				DD58CAA41A5D9A3700291455 /* launchSimulation.sh */,
 				DD838C411ABAD1F200018A75 /* launchValidationDrag.sh */,
@@ -322,6 +327,8 @@
 				DD8BE00B1AEF7C6E008467AA /* TestTravelingWave.cpp */,
 				DD8BE0111AEFACAE008467AA /* TestShearLayer.h */,
 				DD8BE0101AEFACAE008467AA /* TestShearLayer.cpp */,
+				DD54FE9D1B03A33F00101525 /* TestPoiseuille.h */,
+				DD54FE9C1B03A33F00101525 /* TestPoiseuille.cpp */,
 			);
 			name = TestingUnits;
 			sourceTree = "<group>";
@@ -493,6 +500,7 @@
 				DD355D241A8118FE00711A51 /* TestPenalization.cpp in Sources */,
 				DD58CAD11A5ECA9000291455 /* TestDiffusion.cpp in Sources */,
 				DD838C401AB6DEA300018A75 /* TestTranslation.cpp in Sources */,
+				DD54FE9E1B03A33F00101525 /* TestPoiseuille.cpp in Sources */,
 				DDE251701AD822C400F6029B /* Sim_Jet.cpp in Sources */,
 				DD58CADB1A60148E00291455 /* ProcessOperatorsOMP.cpp in Sources */,
 				DD58CAD81A5EF49D00291455 /* TestAdvection.cpp in Sources */,

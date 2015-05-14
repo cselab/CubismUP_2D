@@ -340,6 +340,35 @@ public:
 };
 
 template<typename BlockType, template<typename X> class allocator=std::allocator>
+class BlockLabPipe : public BlockLab<BlockType,allocator>
+{
+	typedef typename BlockType::ElementType ElementTypeBlock;
+	
+public:
+	BlockLabPipe(): BlockLab<BlockType,allocator>(){}
+	
+	void _apply_bc(const BlockInfo& info, const Real t=0)
+	{
+		BoundaryCondition<BlockType,ElementTypeBlock,allocator> bc(this->m_stencilStart, this->m_stencilEnd, this->m_cacheBlock);
+		
+		ElementTypeBlock p;
+		p.rho = 1;
+		p.u   = 1.5;
+		p.v   = 0;
+		p.tmp = 0;
+		p.rk2u = 10;
+		p.rk2v = 0;
+		p.p = 0;
+		
+		if (info.index[0]==0)          bc.template applyBC_dirichlet<0,0>(p);
+		p.u = 0;
+		if (info.index[0]==this->NX-1) bc.template applyBC_dirichlet<0,1>(p);
+		if (info.index[1]==0)		   bc.template applyBC_mixedBottom<1,0>();
+		if (info.index[1]==this->NY-1) bc.template applyBC_mixedBottom<1,1>();
+	}
+};
+
+template<typename BlockType, template<typename X> class allocator=std::allocator>
 class BlockLabBox : public BlockLab<BlockType,allocator>
 {
 	typedef typename BlockType::ElementType ElementTypeBlock;
@@ -360,7 +389,11 @@ public:
 
 typedef Grid<FluidBlock, std::allocator> FluidGrid;
 #ifndef _PERIODIC_
+#ifndef _PIPE_
 typedef BlockLabBottomWall<FluidBlock, std::allocator> Lab;
+#else // _PIPE_
+typedef BlockLabPipe<FluidBlock, std::allocator> Lab;
+#endif // _PIPE_
 #else // _PERIODIC_
 typedef BlockLab<FluidBlock, std::allocator> Lab;
 #endif // _PERIODIC_
