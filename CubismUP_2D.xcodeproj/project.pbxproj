@@ -139,6 +139,8 @@
 		DDAD48CD1AA9C62400A2C354 /* Test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
 		DDAD48CF1AA9EBCD00A2C354 /* InterpolationKernels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterpolationKernels.h; sourceTree = "<group>"; };
 		DDAD48D01AA9ECA600A2C354 /* GenericOperator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenericOperator.h; sourceTree = "<group>"; };
+		DDB174C61B072F5600458CBA /* OperatorPressureGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorPressureGradient.h; sourceTree = "<group>"; };
+		DDB174C91B0731A200458CBA /* CoordinatorPressureGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoordinatorPressureGradient.h; sourceTree = "<group>"; };
 		DDBBA0051A7292670041496C /* TestVarCoeffPoisson.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestVarCoeffPoisson.cpp; sourceTree = "<group>"; };
 		DDBBA0061A7292670041496C /* TestVarCoeffPoisson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestVarCoeffPoisson.h; sourceTree = "<group>"; };
 		DDBFCB871AC92C640031708C /* CoordinatorComputeShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorComputeShape.h; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				DDDA9F371A78D69E0042FA80 /* OperatorSplitP.h */,
 				DDAD48CF1AA9EBCD00A2C354 /* InterpolationKernels.h */,
 				DD6717F11A7B952700BFDF78 /* MultigridHypre.h */,
+				DDB174C61B072F5600458CBA /* OperatorPressureGradient.h */,
 			);
 			name = Operators;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				DDBFCB8B1AC984F80031708C /* CoordinatorBodyVelocities.h */,
 				DDE251641AD528D800F6029B /* CoordinatorUpdate.h */,
 				DDE251651AD54A6900F6029B /* CoordinatorCleanTmp.h */,
+				DDB174C91B0731A200458CBA /* CoordinatorPressureGradient.h */,
 			);
 			name = Coordinators;
 			sourceTree = "<group>";

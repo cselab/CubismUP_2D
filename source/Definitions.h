@@ -351,18 +351,6 @@ public:
 	{
 		BoundaryCondition<BlockType,ElementTypeBlock,allocator> bc(this->m_stencilStart, this->m_stencilEnd, this->m_cacheBlock);
 		
-		ElementTypeBlock p;
-		p.rho = 1;
-		p.u   = 1.5;
-		p.v   = 0;
-		p.tmp = 0;
-		p.rk2u = 10;
-		p.rk2v = 0;
-		p.p = 0;
-		
-		if (info.index[0]==0)          bc.template applyBC_dirichlet<0,0>(p);
-		p.u = 0;
-		if (info.index[0]==this->NX-1) bc.template applyBC_dirichlet<0,1>(p);
 		if (info.index[1]==0)		   bc.template applyBC_mixedBottom<1,0>();
 		if (info.index[1]==this->NY-1) bc.template applyBC_mixedBottom<1,1>();
 	}

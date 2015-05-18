@@ -183,8 +183,6 @@ private:
 public:
 	OperatorAdvectionFD(double dt, const int stage) : dt(dt), stage(stage)
 	{
-		cout << "rk stages not supported, also bugged\n";
-		abort();
 		stencil_start[0] = -1;
 		stencil_start[1] = -1;
 		stencil_start[2] = 0;
@@ -206,6 +204,59 @@ public:
 			{
 				o(ix,iy).tmpU = lab(ix,iy).u + lab(ix,iy).u * invdh * (lab(ix+1,iy).u - lab(ix-1,iy).u) + lab(ix,iy).v * invdh * (lab(ix,iy+1).u - lab(ix,iy-1).u);
 				o(ix,iy).tmpV = lab(ix,iy).v + lab(ix,iy).u * invdh * (lab(ix+1,iy).v - lab(ix-1,iy).v) + lab(ix,iy).v * invdh * (lab(ix,iy+1).v - lab(ix,iy-1).v);
+			}
+	}
+};
+
+class OperatorAdvectionUpwind3rdOrder : public GenericLabOperator
+{
+private:
+	double dt;
+	const int stage;
+	
+public:
+	OperatorAdvectionUpwind3rdOrder(double dt, const int stage) : dt(dt), stage(stage)
+	{
+#ifdef _MULTIPHASE_
+		abort();
+#endif
+		stencil_start[0] = -2;
+		stencil_start[1] = -2;
+		stencil_start[2] = 0;
+		
+		stencil_end[0] = 3;
+		stencil_end[1] = 3;
+		stencil_end[2] = 1;
+	}
+	~OperatorAdvectionUpwind3rdOrder() {}
+	
+	template <typename Lab, typename BlockType>
+	void operator()(Lab & lab, const BlockInfo& info, BlockType& o) const
+	{
+		const Real factor = -dt/(6.*info.h_gridpoint);
+		
+		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+			{
+				const Real dudx[2] = {  2*lab(ix+1,iy  ).u + 3*lab(ix  ,iy  ).u - 6*lab(ix-1,iy  ).u +   lab(ix-2,iy  ).u,
+					                   -  lab(ix+2,iy  ).u + 6*lab(ix+1,iy  ).u - 3*lab(ix  ,iy  ).u - 2*lab(ix-1,iy  ).u};
+				
+				const Real dudy[2] = {  2*lab(ix  ,iy+1).u + 3*lab(ix  ,iy  ).u - 6*lab(ix  ,iy-1).u +   lab(ix  ,iy-2).u,
+					                   -  lab(ix  ,iy+2).u + 6*lab(ix  ,iy+1).u - 3*lab(ix  ,iy  ).u - 2*lab(ix  ,iy-1).u};
+				
+				const Real dvdx[2] = {  2*lab(ix+1,iy  ).v + 3*lab(ix  ,iy  ).v - 6*lab(ix-1,iy  ).v +   lab(ix-2,iy  ).v,
+					                   -  lab(ix+2,iy  ).v + 6*lab(ix+1,iy  ).v - 3*lab(ix  ,iy  ).v - 2*lab(ix-1,iy  ).v};
+				
+				const Real dvdy[2] = {  2*lab(ix  ,iy+1).v + 3*lab(ix  ,iy  ).v - 6*lab(ix  ,iy-1).v +   lab(ix  ,iy-2).v,
+					                   -  lab(ix  ,iy+2).v + 6*lab(ix  ,iy+1).v - 3*lab(ix  ,iy  ).v - 2*lab(ix  ,iy-1).v};
+				
+				const Real u = o(ix,iy).u;
+				const Real v = o(ix,iy).v;
+				
+				o(ix,iy).tmpU = u + factor*(max(u,(Real)0) * dudx[0] + min(u,(Real)0) * dudx[1] +
+											max(v,(Real)0) * dudy[0] + min(v,(Real)0) * dudy[1]);
+				o(ix,iy).tmpV = v + factor*(max(u,(Real)0) * dvdx[0] + min(u,(Real)0) * dvdx[1] +
+									    	max(v,(Real)0) * dvdy[0] + min(v,(Real)0) * dvdy[1]);
 			}
 	}
 };

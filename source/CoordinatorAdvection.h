@@ -112,14 +112,18 @@ protected:
 		{
 #ifndef _PARTICLES_
 			// this is wrong - using -u instead of u?
-			OperatorAdvectionFD kernel(dt, stage);
+			OperatorAdvectionUpwind3rdOrder kernel(dt, stage);
+			//OperatorAdvectionFD kernel(dt, stage);
+			
+			Lab mylab;
+			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 #else // _PARTICLES_
 			OperatorAdvection<Mp4> kernel(dt, stage);
 			//OperatorAdvection<Ms6> kernel(dt, stage);
-#endif // _PARTICLES_
 			
 			Lab mylab;
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
+#endif // _PARTICLES_
 			
 #pragma omp for schedule(static)
 			for (int i=0; i<N; i++)
@@ -139,23 +143,21 @@ public:
 	void operator()(const double dt)
 	{
 		check("advection - start");
-		
+
+#ifndef _PARTICLES
 		// Euler
-		//*
 		reset();
 		advect(dt,0);
 		update(1);
-		//*/
-		
+#else // _PARTICLES_
 		// midpoint
-		/*
 		reset();
 		advect(dt/2,0);
 		update(0);
 		reset();
 		advect(dt,1);
 		update(1);
-		//*/
+#endif // _PARTICLES_
 		
 		/*
 		 // check!

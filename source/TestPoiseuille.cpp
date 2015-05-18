@@ -13,6 +13,7 @@
 #include "CoordinatorAdvection.h"
 #include "CoordinatorDiffusion.h"
 #include "CoordinatorPressure.h"
+#include "CoordinatorPressureGradient.h"
 
 void TestPoiseuille::_analytical(Real x, Real y, double t, Real &u, Real &v, Real &p)
 {
@@ -41,7 +42,7 @@ void TestPoiseuille::_ic()
 				
 				b(ix,iy).rho = 1.;
 				
-				b(ix,iy).u = 0;
+				b(ix,iy).u = 1;
 				b(ix,iy).v = 0;
 				b(ix,iy).p = 0;
 				
@@ -77,9 +78,12 @@ TestPoiseuille::TestPoiseuille(const int argc, const char ** argv, const int bpd
 #endif // _MULTIGRID_
 		_ic();
 	
+	Real gradient[2] = {1.,0.};
+	
 	pipeline.clear();
-	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
+	pipeline.push_back(new CoordinatorPressureGradient(gradient,grid));
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
+	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
 #ifndef _MULTIGRID_
 	pipeline.push_back(new CoordinatorPressureSimple<Lab>(grid)); // need to also test with Hypre!
 #else
@@ -105,7 +109,7 @@ void TestPoiseuille::run()
 	double maxU = 0;
 	double maxA = 0;
 	double dt = 0;
-	const double CFL = 0.5;
+	const double CFL = 0.25;//0.5;//
 	const double LCFL = .1;
 	
 	while (true)
