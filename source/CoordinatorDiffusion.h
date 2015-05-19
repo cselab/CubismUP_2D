@@ -33,9 +33,12 @@ protected:
 				{
 					b(ix,iy).tmpU = 0;
 					b(ix,iy).tmpV = 0;
+					/*
+					 // there is no diffusion of density!
 #ifdef _MULTIPHASE_
 					b(ix,iy).tmp = 0;
 #endif // _MULTIPHASE_
+					 */
 				}
 		}
 	};
@@ -55,9 +58,12 @@ protected:
 				{
 					b(ix,iy).tmpU = -b(ix,iy).tmpU/2.;
 					b(ix,iy).tmpV = -b(ix,iy).tmpV/2.;
+					/*
+					 // there is no diffusion of density!
 #ifdef _MULTIPHASE_
 					b(ix,iy).tmp = -b(ix,iy).tmp/2;
 #endif // _MULTIPHASE_
+					 */
 				}
 		}
 	};
@@ -77,9 +83,12 @@ protected:
 				{
 					b(ix,iy).u = b(ix,iy).tmpU;
 					b(ix,iy).v = b(ix,iy).tmpV;
+					/*
+					 // there is no diffusion of density!
 #ifdef _MULTIPHASE_
 					b(ix,iy).rho = b(ix,iy).tmp;
 #endif // _MULTIPHASE_
+					 */
 				}
 		}
 	 }

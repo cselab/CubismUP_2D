@@ -49,9 +49,13 @@ public:
 				
 				o(ix,iy).tmpU += phi.u + prefactor * (phiN.u + phiS.u + phiE.u + phiW.u - 4.*phi.u);
 				o(ix,iy).tmpV += phi.v + prefactor * (phiN.v + phiS.v + phiE.v + phiW.v - 4.*phi.v);
+			
+				/*
+				 // there is no diffusion of density!
 #ifdef _MULTIPHASE_
 				o(ix,iy).tmp += phi.rho + prefactor * (phiN.rho + phiS.rho + phiE.rho + phiW.rho - 4.*phi.rho);
 #endif // _MULTIPHASE_
+				 */
 			}
 	}
 };
@@ -97,9 +101,12 @@ public:
 				
 				o(ix,iy).tmpU += phi.u + prefactor/12. * (-(phiN2.u + phiS2.u + phiE2.u + phiW2.u) + 16*(phiN.u + phiS.u + phiE.u + phiW.u) - 60.*phi.u);
 				o(ix,iy).tmpV += phi.v + prefactor/12. * (-(phiN2.v + phiS2.v + phiE2.v + phiW2.v) + 16*(phiN.v + phiS.v + phiE.v + phiW.v) - 60.*phi.v);
+				/*
+				 // there is no diffusion of density!
 #ifdef _MULTIPHASE_
 				o(ix,iy).tmpV += phi.rho + prefactor/12. * (-(phiN2.rho + phiS2.rho + phiE2.rho + phiW2.rho) + 16*(phiN.rho + phiS.rho + phiE.rho + phiW.rho) - 60.*phi.rho);
 #endif // _MULTIPHASE_
+				 */
 			}
 	}
 };

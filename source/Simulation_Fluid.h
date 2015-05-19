@@ -145,6 +145,7 @@ protected:
 		outStream << "verbose " << verbose << endl;
 		
 		outStream << "CFL " << CFL << endl;
+		outStream << "LCFL " << LCFL << endl;
 		
 		outStream << "dumpFreq " << dumpFreq << endl;
 		outStream << "dumpTime " << dumpTime << endl;
@@ -185,6 +186,9 @@ protected:
 		inStream >> variableName;
 		assert(variableName=="CFL");
 		inStream >> CFL;
+		inStream >> variableName;
+		assert(variableName=="LCFL");
+		inStream >> LCFL;
 		inStream >> variableName;
 		assert(variableName=="dumpFreq");
 		inStream >> dumpFreq;

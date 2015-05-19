@@ -86,6 +86,24 @@ void TestAdvection::_icVortex()
 			{
 				double p[3];
 				info.pos(p, ix, iy);
+				
+				p[0] = p[0]*2.-1.;
+				p[1] = p[1]*2.-1.;
+				
+				const Real r = sqrt(p[0]*p[0] + p[1]*p[1]);
+				const Real invR = 1/r;
+				
+				
+				b(ix, iy).rho = 1;
+				b(ix, iy).u   =  sin(p[1])*cos(r*M_PI/2)*invR;
+				b(ix, iy).v   = -sin(p[0])*cos(r*M_PI/2)*invR;
+				b(ix, iy).chi = 0;
+				
+				if (r>1)
+				{
+					b(ix,iy).u = 0;
+					b(ix,iy).v = 0;
+				}
 				/*
 				 p[0] = p[0]*2.-1.;
 				 p[1] = p[1]*2.-1.;
@@ -98,8 +116,8 @@ void TestAdvection::_icVortex()
 				 b(ix, iy).v   =  p[0]*strength;
 				 b(ix, iy).chi = 0;
 				 
-				 /*/
-				
+				/*/
+				/*
 				const Real dx = p[0] - center[0];
 				const Real dy = p[1] - center[1];
 				const Real dist = sqrt(dx*dx + dy*dy);
@@ -189,10 +207,10 @@ TestAdvection::TestAdvection(const int argc, const char ** argv, int testCase, c
 	else if (testCase==1)
 	{
 		// output settings
-		//path2file = parser("-file").asString("../data/testAdvectionVortex");
-		//_icVortex();
-		path2file = parser("-file").asString("../data/testAdvectionBurger");
-		_icBurger();
+		path2file = parser("-file").asString("../data/testAdvectionVortex");
+		_icVortex();
+		//path2file = parser("-file").asString("../data/testAdvectionBurger");
+		//_icBurger();
 	}
 	else
 	{
@@ -212,7 +230,7 @@ void TestAdvection::run()
 	
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	const double dt = 0.5;//0.00001;
+	const double dt = 0.001;//0.00001;
 	/*
 	 if (testCase==0)
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/1. << ")\n";
@@ -220,7 +238,7 @@ void TestAdvection::run()
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/.25 << ")\n";
 	 //*/
 	
-	const int nsteps = 1;//5000;//500;
+	const int nsteps = 500;//1;//5000;//
 	CoordinatorCleanTmp coordClean(grid);
 	CoordinatorAdvection<Lab> coordAdvection(grid);
 	//CoordinatorTransport<Lab> coordTransport(grid);
@@ -234,7 +252,7 @@ void TestAdvection::run()
 		//coordUpdate(dt);
 		
 		//dump some time steps every now and then
-		if(step % 100 == 0)
+		if(step % 1 == 0)
 		{
 			stringstream ss;
 			ss << path2file << "-" << step << ".vti" ;
@@ -310,6 +328,30 @@ void TestAdvection::check()
 	}
 	else
 	{
+#pragma omp parallel for reduction(max:uLinf) reduction(+:uL1) reduction(+:uL2)
+		for(int i=0; i<(int)vInfo.size(); i++)
+		{
+			BlockInfo info = vInfo[i];
+			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
+			
+			for(int iy=0; iy<FluidBlock::sizeY; iy++)
+				for(int ix=0; ix<FluidBlock::sizeX; ix++)
+				{
+					double p[3];
+					info.pos(p, ix, iy);
+					
+					p[0] = p[0]*2.-1.;
+					p[1] = p[1]*2.-1.;
+					
+					const Real invR = 1./sqrt(p[0]*p[0] + p[1]*p[1]);
+					
+					double error = b(ix, iy).u - sin(p[1]);
+					
+					uLinf = max(uLinf,abs(error));
+					uL1 += abs(error);
+					uL2 += error*error;
+				}
+		}
 		/*
 		 #pragma omp parallel for reduction(max:uLinf) reduction(+:uL1) reduction(+:uL2)
 		 for (int iy=0; iy<sizeY; iy++)
@@ -323,7 +365,7 @@ void TestAdvection::check()
 		 uL2 += error*error;
 			}
 		 */
-		
+		/*
 #pragma omp parallel for reduction(max:uLinf) reduction(+:uL1) reduction(+:uL2)
 		for(int i=0; i<(int)vInfo.size(); i++)
 		{
@@ -346,6 +388,7 @@ void TestAdvection::check()
 					uL2 += error*error;
 				}
 		}
+		 */
 	}
 	
 	//stringstream sVort;

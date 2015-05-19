@@ -1,13 +1,14 @@
-for BS in 32 64 128 256 512 1024 2048
-do
-	cd ../makefiles
-	make clean
-	make config=production multiphase=false poisson=hypre bc=periodic precision=double bs=${BS} -j
-	cd ../launch
-	../makefiles/test -minBPD 1 -maxBPD 1 -test advection -ic 1 > adv_${BS}
-done
+#cd ../makefiles
+#make clean
+#make config=production poisson=hypre bc=periodic precision=double bs=32 multiphase=true -j
+#make config=debug poisson=hypre bc=vortex precision=double bs=32 multiphase=false -j
+#cd ../launch/
+#export OMP_NUM_THREADS=48;../makefiles/test -minBPD 2 -maxBPD 32 -test advection -ic 0
+#export OMP_NUM_THREADS=48;../makefiles/test -minBPD 2 -maxBPD 2 -test advection -ic 0
 
-for BS in 32 64 128 256 512 1024 2048
-do
-	cat adv_${BS}
-done
+cd ../makefiles
+make clean
+make config=production poisson=hypre bc=vortex precision=double bs=32 multiphase=false -j
+cd ../launch/
+export OMP_NUM_THREADS=48;../makefiles/test -minBPD 4 -maxBPD 4 -test advection -ic 1
+#export OMP_NUM_THREADS=48;../makefiles/test -minBPD 2 -maxBPD 32 -test advection -ic 1

@@ -144,7 +144,7 @@ public:
 	{
 		check("advection - start");
 
-#ifndef _PARTICLES
+#ifndef _PARTICLES_
 		// Euler
 		reset();
 		advect(dt,0);

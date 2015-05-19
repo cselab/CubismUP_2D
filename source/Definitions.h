@@ -375,10 +375,33 @@ public:
 	}
 };
 
+template<typename BlockType, template<typename X> class allocator=std::allocator>
+class BlockLabVortex : public BlockLab<BlockType,allocator>
+{
+	typedef typename BlockType::ElementType ElementTypeBlock;
+	
+public:
+	BlockLabVortex(): BlockLab<BlockType,allocator>(){}
+	
+	void _apply_bc(const BlockInfo& info, const Real t=0)
+	{
+		BoundaryCondition<BlockType,ElementTypeBlock,allocator> bc(this->m_stencilStart, this->m_stencilEnd, this->m_cacheBlock);
+		
+		if (info.index[0]==0)		   bc.template applyBC_vortex<0,0>(info);
+		if (info.index[0]==this->NX-1) bc.template applyBC_vortex<0,1>(info);
+		if (info.index[1]==0)		   bc.template applyBC_vortex<1,0>(info);
+		if (info.index[1]==this->NY-1) bc.template applyBC_vortex<1,1>(info);
+	}
+};
+
 typedef Grid<FluidBlock, std::allocator> FluidGrid;
 #ifndef _PERIODIC_
 #ifndef _PIPE_
+#ifndef _VORTEX_
 typedef BlockLabBottomWall<FluidBlock, std::allocator> Lab;
+#else // _VORTEX_
+typedef BlockLabVortex<FluidBlock, std::allocator> Lab;
+#endif
 #else // _PIPE_
 typedef BlockLabPipe<FluidBlock, std::allocator> Lab;
 #endif // _PIPE_
