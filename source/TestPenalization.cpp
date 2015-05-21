@@ -25,7 +25,7 @@ void TestPenalization::_ic()
 	coordIC(0);
 }
 
-TestPenalization::TestPenalization(const int argc, const char ** argv, const int bpd) : Test(argc, argv), bpd(bpd), lambda(1e4), uBody{0,0.5}
+TestPenalization::TestPenalization(const int argc, const char ** argv, const int bpd, const double dt) : Test(argc, argv), bpd(bpd), lambda(1e4), uBody{0,0.5}, dt(dt)
 {
 	grid = new FluidGrid(bpd,bpd,1);
 	
@@ -46,7 +46,6 @@ void TestPenalization::run()
 {
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	const double dt = 1e-4;
 	Real omegaBody = 0;
 	CoordinatorPenalization coordPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid);
 	

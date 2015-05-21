@@ -11,16 +11,14 @@
 
 #include <stdio.h>
 #include "Test.h"
-//#include "OperatorAdvection.h"
 #include "Layer.h"
 
 class TestAdvection : public Test
 {
 private:
-	double time;
+	double time, dt;
 	int bpd;
-	double umax;
-	int testCase; // 0: linear, 1: vortex
+	int testCase; // 0: linear, 1: rigid rotation
 	
 	string path2file;
 	SerializerIO_ImageVTK<FluidGrid, FluidVTKStreamer> dumper;
@@ -34,7 +32,7 @@ private:
 	void _icBurger();
 	
 public:
-	TestAdvection(const int argc, const char ** argv, int testCase, const int bpd);
+	TestAdvection(const int argc, const char ** argv, int testCase, const int bpd, const double dt);
 	~TestAdvection();
 	
 	void run();

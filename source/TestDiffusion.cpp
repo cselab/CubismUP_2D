@@ -54,7 +54,7 @@ void TestDiffusion::_ic()
 	dumper.Write(*grid, ss.str());
 }
 
-TestDiffusion::TestDiffusion(const int argc, const char ** argv, const int bpd) : Test(argc, argv), bpd(bpd), time(0)
+TestDiffusion::TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt) : Test(argc, argv), bpd(bpd), time(0), dt(dt)
 {
 	// test settings
 	nu = parser("-nu").asDouble(1);
@@ -75,12 +75,8 @@ TestDiffusion::~TestDiffusion()
 
 void TestDiffusion::run()
 {
-	time = 0;
-	
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	// TODO: choose dt (Fourier)
-	const double dt = 1e-8;
 	//cout << "Using dt " << dt << " (Fourier time step: " << vInfo[0].h_gridpoint*vInfo[0].h_gridpoint*.5/nu << ")\n";
 	
 	const int nsteps = 100;

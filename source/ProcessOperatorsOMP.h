@@ -31,6 +31,8 @@ double findMaxAOMP(vector<BlockInfo>& myInfo, FluidGrid & grid)
 #pragma omp for schedule(static) reduction(max:maxA)
 		for (int i=0; i<N; i++)
 		{
+			lab.load(ary[i], 0);
+			
 			BlockInfo info = myInfo[i];
 			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
 			

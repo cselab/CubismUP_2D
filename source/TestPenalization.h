@@ -17,6 +17,7 @@ class TestPenalization : public Test
 {
 private:
 	int bpd;
+	double dt;
 	double lambda;
 	Real uBody[2];
 	Shape * shape;
@@ -29,7 +30,7 @@ private:
 	void _ic();
 	
 public:
-	TestPenalization(const int argc, const char ** argv, const int bpd);
+	TestPenalization(const int argc, const char ** argv, const int bpd, const double dt);
 	~TestPenalization();
 	
 	void run();

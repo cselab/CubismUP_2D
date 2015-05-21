@@ -55,7 +55,7 @@ void TestRotation::_ic()
 	}
 }
 
-TestRotation::TestRotation(const int argc, const char ** argv, const int testCase, const int bpd) : Test(argc,argv), testCase(testCase), bpd(bpd)
+TestRotation::TestRotation(const int argc, const char ** argv, const int testCase, const int bpd, const double dt) : Test(argc,argv), testCase(testCase), bpd(bpd), dt(dt)
 {
 	grid = new FluidGrid(bpd,bpd,1);
 	
@@ -73,8 +73,6 @@ void TestRotation::run()
 {
 	const int sizeX = bpd * FluidBlock::sizeX;
 	const int sizeY = bpd * FluidBlock::sizeY;
-	
-	const Real dt = 1.;
 	
 	Real u[2] = {0,0};
 	Real omega = 0;

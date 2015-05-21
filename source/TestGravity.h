@@ -17,6 +17,7 @@ class TestGravity : public Test
 private:
 	double time;
 	int bpd;
+	double dt;
 	
 	Real gravity[2];
 	
@@ -28,7 +29,7 @@ private:
 	void _ic();
 	
 public:
-	TestGravity(const int argc, const char ** argv, const int bpd);
+	TestGravity(const int argc, const char ** argv, const int bpd, const double dt);
 	~TestGravity();
 	
 	void run();

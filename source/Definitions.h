@@ -24,8 +24,9 @@ struct FluidElement
 	Real tmpU, tmpV, tmp;
 	Real rk2u, rk2v;
 	Real divU;
+	Real x, y;
     
-    FluidElement() : rho(0), u(0), v(0), chi(0), p(0), pOld(0), divU(0), tmpU(0), tmpV(0), rk2u(0), rk2v(0), tmp(0) {}
+    FluidElement() : rho(0), u(0), v(0), chi(0), p(0), pOld(0), divU(0), tmpU(0), tmpV(0), rk2u(0), rk2v(0), tmp(0), x(0), y(0) {}
     
     void clear()
     {
@@ -33,6 +34,7 @@ struct FluidElement
 		tmpU = tmpV = tmp = 0;
 		rk2u = rk2v = 0;
 		divU = 0;
+		x = y = 0;
     }
 };
 

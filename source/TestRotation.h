@@ -22,6 +22,7 @@ private:
 	Real omegaBody;
 	Shape * shape;
 	const int testCase; // 0: forced, 1: from flow
+	double dt;
 	
 	string path2file;
 	SerializerIO_ImageVTK<FluidGrid, FluidVTKStreamer> dumper;
@@ -31,7 +32,7 @@ private:
 	void _ic();
 	
 public:
-	TestRotation(const int argc, const char ** argv, const int testCase, const int bpd);
+	TestRotation(const int argc, const char ** argv, const int testCase, const int bpd, const double dt);
 	~TestRotation();
 	
 	void run();

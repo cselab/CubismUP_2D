@@ -32,8 +32,6 @@ public:
 				Real p[2];
 				info.pos(p, ix, iy);
 				
-				//block(ix,iy).tmpU += block(ix,iy).u + dt * g[0];
-				//block(ix,iy).tmpV += block(ix,iy).v + dt * g[1];
 				block(ix,iy).u += dt * g[0];
 				block(ix,iy).v += dt * g[1];
 			}

@@ -94,15 +94,14 @@ void TestAdvection::_icVortex()
 				const Real invR = 1/r;
 				
 				
-				b(ix, iy).rho = 1;
-				b(ix, iy).u   =  sin(p[1])*cos(r*M_PI/2)*invR;
-				b(ix, iy).v   = -sin(p[0])*cos(r*M_PI/2)*invR;
+				b(ix, iy).rho = r;
+				b(ix, iy).u   = -p[1];// sin(p[1])*cos(r*M_PI/2)*invR;
+				b(ix, iy).v   =  p[0];//-sin(p[0])*cos(r*M_PI/2)*invR;
 				b(ix, iy).chi = 0;
-				
-				if (r>1)
+				//*
+				if (r>.5)
 				{
-					b(ix,iy).u = 0;
-					b(ix,iy).v = 0;
+					b(ix,iy).rho = 1;
 				}
 				/*
 				 p[0] = p[0]*2.-1.;
@@ -192,10 +191,9 @@ void TestAdvection::_icBurger()
 	dumper.Write(*grid, ss.str());
 }
 
-TestAdvection::TestAdvection(const int argc, const char ** argv, int testCase, const int bpd) : Test(argc, argv), time(0), testCase(testCase), bpd(bpd)
+TestAdvection::TestAdvection(const int argc, const char ** argv, int testCase, const int bpd, const double dt) : Test(argc, argv), time(0), testCase(testCase), bpd(bpd), dt(dt)
 {
 	grid = new FluidGrid(bpd,bpd,1);
-	umax = 1;
 	
 	// setup initial condition
 	if (testCase==0)
@@ -226,11 +224,8 @@ TestAdvection::~TestAdvection()
 
 void TestAdvection::run()
 {
-	time = 0;
-	
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	const double dt = 0.001;//0.00001;
 	/*
 	 if (testCase==0)
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/1. << ")\n";
@@ -238,21 +233,21 @@ void TestAdvection::run()
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/.25 << ")\n";
 	 //*/
 	
-	const int nsteps = 500;//1;//5000;//
+	const int nsteps = 10000;//1;//5000;//
 	CoordinatorCleanTmp coordClean(grid);
-	CoordinatorAdvection<Lab> coordAdvection(grid);
-	//CoordinatorTransport<Lab> coordTransport(grid);
+	//CoordinatorAdvection<Lab> coordAdvection(grid);
+	CoordinatorTransport<Lab> coordTransport(grid);
 	CoordinatorUpdate coordUpdate(grid);
 	
 	for(int step=0; step<nsteps; ++step)
 	{
 		//coordClean(dt);
-		coordAdvection(dt);
-		//coordTransport(dt);
+		//coordAdvection(dt);
+		coordTransport(dt);
 		//coordUpdate(dt);
 		
 		//dump some time steps every now and then
-		if(step % 1 == 0)
+		if(step % 10 == 0)
 		{
 			stringstream ss;
 			ss << path2file << "-" << step << ".vti" ;
@@ -260,7 +255,7 @@ void TestAdvection::run()
 			
 			dumper.Write(*grid, ss.str());
 			
-			
+			/*
 			const int sizeX = bpd * FluidBlock::sizeX;
 			const int sizeY = bpd * FluidBlock::sizeY;
 			Layer vorticity(sizeX,sizeY,1);
@@ -268,6 +263,7 @@ void TestAdvection::run()
 			stringstream sVort;
 			sVort << path2file << "Vorticity-" << step << ".vti";
 			dumpLayer2VTK(step,sVort.str(),vorticity,1);
+			 */
 		}
 		
 		time += dt;
@@ -343,9 +339,13 @@ void TestAdvection::check()
 					p[0] = p[0]*2.-1.;
 					p[1] = p[1]*2.-1.;
 					
-					const Real invR = 1./sqrt(p[0]*p[0] + p[1]*p[1]);
+					Real r = sqrt(p[0]*p[0] + p[1]*p[1]);
+					if (r>.5)
+					{
+						r = 1;
+					}
 					
-					double error = b(ix, iy).u - sin(p[1]);
+					double error = b(ix, iy).rho - r;//b(ix, iy).u - sin(p[1]);
 					
 					uLinf = max(uLinf,abs(error));
 					uL1 += abs(error);

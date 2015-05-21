@@ -52,7 +52,7 @@ void TestTranslation::_ic()
 	}
 }
 
-TestTranslation::TestTranslation(const int argc, const char ** argv, const int testCase, const int bpd) : Test(argc,argv), testCase(testCase), bpd(bpd)
+TestTranslation::TestTranslation(const int argc, const char ** argv, const int testCase, const int bpd, const double dt) : Test(argc,argv), testCase(testCase), bpd(bpd), dt(dt)
 {
 	grid = new FluidGrid(bpd,bpd,1);
 	
@@ -80,7 +80,6 @@ void TestTranslation::run()
 	for (int step=0; step<50; step++)
 	{
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
-		const Real dt = 1e-2;
 		
 		if (testCase==0)
 		{

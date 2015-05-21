@@ -29,21 +29,8 @@ using namespace std;
 #include "TestPoiseuille.h"
 #include "Definitions.h"
 
-int main(int argc, const char **argv)
+void spatialConvergence(int argc, const char **argv, const int solver, const int ic, const string test, const int minBPD, const int maxBPD, const double dt)
 {
-#ifdef _MULTIGRID_
-	MPI_Init(&argc, &argv);
-#endif // _MULTIGRID_
-	
-	ArgumentParser parser(argc,argv);
-	int solver = parser("-solver").asInt(0);
-	int ic = parser("-ic").asInt(0);
-	parser.set_strict_mode();
-	
-	string test = parser("-test").asString();
-	const int minBPD = parser("-minBPD").asInt();
-	const int maxBPD = parser("-maxBPD").asInt();
-	
 	if (test=="advection")
 	{
 		if (ic==0)
@@ -66,7 +53,7 @@ int main(int argc, const char **argv)
 		
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
-			TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd);
+			TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt);
 			advection->run();
 			advection->check();
 			delete advection;
@@ -79,7 +66,7 @@ int main(int argc, const char **argv)
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
-			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd);
+			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt);
 			diffusion->run();
 			diffusion->check();
 			delete diffusion;
@@ -115,7 +102,7 @@ int main(int argc, const char **argv)
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
-			TestPressure * pressure = new TestPressure(argc, argv, solver, ic, bpd);
+			TestPressure * pressure = new TestPressure(argc, argv, solver, ic, bpd, dt);
 			pressure->run();
 			pressure->check();
 			delete pressure;
@@ -142,44 +129,19 @@ int main(int argc, const char **argv)
 			delete poisson;
 		}
 	}
-	else if (test=="gravity")
-	{
-		cout << "========================================================================================\n";
-		cout << "\t\tGravity Test\n";
-		cout << "========================================================================================\n";
-		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
-		{
-			TestGravity * gravity = new TestGravity(argc, argv, bpd);
-			gravity->run();
-			gravity->check();
-			delete gravity;
-		}
-	}
-	else if (test=="penalization")
-	{
-		cout << "========================================================================================\n";
-		cout << "\t\tPenalization Test\n";
-		cout << "========================================================================================\n";
-		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
-		{
-			TestPenalization * penalization = new TestPenalization(argc, argv, bpd);
-			penalization->run();
-			delete penalization;
-		}
-	}
 	else if (test=="translation")
 	{
 		cout << "========================================================================================\n";
 		if (ic==0)
-		cout << "\t\tTranslation Test - Constant Velocity\n";
+			cout << "\t\tTranslation Test - Constant Velocity\n";
 		else if (ic==1)
-		cout << "\t\tTranslation Test - Velocity from Flow\n";
+			cout << "\t\tTranslation Test - Velocity from Flow\n";
 		else
-		abort();
+			abort();
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
-			TestTranslation * translation = new TestTranslation(argc, argv, ic, bpd);
+			TestTranslation * translation = new TestTranslation(argc, argv, ic, bpd, dt);
 			translation->run();
 			translation->check();
 			delete translation;
@@ -189,15 +151,15 @@ int main(int argc, const char **argv)
 	{
 		cout << "========================================================================================\n";
 		if (ic==0)
-		cout << "\t\tRotation Test - Constant Velocity\n";
+			cout << "\t\tRotation Test - Constant Velocity\n";
 		else if (ic==1)
-		cout << "\t\tRotation Test - Velocity from Flow\n";
+			cout << "\t\tRotation Test - Velocity from Flow\n";
 		else
-		abort();
+			abort();
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
-			TestRotation * rotation = new TestRotation(argc, argv, ic, bpd);
+			TestRotation * rotation = new TestRotation(argc, argv, ic, bpd, dt);
 			rotation->run();
 			rotation->check();
 			delete rotation;
@@ -216,43 +178,336 @@ int main(int argc, const char **argv)
 			delete wave;
 		}
 	}
+	else
+		cout << "Requested test not available with these settings\n";
+}
+
+void temporalConvergence(int argc, const char **argv, const int solver, const int ic, const string test, const double minDT, const double maxDT, const int bpd, const double tEnd)
+{
+	if (test=="advection")
+	{
+		if (ic==0)
+		{
+			cout << "========================================================================================\n";
+			cout << "\t\tAdvection Test - Linear Field\n";
+			cout << "========================================================================================\n";
+		}
+		else if (ic==1)
+		{
+			cout << "========================================================================================\n";
+			cout << "\t\tAdvection Test - Vortex Field\n";
+			cout << "========================================================================================\n";
+		}
+		else
+		{
+			cout << "IC " << ic << " doesn't exist\n";
+			abort();
+		}
+		
+		for (double dt=minDT; dt<=maxDT; dt*=2)
+		{
+			TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt);
+			advection->run();
+			advection->check();
+			delete advection;
+		}
+	}
+	else if (test=="diffusion")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tDiffusion Test\n";
+		cout << "========================================================================================\n";
+		for (double dt=minDT; dt<=maxDT; dt*=2)
+		{
+			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt);
+			diffusion->run();
+			diffusion->check();
+			delete diffusion;
+		}
+	}
+	else if (test=="pressure")
+	{
+		cout << "========================================================================================\n";
+		if (solver==0)
+			cout << "\t\tPressure Test - Stencil - ";
+		else if (solver==1)
+			cout << "\t\tPressure Test - Spectral - ";
+#ifdef _MULTIGRID_
+		else if (solver==2)
+			cout << "\t\tPressure Test - Multigrid (Constant Coefficents) - ";
+		else if (solver==3)
+			cout << "\t\tPressure Test - Multigrid (Variable Coefficents) - ";
+#endif // _MULTIGRID_
+		else
+		{
+			cout << "Solver case " << solver << " doesn't exist\n";
+			abort();
+		}
+		
+		if (ic==0)
+			cout << "Poisson equation\n";
+		else if (ic==1)
+			cout << "Velocity field (Projection)\n";
+		else if (ic==2)
+			cout << "Mixed Boundary Conditions\n";
+		else
+			abort();
+		cout << "========================================================================================\n";
+		for (double dt=minDT; dt<=maxDT; dt*=2)
+		{
+			TestPressure * pressure = new TestPressure(argc, argv, solver, ic, bpd, dt);
+			pressure->run();
+			pressure->check();
+			delete pressure;
+		}
+	}
+	else if (test=="gravity")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tGravity Test\n";
+		cout << "========================================================================================\n";
+		for (double dt=minDT; dt<=maxDT; dt*=2)
+		{
+			TestGravity * gravity = new TestGravity(argc, argv, bpd, dt);
+			gravity->run();
+			gravity->check();
+			delete gravity;
+		}
+	}
+	else if (test=="penalization")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tPenalization Test\n";
+		cout << "========================================================================================\n";
+		for (double dt=minDT; dt<=maxDT; dt*=2)
+		{
+			TestPenalization * penalization = new TestPenalization(argc, argv, bpd, dt);
+			penalization->run();
+			delete penalization;
+		}
+	}
+	else if (test=="translation")
+	{
+		cout << "========================================================================================\n";
+		if (ic==0)
+			cout << "\t\tTranslation Test - Constant Velocity\n";
+		else if (ic==1)
+			cout << "\t\tTranslation Test - Velocity from Flow\n";
+		else
+			abort();
+		cout << "========================================================================================\n";
+		for (double dt=minDT; dt<=maxDT; dt*=2)
+		{
+			TestTranslation * translation = new TestTranslation(argc, argv, ic, bpd, dt);
+			translation->run();
+			translation->check();
+			delete translation;
+		}
+	}
+	else if (test=="rotation")
+	{
+		cout << "========================================================================================\n";
+		if (ic==0)
+			cout << "\t\tRotation Test - Constant Velocity\n";
+		else if (ic==1)
+			cout << "\t\tRotation Test - Velocity from Flow\n";
+		else
+			abort();
+		cout << "========================================================================================\n";
+		for (double dt=minDT; dt<=maxDT; dt*=2)
+		{
+			TestRotation * rotation = new TestRotation(argc, argv, ic, bpd, dt);
+			rotation->run();
+			rotation->check();
+			delete rotation;
+		}
+	}
+	else
+		cout << "Requested test not available with these settings\n";
+}
+
+void baseTest(int argc, const char **argv, const int solver, const int ic, const string test, const int bpd, const double dt)
+{
+	if (test=="advection")
+	{
+		if (ic==0)
+		{
+			cout << "========================================================================================\n";
+			cout << "\t\tAdvection Test - Linear Field\n";
+			cout << "========================================================================================\n";
+		}
+		else if (ic==1)
+		{
+			cout << "========================================================================================\n";
+			cout << "\t\tAdvection Test - Vortex Field\n";
+			cout << "========================================================================================\n";
+		}
+		else
+		{
+			cout << "IC " << ic << " doesn't exist\n";
+			abort();
+		}
+		
+		TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt);
+		advection->run();
+		advection->check();
+		delete advection;
+	}
+	else if (test=="diffusion")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tDiffusion Test\n";
+		cout << "========================================================================================\n";
+		TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt);
+		diffusion->run();
+		diffusion->check();
+		delete diffusion;
+	}
+	else if (test=="pressure")
+	{
+		cout << "========================================================================================\n";
+		if (solver==0)
+			cout << "\t\tPressure Test - Stencil - ";
+		else if (solver==1)
+			cout << "\t\tPressure Test - Spectral - ";
+#ifdef _MULTIGRID_
+		else if (solver==2)
+			cout << "\t\tPressure Test - Multigrid (Constant Coefficents) - ";
+		else if (solver==3)
+			cout << "\t\tPressure Test - Multigrid (Variable Coefficents) - ";
+#endif // _MULTIGRID_
+		else
+		{
+			cout << "Solver case " << solver << " doesn't exist\n";
+			abort();
+		}
+		
+		if (ic==0)
+			cout << "Poisson equation\n";
+		else if (ic==1)
+			cout << "Velocity field (Projection)\n";
+		else if (ic==2)
+			cout << "Mixed Boundary Conditions\n";
+		else
+			abort();
+		cout << "========================================================================================\n";
+		TestPressure * pressure = new TestPressure(argc, argv, solver, ic, bpd, dt);
+		pressure->run();
+		pressure->check();
+		delete pressure;
+	}
+	else if (test=="gravity")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tGravity Test\n";
+		cout << "========================================================================================\n";
+		TestGravity * gravity = new TestGravity(argc, argv, bpd, dt);
+		gravity->run();
+		gravity->check();
+		delete gravity;
+	}
+	else if (test=="penalization")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tPenalization Test\n";
+		cout << "========================================================================================\n";
+		TestPenalization * penalization = new TestPenalization(argc, argv, bpd, dt);
+		penalization->run();
+		delete penalization;
+	}
+	else if (test=="translation")
+	{
+		cout << "========================================================================================\n";
+		if (ic==0)
+			cout << "\t\tTranslation Test - Constant Velocity\n";
+		else if (ic==1)
+			cout << "\t\tTranslation Test - Velocity from Flow\n";
+		else
+			abort();
+		cout << "========================================================================================\n";
+		TestTranslation * translation = new TestTranslation(argc, argv, ic, bpd, dt);
+		translation->run();
+		translation->check();
+		delete translation;
+	}
+	else if (test=="rotation")
+	{
+		cout << "========================================================================================\n";
+		if (ic==0)
+			cout << "\t\tRotation Test - Constant Velocity\n";
+		else if (ic==1)
+			cout << "\t\tRotation Test - Velocity from Flow\n";
+		else
+			abort();
+		cout << "========================================================================================\n";
+		TestRotation * rotation = new TestRotation(argc, argv, ic, bpd, dt);
+		rotation->run();
+		rotation->check();
+		delete rotation;
+	}
+	else if (test=="travelingwave")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tTraveling Wave Test\n";
+		cout << "========================================================================================\n";
+		TestTravelingWave * wave = new TestTravelingWave(argc, argv, bpd);
+		wave->run();
+		wave->check();
+		delete wave;
+	}
 	else if (test=="shearlayer")
 	{
 		cout << "========================================================================================\n";
 		cout << "\t\tShear Layer Test\n";
 		cout << "========================================================================================\n";
-		/*
-		// reference run
-		TestShearLayer * shearlayer = new TestShearLayer(argc, argv, 32);
+		TestShearLayer * shearlayer = new TestShearLayer(argc, argv, bpd);
 		shearlayer->run();
+		shearlayer->check();
 		delete shearlayer;
-		//*/
-		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
-		{
-			TestShearLayer * shearlayer = new TestShearLayer(argc, argv, bpd);
-			shearlayer->run();
-			shearlayer->check();
-			delete shearlayer;
-		}
 	}
 	else if (test=="poiseuille")
 	{
 		cout << "========================================================================================\n";
 		cout << "\t\tPoiseuille Test\n";
 		cout << "========================================================================================\n";
-		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
-		{
-			TestPoiseuille * wave = new TestPoiseuille(argc, argv, bpd);
-			wave->run();
-			wave->check();
-			delete wave;
-		}
+		TestPoiseuille * wave = new TestPoiseuille(argc, argv, bpd);
+		wave->run();
+		wave->check();
+		delete wave;
 	}
+	else
+		cout << "Requested test not available with these settings\n";
+}
+
+int main(int argc, const char **argv)
+{
+#ifdef _MULTIGRID_
+	MPI_Init(&argc, &argv);
+#endif // _MULTIGRID_
 	
+	ArgumentParser parser(argc,argv);
+	int solver = parser("-solver").asInt(0);
+	int ic = parser("-ic").asInt(0);
+	const double tEnd = parser("-tEnd").asDouble(0);
+	
+	parser.set_strict_mode();
+	
+	string test = parser("-test").asString();
+	const int minBPD = parser("-minBPD").asInt();
+	const int maxBPD = parser("-maxBPD").asInt();
+	const double minDT = parser("-minDT").asDouble();
+	const double maxDT = parser("-maxDT").asDouble();
+	
+	if (maxBPD>minBPD)
+		spatialConvergence(argc, argv, solver, ic, test, minBPD, maxBPD, minDT);
+	else if (maxDT>minDT)
+		temporalConvergence(argc, argv, solver, ic, test, minDT, maxDT, minBPD, tEnd);
+	else
+		baseTest(argc, argv, solver, ic, test, minBPD, minDT);
 	
 #ifdef _MULTIGRID_
 	MPI_Finalize();
 #endif // _MULTIGRID_
 	
-    return 0;
+	return 0;
 }

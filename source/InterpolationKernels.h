@@ -9,6 +9,18 @@
 #ifndef CubismUP_2D_InterpolationKernels_h
 #define CubismUP_2D_InterpolationKernels_h
 
+struct Hat
+{
+	static const int support_start = 0;
+	static const int support_end = 2;
+	static const int support = 2;
+	
+	static Real weight(const Real x)
+	{
+		return 1-abs(x);
+	}
+};
+
 struct Mp4
 {
 	static const int support_start = -1;

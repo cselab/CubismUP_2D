@@ -9,8 +9,6 @@
 #include "TestGravity.h"
 #include "ProcessOperatorsOMP.h"
 #include "CoordinatorGravity.h"
-#include "CoordinatorUpdate.h"
-#include "CoordinatorCleanTmp.h"
 #include <sstream>
 #include <cmath>
 
@@ -48,7 +46,7 @@ void TestGravity::_ic()
 	dumper.Write(*grid, ss.str());
 }
 
-TestGravity::TestGravity(const int argc, const char ** argv, const int bpd) : Test(argc, argv), time(0), gravity{0,-9.81},bpd(bpd)
+TestGravity::TestGravity(const int argc, const char ** argv, const int bpd, const double dt) : Test(argc, argv), time(0), gravity{0,-9.81}, bpd(bpd), dt(dt)
 {
 	grid = new FluidGrid(bpd,bpd,1);
 	
@@ -71,15 +69,11 @@ void TestGravity::run()
 	
 	const int nsteps = 1000;
 	
-	CoordinatorCleanTmp coordClean(grid);
 	CoordinatorGravity coordGravity(gravity, grid);
-	CoordinatorUpdate coordUpdate(grid);
 	
 	for(int step=0; step<nsteps; ++step)
 	{
-		coordClean(dt);
 		coordGravity(dt);
-		coordUpdate(dt);
 		
 		time += dt;
 	}

@@ -141,29 +141,29 @@ public:
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
 			{
+				/*
 				(*this)(ix,iy).rho = 1;
 				(*this)(ix,iy).u = 0;
 				(*this)(ix,iy).v = 0;
-				(*this)(ix,iy).rk2u = 0;
-				(*this)(ix,iy).rk2v = 0;
 				(*this)(ix,iy).p = 0;
-				/*
+				*/
+				 //*
 				double p[3];
 				info.pos(p, ix, iy);
 				
 				p[0] = p[0]*2.-1.;
 				p[1] = p[1]*2.-1.;
 				
-				const Real invR = 1./sqrt(p[0]*p[0] + p[1]*p[1]);
+				//const Real invR = 1./sqrt(p[0]*p[0] + p[1]*p[1]);
 				
 				(*this)(ix,iy).rho = 1;
-				(*this)(ix,iy).u   = sin(p[1]);//*invR;
-				(*this)(ix,iy).v   = -sin(p[0]);//*invR;
+				(*this)(ix,iy).u   = -p[1];//sin(p[1]);//*invR;
+				(*this)(ix,iy).v   =  p[0];//-sin(p[0]);//*invR;
 				(*this)(ix,iy).chi = 0;
 				 // what about pressure?
-				(*this)(ix,iy).rk2u = sin(p[1]);//*invR;
-				(*this)(ix,iy).rk2v = -sin(p[0]);//*invR;
-				 */
+				//(*this)(ix,iy).rk2u = sin(p[1]);//*invR;
+				//(*this)(ix,iy).rk2v = -sin(p[0]);//*invR;
+				 //*/
 			}
 	}
 };

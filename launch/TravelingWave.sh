@@ -7,6 +7,7 @@
 
 cd ../makefiles/
 make clean
+#make bc=periodic config=debug multiphase=false precision=single poisson=fftw -j
 make bc=periodic config=production multiphase=false precision=single poisson=fftw -j
 cd -
 export OMP_NUM_THREADS=48

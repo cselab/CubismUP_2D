@@ -33,37 +33,6 @@ protected:
 				{
 					b(ix,iy).tmpU = 0;
 					b(ix,iy).tmpV = 0;
-					/*
-					 // there is no diffusion of density!
-#ifdef _MULTIPHASE_
-					b(ix,iy).tmp = 0;
-#endif // _MULTIPHASE_
-					 */
-				}
-		}
-	};
-	
-	inline void resetHeun()
-	{
-		const int N = vInfo.size();
-		
-#pragma omp parallel for schedule(static)
-		for(int i=0; i<N; i++)
-		{
-			BlockInfo info = vInfo[i];
-			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
-			
-			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-				{
-					b(ix,iy).tmpU = -b(ix,iy).tmpU/2.;
-					b(ix,iy).tmpV = -b(ix,iy).tmpV/2.;
-					/*
-					 // there is no diffusion of density!
-#ifdef _MULTIPHASE_
-					b(ix,iy).tmp = -b(ix,iy).tmp/2;
-#endif // _MULTIPHASE_
-					 */
 				}
 		}
 	};
@@ -93,14 +62,14 @@ protected:
 		}
 	 }
 	
-	inline void diffuse(const double dt)
+	inline void diffuse(const double dt, const int stage)
 	{
 		BlockInfo * ary = &vInfo.front();
 		const int N = vInfo.size();
 		
 #pragma omp parallel
 		{
-			OperatorDiffusion kernel(dt, coeff);
+			OperatorDiffusion kernel(dt, coeff, stage);
 			//OperatorDiffusionHighOrder  kernel(dt, coeff);
 			
 			Lab mylab;
@@ -125,13 +94,10 @@ public:
 		check("diffusion - start");
 		
 		reset();
-		diffuse(dt);
+		diffuse(dt,0);
+		diffuse(dt,1);
 		update();
-		/*
-		resetHeun();
-		diffuse(dt/2);
-		update();
-		*/
+		
 		check("diffusion - end");
 	}
 	

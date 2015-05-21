@@ -109,7 +109,7 @@ void TestPressure::_ic()
 	dumper.Write(*grid, ss.str());
 }
 
-TestPressure::TestPressure(const int argc, const char ** argv, const int solver, const int ic, const int bpd) : Test(argc, argv), solver(solver), ic(ic), bpd(bpd)
+TestPressure::TestPressure(const int argc, const char ** argv, const int solver, const int ic, const int bpd, const double dt) : Test(argc, argv), solver(solver), ic(ic), bpd(bpd), dt(dt)
 {
 #ifdef _MULTIGRID_
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
@@ -139,7 +139,7 @@ void TestPressure::run()
 	const int size = bpd * FluidBlock::sizeX;
 	
 	if (ic==1 && rank==0)
-		processOMP<Lab, OperatorDivergence>(1, vInfo, *grid);
+		processOMP<Lab, OperatorDivergence>(dt, vInfo, *grid);
 	
 	if (solver==0)
 	{
@@ -181,7 +181,7 @@ void TestPressure::run()
 #endif // _MULTIGRID_
 	
 	if (ic==1 && rank==0)
-		processOMP<Lab, OperatorGradP>(1, vInfo, *grid);
+		processOMP<Lab, OperatorGradP>(dt, vInfo, *grid);
 	
 	if (rank==0)
 	{

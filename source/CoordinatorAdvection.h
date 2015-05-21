@@ -38,52 +38,10 @@ protected:
 		}
 	};
 	
-	inline void resetHeun()
+	inline void update()
 	{
 		const int N = vInfo.size();
 		
-#pragma omp parallel for schedule(static)
-		for(int i=0; i<N; i++)
-		{
-			BlockInfo info = vInfo[i];
-			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
-			
-			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-				{
-					b(ix,iy).tmpU = -b(ix,iy).tmpU/2.;
-					b(ix,iy).tmpV = -b(ix,iy).tmpV/2.;
-#ifdef _MULTIPHASE_
-					b(ix,iy).tmp = -b(ix,iy).tmp/2;
-#endif // _MULTIPHASE_
-				}
-		}
-	};
-	
-	inline void update(const int stage=1)
-	{
-		const int N = vInfo.size();
-		
-		if (stage==0)
-		{
-#pragma omp parallel for schedule(static)
-			for(int i=0; i<N; i++)
-			{
-				BlockInfo info = vInfo[i];
-				FluidBlock& b = *(FluidBlock*)info.ptrBlock;
-				
-				for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-					for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-					{
-						b(ix,iy).rk2u = b(ix,iy).tmpU;
-						b(ix,iy).rk2v = b(ix,iy).tmpV;
-						
-						// no need to do anything with density
-					}
-			}
-		}
-		else if (stage==1)
-		{
 #pragma omp parallel for schedule(static)
 			for(int i=0; i<N; i++)
 			{
@@ -100,10 +58,9 @@ protected:
 #endif // _MULTIPHASE_
 					}
 			}
-		}
 	}
 	
-	inline void advect(const double dt, const int stage)
+	inline void advect(const double dt)
 	{
 		BlockInfo * ary = &vInfo.front();
 		const int N = vInfo.size();
@@ -112,14 +69,15 @@ protected:
 		{
 #ifndef _PARTICLES_
 			// this is wrong - using -u instead of u?
-			OperatorAdvectionUpwind3rdOrder kernel(dt, stage);
-			//OperatorAdvectionFD kernel(dt, stage);
+			OperatorAdvectionUpwind3rdOrder kernel(dt);
+			//OperatorAdvectionFD kernel(dt);
 			
 			Lab mylab;
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 #else // _PARTICLES_
-			OperatorAdvection<Mp4> kernel(dt, stage);
-			//OperatorAdvection<Ms6> kernel(dt, stage);
+			OperatorAdvection<Hat> kernel(dt);
+			//OperatorAdvection<Mp4> kernel(dt);
+			//OperatorAdvection<Ms6> kernel(dt);
 			
 			Lab mylab;
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
@@ -144,31 +102,10 @@ public:
 	{
 		check("advection - start");
 
-#ifndef _PARTICLES_
-		// Euler
-		reset();
-		advect(dt,0);
-		update(1);
-#else // _PARTICLES_
-		// midpoint
-		reset();
-		advect(dt/2,0);
-		update(0);
-		reset();
-		advect(dt,1);
-		update(1);
-#endif // _PARTICLES_
-		
-		/*
-		 // check!
 		reset();
 		advect(dt);
 		update();
-		// requires p2m
-		resetHeun();
-		advect(dt/2);
-		update();
-		//*/
+		
 		check("advection - end");
 	}
 	
@@ -182,7 +119,6 @@ template <typename Lab>
 class CoordinatorTransport : public GenericCoordinator
 {
 protected:
-	/*
 	inline void reset()
 	{
 		const int N = vInfo.size();
@@ -214,7 +150,6 @@ protected:
 					b(ix,iy).rho = b(ix,iy).tmp;
 		}
 	}
-	 */
 	
 public:
 	CoordinatorTransport(FluidGrid * grid) : GenericCoordinator(grid)
@@ -226,7 +161,7 @@ public:
 		BlockInfo * ary = &vInfo.front();
 		const int N = vInfo.size();
 		
-		//reset();
+		reset();
 		
 #pragma omp parallel
 		{
@@ -244,7 +179,7 @@ public:
 			}
 		}
 		
-		//update();
+		update();
 	}
 	
 	string getName()

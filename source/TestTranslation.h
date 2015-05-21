@@ -22,6 +22,7 @@ private:
 	Real uBody[2];
 	Shape * shape;
 	const int testCase; // 0: forced, 1: from flow
+	double dt;
 	
 	string path2file;
 	SerializerIO_ImageVTK<FluidGrid, FluidVTKStreamer> dumper;
@@ -31,7 +32,7 @@ private:
 	void _ic();
 	
 public:
-	TestTranslation(const int argc, const char ** argv, const int testCase, const int bpd);
+	TestTranslation(const int argc, const char ** argv, const int testCase, const int bpd, const double dt);
 	~TestTranslation();
 	
 	void run();
