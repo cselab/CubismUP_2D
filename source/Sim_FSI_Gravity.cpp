@@ -19,8 +19,6 @@
 #include "CoordinatorPressure.h"
 #include "CoordinatorGravity.h"
 #include "CoordinatorBodyVelocities.h"
-#include "CoordinatorUpdate.h"
-#include "CoordinatorCleanTmp.h"
 
 void Sim_FSI_Gravity::_diagnostics()
 {
@@ -241,11 +239,9 @@ void Sim_FSI_Gravity::init()
 	}
 	
 	pipeline.clear();
-	pipeline.push_back(new CoordinatorCleanTmp(grid));
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
-	pipeline.push_back(new CoordinatorUpdate(grid));
 	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs));
 	if (step>=stepStartBody) pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
 	if (step>=stepStartBody) pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));

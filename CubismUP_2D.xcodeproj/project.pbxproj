@@ -48,6 +48,8 @@
 		DD0C48C21A712FA500CC0C89 /* OperatorGravity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorGravity.h; sourceTree = "<group>"; };
 		DD2A4CE71ADFA06200C3C034 /* Guermond.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Guermond.sh; sourceTree = "<group>"; };
 		DD2A4CEB1ADFA09500C3C034 /* Jets.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Jets.sh; sourceTree = "<group>"; };
+		DD2CF51C1B0E433F003C912A /* testPoisson.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = testPoisson.sh; sourceTree = "<group>"; };
+		DD2CF51D1B0E433F003C912A /* testPressure.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = testPressure.sh; sourceTree = "<group>"; };
 		DD355D1E1A8116B100711A51 /* TestGravity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestGravity.cpp; sourceTree = "<group>"; };
 		DD355D1F1A8116B100711A51 /* TestGravity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestGravity.h; sourceTree = "<group>"; };
 		DD355D221A8118FE00711A51 /* TestPenalization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPenalization.cpp; sourceTree = "<group>"; };
@@ -228,6 +230,8 @@
 				DD2A4CE91ADFA07100C3C034 /* FallingBodies */,
 				DD609B751B00D8C600E2C31A /* testAdvection.sh */,
 				DD609B761B00D8C600E2C31A /* testDiffusion.sh */,
+				DD2CF51C1B0E433F003C912A /* testPoisson.sh */,
+				DD2CF51D1B0E433F003C912A /* testPressure.sh */,
 				DD8BE00F1AEF7EFC008467AA /* TravelingWave.sh */,
 				DD54FEA01B03A5B300101525 /* Poiseuille.sh */,
 				DD8BE0131AEFB422008467AA /* ShearLayer.sh */,

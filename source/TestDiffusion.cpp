@@ -7,10 +7,7 @@
 //
 
 #include "TestDiffusion.h"
-//#include "ProcessOperatorsOMP.h"
 #include "CoordinatorDiffusion.h"
-#include "CoordinatorUpdate.h"
-#include "CoordinatorCleanTmp.h"
 #include <sstream>
 #include <cmath>
 
@@ -54,7 +51,7 @@ void TestDiffusion::_ic()
 	dumper.Write(*grid, ss.str());
 }
 
-TestDiffusion::TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt) : Test(argc, argv), bpd(bpd), time(0), dt(dt)
+TestDiffusion::TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt, const double tEnd) : Test(argc, argv), bpd(bpd), time(0), dt(dt), tEnd(tEnd)
 {
 	// test settings
 	nu = parser("-nu").asDouble(1);
@@ -78,19 +75,17 @@ void TestDiffusion::run()
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
 	//cout << "Using dt " << dt << " (Fourier time step: " << vInfo[0].h_gridpoint*vInfo[0].h_gridpoint*.5/nu << ")\n";
+	int step = 0;
+	const int nsteps = tEnd/dt;
 	
-	const int nsteps = 100;
-	CoordinatorCleanTmp coordClean(grid);
 	CoordinatorDiffusion<Lab> coordDiffusion(nu, grid);
-	CoordinatorUpdate coordUpdate(grid);
 	
-	for(int step=0; step<nsteps; ++step)
+	while(time<=tEnd)
 	{
-		coordClean(dt);
 		coordDiffusion(dt);
-		coordUpdate(dt);
 		
 		time += dt;
+		step++;
 	}
 	
 	stringstream ss;

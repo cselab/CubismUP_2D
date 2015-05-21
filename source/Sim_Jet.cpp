@@ -17,8 +17,6 @@
 #include "CoordinatorPenalization.h"
 #include "CoordinatorPressure.h"
 #include "CoordinatorGravity.h"
-#include "CoordinatorUpdate.h"
-#include "CoordinatorCleanTmp.h"
 
 void Sim_Jet::_diagnostics()
 {
@@ -141,10 +139,8 @@ void Sim_Jet::init()
 	_ic();
 	
 	pipeline.clear();
-	pipeline.push_back(new CoordinatorCleanTmp(grid));
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
-	pipeline.push_back(new CoordinatorUpdate(grid));
 	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs));
 	
 	if (rank==0)

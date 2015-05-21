@@ -53,7 +53,7 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 		
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
-			TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt);
+			TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt, 0);
 			advection->run();
 			advection->check();
 			delete advection;
@@ -66,7 +66,7 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
-			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt);
+			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, 0);
 			diffusion->run();
 			diffusion->check();
 			delete diffusion;
@@ -206,7 +206,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 		
 		for (double dt=minDT; dt<=maxDT; dt*=2)
 		{
-			TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt);
+			TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt, tEnd);
 			advection->run();
 			advection->check();
 			delete advection;
@@ -219,7 +219,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 		cout << "========================================================================================\n";
 		for (double dt=minDT; dt<=maxDT; dt*=2)
 		{
-			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt);
+			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, tEnd);
 			diffusion->run();
 			diffusion->check();
 			delete diffusion;
@@ -326,7 +326,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 		cout << "Requested test not available with these settings\n";
 }
 
-void baseTest(int argc, const char **argv, const int solver, const int ic, const string test, const int bpd, const double dt)
+void baseTest(int argc, const char **argv, const int solver, const int ic, const string test, const int bpd, const double dt, const double tEnd)
 {
 	if (test=="advection")
 	{
@@ -348,7 +348,7 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 			abort();
 		}
 		
-		TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt);
+		TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt, tEnd);
 		advection->run();
 		advection->check();
 		delete advection;
@@ -358,7 +358,7 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 		cout << "========================================================================================\n";
 		cout << "\t\tDiffusion Test\n";
 		cout << "========================================================================================\n";
-		TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt);
+		TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, tEnd);
 		diffusion->run();
 		diffusion->check();
 		delete diffusion;
@@ -503,7 +503,7 @@ int main(int argc, const char **argv)
 	else if (maxDT>minDT)
 		temporalConvergence(argc, argv, solver, ic, test, minDT, maxDT, minBPD, tEnd);
 	else
-		baseTest(argc, argv, solver, ic, test, minBPD, minDT);
+		baseTest(argc, argv, solver, ic, test, minBPD, minDT, tEnd);
 	
 #ifdef _MULTIGRID_
 	MPI_Finalize();

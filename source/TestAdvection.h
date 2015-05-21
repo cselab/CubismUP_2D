@@ -16,7 +16,7 @@
 class TestAdvection : public Test
 {
 private:
-	double time, dt;
+	double time, dt, tEnd;
 	int bpd;
 	int testCase; // 0: linear, 1: rigid rotation
 	
@@ -32,7 +32,7 @@ private:
 	void _icBurger();
 	
 public:
-	TestAdvection(const int argc, const char ** argv, int testCase, const int bpd, const double dt);
+	TestAdvection(const int argc, const char ** argv, int testCase, const int bpd, const double dt, const double tEnd);
 	~TestAdvection();
 	
 	void run();

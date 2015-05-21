@@ -13,8 +13,6 @@
 #include <cmath>
 
 #include "CoordinatorAdvection.h"
-#include "CoordinatorUpdate.h"
-#include "CoordinatorCleanTmp.h"
 
 /*
  class BS4
@@ -191,7 +189,7 @@ void TestAdvection::_icBurger()
 	dumper.Write(*grid, ss.str());
 }
 
-TestAdvection::TestAdvection(const int argc, const char ** argv, int testCase, const int bpd, const double dt) : Test(argc, argv), time(0), testCase(testCase), bpd(bpd), dt(dt)
+TestAdvection::TestAdvection(const int argc, const char ** argv, int testCase, const int bpd, const double dt, const double tEnd) : Test(argc, argv), time(0), testCase(testCase), bpd(bpd), dt(dt), tEnd(tEnd)
 {
 	grid = new FluidGrid(bpd,bpd,1);
 	
@@ -233,45 +231,32 @@ void TestAdvection::run()
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/.25 << ")\n";
 	 //*/
 	
-	const int nsteps = 10000;//1;//5000;//
-	CoordinatorCleanTmp coordClean(grid);
+	int step;
+	const int nsteps = tEnd/dt;
+	
 	//CoordinatorAdvection<Lab> coordAdvection(grid);
 	CoordinatorTransport<Lab> coordTransport(grid);
-	CoordinatorUpdate coordUpdate(grid);
 	
-	for(int step=0; step<nsteps; ++step)
+	while (time<=tEnd)
 	{
-		//coordClean(dt);
 		//coordAdvection(dt);
 		coordTransport(dt);
-		//coordUpdate(dt);
 		
 		//dump some time steps every now and then
 		if(step % 10 == 0)
 		{
 			stringstream ss;
 			ss << path2file << "-" << step << ".vti" ;
-			//cout << ss.str() << endl;
 			
 			dumper.Write(*grid, ss.str());
-			
-			/*
-			const int sizeX = bpd * FluidBlock::sizeX;
-			const int sizeY = bpd * FluidBlock::sizeY;
-			Layer vorticity(sizeX,sizeY,1);
-			processOMP<Lab, OperatorVorticity>(vorticity,vInfo,*grid);
-			stringstream sVort;
-			sVort << path2file << "Vorticity-" << step << ".vti";
-			dumpLayer2VTK(step,sVort.str(),vorticity,1);
-			 */
 		}
 		
 		time += dt;
+		step++;
 	}
 	
 	stringstream ss;
 	ss << path2file << "-test" << testCase << "-bpd" << bpd << ".vti";
-	//cout << ss.str() << endl;
 	dumper.Write(*grid, ss.str());
 }
 

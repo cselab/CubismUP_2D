@@ -17,7 +17,7 @@ class TestDiffusion : public Test
 {
 private:
 	double nu;
-    double time, dt;
+    double time, dt, tEnd;
 	const int bpd;
     
     string path2file;
@@ -29,7 +29,7 @@ private:
     double _analytical(double ix, double iy, double t);
     
 public:
-    TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt);
+    TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt, const double tEnd);
 	~TestDiffusion();
 		
     void run();
