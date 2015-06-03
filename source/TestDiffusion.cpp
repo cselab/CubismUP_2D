@@ -74,7 +74,7 @@ void TestDiffusion::run()
 {
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	//cout << "Using dt " << dt << " (Fourier time step: " << vInfo[0].h_gridpoint*vInfo[0].h_gridpoint*.5/nu << ")\n";
+	cout << "Using dt " << dt << " (Fourier time step: " << vInfo[0].h_gridpoint*vInfo[0].h_gridpoint*.25/nu << ")\n";
 	int step = 0;
 	const int nsteps = tEnd/dt;
 	

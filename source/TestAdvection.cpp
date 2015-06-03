@@ -96,7 +96,7 @@ void TestAdvection::_icVortex()
 				b(ix, iy).u   = -p[1];// sin(p[1])*cos(r*M_PI/2)*invR;
 				b(ix, iy).v   =  p[0];//-sin(p[0])*cos(r*M_PI/2)*invR;
 				b(ix, iy).chi = 0;
-				//*
+				/*
 				if (r>.5)
 				{
 					b(ix,iy).rho = 1;
@@ -228,7 +228,7 @@ void TestAdvection::run()
 	 if (testCase==0)
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/1. << ")\n";
 	 else
-		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/.25 << ")\n";
+		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/1. << ")\n";
 	 //*/
 	
 	int step;
@@ -325,12 +325,14 @@ void TestAdvection::check()
 					p[1] = p[1]*2.-1.;
 					
 					Real r = sqrt(p[0]*p[0] + p[1]*p[1]);
+					/*
 					if (r>.5)
 					{
 						r = 1;
 					}
-					
+					*/
 					double error = b(ix, iy).rho - r;//b(ix, iy).u - sin(p[1]);
+					b(ix,iy).chi = error;
 					
 					uLinf = max(uLinf,abs(error));
 					uL1 += abs(error);

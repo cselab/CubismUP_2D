@@ -156,7 +156,8 @@ public:
 				
 				//const Real invR = 1./sqrt(p[0]*p[0] + p[1]*p[1]);
 				
-				(*this)(ix,iy).rho = 1;
+				const Real r = sqrt(p[0]*p[0] + p[1]*p[1]);
+				(*this)(ix,iy).rho = r;
 				(*this)(ix,iy).u   = -p[1];//sin(p[1]);//*invR;
 				(*this)(ix,iy).v   =  p[0];//-sin(p[0]);//*invR;
 				(*this)(ix,iy).chi = 0;

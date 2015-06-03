@@ -225,42 +225,6 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 			delete diffusion;
 		}
 	}
-	else if (test=="pressure")
-	{
-		cout << "========================================================================================\n";
-		if (solver==0)
-			cout << "\t\tPressure Test - Stencil - ";
-		else if (solver==1)
-			cout << "\t\tPressure Test - Spectral - ";
-#ifdef _MULTIGRID_
-		else if (solver==2)
-			cout << "\t\tPressure Test - Multigrid (Constant Coefficents) - ";
-		else if (solver==3)
-			cout << "\t\tPressure Test - Multigrid (Variable Coefficents) - ";
-#endif // _MULTIGRID_
-		else
-		{
-			cout << "Solver case " << solver << " doesn't exist\n";
-			abort();
-		}
-		
-		if (ic==0)
-			cout << "Poisson equation\n";
-		else if (ic==1)
-			cout << "Velocity field (Projection)\n";
-		else if (ic==2)
-			cout << "Mixed Boundary Conditions\n";
-		else
-			abort();
-		cout << "========================================================================================\n";
-		for (double dt=minDT; dt<=maxDT; dt*=2)
-		{
-			TestPressure * pressure = new TestPressure(argc, argv, solver, ic, bpd, dt);
-			pressure->run();
-			pressure->check();
-			delete pressure;
-		}
-	}
 	else if (test=="gravity")
 	{
 		cout << "========================================================================================\n";
