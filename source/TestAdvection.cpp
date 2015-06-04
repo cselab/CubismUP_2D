@@ -243,6 +243,7 @@ void TestAdvection::run()
 		coordTransport(dt);
 		
 		//dump some time steps every now and then
+		/*
 		if(step % 10 == 0)
 		{
 			stringstream ss;
@@ -250,6 +251,7 @@ void TestAdvection::run()
 			
 			dumper.Write(*grid, ss.str());
 		}
+		 */
 		
 		time += dt;
 		step++;
@@ -279,9 +281,6 @@ void TestAdvection::check()
 	
 	const int sizeX = bpd * FluidBlock::sizeX;
 	const int sizeY = bpd * FluidBlock::sizeY;
-	//Layer vorticity(sizeX,sizeY,1);
-	//Layer vorticityDiff(sizeX,sizeY,1);
-	//processOMP<Lab, OperatorVorticity>(vorticity,vInfo,*grid);
 	
 	if (testCase==0)
 	{
@@ -325,13 +324,8 @@ void TestAdvection::check()
 					p[1] = p[1]*2.-1.;
 					
 					Real r = sqrt(p[0]*p[0] + p[1]*p[1]);
-					/*
-					if (r>.5)
-					{
-						r = 1;
-					}
-					*/
-					double error = b(ix, iy).rho - r;//b(ix, iy).u - sin(p[1]);
+					
+					double error = b(ix, iy).rho - r;
 					b(ix,iy).chi = error;
 					
 					uLinf = max(uLinf,abs(error));

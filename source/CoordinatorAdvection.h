@@ -76,8 +76,8 @@ protected:
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 #else // _PARTICLES_
 			//OperatorAdvection<Hat> kernel(dt);
-			OperatorAdvection<Mp4> kernel(dt);
-			//OperatorAdvection<Ms6> kernel(dt);
+			//OperatorAdvection<Mp4> kernel(dt);
+			OperatorAdvection<Ms6> kernel(dt);
 			
 			Lab mylab;
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
@@ -165,7 +165,9 @@ public:
 		
 #pragma omp parallel
 		{
-			OperatorTransport<Mp4> kernel(dt);
+			//OperatorTransport<Hat> kernel(dt);
+			//OperatorTransport<Mp4> kernel(dt);
+			OperatorTransport<Ms6> kernel(dt);
 			
 			Lab mylab;
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
