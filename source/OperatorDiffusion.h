@@ -116,7 +116,7 @@ public:
 				/*
 				 // there is no diffusion of density!
 				 #ifdef _MULTIPHASE_
-				 o(ix,iy).tmpV += phi.rho + prefactor/12. * (-(phiN2.rho + phiS2.rho + phiE2.rho + phiW2.rho) + 16*(phiN.rho + phiS.rho + phiE.rho + phiW.rho) - 60.*phi.rho);
+				 o(ix,iy).tmp += phi.rho + prefactor/12. * (-(phiN2.rho + phiS2.rho + phiE2.rho + phiW2.rho) + 16*(phiN.rho + phiS.rho + phiE.rho + phiW.rho) - 60.*phi.rho);
 				 #endif // _MULTIPHASE_
 				 */
 			}
