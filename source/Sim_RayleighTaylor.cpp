@@ -148,7 +148,7 @@ void Sim_RayleighTaylor::simulate()
 		if (rank==0)
 		{
 			vector<BlockInfo> vInfo = grid->getBlocksInfo();
-			
+			//*
 			// choose dt (CFL, Fourier)
 			profiler.push_start("DT");
 			maxU = findMaxUOMP(vInfo,*grid);
@@ -161,6 +161,8 @@ void Sim_RayleighTaylor::simulate()
 			dtLCFL = maxA==0 ? 1e5 : LCFL/abs(maxA);
 			//dt = min(dt,dtLCFL);
 #endif
+			//*/
+			//dt = 0.00025;
 			if (dumpTime>0)
 				dt = min(dt,nextDumpTime-_nonDimensionalTime());
 			if (endTime>0)
@@ -204,7 +206,7 @@ void Sim_RayleighTaylor::simulate()
 			
 			//dump some time steps every now and then
 			profiler.push_start("Dump");
-			nextDumpTime = _nonDimensionalTime();
+			//nextDumpTime = _nonDimensionalTime();
 			_dump(nextDumpTime);
 			profiler.pop_stop();
 			
