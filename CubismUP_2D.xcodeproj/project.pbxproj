@@ -156,8 +156,6 @@
 		DDE251611AD5054700F6029B /* LosslessCompression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LosslessCompression.h; sourceTree = "<group>"; };
 		DDE251621AD5054700F6029B /* ZBinDumper_MPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBinDumper_MPI.h; sourceTree = "<group>"; };
 		DDE251631AD5054700F6029B /* ZBinDumper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBinDumper.h; sourceTree = "<group>"; };
-		DDE251641AD528D800F6029B /* CoordinatorUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorUpdate.h; sourceTree = "<group>"; };
-		DDE251651AD54A6900F6029B /* CoordinatorCleanTmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorCleanTmp.h; sourceTree = "<group>"; };
 		DDE251671AD5699100F6029B /* Simulation_MP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Simulation_MP.h; sourceTree = "<group>"; };
 		DDE2516B1AD8228A00F6029B /* Sim_RayleighTaylor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sim_RayleighTaylor.cpp; sourceTree = "<group>"; };
 		DDE2516C1AD8228A00F6029B /* Sim_RayleighTaylor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sim_RayleighTaylor.h; sourceTree = "<group>"; };
@@ -374,8 +372,6 @@
 				DDBFCB881AC937670031708C /* CoordinatorPressure.h */,
 				DDBFCB8A1AC974E40031708C /* CoordinatorGravity.h */,
 				DDBFCB8B1AC984F80031708C /* CoordinatorBodyVelocities.h */,
-				DDE251641AD528D800F6029B /* CoordinatorUpdate.h */,
-				DDE251651AD54A6900F6029B /* CoordinatorCleanTmp.h */,
 				DDB174C91B0731A200458CBA /* CoordinatorPressureGradient.h */,
 			);
 			name = Coordinators;

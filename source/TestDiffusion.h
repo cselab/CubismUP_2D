@@ -17,8 +17,9 @@ class TestDiffusion : public Test
 {
 private:
 	double nu;
-    double time, dt, tEnd;
+    double time, dt;
 	const int bpd;
+	const int nsteps;
     
     string path2file;
     SerializerIO_ImageVTK<FluidGrid, FluidVTKStreamer> dumper;
@@ -29,7 +30,7 @@ private:
     double _analytical(double ix, double iy, double t);
     
 public:
-    TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt, const double tEnd);
+    TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt, const int nsteps);
 	~TestDiffusion();
 		
     void run();

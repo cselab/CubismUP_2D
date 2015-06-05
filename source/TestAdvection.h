@@ -16,9 +16,10 @@
 class TestAdvection : public Test
 {
 private:
-	double time, dt, tEnd;
+	double time, dt;
 	int bpd;
 	int testCase; // 0: linear, 1: rigid rotation
+	int nsteps;
 	
 	string path2file;
 	SerializerIO_ImageVTK<FluidGrid, FluidVTKStreamer> dumper;
@@ -32,7 +33,7 @@ private:
 	void _icBurger();
 	
 public:
-	TestAdvection(const int argc, const char ** argv, int testCase, const int bpd, const double dt, const double tEnd);
+	TestAdvection(const int argc, const char ** argv, int testCase, const int bpd, const double dt, const int nsteps);
 	~TestAdvection();
 	
 	void run();

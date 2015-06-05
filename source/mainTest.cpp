@@ -53,7 +53,7 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 		
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
-			TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt, 0);
+			TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt, 1);
 			advection->run();
 			advection->check();
 			delete advection;
@@ -66,7 +66,7 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
-			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, 0);
+			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, 1);
 			diffusion->run();
 			diffusion->check();
 			delete diffusion;
@@ -182,7 +182,7 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 		cout << "Requested test not available with these settings\n";
 }
 
-void temporalConvergence(int argc, const char **argv, const int solver, const int ic, const string test, const double minDT, const double maxDT, const int bpd, const double tEnd)
+void temporalConvergence(int argc, const char **argv, const int solver, const int ic, const string test, const double minDT, const double maxDT, const int bpd)
 {
 	if (test=="advection")
 	{
@@ -206,7 +206,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 		
 		for (double dt=minDT; dt<=maxDT; dt*=2)
 		{
-			TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt, tEnd);
+			TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt, 1000);
 			advection->run();
 			advection->check();
 			delete advection;
@@ -219,7 +219,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 		cout << "========================================================================================\n";
 		for (double dt=minDT; dt<=maxDT; dt*=2)
 		{
-			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, tEnd);
+			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, 1000);
 			diffusion->run();
 			diffusion->check();
 			delete diffusion;
@@ -465,7 +465,7 @@ int main(int argc, const char **argv)
 	if (maxBPD>minBPD)
 		spatialConvergence(argc, argv, solver, ic, test, minBPD, maxBPD, minDT);
 	else if (maxDT>minDT)
-		temporalConvergence(argc, argv, solver, ic, test, minDT, maxDT, minBPD, tEnd);
+		temporalConvergence(argc, argv, solver, ic, test, minDT, maxDT, minBPD);
 	else
 		baseTest(argc, argv, solver, ic, test, minBPD, minDT, tEnd);
 	

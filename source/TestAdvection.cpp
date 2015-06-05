@@ -189,7 +189,7 @@ void TestAdvection::_icBurger()
 	dumper.Write(*grid, ss.str());
 }
 
-TestAdvection::TestAdvection(const int argc, const char ** argv, int testCase, const int bpd, const double dt, const double tEnd) : Test(argc, argv), time(0), testCase(testCase), bpd(bpd), dt(dt), tEnd(tEnd)
+TestAdvection::TestAdvection(const int argc, const char ** argv, int testCase, const int bpd, const double dt, const int nsteps) : Test(argc, argv), time(0), testCase(testCase), bpd(bpd), dt(dt), nsteps(nsteps)
 {
 	grid = new FluidGrid(bpd,bpd,1);
 	
@@ -231,13 +231,12 @@ void TestAdvection::run()
 		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/1. << ")\n";
 	 //*/
 	
-	int step;
-	const int nsteps = tEnd/dt;
+	int step = 0;
 	
 	//CoordinatorAdvection<Lab> coordAdvection(grid);
 	CoordinatorTransport<Lab> coordTransport(grid);
 	
-	while (time<=tEnd)
+	while (step<nsteps)
 	{
 		//coordAdvection(dt);
 		coordTransport(dt);

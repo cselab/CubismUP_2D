@@ -152,13 +152,14 @@ void TestTravelingWave::run()
 		
 		time += dt;
 		step++;
-		
+		/*
 		if (step%10==0)
 		{
 			stringstream sstmp;
 			sstmp << path2file << bpd << "-" << step << ".vti";
 			dumper.Write(*grid, sstmp.str());
 		}
+		 */
 		
 		// check nondimensional time
 		if (rank==0 && abs(time-endTime) < 10*std::numeric_limits<Real>::epsilon())

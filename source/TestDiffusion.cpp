@@ -51,7 +51,7 @@ void TestDiffusion::_ic()
 	dumper.Write(*grid, ss.str());
 }
 
-TestDiffusion::TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt, const double tEnd) : Test(argc, argv), bpd(bpd), time(0), dt(dt), tEnd(tEnd)
+TestDiffusion::TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt, const int nsteps) : Test(argc, argv), bpd(bpd), time(0), dt(dt), nsteps(nsteps)
 {
 	// test settings
 	nu = parser("-nu").asDouble(1);
@@ -74,13 +74,12 @@ void TestDiffusion::run()
 {
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	cout << "Using dt " << dt << " (Fourier time step: " << vInfo[0].h_gridpoint*vInfo[0].h_gridpoint*.25/nu << ")\n";
+	//cout << "Using dt " << dt << " (Fourier time step: " << vInfo[0].h_gridpoint*vInfo[0].h_gridpoint*.25/nu << ")\n";
 	int step = 0;
-	const int nsteps = tEnd/dt;
 	
 	CoordinatorDiffusion<Lab> coordDiffusion(nu, grid);
 	
-	while(time<=tEnd)
+	while(step<nsteps)
 	{
 		coordDiffusion(dt);
 		
