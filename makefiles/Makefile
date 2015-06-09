@@ -22,6 +22,9 @@ endif
 ifeq "$(bc)" "vortex"
 	CPPFLAGS += -D_VORTEX_
 endif
+ifeq "$(bc)" "mixed"
+	CPPFLAGS += -D_MIXED_
+endif
 
 ifeq "$(precision)" "single"
 	CPPFLAGS += -D_SP_COMP_

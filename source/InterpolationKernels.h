@@ -17,7 +17,7 @@ struct Hat
 	
 	static Real weight(const Real x)
 	{
-		return 1-abs(x);
+		return abs(x)<1 ? 1-abs(x) : 0;
 	}
 };
 

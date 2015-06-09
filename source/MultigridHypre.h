@@ -126,8 +126,7 @@ private:
 					_mean(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
 					//_harmonicAvg(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
 					
-#ifndef _PERIODIC_
-					//*
+#ifdef _MIXED_
 					if (giy>0 && giy<sizeY-1)
 					{
 						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN + 1./rhoS);
@@ -158,8 +157,43 @@ private:
 						values[lidx+3] = 1./rhoS;
 						values[lidx+4] = 0;
 					}
-					 /*/
-					  // needed for walls
+#endif // _MIXED_
+					
+#ifdef _PIPE_
+					if (giy>0 && giy<sizeY-1)
+					{
+						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN + 1./rhoS);
+						
+						// W,E,S,N
+						values[lidx+1] = 1./rhoW;
+						values[lidx+2] = 1./rhoE;
+						values[lidx+3] = 1./rhoS;
+						values[lidx+4] = 1./rhoN;
+					}
+					else if (giy==0) // neumann bc
+					{
+						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN);
+						
+						// W,E,S,N
+						values[lidx+1] = 1./rhoW;
+						values[lidx+2] = 1./rhoE;
+						values[lidx+3] = 0;
+						values[lidx+4] = 1./rhoN;
+					}
+					else if (giy==sizeY-1) // neumann bc
+					{
+						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoS);
+						
+						// W,E,S,N
+						values[lidx+1] = 1./rhoW;
+						values[lidx+2] = 1./rhoE;
+						values[lidx+3] = 1./rhoS;
+						values[lidx+4] = 0;
+					}
+#endif // _PIPE_
+					
+#if 0
+					// needed for walls
 					if (giy>0 && giy<sizeY-1 && gix>0 && gix<sizeX-1)
 					{
 						values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN + 1./rhoS);//-(rhoE + rhoW + rhoN + rhoS);//
@@ -212,8 +246,9 @@ private:
 						values[lidx+3] = 1./rhoS;//rhoS;//
 						values[lidx+4] = 1./rhoN;//rhoN;//
 					}
-					*/
-#else // _PERIODIC_
+#endif
+					
+#ifdef _PERIODIC_
 					values[lidx  ] = -(1./rhoE + 1./rhoW + 1./rhoN + 1./rhoS);
 					
 					// W,E,S,N

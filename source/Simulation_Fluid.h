@@ -111,7 +111,8 @@ protected:
 		const int sizeY = bpdy * FluidBlock::sizeY;
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
 		
-		if(rank==0 && (dumpFreq>0 && step % dumpFreq == 0) || (dumpTime>0 && abs(_nonDimensionalTime()-nextDumpTime) < 10*std::numeric_limits<Real>::epsilon()))
+		//cout << nextDumpTime-_nonDimensionalTime() << "\t" << abs(nextDumpTime-_nonDimensionalTime()) << "\t" << 10*std::numeric_limits<Real>::epsilon() << endl;
+		if(rank==0 && (dumpFreq>0 && step % dumpFreq == 0) || (dumpTime>0 && abs(nextDumpTime-_nonDimensionalTime()) < 10*std::numeric_limits<Real>::epsilon()))
 		{
 			nextDumpTime += dumpTime;
 			

@@ -34,25 +34,25 @@ private:
 		const int bx = info.index[0]*FluidBlock::sizeX;
 		const int by = info.index[1]*FluidBlock::sizeY;
 		
-		for(int iy=support_start-1; iy<FluidBlock::sizeY+support_end-2; ++iy)
-		for(int ix=support_start-1; ix<FluidBlock::sizeX+support_end-2; ++ix)
-		{
-			double p[2];
-			info.pos(p,ix,iy);
-			
-			FluidElement& particle = lab(ix,iy);
-			
-			if (stage==0)
+		for (int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy) // is this correct for the ending? why -2?
+			for (int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix) // is this correct for the ending? why -2?
 			{
-				particle.x = p[0] + dt*.5 * particle.u;
-				particle.y = p[1] + dt*.5 * particle.v;
+				double p[2];
+				info.pos(p,ix,iy);
+			
+				FluidElement& particle = lab(ix,iy);
+			
+				if (stage==0)
+				{
+					particle.x = p[0] + dt*.5 * particle.u;
+					particle.y = p[1] + dt*.5 * particle.v;
+				}
+				else
+				{
+					particle.x = p[0] + dt * particle.tmpU;
+					particle.y = p[1] + dt * particle.tmpV;
+				}
 			}
-			else
-			{
-				particle.x = p[0] + dt * particle.tmpU;
-				particle.y = p[1] + dt * particle.tmpV;
-			}
-		}
 	}
 	
 	template <typename Lab, typename BlockType>
@@ -67,45 +67,47 @@ private:
 		const int bx = info.index[0]*FluidBlock::sizeX;
 		const int by = info.index[1]*FluidBlock::sizeY;
 		
-		for(int iy=support_start-1; iy<FluidBlock::sizeY+support_end-2; ++iy)
-		for(int ix=support_start-1; ix<FluidBlock::sizeX+support_end-2; ++ix)
-		{
-			FluidElement& particle = lab(ix,iy);
-			particle.tmpU = 0;
-			particle.tmpV = 0;
+		for (int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy) // is this correct for the ending? why -2?
+			for (int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix) // is this correct for the ending? why -2?
+			{
+				FluidElement& particle = lab(ix,iy);
+				particle.tmpU = 0;
+				particle.tmpV = 0;
 			
-			// nearest point with lower index
+				// nearest point with lower index
 #ifndef _VERTEXCENTERED_
-			double px = particle.x*invdh-.5;
-			double py = particle.y*invdh-.5;
+				double px = particle.x*invdh-.5;
+				double py = particle.y*invdh-.5;
 #else
-			double px = particle.x*invdh;
-			double py = particle.y*invdh;
+				double px = particle.x*invdh;
+				double py = particle.y*invdh;
 #endif
-			int fpx = (int)floor(px);
-			int fpy = (int)floor(py);
+				int fpx = (int)floor(px);
+				int fpy = (int)floor(py);
 			
-			// compute weights
-			double wx[RemeshingKernel::support], wy[RemeshingKernel::support];
-			for (int i=support_start; i<support_end; i++)
-			{
-				wx[i-support_start] = RemeshingKernel::weight(px-(fpx+i));
-				wy[i-support_start] = RemeshingKernel::weight(py-(fpy+i));
-			}
+				// compute weights
+				double wx[RemeshingKernel::support], wy[RemeshingKernel::support];
+				for (int i=support_start; i<support_end; i++)
+				{
+					wx[i-support_start] = RemeshingKernel::weight(px-(fpx+i));
+					wy[i-support_start] = RemeshingKernel::weight(py-(fpy+i));
+				}
 			
-			for (int j=support_start; j<support_end; j++)
-			for (int i=support_start; i<support_end; i++)
-			{
-				const int lfpx = fpx+i - bx;
-				const int lfpy = fpy+j - by;
-				assert(lfpx >= stencil_start[0] && lfpx < bx+FluidBlock::sizeX+stencil_end[0]-1);
-				assert(lfpy >= stencil_start[1] && lfpy < by+FluidBlock::sizeY+stencil_end[1]-1);
-				const double weight = wx[i-support_start] * wy[j-support_start];
+				for (int j=support_start; j<support_end; j++)
+					for (int i=support_start; i<support_end; i++)
+					{
+						const int lfpx = fpx+i - bx;
+						const int lfpy = fpy+j - by;
+						//if (lfpy < stencil_start[1] || lfpy >= FluidBlock::sizeY+stencil_end[1]-1)
+						//	cout << iy << " " << py << " " << lfpy << " " << fpy << " " << j << " " << by << " " << particle.v << endl;
+						//assert(lfpx >= stencil_start[0] && lfpx < FluidBlock::sizeX+stencil_end[0]-1);
+						//assert(lfpy >= stencil_start[1] && lfpy < FluidBlock::sizeY+stencil_end[1]-1);
+						const double weight = wx[i-support_start] * wy[j-support_start];
 				
-				particle.tmpU += lab(lfpx,lfpy).u * weight;
-				particle.tmpV += lab(lfpx,lfpy).v * weight;
+						particle.tmpU += lab(lfpx,lfpy).u * weight;
+						particle.tmpV += lab(lfpx,lfpy).v * weight;
+					}
 			}
-		}
 	}
 	
 	template <typename Lab, typename BlockType>
@@ -120,8 +122,8 @@ private:
 		const int bx = info.index[0]*FluidBlock::sizeX;
 		const int by = info.index[1]*FluidBlock::sizeY;
 		
-		for(int iy=support_start-1; iy<FluidBlock::sizeY+support_end-2; ++iy)
-		for(int ix=support_start-1; ix<FluidBlock::sizeX+support_end-2; ++ix)
+		for (int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy) // is this correct for the ending? why -2?
+		for (int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix) // is this correct for the ending? why -2?
 		{
 			double p[2];
 			info.pos(p,ix,iy);
@@ -378,8 +380,8 @@ private:
 			{
 				const int lfpx = fpx+i - bx;
 				const int lfpy = fpy+j - by;
-				assert(lfpx >= stencil_start[0] && lfpx < bx+FluidBlock::sizeX+stencil_end[0]-1);
-				assert(lfpy >= stencil_start[1] && lfpy < by+FluidBlock::sizeY+stencil_end[1]-1);
+				assert(lfpx >= stencil_start[0] && lfpx < FluidBlock::sizeX+stencil_end[0]-1);
+				assert(lfpy >= stencil_start[1] && lfpy < FluidBlock::sizeY+stencil_end[1]-1);
 				const double weight = wx[i-support_start] * wy[j-support_start];
 				
 				particle.tmpU += lab(lfpx,lfpy).u * weight;
@@ -592,12 +594,12 @@ public:
 		const double dh = info.h_gridpoint;
 		const double invdh = dt*.5/dh;
 		
-		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-		for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-		{
-			o(ix,iy).tmpU = lab(ix,iy).u + lab(ix,iy).u * invdh * (lab(ix+1,iy).u - lab(ix-1,iy).u) + lab(ix,iy).v * invdh * (lab(ix,iy+1).u - lab(ix,iy-1).u);
-			o(ix,iy).tmpV = lab(ix,iy).v + lab(ix,iy).u * invdh * (lab(ix+1,iy).v - lab(ix-1,iy).v) + lab(ix,iy).v * invdh * (lab(ix,iy+1).v - lab(ix,iy-1).v);
-		}
+		for (int iy=0; iy<FluidBlock::sizeY; ++iy)
+			for (int ix=0; ix<FluidBlock::sizeX; ++ix)
+			{
+				o(ix,iy).tmpU = lab(ix,iy).u + lab(ix,iy).u * invdh * (lab(ix+1,iy).u - lab(ix-1,iy).u) + lab(ix,iy).v * invdh * (lab(ix,iy+1).u - lab(ix,iy-1).u);
+				o(ix,iy).tmpV = lab(ix,iy).v + lab(ix,iy).u * invdh * (lab(ix+1,iy).v - lab(ix-1,iy).v) + lab(ix,iy).v * invdh * (lab(ix,iy+1).v - lab(ix,iy-1).v);
+			}
 	}
 };
 
@@ -609,9 +611,6 @@ private:
 public:
 	OperatorAdvectionUpwind3rdOrder(double dt) : dt(dt)
 	{
-#ifdef _MULTIPHASE_
-		abort();
-#endif
 		stencil_start[0] = -2;
 		stencil_start[1] = -2;
 		stencil_start[2] = 0;
@@ -627,28 +626,37 @@ public:
 	{
 		const Real factor = -dt/(6.*info.h_gridpoint);
 		
-		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
-		for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-		{
-			const Real dudx[2] = {  2*lab(ix+1,iy  ).u + 3*lab(ix  ,iy  ).u - 6*lab(ix-1,iy  ).u +   lab(ix-2,iy  ).u,
-				                   -  lab(ix+2,iy  ).u + 6*lab(ix+1,iy  ).u - 3*lab(ix  ,iy  ).u - 2*lab(ix-1,iy  ).u};
+		for (int iy=0; iy<FluidBlock::sizeY; ++iy)
+			for (int ix=0; ix<FluidBlock::sizeX; ++ix)
+			{
+				const Real dudx[2] = {  2*lab(ix+1,iy  ).u + 3*lab(ix  ,iy  ).u - 6*lab(ix-1,iy  ).u +   lab(ix-2,iy  ).u,
+					                   -  lab(ix+2,iy  ).u + 6*lab(ix+1,iy  ).u - 3*lab(ix  ,iy  ).u - 2*lab(ix-1,iy  ).u};
 			
-			const Real dudy[2] = {  2*lab(ix  ,iy+1).u + 3*lab(ix  ,iy  ).u - 6*lab(ix  ,iy-1).u +   lab(ix  ,iy-2).u,
-								   -  lab(ix  ,iy+2).u + 6*lab(ix  ,iy+1).u - 3*lab(ix  ,iy  ).u - 2*lab(ix  ,iy-1).u};
+				const Real dudy[2] = {  2*lab(ix  ,iy+1).u + 3*lab(ix  ,iy  ).u - 6*lab(ix  ,iy-1).u +   lab(ix  ,iy-2).u,
+					                   -  lab(ix  ,iy+2).u + 6*lab(ix  ,iy+1).u - 3*lab(ix  ,iy  ).u - 2*lab(ix  ,iy-1).u};
 			
-			const Real dvdx[2] = {  2*lab(ix+1,iy  ).v + 3*lab(ix  ,iy  ).v - 6*lab(ix-1,iy  ).v +   lab(ix-2,iy  ).v,
-				                   -  lab(ix+2,iy  ).v + 6*lab(ix+1,iy  ).v - 3*lab(ix  ,iy  ).v - 2*lab(ix-1,iy  ).v};
+				const Real dvdx[2] = {  2*lab(ix+1,iy  ).v + 3*lab(ix  ,iy  ).v - 6*lab(ix-1,iy  ).v +   lab(ix-2,iy  ).v,
+					                   -  lab(ix+2,iy  ).v + 6*lab(ix+1,iy  ).v - 3*lab(ix  ,iy  ).v - 2*lab(ix-1,iy  ).v};
 			
-			const Real dvdy[2] = {  2*lab(ix  ,iy+1).v + 3*lab(ix  ,iy  ).v - 6*lab(ix  ,iy-1).v +   lab(ix  ,iy-2).v,
-				                   -  lab(ix  ,iy+2).v + 6*lab(ix  ,iy+1).v - 3*lab(ix  ,iy  ).v - 2*lab(ix  ,iy-1).v};
+				const Real dvdy[2] = {  2*lab(ix  ,iy+1).v + 3*lab(ix  ,iy  ).v - 6*lab(ix  ,iy-1).v +   lab(ix  ,iy-2).v,
+					                   -  lab(ix  ,iy+2).v + 6*lab(ix  ,iy+1).v - 3*lab(ix  ,iy  ).v - 2*lab(ix  ,iy-1).v};
 			
-			const Real u = o(ix,iy).u;
-			const Real v = o(ix,iy).v;
+				const Real drdx[2] = {  2*lab(ix+1,iy  ).rho + 3*lab(ix  ,iy  ).rho - 6*lab(ix-1,iy  ).rho +   lab(ix-2,iy  ).rho,
+					                   -  lab(ix+2,iy  ).rho + 6*lab(ix+1,iy  ).rho - 3*lab(ix  ,iy  ).rho - 2*lab(ix-1,iy  ).rho};
 			
-			o(ix,iy).tmpU = u + factor*(max(u,(Real)0) * dudx[0] + min(u,(Real)0) * dudx[1] +
-										max(v,(Real)0) * dudy[0] + min(v,(Real)0) * dudy[1]);
-			o(ix,iy).tmpV = v + factor*(max(u,(Real)0) * dvdx[0] + min(u,(Real)0) * dvdx[1] +
-										max(v,(Real)0) * dvdy[0] + min(v,(Real)0) * dvdy[1]);
+				const Real drdy[2] = {  2*lab(ix  ,iy+1).rho + 3*lab(ix  ,iy  ).rho - 6*lab(ix  ,iy-1).rho +   lab(ix  ,iy-2).rho,
+									   -  lab(ix  ,iy+2).rho + 6*lab(ix  ,iy+1).rho - 3*lab(ix  ,iy  ).rho - 2*lab(ix  ,iy-1).rho};
+			
+				const Real u = o(ix,iy).u;
+				const Real v = o(ix,iy).v;
+				const Real r = o(ix,iy).rho;
+			
+				o(ix,iy).tmpU = u + factor*(max(u,(Real)0) * dudx[0] + min(u,(Real)0) * dudx[1] +
+											max(v,(Real)0) * dudy[0] + min(v,(Real)0) * dudy[1]);
+				o(ix,iy).tmpV = v + factor*(max(u,(Real)0) * dvdx[0] + min(u,(Real)0) * dvdx[1] +
+											max(v,(Real)0) * dvdy[0] + min(v,(Real)0) * dvdy[1]);
+				o(ix,iy).tmp  = r + factor*(max(u,(Real)0) * drdx[0] + min(u,(Real)0) * drdx[1] +
+											max(v,(Real)0) * drdy[0] + min(v,(Real)0) * drdy[1]);
 		}
 	}
 };

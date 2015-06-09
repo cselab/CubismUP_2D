@@ -42,12 +42,7 @@ void Sim_RayleighTaylor::_ic()
 
 double Sim_RayleighTaylor::_nonDimensionalTime()
 {
-	return time;
-	/*
-	const double At = (rhoS-1.)/(rhoS+1.);
-	// the .25 is given by the wavelength
-	return time/sqrt(.25/(gravity[1]*At)); // how to nondimensionalize here? based on Galileo number?
-	 */
+	return time*2.;
 }
 
 void Sim_RayleighTaylor::_outputSettings(ostream &outStream)
@@ -101,6 +96,7 @@ void Sim_RayleighTaylor::init()
 	{
 		// Herrmann
 		nu = .00256;
+		//nu = 0.000319;
 		rhoS = 1.225/.1694;
 		
 		// Guermond
@@ -141,7 +137,11 @@ void Sim_RayleighTaylor::simulate()
 	double nextDumpTime = time;
 	double maxU = 0;
 	double maxA = 0;
-	LCFL= 0.1;
+	
+	
+	dumpFreq = 40;
+	nsteps = 3600;
+	
 	
 	while (true)
 	{
@@ -159,18 +159,21 @@ void Sim_RayleighTaylor::simulate()
 #ifdef _PARTICLES_
 			maxA = findMaxAOMP<Lab>(vInfo,*grid);
 			dtLCFL = maxA==0 ? 1e5 : LCFL/abs(maxA);
-			//dt = min(dt,dtLCFL);
+			dt = min(dt,dtLCFL);
 #endif
 			//*/
-			//dt = 0.00025;
-			if (dumpTime>0)
-				dt = min(dt,nextDumpTime-_nonDimensionalTime());
+			dt = 0.00025/2.;
+			//*
+			//if (dumpTime>0)
+			//	dt = min(dt,nextDumpTime-_nonDimensionalTime());
 			if (endTime>0)
 				dt = min(dt,endTime-_nonDimensionalTime());
-			//dt = .00025;
+			//*/
 			//cout << maxU << " " << maxA << endl;
+			
+			//cout << nextDumpTime-_nonDimensionalTime() << endl;
 			if (verbose)
-				cout << "dt (Fourier, CFL, LCFL): " << dt << " " << dtFourier << " " << dtCFL << " " << dtLCFL << endl;
+				cout << "t, dt (Fourier, CFL, LCFL): " << _nonDimensionalTime() << "\t" << dt << " " << dtFourier << " " << dtCFL << " " << dtLCFL << endl;
 			profiler.pop_stop();
 		}
 #ifdef _MULTIGRID_

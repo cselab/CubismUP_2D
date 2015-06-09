@@ -397,19 +397,22 @@ public:
 };
 
 typedef Grid<FluidBlock, std::allocator> FluidGrid;
-#ifndef _PERIODIC_
-#ifndef _PIPE_
-#ifndef _VORTEX_
+
+#ifdef _MIXED_
 typedef BlockLabBottomWall<FluidBlock, std::allocator> Lab;
-#else // _VORTEX_
-typedef BlockLabVortex<FluidBlock, std::allocator> Lab;
-#endif
-#else // _PIPE_
-typedef BlockLabPipe<FluidBlock, std::allocator> Lab;
-#endif // _PIPE_
-#else // _PERIODIC_
+#endif // _MIXED_
+
+#ifdef _PERIODIC_
 typedef BlockLab<FluidBlock, std::allocator> Lab;
 #endif // _PERIODIC_
+
+#ifdef _VORTEX_
+typedef BlockLabVortex<FluidBlock, std::allocator> Lab;
+#endif // _VORTEX_
+
+#ifdef _PIPE_
+typedef BlockLabPipe<FluidBlock, std::allocator> Lab;
+#endif // _PIPE_
 
 
 
