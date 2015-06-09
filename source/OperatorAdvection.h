@@ -22,8 +22,8 @@ class OperatorAdvection : public GenericLabOperator
 private:
 	double dt;
 	
-	template <typename Lab, typename BlockType>
-	Euler(Lab & lab, const BlockInfo& info, BlockType& o, const int stage)
+	template <typename Lab>
+	Euler(Lab & lab, const BlockInfo& info, const int stage)
 	{
 		const double dh = info.h_gridpoint;
 		const double invdh = 1./dh;
@@ -55,8 +55,8 @@ private:
 			}
 	}
 	
-	template <typename Lab, typename BlockType>
-	M2P(Lab & lab, const BlockInfo& info, BlockType& o)
+	template <typename Lab>
+	M2P(Lab & lab, const BlockInfo& info)
 	{
 		const double dh = info.h_gridpoint;
 		const double invdh = 1./dh;
@@ -187,9 +187,9 @@ public:
 	void operator()(Lab & lab, const BlockInfo& info, BlockType& o) const
 	{
 		//*
-		Euler(lab, info, o, 0);
-		M2P(lab, info, o);
-		Euler(lab, info, o, 1);
+		Euler(lab, info, 0);
+		M2P(lab, info);
+		Euler(lab, info, 1);
 		P2M(lab, info, o);
 		/*/
 		const double dh = info.h_gridpoint;
@@ -304,8 +304,8 @@ class OperatorTransport : public GenericLabOperator
 private:
 	double dt;
 	
-	template <typename Lab, typename BlockType>
-	Euler(Lab & lab, const BlockInfo& info, BlockType& o, const int stage)
+	template <typename Lab>
+	Euler(Lab & lab, const BlockInfo& info, const int stage)
 	{
 		const double dh = info.h_gridpoint;
 		const double invdh = 1./dh;
@@ -337,8 +337,8 @@ private:
 		}
 	}
 	
-	template <typename Lab, typename BlockType>
-	M2P(Lab & lab, const BlockInfo& info, BlockType& o)
+	template <typename Lab>
+	M2P(Lab & lab, const BlockInfo& info)
 	{
 		const double dh = info.h_gridpoint;
 		const double invdh = 1./dh;
@@ -464,9 +464,9 @@ public:
 	void operator()(Lab & lab, const BlockInfo& info, BlockType& o) const
 	{
 		//*
-		 Euler(lab, info, o, 0);
-		 M2P(lab, info, o);
-		 Euler(lab, info, o, 1);
+		 Euler(lab, info, 0);
+		 M2P(lab, info);
+		 Euler(lab, info, 1);
 		 P2M(lab, info, o);
 		 /*/
 		const double dh = info.h_gridpoint;
