@@ -121,13 +121,13 @@ protected:
 			cout << ss.str() << endl;
 			
 			dumper.Write(*grid, ss.str());
-			
+			/*
 			Layer vorticity(sizeX,sizeY,1);
 			processOMP<Lab, OperatorVorticity>(vorticity,vInfo,*grid);
 			stringstream sVort;
 			sVort << path2file << "Vorticity-" << step << ".vti";
 			dumpLayer2VTK(step,sVort.str(),vorticity,1);
-			
+			*/
 			_serialize();
 		}
 	}
