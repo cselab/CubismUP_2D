@@ -78,7 +78,8 @@ public:
 				Real eta = -.1*a*cos(2*M_PI*x/d);
 				block(ix,iy).rho = 2. + tanh((y-eta)/(.01*d));
 				 */
-				Real eta = -a*.25*cos(2*M_PI*(x+.1)/d);
+				//Real eta = -a*.25*cos(2*M_PI*(x+.1)/d);
+				Real eta = -a*.25*cos(2*M_PI*x/d);
 				block(ix,iy).rho = (1.+rhoS)/2. + ((1.+rhoS)/2.-1.)*tanh((y-eta)/(.01*d));
 				block(ix,iy).u = 0;
 				block(ix,iy).v = 0;
