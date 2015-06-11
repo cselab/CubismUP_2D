@@ -36,20 +36,17 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 		if (ic==0)
 		{
 			cout << "========================================================================================\n";
-			cout << "\t\tAdvection Test - Linear Field\n";
+			cout << "\t\tAdvection Test (Space) - Linear Field\n";
 			cout << "========================================================================================\n";
 		}
 		else if (ic==1)
 		{
 			cout << "========================================================================================\n";
-			cout << "\t\tAdvection Test - Vortex Field\n";
+			cout << "\t\tAdvection Test (Space) - Vortex Field\n";
 			cout << "========================================================================================\n";
 		}
 		else
-		{
-			cout << "IC " << ic << " doesn't exist\n";
-			abort();
-		}
+			throw std::invalid_argument("This test setting does not exist!");
 		
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
@@ -62,7 +59,7 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 	else if (test=="diffusion")
 	{
 		cout << "========================================================================================\n";
-		cout << "\t\tDiffusion Test\n";
+		cout << "\t\tDiffusion Test (Space)\n";
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
@@ -76,20 +73,17 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 	{
 		cout << "========================================================================================\n";
 		if (solver==0)
-			cout << "\t\tPressure Test - Stencil - ";
+			cout << "\t\tPressure Test (Space) - Stencil - ";
 		else if (solver==1)
-			cout << "\t\tPressure Test - Spectral - ";
+			cout << "\t\tPressure Test (Space) - Spectral - ";
 #ifdef _MULTIGRID_
 		else if (solver==2)
-			cout << "\t\tPressure Test - Multigrid (Constant Coefficents) - ";
+			cout << "\t\tPressure Test (Space) - Multigrid (Constant Coefficents) - ";
 		else if (solver==3)
-			cout << "\t\tPressure Test - Multigrid (Variable Coefficents) - ";
+			cout << "\t\tPressure Test (Space) - Multigrid (Variable Coefficents) - ";
 #endif // _MULTIGRID_
 		else
-		{
-			cout << "Solver case " << solver << " doesn't exist\n";
-			abort();
-		}
+			throw std::invalid_argument("This test setting does not exist!");
 		
 		if (ic==0)
 			cout << "Poisson equation\n";
@@ -98,7 +92,7 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 		else if (ic==2)
 			cout << "Mixed Boundary Conditions\n";
 		else
-			abort();
+			throw std::invalid_argument("This test setting does not exist!");
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
@@ -111,14 +105,14 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 	else if (test=="poisson")
 	{
 		cout << "========================================================================================\n";
-		cout << "\t\tPoisson Test - Multigrid - ";
+		cout << "\t\tPoisson Test (Space) - Multigrid - ";
 		
 		if (ic==0)
 			cout << "Constant Coefficients\n";
 		else if (ic==1)
 			cout << "Variable Coefficients\n";
 		else
-			abort();
+			throw std::invalid_argument("This test setting does not exist!");
 		cout << "========================================================================================\n";
 		
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
@@ -133,11 +127,11 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 	{
 		cout << "========================================================================================\n";
 		if (ic==0)
-			cout << "\t\tTranslation Test - Constant Velocity\n";
+			cout << "\t\tTranslation Test (Space) - Constant Velocity\n";
 		else if (ic==1)
-			cout << "\t\tTranslation Test - Velocity from Flow\n";
+			cout << "\t\tTranslation Test (Space) - Velocity from Flow\n";
 		else
-			abort();
+			throw std::invalid_argument("This test setting does not exist!");
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
@@ -151,11 +145,11 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 	{
 		cout << "========================================================================================\n";
 		if (ic==0)
-			cout << "\t\tRotation Test - Constant Velocity\n";
+			cout << "\t\tRotation Test (Space) - Constant Velocity\n";
 		else if (ic==1)
-			cout << "\t\tRotation Test - Velocity from Flow\n";
+			cout << "\t\tRotation Test (Space) - Velocity from Flow\n";
 		else
-			abort();
+			throw std::invalid_argument("This test setting does not exist!");
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
@@ -168,7 +162,7 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 	else if (test=="travelingwave")
 	{
 		cout << "========================================================================================\n";
-		cout << "\t\tTraveling Wave Test\n";
+		cout << "\t\tTraveling Wave Test (Space)\n";
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
@@ -179,7 +173,7 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 		}
 	}
 	else
-		cout << "Requested test not available with these settings\n";
+		throw std::invalid_argument("This test setting does not exist!");
 }
 
 void temporalConvergence(int argc, const char **argv, const int solver, const int ic, const string test, const double minDT, const double maxDT, const int bpd)
@@ -189,13 +183,13 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 		if (ic==0)
 		{
 			cout << "========================================================================================\n";
-			cout << "\t\tAdvection Test - Linear Field\n";
+			cout << "\t\tAdvection Test (Time) - Linear Field\n";
 			cout << "========================================================================================\n";
 		}
 		else if (ic==1)
 		{
 			cout << "========================================================================================\n";
-			cout << "\t\tAdvection Test - Vortex Field\n";
+			cout << "\t\tAdvection Test (Time) - Vortex Field\n";
 			cout << "========================================================================================\n";
 		}
 		else
@@ -215,7 +209,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 	else if (test=="diffusion")
 	{
 		cout << "========================================================================================\n";
-		cout << "\t\tDiffusion Test\n";
+		cout << "\t\tDiffusion Test (Time)\n";
 		cout << "========================================================================================\n";
 		for (double dt=minDT; dt<=maxDT; dt*=2)
 		{
@@ -228,7 +222,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 	else if (test=="gravity")
 	{
 		cout << "========================================================================================\n";
-		cout << "\t\tGravity Test\n";
+		cout << "\t\tGravity Test (Time)\n";
 		cout << "========================================================================================\n";
 		for (double dt=minDT; dt<=maxDT; dt*=2)
 		{
@@ -241,7 +235,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 	else if (test=="penalization")
 	{
 		cout << "========================================================================================\n";
-		cout << "\t\tPenalization Test\n";
+		cout << "\t\tPenalization Test (Time)\n";
 		cout << "========================================================================================\n";
 		for (double dt=minDT; dt<=maxDT; dt*=2)
 		{
@@ -254,9 +248,9 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 	{
 		cout << "========================================================================================\n";
 		if (ic==0)
-			cout << "\t\tTranslation Test - Constant Velocity\n";
+			cout << "\t\tTranslation Test (Time) - Constant Velocity\n";
 		else if (ic==1)
-			cout << "\t\tTranslation Test - Velocity from Flow\n";
+			cout << "\t\tTranslation Test (Time) - Velocity from Flow\n";
 		else
 			abort();
 		cout << "========================================================================================\n";
@@ -272,9 +266,9 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 	{
 		cout << "========================================================================================\n";
 		if (ic==0)
-			cout << "\t\tRotation Test - Constant Velocity\n";
+			cout << "\t\tRotation Test (Time) - Constant Velocity\n";
 		else if (ic==1)
-			cout << "\t\tRotation Test - Velocity from Flow\n";
+			cout << "\t\tRotation Test (Time) - Velocity from Flow\n";
 		else
 			abort();
 		cout << "========================================================================================\n";
@@ -287,7 +281,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 		}
 	}
 	else
-		cout << "Requested test not available with these settings\n";
+		throw std::invalid_argument("This test setting does not exist!");
 }
 
 void baseTest(int argc, const char **argv, const int solver, const int ic, const string test, const int bpd, const double dt, const double tEnd)
@@ -440,7 +434,7 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 		delete wave;
 	}
 	else
-		cout << "Requested test not available with these settings\n";
+		throw std::invalid_argument("This test setting does not exist!");
 }
 
 int main(int argc, const char **argv)
@@ -454,13 +448,13 @@ int main(int argc, const char **argv)
 	int ic = parser("-ic").asInt(0);
 	const double tEnd = parser("-tEnd").asDouble(0);
 	
+	const double minDT = parser("-minDT").asDouble(0);
+	const double maxDT = parser("-maxDT").asDouble(0);
 	parser.set_strict_mode();
 	
 	string test = parser("-test").asString();
 	const int minBPD = parser("-minBPD").asInt();
 	const int maxBPD = parser("-maxBPD").asInt();
-	const double minDT = parser("-minDT").asDouble();
-	const double maxDT = parser("-maxDT").asDouble();
 	
 	if (maxBPD>minBPD)
 		spatialConvergence(argc, argv, solver, ic, test, minBPD, maxBPD, minDT);

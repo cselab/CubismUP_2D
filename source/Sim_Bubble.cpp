@@ -107,7 +107,11 @@ void Sim_Bubble::init()
 	
 	pipeline.clear();
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
+#ifndef _MULTIPHASE_
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
+#else
+	pipeline.push_back(new CoordinatorAdvection<Lab>(grid,rhoS));
+#endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
 	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs));
 	

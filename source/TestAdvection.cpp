@@ -265,7 +265,7 @@ void TestAdvection::check()
 {
 	const double center[2] = {.5,.5};
 	
-	cout << "\tErrors (uLinf, uL1, uL2):\t";
+	//cout << "\tErrors (uLinf, uL1, uL2):\t";
 	double uLinf = 0.;
 	double uL1 = 0.;
 	double uL2 = 0.;
@@ -381,6 +381,6 @@ void TestAdvection::check()
 	
 	uL1 *= dh*dh;
 	uL2 = sqrt(uL2)*dh;
-	cout << "\t" << uLinf << "\t" << uL1 << "\t" << uL2 << endl;
+	cout << uLinf << "\t" << uL1 << "\t" << uL2 << endl;
 	myfile << sizeX << " " << uLinf << " " << uL1 << " " << uL2 << endl;
 }

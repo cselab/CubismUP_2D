@@ -95,7 +95,7 @@ void TestDiffusion::run()
 
 void TestDiffusion::check()
 {
-	cout << "\tErrors (Linf, L1, L2):\t";
+	//cout << "\tErrors (Linf, L1, L2):\t";
 	double Linf = 0.;
 	double L1 = 0.;
 	double L2 = 0.;
@@ -129,6 +129,6 @@ void TestDiffusion::check()
 	
 	L2 = sqrt(L2)/(double)size;
 	L1 /= (double)size*size;
-	cout << "\t" << Linf << "\t" << L1 << "\t" << L2 << endl;
-	myfile << size << " " << Linf << " " << L1 << " " << L2 << endl;
+	cout << Linf << "\t" << L1 << "\t" << L2 << endl;
+	myfile << size << " " << dt << " " << Linf << " " << L1 << " " << L2 << endl;
 }

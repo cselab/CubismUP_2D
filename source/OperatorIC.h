@@ -83,7 +83,7 @@ public:
 				block(ix,iy).rho = (1.+rhoS)/2. + ((1.+rhoS)/2.-1.)*tanh((y-eta)/(.01*d));
 				block(ix,iy).u = 0;
 				block(ix,iy).v = 0;
-				block(ix,iy).chi = 0;
+				block(ix,iy).chi = .5+.5*tanh((y-eta)/(.01*d));
 				
 				block(ix,iy).p = 0;
 				block(ix,iy).divU = 0;

@@ -159,7 +159,11 @@ void Sim_FSI_Moving::init()
 	}
 	
 	pipeline.clear();
+#ifndef _MULTIPHASE_
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
+#else
+	pipeline.push_back(new CoordinatorAdvection<Lab>(grid,1));
+#endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
 	pipeline.push_back(new CoordinatorPressureSimple<Lab>(grid));
 	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid));

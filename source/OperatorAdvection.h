@@ -34,8 +34,8 @@ private:
 		const int bx = info.index[0]*FluidBlock::sizeX;
 		const int by = info.index[1]*FluidBlock::sizeY;
 		
-		for (int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy) // is this correct for the ending? why -2?
-			for (int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix) // is this correct for the ending? why -2?
+		for (int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy)
+			for (int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix)
 			{
 				double p[2];
 				info.pos(p,ix,iy);
@@ -67,8 +67,8 @@ private:
 		const int bx = info.index[0]*FluidBlock::sizeX;
 		const int by = info.index[1]*FluidBlock::sizeY;
 		
-		for (int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy) // is this correct for the ending? why -2?
-			for (int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix) // is this correct for the ending? why -2?
+		for (int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy)
+			for (int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix)
 			{
 				FluidElement& particle = lab(ix,iy);
 				particle.tmpU = 0;
@@ -98,10 +98,7 @@ private:
 					{
 						const int lfpx = fpx+i - bx;
 						const int lfpy = fpy+j - by;
-						//if (lfpy < stencil_start[1] || lfpy >= FluidBlock::sizeY+stencil_end[1]-1)
-						//	cout << iy << " " << py << " " << lfpy << " " << fpy << " " << j << " " << by << " " << particle.v << endl;
-						//assert(lfpx >= stencil_start[0] && lfpx < FluidBlock::sizeX+stencil_end[0]-1);
-						//assert(lfpy >= stencil_start[1] && lfpy < FluidBlock::sizeY+stencil_end[1]-1);
+						
 						const double weight = wx[i-support_start] * wy[j-support_start];
 				
 						particle.tmpU += lab(lfpx,lfpy).u * weight;
@@ -122,8 +119,8 @@ private:
 		const int bx = info.index[0]*FluidBlock::sizeX;
 		const int by = info.index[1]*FluidBlock::sizeY;
 		
-		for (int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy) // is this correct for the ending? why -2?
-		for (int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix) // is this correct for the ending? why -2?
+		for (int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy)
+		for (int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix)
 		{
 			double p[2];
 			info.pos(p,ix,iy);
@@ -164,6 +161,7 @@ private:
 					o(lfpx,lfpy).tmpV += weight * lab(ix,iy).v;
 #ifdef _MULTIPHASE_
 					o(lfpx,lfpy).tmp += weight * lab(ix,iy).rho;
+					//o(lfpx,lfpy).tmp += weight * lab(ix,iy).chi;
 #endif
 				}
 			}
@@ -201,8 +199,8 @@ public:
 		const int bx = info.index[0]*FluidBlock::sizeX;
 		const int by = info.index[1]*FluidBlock::sizeY;
 		
-		for (int iy=support_start-1; iy<FluidBlock::sizeY+support_end-2; ++iy)
-			for (int ix=support_start-1; ix<FluidBlock::sizeX+support_end-2; ++ix)
+		for (int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy)
+			for (int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix)
 			{
 				double p[2];
 				info.pos(p,ix,iy);
@@ -316,8 +314,8 @@ private:
 		const int bx = info.index[0]*FluidBlock::sizeX;
 		const int by = info.index[1]*FluidBlock::sizeY;
 		
-		for(int iy=support_start-1; iy<FluidBlock::sizeY+support_end-2; ++iy)
-		for(int ix=support_start-1; ix<FluidBlock::sizeX+support_end-2; ++ix)
+		for(int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy)
+		for(int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix)
 		{
 			double p[2];
 			info.pos(p,ix,iy);
@@ -349,8 +347,8 @@ private:
 		const int bx = info.index[0]*FluidBlock::sizeX;
 		const int by = info.index[1]*FluidBlock::sizeY;
 		
-		for(int iy=support_start-1; iy<FluidBlock::sizeY+support_end-2; ++iy)
-		for(int ix=support_start-1; ix<FluidBlock::sizeX+support_end-2; ++ix)
+		for(int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy)
+		for(int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix)
 		{
 			FluidElement& particle = lab(ix,iy);
 			particle.tmpU = 0;
@@ -402,8 +400,8 @@ private:
 		const int bx = info.index[0]*FluidBlock::sizeX;
 		const int by = info.index[1]*FluidBlock::sizeY;
 		
-		for(int iy=support_start-1; iy<FluidBlock::sizeY+support_end-2; ++iy)
-		for(int ix=support_start-1; ix<FluidBlock::sizeX+support_end-2; ++ix)
+		for(int iy=support_start-1; iy<FluidBlock::sizeY+support_end; ++iy)
+		for(int ix=support_start-1; ix<FluidBlock::sizeX+support_end; ++ix)
 		{
 			double p[2];
 			info.pos(p,ix,iy);

@@ -58,10 +58,7 @@ int main(int argc, const char **argv)
 	else if (simSetting=="jet")
 		sim = new Sim_Jet(argc, argv);
 	else
-	{
-		cout << "This simulation setting (" << simSetting << ") does not exist!\n";
-		abort();
-	}
+		throw std::invalid_argument("This simulation setting does not exist!");
 	
 	sim->init();
 	sim->simulate();

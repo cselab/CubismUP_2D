@@ -16,6 +16,10 @@ template <typename Lab>
 class CoordinatorAdvection : public GenericCoordinator
 {
 protected:
+#ifdef _MULTIPHASE_
+	Real rhoS;
+#endif
+	
 	inline void reset()
 	{
 		const int N = vInfo.size();
@@ -54,6 +58,8 @@ protected:
 						b(ix,iy).u = b(ix,iy).tmpU;
 						b(ix,iy).v = b(ix,iy).tmpV;
 #ifdef _MULTIPHASE_
+						//b(ix,iy).chi = b(ix,iy).tmp;
+						//b(ix,iy).rho = b(ix,iy).chi * rhoS + (1-b(ix,iy).chi);
 						b(ix,iy).rho = b(ix,iy).tmp;
 #endif // _MULTIPHASE_
 					}
@@ -75,9 +81,9 @@ protected:
 			Lab mylab;
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 #else // _PARTICLES_
-			OperatorAdvection<Hat> kernel(dt);
+			//OperatorAdvection<Hat> kernel(dt);
 			//OperatorAdvection<Mp4> kernel(dt);
-			//OperatorAdvection<Ms6> kernel(dt);
+			OperatorAdvection<Ms6> kernel(dt);
 			
 			Lab mylab;
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
@@ -94,7 +100,11 @@ protected:
 	}
 	
 public:
+#ifndef _MULTIPHASE_
 	CoordinatorAdvection(FluidGrid * grid) : GenericCoordinator(grid)
+#else
+	CoordinatorAdvection(FluidGrid * grid, Real rhoS) : GenericCoordinator(grid), rhoS(rhoS)
+#endif
 	{
 	}
 	

@@ -131,7 +131,11 @@ endTime(1)
 	_ic();
 	
 	pipeline.clear();
+#ifndef _MULTIPHASE_
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
+#else
+	pipeline.push_back(new CoordinatorAdvection<Lab>(grid,1));
+#endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
 	pipeline.push_back(new CoordinatorPressureSimple<Lab>(grid)); // need to also test with Hypre!
 }

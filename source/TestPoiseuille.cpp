@@ -83,7 +83,11 @@ TestPoiseuille::TestPoiseuille(const int argc, const char ** argv, const int bpd
 	pipeline.clear();
 	pipeline.push_back(new CoordinatorPressureGradient(gradient,grid));
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
+#ifndef _MULTIPHASE_
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
+#else
+	pipeline.push_back(new CoordinatorAdvection<Lab>(grid,1));
+#endif
 #ifndef _MULTIGRID_
 	pipeline.push_back(new CoordinatorPressureSimple<Lab>(grid)); // need to also test with Hypre!
 #else
@@ -109,7 +113,7 @@ void TestPoiseuille::run()
 	double maxU = 0;
 	double maxA = 0;
 	double dt = 0;
-	const double CFL = 0.25;//0.5;//
+	const double CFL = 0.1;//25;//0.5;//
 	const double LCFL = .1;
 	
 	while (true)

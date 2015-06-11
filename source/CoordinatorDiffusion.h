@@ -70,7 +70,7 @@ protected:
 #pragma omp parallel
 		{
 			OperatorDiffusion kernel(dt, coeff, stage);
-			//OperatorDiffusionHighOrder  kernel(dt, coeff);
+			//OperatorDiffusionHighOrder kernel(dt, coeff, stage);
 			
 			Lab mylab;
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);

@@ -95,8 +95,7 @@ void Sim_RayleighTaylor::init()
 	if (!bRestart)
 	{
 		// Herrmann
-		nu = .00256;
-		//nu = 0.000319;
+		nu = 0.0023096; // this is actually mu
 		rhoS = 1.225/.1694;
 		
 		// Guermond
@@ -114,7 +113,11 @@ void Sim_RayleighTaylor::init()
 	
 	pipeline.clear();
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
+#ifndef _MULTIPHASE_
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
+#else
+	pipeline.push_back(new CoordinatorAdvection<Lab>(grid,rhoS));
+#endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
 	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs));
 	
