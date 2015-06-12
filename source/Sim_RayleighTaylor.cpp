@@ -142,8 +142,8 @@ void Sim_RayleighTaylor::simulate()
 	double maxA = 0;
 	
 	
-	dumpFreq = 40;
-	nsteps = 3600;
+	dumpFreq = 80;//40;//
+	nsteps = 7200;//3600;//
 	
 	
 	while (true)
@@ -165,7 +165,7 @@ void Sim_RayleighTaylor::simulate()
 			dt = min(dt,dtLCFL);
 #endif
 			//*/
-			dt = 0.00025/2.;
+			dt = 0.00025/4.;//0.00025/2.;//
 			//*
 			//if (dumpTime>0)
 			//	dt = min(dt,nextDumpTime-_nonDimensionalTime());

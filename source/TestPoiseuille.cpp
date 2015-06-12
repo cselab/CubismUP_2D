@@ -42,7 +42,7 @@ void TestPoiseuille::_ic()
 				
 				b(ix,iy).rho = 1.;
 				
-				b(ix,iy).u = 1;
+				b(ix,iy).u = .1;
 				b(ix,iy).v = 0;
 				b(ix,iy).p = 0;
 				
@@ -113,7 +113,7 @@ void TestPoiseuille::run()
 	double maxU = 0;
 	double maxA = 0;
 	double dt = 0;
-	const double CFL = 0.1;//25;//0.5;//
+	const double CFL = .1;//25;//0.5;//
 	const double LCFL = .1;
 	
 	while (true)

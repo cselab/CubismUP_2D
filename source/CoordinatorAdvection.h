@@ -11,6 +11,7 @@
 
 #include "GenericCoordinator.h"
 #include "OperatorAdvection.h"
+#include <cmath>
 
 template <typename Lab>
 class CoordinatorAdvection : public GenericCoordinator
@@ -60,7 +61,10 @@ protected:
 #ifdef _MULTIPHASE_
 						//b(ix,iy).chi = b(ix,iy).tmp;
 						//b(ix,iy).rho = b(ix,iy).chi * rhoS + (1-b(ix,iy).chi);
-						b(ix,iy).rho = b(ix,iy).tmp;
+						
+						// threshold density
+						Real density = min(max(b(ix,iy).tmp,(Real)1.),rhoS);
+						b(ix,iy).rho = density;
 #endif // _MULTIPHASE_
 					}
 			}

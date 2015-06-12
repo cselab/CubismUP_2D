@@ -139,32 +139,62 @@ private:
 			const int fpx = (int)floor(px);
 			const int fpy = (int)floor(py);
 			
-			// compute weights
-			double wx[RemeshingKernel::support], wy[RemeshingKernel::support];
-			for (int i=support_start; i<support_end; i++)
 			{
-				wx[i-support_start] = RemeshingKernel::weight(px-(fpx+i));
-				wy[i-support_start] = RemeshingKernel::weight(py-(fpy+i));
-			}
-			
-			// scatter only to elements within the block, elements outside the block are taken care by other blocks
-			for (int j=support_start; j<support_end; j++)
-			for (int i=support_start; i<support_end; i++)
-			{
-				if (fpx+i>=bx && fpx+i<bx+FluidBlock::sizeX &&
-					fpy+j>=by && fpy+j<by+FluidBlock::sizeY)
+				// compute weights
+				double wx[RemeshingKernel::support], wy[RemeshingKernel::support];
+				for (int i=support_start; i<support_end; i++)
 				{
-					const int lfpx = fpx+i - bx;
-					const int lfpy = fpy+j - by;
-					const double weight = wx[i-support_start] * wy[j-support_start];
-					o(lfpx,lfpy).tmpU += weight * lab(ix,iy).u;
-					o(lfpx,lfpy).tmpV += weight * lab(ix,iy).v;
+					wx[i-support_start] = RemeshingKernel::weight(px-(fpx+i));
+					wy[i-support_start] = RemeshingKernel::weight(py-(fpy+i));
+				}
+				
+				// scatter only to elements within the block, elements outside the block are taken care by other blocks
+				for (int j=support_start; j<support_end; j++)
+				for (int i=support_start; i<support_end; i++)
+				{
+					if (fpx+i>=bx && fpx+i<bx+FluidBlock::sizeX &&
+						fpy+j>=by && fpy+j<by+FluidBlock::sizeY)
+					{
+						const int lfpx = fpx+i - bx;
+						const int lfpy = fpy+j - by;
+						const double weight = wx[i-support_start] * wy[j-support_start];
+						o(lfpx,lfpy).tmpU += weight * lab(ix,iy).u;
+						o(lfpx,lfpy).tmpV += weight * lab(ix,iy).v;
 #ifdef _MULTIPHASE_
-					o(lfpx,lfpy).tmp += weight * lab(ix,iy).rho;
-					//o(lfpx,lfpy).tmp += weight * lab(ix,iy).chi;
+						o(lfpx,lfpy).tmp += weight * lab(ix,iy).rho;
+						//o(lfpx,lfpy).tmp += weight * lab(ix,iy).chi;
 #endif
+					}
 				}
 			}
+			/*
+			{
+				// compute weights
+				double wx[Hat::support], wy[Hat::support];
+				for (int i=Hat::support_start; i<Hat::support_end; i++)
+				{
+					wx[i-Hat::support_start] = Hat::weight(px-(fpx+i));
+					wy[i-Hat::support_start] = Hat::weight(py-(fpy+i));
+				}
+				
+				// scatter only to elements within the block, elements outside the block are taken care by other blocks
+				for (int j=Hat::support_start; j<Hat::support_end; j++)
+				for (int i=Hat::support_start; i<Hat::support_end; i++)
+				{
+					if (fpx+i>=bx && fpx+i<bx+FluidBlock::sizeX &&
+						fpy+j>=by && fpy+j<by+FluidBlock::sizeY)
+					{
+						const int lfpx = fpx+i - bx;
+						const int lfpy = fpy+j - by;
+						const double weight = wx[i-Hat::support_start] * wy[j-Hat::support_start];
+#ifdef _MULTIPHASE_
+						o(lfpx,lfpy).tmp += weight * lab(ix,iy).rho;
+						//o(lfpx,lfpy).tmp += weight * lab(ix,iy).chi;
+#endif
+					}
+				}
+			}
+			 */
 		}
 	}
 	
