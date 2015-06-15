@@ -111,7 +111,6 @@ protected:
 		const int sizeY = bpdy * FluidBlock::sizeY;
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
 		
-		//cout << nextDumpTime-_nonDimensionalTime() << "\t" << abs(nextDumpTime-_nonDimensionalTime()) << "\t" << 10*std::numeric_limits<Real>::epsilon() << endl;
 		if(rank==0 && (dumpFreq>0 && step % dumpFreq == 0) || (dumpTime>0 && abs(nextDumpTime-_nonDimensionalTime()) < 10*std::numeric_limits<Real>::epsilon()))
 		{
 			nextDumpTime += dumpTime;
@@ -121,13 +120,6 @@ protected:
 			cout << ss.str() << endl;
 			
 			dumper.Write(*grid, ss.str());
-			/*
-			Layer vorticity(sizeX,sizeY,1);
-			processOMP<Lab, OperatorVorticity>(vorticity,vInfo,*grid);
-			stringstream sVort;
-			sVort << path2file << "Vorticity-" << step << ".vti";
-			dumpLayer2VTK(step,sVort.str(),vorticity,1);
-			*/
 			_serialize();
 		}
 	}
@@ -135,8 +127,6 @@ protected:
 	virtual void _outputSettings(ostream& outStream)
 	{
 		outStream << "Simulation_Fluid\n";
-		//outStream << parser << endl;
-		//outStream << profiler << endl;
 		
 		outStream << "step " << step << endl;
 		outStream << "nsteps " << nsteps << endl;
@@ -153,8 +143,6 @@ protected:
 		outStream << "path2file " << path2file << endl;
 		
 		outStream << "Grid " << bpdx << " " << bpdy << endl;
-		
-		//outStream << &grid << endl;
 	}
 	
 	virtual void _inputSettings(istream& inStream)
@@ -213,10 +201,6 @@ protected:
 			ss << path4serialization << "Serialized-" << bPing << ".dat";
 			cout << ss.str() << endl;
 			
-			//stringstream serializedGrid;
-			//serializedGrid << path4serialization << "SerializedGrid-" << bPing << ".grid";
-			//SerializerIO<FluidGrid, StreamerGridPoint>().Write(*grid,serializedGrid.str());
-			
 			stringstream serializedGrid;
 			serializedGrid << "SerializedGrid-" << bPing << ".grid";
 			DumpZBin<FluidGrid, StreamerSerialization>(*grid, serializedGrid.str(), path4serialization);
@@ -264,10 +248,6 @@ protected:
 		
 		if (rank==0)
 		{
-			//stringstream serializedGrid;
-			//serializedGrid << path4serialization << "SerializedGrid-" << bPing << ".grid";
-			//SerializerIO<FluidGrid, StreamerGridPoint>().Read(*grid,serializedGrid.str());
-			
 			stringstream serializedGrid;
 			serializedGrid << "SerializedGrid-" << bPing << ".grid";
 			ReadZBin<FluidGrid, StreamerSerialization>(*grid, serializedGrid.str(), path4serialization);
@@ -317,7 +297,7 @@ public:
 			path2file = parser("-file").asString("../data/Simulation_Fluid");
 			path4serialization = parser("-serialization").asString(path2file);
 			
-			CFL = parser("-CFL").asDouble(.5);
+			CFL = parser("-CFL").asDouble(.25);
 			LCFL = parser("-LCFL").asDouble(.1);
 			
 			verbose = parser("-verbose").asBool(false);

@@ -63,8 +63,12 @@ protected:
 						//b(ix,iy).rho = b(ix,iy).chi * rhoS + (1-b(ix,iy).chi);
 						
 						// threshold density
-						Real density = min(max(b(ix,iy).tmp,(Real)1.),rhoS);
+#ifdef _PARTICLES_
+						Real density = min(max(b(ix,iy).tmp,(Real)min(1.,rhoS)),max(1.,rhoS));
 						b(ix,iy).rho = density;
+#else // _PARTICLES_
+						b(ix,iy).rho = b(ix,iy).tmp;
+#endif // _PARTICLES_
 #endif // _MULTIPHASE_
 					}
 			}

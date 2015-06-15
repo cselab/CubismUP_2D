@@ -2,6 +2,43 @@
 //  Sim_FSI_Gravity.h
 //  CubismUP_2D
 //
+//	Class for the simulation of gravity driven FSI
+//
+//	Makefile arguments
+//		particles:		if active, use particles (remeshing kernel should be chosen by commenting/uncommenting in the code), otherwise use finite differences
+//		poisson:		Poisson solver, split-fftw/hypre
+//		multiphase:		activate/deactivate advection of densities, false should be used
+//		bc:				boundary conditions, for this setting, mixed should be used
+//		precision:		single/double, default: double
+//		config:			configuration debug/production, default: debug
+//		nthreads:		#threads, default: 48
+//		bs:				Cubism block size, default: 32
+//		vertexcentered:	always set to false for this setting
+//
+//	Command line arguments
+//		-bpdx:			mandatory, #blocks in x direction
+//		-bpdy:			mandatory, #blocks in y direction
+//		-restart:		needed to restart from a previous checkpoint
+//		-nsteps:		simulation ends with nsteps iterations. If 0, ignored
+//		-tend:			simulation ends at time tend. If 0, ignored
+//		-fdump:			#timesteps between grid outputs. If 0, ignored
+//		-tdump:			time interval for grid output. If 0, ignored
+//		-file:			location and base name of output files
+//		-CFL:			CFL constant used for CFL condition and for diffusion
+//		-LCFL:			particle Lagrangian-CFL (not required when using finite differences)
+//		-verbose:		activate verbosity
+//		-serialization:	mandatory if restarting, path to serialized checkpoint data
+//		-lambda:		Penalization parameter, default: 1e5
+//		-rhoS:			solid density
+//		-shape:			select shape to be used: disk/ellipse, default: disk
+//		-radius:		if shape==disk, select radius, default: 0.1
+//		-semiAxisX:		if shape==ellipse, select X axis, default: 0.1
+//		-semiAxisY:		if shape==ellipse, select Y axis, default: 0.2
+//		-angle:			if shape==ellipse, select orientation
+//		-split:			use split technique for the pressure solver (only used by Hypre implementation)
+//		-nu:			mu for diffusion operator (which is divided by the density to recover nu)
+//		-ypos:			position in the vertical direction used to place the shape in the initial conditions
+//
 //  Created by Christian Conti on 1/26/15.
 //  Copyright (c) 2015 ETHZ. All rights reserved.
 //

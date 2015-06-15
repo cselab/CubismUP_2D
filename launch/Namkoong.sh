@@ -2,8 +2,8 @@ cd ../makefiles
 make clean
 make config=production poisson=hypre bc=mixed particles=false -j
 cd ../launch
-for BPD in 16
-#32 64 128
+for BPD in 16 32 64 128
+#16
 do
 	FOLDER=/cluster/scratch_xp/public/cconti/CubismUP/FallingCylinder_Namkoong_FD_bpdy${BPD}
 	mkdir ${FOLDER}

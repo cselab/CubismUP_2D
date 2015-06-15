@@ -93,23 +93,7 @@ void Sim_RayleighTaylor::init()
 	Simulation_MP::init();
 	
 	if (!bRestart)
-	{
-		// Herrmann
-		nu = 0.0023096; // this is actually mu
-		rhoS = 1.225/.1694;
-		
-		// Guermond
-		//nu = .00039;
-		//rhoS = 3;
-		/* Schott
-		 gravity[0] = 0;
-		 gravity[1] = -10;
-		 nu = .006349;
-		 rhoS = 1.5;
-		 */
-		
 		_ic();
-	}
 	
 	pipeline.clear();
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
@@ -141,17 +125,12 @@ void Sim_RayleighTaylor::simulate()
 	double maxU = 0;
 	double maxA = 0;
 	
-	
-	dumpFreq = 40;//80;//
-	nsteps = 3600;//7200;//
-	
-	
 	while (true)
 	{
 		if (rank==0)
 		{
 			vector<BlockInfo> vInfo = grid->getBlocksInfo();
-			//*
+			/*
 			// choose dt (CFL, Fourier)
 			profiler.push_start("DT");
 			maxU = findMaxUOMP(vInfo,*grid);
@@ -164,17 +143,14 @@ void Sim_RayleighTaylor::simulate()
 			dtLCFL = maxA==0 ? 1e5 : LCFL/abs(maxA);
 			dt = min(dt,dtLCFL);
 #endif
-			//*/
-			dt = 0.00025/2.;//0.00025/4.;//
-			//*
-			//if (dumpTime>0)
-			//	dt = min(dt,nextDumpTime-_nonDimensionalTime());
+			 */
+			dt = 0.00025/(double)bpdx;
+			 
+			if (dumpTime>0)
+				dt = min(dt,nextDumpTime-_nonDimensionalTime());
 			if (endTime>0)
 				dt = min(dt,endTime-_nonDimensionalTime());
-			//*/
-			//cout << maxU << " " << maxA << endl;
 			
-			//cout << nextDumpTime-_nonDimensionalTime() << endl;
 			if (verbose)
 				cout << "t, dt (Fourier, CFL, LCFL): " << _nonDimensionalTime() << "\t" << dt << " " << dtFourier << " " << dtCFL << " " << dtLCFL << endl;
 			profiler.pop_stop();
@@ -212,7 +188,6 @@ void Sim_RayleighTaylor::simulate()
 			
 			//dump some time steps every now and then
 			profiler.push_start("Dump");
-			//nextDumpTime = _nonDimensionalTime();
 			_dump(nextDumpTime);
 			profiler.pop_stop();
 			

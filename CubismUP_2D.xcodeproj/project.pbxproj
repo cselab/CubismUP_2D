@@ -104,6 +104,7 @@
 		DD58CAE71A60320400291455 /* TestPressure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPressure.cpp; sourceTree = "<group>"; };
 		DD58CAE81A60320400291455 /* TestPressure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPressure.h; sourceTree = "<group>"; };
 		DD58CAEE1A614B6D00291455 /* LayerToVTK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerToVTK.h; sourceTree = "<group>"; };
+		DD5FCAAD1B2EF32C000232B9 /* Bubble.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Bubble.sh; sourceTree = "<group>"; };
 		DD609B751B00D8C600E2C31A /* testAdvection.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = testAdvection.sh; sourceTree = "<group>"; };
 		DD609B761B00D8C600E2C31A /* testDiffusion.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = testDiffusion.sh; sourceTree = "<group>"; };
 		DD64F6D01A63C16400D17B72 /* Timer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
@@ -191,6 +192,7 @@
 		DD2A4CEA1ADFA08800C3C034 /* RTI */ = {
 			isa = PBXGroup;
 			children = (
+				DD5FCAAD1B2EF32C000232B9 /* Bubble.sh */,
 				DD2A4CEB1ADFA09500C3C034 /* Jets.sh */,
 				DD2A4CE71ADFA06200C3C034 /* Guermond.sh */,
 				DD90D83C1B01D8B800013E04 /* Herrmann.sh */,
