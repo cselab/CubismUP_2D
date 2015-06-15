@@ -1,4 +1,3 @@
-module load gcc
 cd ../makefiles
 make clean
 make config=production poisson=hypre bc=mixed particles=false -j

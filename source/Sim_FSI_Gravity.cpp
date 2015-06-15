@@ -327,8 +327,8 @@ void Sim_FSI_Gravity::simulate()
 		if (step==stepStartBody)
 		{
 			vector<GenericCoordinator *>::iterator it = pipeline.begin();
-			pipeline.insert(it+6, new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
-			pipeline.insert(it+7, new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
+			pipeline.insert(it+4, new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
+			pipeline.insert(it+5, new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
 			
 			if (rank==0)
 			{

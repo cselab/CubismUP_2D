@@ -158,7 +158,7 @@ void TestShearLayer::run()
 	double maxU = 0;
 	double maxA = 0;
 	double dt = 0;
-	const double CFL = .5;
+	const double CFL = .25;
 	const double LCFL = .1;
 	const double dumpTime = endTime/100.;
 	double nextDumpTime = dumpTime;
