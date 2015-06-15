@@ -1,0 +1,329 @@
+\hypertarget{class_sim___multiphase}{}\section{Sim\+\_\+\+Multiphase Class Reference}
+\label{class_sim___multiphase}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+
+
+{\ttfamily \#include $<$Sim\+\_\+\+Multiphase.\+h$>$}
+
+
+
+Inheritance diagram for Sim\+\_\+\+Multiphase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{dc/dfd/class_sim___multiphase__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Sim\+\_\+\+Multiphase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d48/class_sim___multiphase__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_sim___multiphase_a3b0af387ee8f2d55cec7b4cc1376b13d}{Sim\+\_\+\+Multiphase} (const int argc, const char $\ast$$\ast$argv)
+\item 
+\hyperlink{class_sim___multiphase_a8d57a950fa22ed37b7bcd509a1c0b332}{$\sim$\+Sim\+\_\+\+Multiphase} ()
+\item 
+void \hyperlink{class_sim___multiphase_a52fb6d0f477493b813c148a8fce734a5}{init} ()
+\item 
+void \hyperlink{class_sim___multiphase_a3b39123c75007377af01c1bfb1267b44}{simulate} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_sim___multiphase_a1d7da812e0fa53739218cdddf32343ff}{\+\_\+diagnostics} ()
+\item 
+void \hyperlink{class_sim___multiphase_a430045c05f7a38cca2d0f592f860da9a}{\+\_\+ic} ()
+\item 
+double \hyperlink{class_sim___multiphase_a6b730baf4ffad9fba3b830058b3f1fe2}{\+\_\+non\+Dimensional\+Time} ()
+\item 
+void \hyperlink{class_sim___multiphase_ade0448d208af354ba122e626e0fa8bbf}{\+\_\+output\+Settings} (ostream \&out\+Stream)
+\item 
+void \hyperlink{class_sim___multiphase_a870573f19f925731154e4695a4c32cb2}{\+\_\+input\+Settings} (istream \&in\+Stream)
+\item 
+void \hyperlink{class_sim___multiphase_a479bea55b13a717af30a1657b92899a5}{\+\_\+dump\+Settings} (ostream \&out\+Stream)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{class_sim___multiphase_ac6f721aa2c2702404115f333ece6fa99}{dt\+C\+F\+L}
+\item 
+double \hyperlink{class_sim___multiphase_aa7c5d2c194c70c5c86a36982f8ae99c5}{dt\+Fourier}
+\item 
+double \hyperlink{class_sim___multiphase_ab75819bd31153d20f56ae0ccfdb6145f}{re}
+\item 
+double \hyperlink{class_sim___multiphase_abd7f38e007c07621884d757b19d70b8f}{nu}
+\item 
+double \hyperlink{class_sim___multiphase_a3699db731e1856ecd2fabf57145791ab}{min\+Rho}
+\item 
+double \hyperlink{class_sim___multiphase_a898c62fc2266a25d9bc02d238b313989}{rho\+S}
+\item 
+bool \hyperlink{class_sim___multiphase_a07417107eed36985b3dac706429105b7}{b\+Split}
+\item 
+\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_sim___multiphase_a4651ed9ca83e513c78949f6750b08a4a}{gravity} \mbox{[}2\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_sim___multiphase_a3b0af387ee8f2d55cec7b4cc1376b13d}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{Sim\+\_\+\+Multiphase}]{\setlength{\rightskip}{0pt plus 5cm}Sim\+\_\+\+Multiphase\+::\+Sim\+\_\+\+Multiphase (
+\begin{DoxyParamCaption}
+\item[{const int}]{argc, }
+\item[{const char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\label{class_sim___multiphase_a3b0af387ee8f2d55cec7b4cc1376b13d}
+\hypertarget{class_sim___multiphase_a8d57a950fa22ed37b7bcd509a1c0b332}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!````~Sim\+\_\+\+Multiphase@{$\sim$\+Sim\+\_\+\+Multiphase}}
+\index{````~Sim\+\_\+\+Multiphase@{$\sim$\+Sim\+\_\+\+Multiphase}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{$\sim$\+Sim\+\_\+\+Multiphase}]{\setlength{\rightskip}{0pt plus 5cm}Sim\+\_\+\+Multiphase\+::$\sim$\+Sim\+\_\+\+Multiphase (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_sim___multiphase_a8d57a950fa22ed37b7bcd509a1c0b332}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_sim___multiphase_a1d7da812e0fa53739218cdddf32343ff}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!\+\_\+diagnostics@{\+\_\+diagnostics}}
+\index{\+\_\+diagnostics@{\+\_\+diagnostics}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{\+\_\+diagnostics}]{\setlength{\rightskip}{0pt plus 5cm}void Sim\+\_\+\+Multiphase\+::\+\_\+diagnostics (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{class_sim___multiphase_a1d7da812e0fa53739218cdddf32343ff}
+
+
+Implements \hyperlink{class_simulation___fluid_a6757a185fee17eeedf920c2bf8da2e44}{Simulation\+\_\+\+Fluid}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d91/class_sim___multiphase_a1d7da812e0fa53739218cdddf32343ff_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d91/class_sim___multiphase_a1d7da812e0fa53739218cdddf32343ff_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_sim___multiphase_a479bea55b13a717af30a1657b92899a5}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!\+\_\+dump\+Settings@{\+\_\+dump\+Settings}}
+\index{\+\_\+dump\+Settings@{\+\_\+dump\+Settings}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{\+\_\+dump\+Settings}]{\setlength{\rightskip}{0pt plus 5cm}void Sim\+\_\+\+Multiphase\+::\+\_\+dump\+Settings (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{out\+Stream}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_sim___multiphase_a479bea55b13a717af30a1657b92899a5}
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d91/class_sim___multiphase_a479bea55b13a717af30a1657b92899a5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_sim___multiphase_a430045c05f7a38cca2d0f592f860da9a}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!\+\_\+ic@{\+\_\+ic}}
+\index{\+\_\+ic@{\+\_\+ic}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{\+\_\+ic}]{\setlength{\rightskip}{0pt plus 5cm}void Sim\+\_\+\+Multiphase\+::\+\_\+ic (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{class_sim___multiphase_a430045c05f7a38cca2d0f592f860da9a}
+
+
+Implements \hyperlink{class_simulation___fluid_a98cc2ccad2d48a5ac38cb52d4c18824a}{Simulation\+\_\+\+Fluid}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{dc/d91/class_sim___multiphase_a430045c05f7a38cca2d0f592f860da9a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{dc/d91/class_sim___multiphase_a430045c05f7a38cca2d0f592f860da9a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_sim___multiphase_a870573f19f925731154e4695a4c32cb2}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!\+\_\+input\+Settings@{\+\_\+input\+Settings}}
+\index{\+\_\+input\+Settings@{\+\_\+input\+Settings}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{\+\_\+input\+Settings}]{\setlength{\rightskip}{0pt plus 5cm}void Sim\+\_\+\+Multiphase\+::\+\_\+input\+Settings (
+\begin{DoxyParamCaption}
+\item[{istream \&}]{in\+Stream}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{class_sim___multiphase_a870573f19f925731154e4695a4c32cb2}
+
+
+Reimplemented from \hyperlink{class_simulation___fluid_a5b0c5cf9f094714208ed5d925657bee2}{Simulation\+\_\+\+Fluid}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d91/class_sim___multiphase_a870573f19f925731154e4695a4c32cb2_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_sim___multiphase_a6b730baf4ffad9fba3b830058b3f1fe2}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!\+\_\+non\+Dimensional\+Time@{\+\_\+non\+Dimensional\+Time}}
+\index{\+\_\+non\+Dimensional\+Time@{\+\_\+non\+Dimensional\+Time}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{\+\_\+non\+Dimensional\+Time}]{\setlength{\rightskip}{0pt plus 5cm}double Sim\+\_\+\+Multiphase\+::\+\_\+non\+Dimensional\+Time (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{class_sim___multiphase_a6b730baf4ffad9fba3b830058b3f1fe2}
+
+
+Implements \hyperlink{class_simulation___fluid_acc8ed78a2caec36b0591a8a7070a5c53}{Simulation\+\_\+\+Fluid}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d91/class_sim___multiphase_a6b730baf4ffad9fba3b830058b3f1fe2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_sim___multiphase_ade0448d208af354ba122e626e0fa8bbf}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!\+\_\+output\+Settings@{\+\_\+output\+Settings}}
+\index{\+\_\+output\+Settings@{\+\_\+output\+Settings}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{\+\_\+output\+Settings}]{\setlength{\rightskip}{0pt plus 5cm}void Sim\+\_\+\+Multiphase\+::\+\_\+output\+Settings (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{out\+Stream}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{class_sim___multiphase_ade0448d208af354ba122e626e0fa8bbf}
+
+
+Reimplemented from \hyperlink{class_simulation___fluid_a96614718a72ab760761ce281c74a6c64}{Simulation\+\_\+\+Fluid}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d91/class_sim___multiphase_ade0448d208af354ba122e626e0fa8bbf_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_sim___multiphase_a52fb6d0f477493b813c148a8fce734a5}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!init@{init}}
+\index{init@{init}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void Sim\+\_\+\+Multiphase\+::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_sim___multiphase_a52fb6d0f477493b813c148a8fce734a5}
+
+
+Reimplemented from \hyperlink{class_simulation___fluid_a86324788163a191e09a90ff35471604e}{Simulation\+\_\+\+Fluid}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d91/class_sim___multiphase_a52fb6d0f477493b813c148a8fce734a5_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_sim___multiphase_a3b39123c75007377af01c1bfb1267b44}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!simulate@{simulate}}
+\index{simulate@{simulate}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{simulate}]{\setlength{\rightskip}{0pt plus 5cm}void Sim\+\_\+\+Multiphase\+::simulate (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_sim___multiphase_a3b39123c75007377af01c1bfb1267b44}
+
+
+Implements \hyperlink{class_simulation___fluid_a81e2754617245ce69346272181a5de78}{Simulation\+\_\+\+Fluid}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d91/class_sim___multiphase_a3b39123c75007377af01c1bfb1267b44_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_sim___multiphase_a07417107eed36985b3dac706429105b7}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!b\+Split@{b\+Split}}
+\index{b\+Split@{b\+Split}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{b\+Split}]{\setlength{\rightskip}{0pt plus 5cm}bool Sim\+\_\+\+Multiphase\+::b\+Split\hspace{0.3cm}{\ttfamily [protected]}}\label{class_sim___multiphase_a07417107eed36985b3dac706429105b7}
+\hypertarget{class_sim___multiphase_ac6f721aa2c2702404115f333ece6fa99}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!dt\+C\+F\+L@{dt\+C\+F\+L}}
+\index{dt\+C\+F\+L@{dt\+C\+F\+L}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{dt\+C\+F\+L}]{\setlength{\rightskip}{0pt plus 5cm}double Sim\+\_\+\+Multiphase\+::dt\+C\+F\+L\hspace{0.3cm}{\ttfamily [protected]}}\label{class_sim___multiphase_ac6f721aa2c2702404115f333ece6fa99}
+\hypertarget{class_sim___multiphase_aa7c5d2c194c70c5c86a36982f8ae99c5}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!dt\+Fourier@{dt\+Fourier}}
+\index{dt\+Fourier@{dt\+Fourier}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{dt\+Fourier}]{\setlength{\rightskip}{0pt plus 5cm}double Sim\+\_\+\+Multiphase\+::dt\+Fourier\hspace{0.3cm}{\ttfamily [protected]}}\label{class_sim___multiphase_aa7c5d2c194c70c5c86a36982f8ae99c5}
+\hypertarget{class_sim___multiphase_a4651ed9ca83e513c78949f6750b08a4a}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!gravity@{gravity}}
+\index{gravity@{gravity}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{gravity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Real} Sim\+\_\+\+Multiphase\+::gravity\mbox{[}2\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}\label{class_sim___multiphase_a4651ed9ca83e513c78949f6750b08a4a}
+\hypertarget{class_sim___multiphase_a3699db731e1856ecd2fabf57145791ab}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!min\+Rho@{min\+Rho}}
+\index{min\+Rho@{min\+Rho}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{min\+Rho}]{\setlength{\rightskip}{0pt plus 5cm}double Sim\+\_\+\+Multiphase\+::min\+Rho\hspace{0.3cm}{\ttfamily [protected]}}\label{class_sim___multiphase_a3699db731e1856ecd2fabf57145791ab}
+\hypertarget{class_sim___multiphase_abd7f38e007c07621884d757b19d70b8f}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!nu@{nu}}
+\index{nu@{nu}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{nu}]{\setlength{\rightskip}{0pt plus 5cm}double Sim\+\_\+\+Multiphase\+::nu\hspace{0.3cm}{\ttfamily [protected]}}\label{class_sim___multiphase_abd7f38e007c07621884d757b19d70b8f}
+\hypertarget{class_sim___multiphase_ab75819bd31153d20f56ae0ccfdb6145f}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!re@{re}}
+\index{re@{re}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{re}]{\setlength{\rightskip}{0pt plus 5cm}double Sim\+\_\+\+Multiphase\+::re\hspace{0.3cm}{\ttfamily [protected]}}\label{class_sim___multiphase_ab75819bd31153d20f56ae0ccfdb6145f}
+\hypertarget{class_sim___multiphase_a898c62fc2266a25d9bc02d238b313989}{}\index{Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}!rho\+S@{rho\+S}}
+\index{rho\+S@{rho\+S}!Sim\+\_\+\+Multiphase@{Sim\+\_\+\+Multiphase}}
+\subsubsection[{rho\+S}]{\setlength{\rightskip}{0pt plus 5cm}double Sim\+\_\+\+Multiphase\+::rho\+S\hspace{0.3cm}{\ttfamily [protected]}}\label{class_sim___multiphase_a898c62fc2266a25d9bc02d238b313989}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Cubism\+U\+P\+\_\+2\+D/source/\hyperlink{_sim___multiphase_8h}{Sim\+\_\+\+Multiphase.\+h}\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Cubism\+U\+P\+\_\+2\+D/source/\hyperlink{_sim___multiphase_8cpp}{Sim\+\_\+\+Multiphase.\+cpp}\end{DoxyCompactItemize}

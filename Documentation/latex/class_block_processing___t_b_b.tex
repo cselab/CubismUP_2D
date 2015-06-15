@@ -1,0 +1,127 @@
+\hypertarget{class_block_processing___t_b_b}{}\section{Block\+Processing\+\_\+\+T\+B\+B$<$ Block\+Type $>$ Class Template Reference}
+\label{class_block_processing___t_b_b}\index{Block\+Processing\+\_\+\+T\+B\+B$<$ Block\+Type $>$@{Block\+Processing\+\_\+\+T\+B\+B$<$ Block\+Type $>$}}
+
+
+{\ttfamily \#include $<$Block\+Processing.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_block_processing___t_b_b_a1a3d202984fe1c763a1d3a60ed1c8da8}{Block\+Processing\+\_\+\+T\+B\+B} ()
+\item 
+virtual \hyperlink{class_block_processing___t_b_b_a00a2d6deca06bc723a0e6fbffc0a3a6c}{$\sim$\+Block\+Processing\+\_\+\+T\+B\+B} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Processing , typename Grid $>$ }\\static void \hyperlink{class_block_processing___t_b_b_afb4ac5aee8af3d4e9f3a0f572bdd0a04}{process} (vector$<$ \hyperlink{struct_block_info}{Block\+Info} $>$ \&v\+Info, Processing \&p, \hyperlink{class_grid}{Grid} \&grid, int n\+Granularity=-\/1)
+\item 
+{\footnotesize template$<$typename Lab , typename Grid , typename Processing $>$ }\\static void \hyperlink{class_block_processing___t_b_b_a19d9699a50fba9a15eca0e0e1a7f1efd}{process} (vector$<$ \hyperlink{struct_block_info}{Block\+Info} $>$ \&v\+Info, Processing \&p, \hyperlink{class_grid}{Grid} \&grid, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} t=0, const bool tensorial=false, int n\+Granularity=-\/1)
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Lab $>$ }\\static void \hyperlink{class_block_processing___t_b_b_a4a77964ec9a1bbf0054f4e5e511ae8ea}{\+\_\+get\+Resources} (concurrent\+\_\+queue$<$ \hyperlink{_definitions_8h_ad6f951af9a2a6ebc1975404882b34314}{Lab} $\ast$ $>$ \&resources, const int n\+Slots)
+\item 
+static const \hyperlink{struct_block_info}{Block\+Info} $\ast$ \hyperlink{class_block_processing___t_b_b_a5316cc197b479887abb3c9b74cdf9c31}{\+\_\+prepare\+Block\+Infos} (vector$<$ \hyperlink{struct_block_info}{Block\+Info} $>$ \&v\+Info)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Block\+Type$>$class Block\+Processing\+\_\+\+T\+B\+B$<$ Block\+Type $>$}
+
+Process blocks with tbb (using threads). \begin{DoxySeeAlso}{See also}
+\hyperlink{class_block_processing___t_b_b_afb4ac5aee8af3d4e9f3a0f572bdd0a04}{Block\+Processing\+\_\+\+T\+B\+B\+::process} 
+\end{DoxySeeAlso}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_block_processing___t_b_b_a1a3d202984fe1c763a1d3a60ed1c8da8}{}\index{Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}!Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}}
+\index{Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}!Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}}
+\subsubsection[{Block\+Processing\+\_\+\+T\+B\+B}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block\+Type $>$ {\bf Block\+Processing\+\_\+\+T\+B\+B}$<$ Block\+Type $>$\+::{\bf Block\+Processing\+\_\+\+T\+B\+B} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_block_processing___t_b_b_a1a3d202984fe1c763a1d3a60ed1c8da8}
+\hypertarget{class_block_processing___t_b_b_a00a2d6deca06bc723a0e6fbffc0a3a6c}{}\index{Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}!````~Block\+Processing\+\_\+\+T\+B\+B@{$\sim$\+Block\+Processing\+\_\+\+T\+B\+B}}
+\index{````~Block\+Processing\+\_\+\+T\+B\+B@{$\sim$\+Block\+Processing\+\_\+\+T\+B\+B}!Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}}
+\subsubsection[{$\sim$\+Block\+Processing\+\_\+\+T\+B\+B}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block\+Type $>$ virtual {\bf Block\+Processing\+\_\+\+T\+B\+B}$<$ Block\+Type $>$\+::$\sim${\bf Block\+Processing\+\_\+\+T\+B\+B} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_block_processing___t_b_b_a00a2d6deca06bc723a0e6fbffc0a3a6c}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_block_processing___t_b_b_a4a77964ec9a1bbf0054f4e5e511ae8ea}{}\index{Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}!\+\_\+get\+Resources@{\+\_\+get\+Resources}}
+\index{\+\_\+get\+Resources@{\+\_\+get\+Resources}!Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}}
+\subsubsection[{\+\_\+get\+Resources}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block\+Type $>$ template$<$typename Lab $>$ static void {\bf Block\+Processing\+\_\+\+T\+B\+B}$<$ Block\+Type $>$\+::\+\_\+get\+Resources (
+\begin{DoxyParamCaption}
+\item[{concurrent\+\_\+queue$<$ {\bf Lab} $\ast$ $>$ \&}]{resources, }
+\item[{const int}]{n\+Slots}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}\label{class_block_processing___t_b_b_a4a77964ec9a1bbf0054f4e5e511ae8ea}
+\hypertarget{class_block_processing___t_b_b_a5316cc197b479887abb3c9b74cdf9c31}{}\index{Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}!\+\_\+prepare\+Block\+Infos@{\+\_\+prepare\+Block\+Infos}}
+\index{\+\_\+prepare\+Block\+Infos@{\+\_\+prepare\+Block\+Infos}!Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}}
+\subsubsection[{\+\_\+prepare\+Block\+Infos}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block\+Type $>$ static const {\bf Block\+Info}$\ast$ {\bf Block\+Processing\+\_\+\+T\+B\+B}$<$ Block\+Type $>$\+::\+\_\+prepare\+Block\+Infos (
+\begin{DoxyParamCaption}
+\item[{vector$<$ {\bf Block\+Info} $>$ \&}]{v\+Info}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}\label{class_block_processing___t_b_b_a5316cc197b479887abb3c9b74cdf9c31}
+\hypertarget{class_block_processing___t_b_b_afb4ac5aee8af3d4e9f3a0f572bdd0a04}{}\index{Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}!process@{process}}
+\index{process@{process}!Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}}
+\subsubsection[{process}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block\+Type $>$ template$<$typename Processing , typename Grid $>$ static void {\bf Block\+Processing\+\_\+\+T\+B\+B}$<$ Block\+Type $>$\+::process (
+\begin{DoxyParamCaption}
+\item[{vector$<$ {\bf Block\+Info} $>$ \&}]{v\+Info, }
+\item[{Processing \&}]{p, }
+\item[{{\bf Grid} \&}]{grid, }
+\item[{int}]{n\+Granularity = {\ttfamily -\/1}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_block_processing___t_b_b_afb4ac5aee8af3d4e9f3a0f572bdd0a04}
+Process blocks in parallel using parallel\+\_\+for (see tbb-\/doc) to split up the work. 
+\begin{DoxyParams}{Parameters}
+{\em v\+Info} & Info of all the blocks (to be processed) in the grid (e.\+g. result of \hyperlink{class_grid_a39aa8cb7fad1abcfe40fdd77d9b72d8a}{Grid\+::get\+Blocks\+Info()}). \\
+\hline
+{\em c} & Collection of all the blocks (to be processed) in the grid (e.\+g. result of Grid\+::get\+Block\+Collection()). \\
+\hline
+{\em p} & Functor processing the block. See M\+R\+A\+G\+::\+Multithreading\+::\+Dummy\+Simple\+Block\+Functor for details. \\
+\hline
+{\em n\+Granularity} & Granularity for the parallel\+\_\+for (see tbb-\/doc). Optional\+: if not set, auto\+\_\+partitioner (see tbb-\/doc) will be used. \\
+\hline
+\end{DoxyParams}
+
+
+Here is the caller graph for this function\+:
+% FIG 0
+
+
+\hypertarget{class_block_processing___t_b_b_a19d9699a50fba9a15eca0e0e1a7f1efd}{}\index{Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}!process@{process}}
+\index{process@{process}!Block\+Processing\+\_\+\+T\+B\+B@{Block\+Processing\+\_\+\+T\+B\+B}}
+\subsubsection[{process}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block\+Type $>$ template$<$typename Lab , typename Grid , typename Processing $>$ static void {\bf Block\+Processing\+\_\+\+T\+B\+B}$<$ Block\+Type $>$\+::process (
+\begin{DoxyParamCaption}
+\item[{vector$<$ {\bf Block\+Info} $>$ \&}]{v\+Info, }
+\item[{Processing \&}]{p, }
+\item[{{\bf Grid} \&}]{grid, }
+\item[{const {\bf Real}}]{t = {\ttfamily 0}, }
+\item[{const bool}]{tensorial = {\ttfamily false}, }
+\item[{int}]{n\+Granularity = {\ttfamily -\/1}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_block_processing___t_b_b_a19d9699a50fba9a15eca0e0e1a7f1efd}
+Process blocks in parallel using parallel\+\_\+for (see tbb-\/doc) to split up the work. 
+\begin{DoxyParams}{Parameters}
+{\em v\+Info} & Info of all the blocks (to be processed) in the grid (e.\+g. result of \hyperlink{class_grid_a39aa8cb7fad1abcfe40fdd77d9b72d8a}{Grid\+::get\+Blocks\+Info()}). \\
+\hline
+{\em c} & Collection of all the blocks (to be processed) in the grid (e.\+g. result of Grid\+::get\+Block\+Collection()). \\
+\hline
+{\em b} & Info on the boundaries of the grid (e.\+g. result of Grid\+::get\+Boundary\+Info()) \\
+\hline
+{\em p} & Functor processing the block. See M\+R\+A\+G\+::\+Multithreading\+::\+Dummy\+Block\+Functor for details. \\
+\hline
+{\em n\+Granularity} & Granularity for the parallel\+\_\+for (see tbb-\/doc). Optional\+: if not set, auto\+\_\+partitioner (see tbb-\/doc) will be used. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/\+Cubism/\hyperlink{_block_processing_8h}{Block\+Processing.\+h}\end{DoxyCompactItemize}

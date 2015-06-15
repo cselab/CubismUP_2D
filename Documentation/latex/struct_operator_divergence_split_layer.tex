@@ -1,0 +1,121 @@
+\hypertarget{struct_operator_divergence_split_layer}{}\section{Operator\+Divergence\+Split\+Layer Struct Reference}
+\label{struct_operator_divergence_split_layer}\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+
+
+{\ttfamily \#include $<$Operator\+Divergence.\+h$>$}
+
+
+
+Collaboration diagram for Operator\+Divergence\+Split\+Layer\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{struct_operator_divergence_split_layer_a295391ce7409255d79703a289fed4e7b}{\+\_\+mean} (const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} c, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} e, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} w, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} n, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} s, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+E, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+W, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+N, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \&avg\+S) const 
+\item 
+\hyperlink{struct_operator_divergence_split_layer_adb870cc91b9c8ac69230cf5f35b625db}{Operator\+Divergence\+Split\+Layer} (\hyperlink{struct_layer}{Layer} \&\hyperlink{struct_operator_divergence_split_layer_a3a87749be5cb9a36faa6bb9b181eed6a}{divergence}, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{struct_operator_divergence_split_layer_acb5c6d750885812f5d90eca819c596a4}{rho0}, const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{struct_operator_divergence_split_layer_a59181ec749701cf53d055a6e75e5486c}{dt}, const int \hyperlink{struct_operator_divergence_split_layer_a40f9ce0dcd01080cc50c0ce22a4a3eb4}{step})
+\item 
+\hyperlink{struct_operator_divergence_split_layer_a72db398a6d2ecb9ac29b6db752802bda}{$\sim$\+Operator\+Divergence\+Split\+Layer} ()
+\item 
+{\footnotesize template$<$typename Lab , typename Block\+Type $>$ }\\void \hyperlink{struct_operator_divergence_split_layer_a87a9676b91dbe960ebcb4a00463e4aa6}{operator()} (\hyperlink{_definitions_8h_ad6f951af9a2a6ebc1975404882b34314}{Lab} \&lab, const \hyperlink{struct_block_info}{Block\+Info} \&info, Block\+Type \&o) const 
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{struct_operator_divergence_split_layer_a404346d4f53ec8d77d62657b75f8db30}{stencil\+\_\+start} \mbox{[}3\mbox{]}
+\item 
+int \hyperlink{struct_operator_divergence_split_layer_a206b9c02b36823ef678e80407fffd1b4}{stencil\+\_\+end} \mbox{[}3\mbox{]}
+\item 
+\hyperlink{struct_layer}{Layer} \& \hyperlink{struct_operator_divergence_split_layer_a3a87749be5cb9a36faa6bb9b181eed6a}{divergence}
+\item 
+const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{struct_operator_divergence_split_layer_acb5c6d750885812f5d90eca819c596a4}{rho0}
+\item 
+const \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{struct_operator_divergence_split_layer_a59181ec749701cf53d055a6e75e5486c}{dt}
+\item 
+const int \hyperlink{struct_operator_divergence_split_layer_a40f9ce0dcd01080cc50c0ce22a4a3eb4}{step}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{struct_operator_divergence_split_layer_adb870cc91b9c8ac69230cf5f35b625db}{}\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}!Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}!Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+\subsubsection[{Operator\+Divergence\+Split\+Layer}]{\setlength{\rightskip}{0pt plus 5cm}Operator\+Divergence\+Split\+Layer\+::\+Operator\+Divergence\+Split\+Layer (
+\begin{DoxyParamCaption}
+\item[{{\bf Layer} \&}]{divergence, }
+\item[{const {\bf Real}}]{rho0, }
+\item[{const {\bf Real}}]{dt, }
+\item[{const int}]{step}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{struct_operator_divergence_split_layer_adb870cc91b9c8ac69230cf5f35b625db}
+\hypertarget{struct_operator_divergence_split_layer_a72db398a6d2ecb9ac29b6db752802bda}{}\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}!````~Operator\+Divergence\+Split\+Layer@{$\sim$\+Operator\+Divergence\+Split\+Layer}}
+\index{````~Operator\+Divergence\+Split\+Layer@{$\sim$\+Operator\+Divergence\+Split\+Layer}!Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+\subsubsection[{$\sim$\+Operator\+Divergence\+Split\+Layer}]{\setlength{\rightskip}{0pt plus 5cm}Operator\+Divergence\+Split\+Layer\+::$\sim$\+Operator\+Divergence\+Split\+Layer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{struct_operator_divergence_split_layer_a72db398a6d2ecb9ac29b6db752802bda}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{struct_operator_divergence_split_layer_a295391ce7409255d79703a289fed4e7b}{}\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}!\+\_\+mean@{\+\_\+mean}}
+\index{\+\_\+mean@{\+\_\+mean}!Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+\subsubsection[{\+\_\+mean}]{\setlength{\rightskip}{0pt plus 5cm}void Operator\+Divergence\+Split\+Layer\+::\+\_\+mean (
+\begin{DoxyParamCaption}
+\item[{const {\bf Real}}]{c, }
+\item[{const {\bf Real}}]{e, }
+\item[{const {\bf Real}}]{w, }
+\item[{const {\bf Real}}]{n, }
+\item[{const {\bf Real}}]{s, }
+\item[{{\bf Real} \&}]{avg\+E, }
+\item[{{\bf Real} \&}]{avg\+W, }
+\item[{{\bf Real} \&}]{avg\+N, }
+\item[{{\bf Real} \&}]{avg\+S}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{struct_operator_divergence_split_layer_a295391ce7409255d79703a289fed4e7b}
+
+
+Here is the caller graph for this function\+:
+% FIG 1
+
+
+\hypertarget{struct_operator_divergence_split_layer_a87a9676b91dbe960ebcb4a00463e4aa6}{}\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}!operator()@{operator()}}
+\index{operator()@{operator()}!Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Lab , typename Block\+Type $>$ void Operator\+Divergence\+Split\+Layer\+::operator() (
+\begin{DoxyParamCaption}
+\item[{{\bf Lab} \&}]{lab, }
+\item[{const {\bf Block\+Info} \&}]{info, }
+\item[{Block\+Type \&}]{o}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{struct_operator_divergence_split_layer_a87a9676b91dbe960ebcb4a00463e4aa6}
+
+
+Here is the call graph for this function\+:
+% FIG 2
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{struct_operator_divergence_split_layer_a3a87749be5cb9a36faa6bb9b181eed6a}{}\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}!divergence@{divergence}}
+\index{divergence@{divergence}!Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+\subsubsection[{divergence}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Layer}\& Operator\+Divergence\+Split\+Layer\+::divergence}\label{struct_operator_divergence_split_layer_a3a87749be5cb9a36faa6bb9b181eed6a}
+\hypertarget{struct_operator_divergence_split_layer_a59181ec749701cf53d055a6e75e5486c}{}\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}!dt@{dt}}
+\index{dt@{dt}!Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+\subsubsection[{dt}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Real} Operator\+Divergence\+Split\+Layer\+::dt}\label{struct_operator_divergence_split_layer_a59181ec749701cf53d055a6e75e5486c}
+\hypertarget{struct_operator_divergence_split_layer_acb5c6d750885812f5d90eca819c596a4}{}\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}!rho0@{rho0}}
+\index{rho0@{rho0}!Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+\subsubsection[{rho0}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Real} Operator\+Divergence\+Split\+Layer\+::rho0}\label{struct_operator_divergence_split_layer_acb5c6d750885812f5d90eca819c596a4}
+\hypertarget{struct_operator_divergence_split_layer_a206b9c02b36823ef678e80407fffd1b4}{}\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}!stencil\+\_\+end@{stencil\+\_\+end}}
+\index{stencil\+\_\+end@{stencil\+\_\+end}!Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+\subsubsection[{stencil\+\_\+end}]{\setlength{\rightskip}{0pt plus 5cm}int Operator\+Divergence\+Split\+Layer\+::stencil\+\_\+end\mbox{[}3\mbox{]}}\label{struct_operator_divergence_split_layer_a206b9c02b36823ef678e80407fffd1b4}
+\hypertarget{struct_operator_divergence_split_layer_a404346d4f53ec8d77d62657b75f8db30}{}\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}!stencil\+\_\+start@{stencil\+\_\+start}}
+\index{stencil\+\_\+start@{stencil\+\_\+start}!Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+\subsubsection[{stencil\+\_\+start}]{\setlength{\rightskip}{0pt plus 5cm}int Operator\+Divergence\+Split\+Layer\+::stencil\+\_\+start\mbox{[}3\mbox{]}}\label{struct_operator_divergence_split_layer_a404346d4f53ec8d77d62657b75f8db30}
+\hypertarget{struct_operator_divergence_split_layer_a40f9ce0dcd01080cc50c0ce22a4a3eb4}{}\index{Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}!step@{step}}
+\index{step@{step}!Operator\+Divergence\+Split\+Layer@{Operator\+Divergence\+Split\+Layer}}
+\subsubsection[{step}]{\setlength{\rightskip}{0pt plus 5cm}const int Operator\+Divergence\+Split\+Layer\+::step}\label{struct_operator_divergence_split_layer_a40f9ce0dcd01080cc50c0ce22a4a3eb4}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/source/\hyperlink{_operator_divergence_8h}{Operator\+Divergence.\+h}\end{DoxyCompactItemize}

@@ -1,0 +1,215 @@
+\hypertarget{class_velocity_solver___f_f_t_w}{}\section{Velocity\+Solver\+\_\+\+F\+F\+T\+W Class Reference}
+\label{class_velocity_solver___f_f_t_w}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+
+
+{\ttfamily \#include $<$Operators\+\_\+\+D\+F\+T.\+h$>$}
+
+
+
+Inheritance diagram for Velocity\+Solver\+\_\+\+F\+F\+T\+W\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_velocity_solver___f_f_t_w_ae7c2966900d04a6a3cab0803ff42127f}{Velocity\+Solver\+\_\+\+F\+F\+T\+W} (bool b\+Double\+Precision, \hyperlink{struct_layer}{Layer} \&vorticity)
+\item 
+\hyperlink{class_velocity_solver___f_f_t_w_a6e7208c1edddd4f703a640847fe8c02a}{$\sim$\+Velocity\+Solver\+\_\+\+F\+F\+T\+W} ()
+\item 
+void \hyperlink{class_velocity_solver___f_f_t_w_a95cbb50d8bfc937b4d9bcd9a97b7228f}{operator()} (\hyperlink{struct_layer}{Layer} \&velocity, int Finite\+Difference\+Dir=0)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Real\+Type $>$ }\\void \hyperlink{class_velocity_solver___f_f_t_w_abdfd608707a973bbbf83a1c3fabec7c7}{\+\_\+init} (Real\+Type $\ast$vorticity, Real\+Type($\ast$\&\hyperlink{class_velocity_solver___f_f_t_w_a589908f23d4caf65f23017d816c81dce}{data\+\_\+fourier})\mbox{[}2\mbox{]}, Real\+Type $\ast$\hyperlink{class_velocity_solver___f_f_t_w_ac0176cfda775251bb353dc0fdd3a21a4}{psi\+\_\+physical})
+\item 
+void \hyperlink{class_velocity_solver___f_f_t_w_a58ab8fe9aebab8bbdb516fdfd527848a}{\+\_\+solve\+\_\+phi} (int size\+X, int size\+Y, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} H)
+\item 
+void \hyperlink{class_velocity_solver___f_f_t_w_a91285c45bc852d516b7ce421669f0b35}{\+\_\+solve\+\_\+phi\+\_\+core} (\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real}($\ast$\&\hyperlink{class_velocity_solver___f_f_t_w_a589908f23d4caf65f23017d816c81dce}{data\+\_\+fourier})\mbox{[}2\mbox{]}, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} H)
+\item 
+void \hyperlink{class_velocity_solver___f_f_t_w_ae093f8304949af0da930801698b00b87}{\+\_\+dispose} ()
+\item 
+{\footnotesize template$<$int F\+Ddir$>$ }\\void \hyperlink{class_velocity_solver___f_f_t_w_aa21455721c66e3c1ccb3f500ca25e769}{\+\_\+solve\+\_\+velocity} (const \hyperlink{struct_layer}{Layer} \&psi, \hyperlink{struct_layer}{Layer} \&velocity)
+\item 
+{\footnotesize template$<$$>$ }\\void \hyperlink{class_velocity_solver___f_f_t_w_a53606eb60568de76bc3e1e10fc1058f0}{\+\_\+init} (double $\ast$vorticity, double($\ast$\&\hyperlink{class_velocity_solver___f_f_t_w_a589908f23d4caf65f23017d816c81dce}{data\+\_\+fourier})\mbox{[}2\mbox{]}, double $\ast$\hyperlink{class_velocity_solver___f_f_t_w_ac0176cfda775251bb353dc0fdd3a21a4}{psi\+\_\+physical})
+\item 
+{\footnotesize template$<$$>$ }\\void \hyperlink{class_velocity_solver___f_f_t_w_a19b4ffcddba24dd983bfea58870e8718}{\+\_\+init} (float $\ast$vorticity, float($\ast$\&\hyperlink{class_velocity_solver___f_f_t_w_a589908f23d4caf65f23017d816c81dce}{data\+\_\+fourier})\mbox{[}2\mbox{]}, float $\ast$\hyperlink{class_velocity_solver___f_f_t_w_ac0176cfda775251bb353dc0fdd3a21a4}{psi\+\_\+physical})
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_velocity_solver___f_f_t_w_a048fe11e72b178af7649856b3671bf91}{m\+\_\+b\+Double\+Precision}
+\item 
+int \hyperlink{class_velocity_solver___f_f_t_w_aacf92cd1fa310188280e3c7f6352bede}{m\+\_\+n\+Size} \mbox{[}2\mbox{]}
+\item 
+\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real}($\ast$ \hyperlink{class_velocity_solver___f_f_t_w_a589908f23d4caf65f23017d816c81dce}{data\+\_\+fourier} )\mbox{[}2\mbox{]}
+\item 
+\hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $\ast$ \hyperlink{class_velocity_solver___f_f_t_w_ac0176cfda775251bb353dc0fdd3a21a4}{psi\+\_\+physical}
+\item 
+void $\ast$ \hyperlink{class_velocity_solver___f_f_t_w_a4dbf941c9ca2b6dd4fc14380c7b8ebc6}{fftw\+\_\+metadata}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_velocity_solver___f_f_t_w_ae7c2966900d04a6a3cab0803ff42127f}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{Velocity\+Solver\+\_\+\+F\+F\+T\+W}]{\setlength{\rightskip}{0pt plus 5cm}Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::\+Velocity\+Solver\+\_\+\+F\+F\+T\+W (
+\begin{DoxyParamCaption}
+\item[{bool}]{b\+Double\+Precision, }
+\item[{{\bf Layer} \&}]{vorticity}
+\end{DoxyParamCaption}
+)}\label{class_velocity_solver___f_f_t_w_ae7c2966900d04a6a3cab0803ff42127f}
+
+
+Here is the call graph for this function\+:
+% FIG 1
+
+
+\hypertarget{class_velocity_solver___f_f_t_w_a6e7208c1edddd4f703a640847fe8c02a}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!````~Velocity\+Solver\+\_\+\+F\+F\+T\+W@{$\sim$\+Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\index{````~Velocity\+Solver\+\_\+\+F\+F\+T\+W@{$\sim$\+Velocity\+Solver\+\_\+\+F\+F\+T\+W}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{$\sim$\+Velocity\+Solver\+\_\+\+F\+F\+T\+W}]{\setlength{\rightskip}{0pt plus 5cm}Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::$\sim$\+Velocity\+Solver\+\_\+\+F\+F\+T\+W (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_velocity_solver___f_f_t_w_a6e7208c1edddd4f703a640847fe8c02a}
+
+
+Here is the call graph for this function\+:
+% FIG 2
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_velocity_solver___f_f_t_w_ae093f8304949af0da930801698b00b87}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!\+\_\+dispose@{\+\_\+dispose}}
+\index{\+\_\+dispose@{\+\_\+dispose}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+dispose}]{\setlength{\rightskip}{0pt plus 5cm}void Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::\+\_\+dispose (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_ae093f8304949af0da930801698b00b87}
+
+
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\hypertarget{class_velocity_solver___f_f_t_w_a53606eb60568de76bc3e1e10fc1058f0}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!\+\_\+init@{\+\_\+init}}
+\index{\+\_\+init@{\+\_\+init}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}template$<$$>$ void Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{vorticity, }
+\item[{double($\ast$\&)}]{data\+\_\+fourier\mbox{[}2\mbox{]}, }
+\item[{double $\ast$}]{psi\+\_\+physical}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_a53606eb60568de76bc3e1e10fc1058f0}
+\hypertarget{class_velocity_solver___f_f_t_w_a19b4ffcddba24dd983bfea58870e8718}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!\+\_\+init@{\+\_\+init}}
+\index{\+\_\+init@{\+\_\+init}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}template$<$$>$ void Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{vorticity, }
+\item[{float($\ast$\&)}]{data\+\_\+fourier\mbox{[}2\mbox{]}, }
+\item[{float $\ast$}]{psi\+\_\+physical}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_a19b4ffcddba24dd983bfea58870e8718}
+\hypertarget{class_velocity_solver___f_f_t_w_abdfd608707a973bbbf83a1c3fabec7c7}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!\+\_\+init@{\+\_\+init}}
+\index{\+\_\+init@{\+\_\+init}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Real\+Type $>$ void Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{Real\+Type $\ast$}]{vorticity, }
+\item[{Real\+Type($\ast$\&)}]{data\+\_\+fourier\mbox{[}2\mbox{]}, }
+\item[{Real\+Type $\ast$}]{psi\+\_\+physical}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_abdfd608707a973bbbf83a1c3fabec7c7}
+
+
+Here is the caller graph for this function\+:
+% FIG 4
+
+
+\hypertarget{class_velocity_solver___f_f_t_w_a58ab8fe9aebab8bbdb516fdfd527848a}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!\+\_\+solve\+\_\+phi@{\+\_\+solve\+\_\+phi}}
+\index{\+\_\+solve\+\_\+phi@{\+\_\+solve\+\_\+phi}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+solve\+\_\+phi}]{\setlength{\rightskip}{0pt plus 5cm}void Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::\+\_\+solve\+\_\+phi (
+\begin{DoxyParamCaption}
+\item[{int}]{size\+X, }
+\item[{int}]{size\+Y, }
+\item[{{\bf Real}}]{H}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_a58ab8fe9aebab8bbdb516fdfd527848a}
+
+
+Here is the call graph for this function\+:
+% FIG 5
+
+
+
+
+Here is the caller graph for this function\+:
+% FIG 6
+
+
+\hypertarget{class_velocity_solver___f_f_t_w_a91285c45bc852d516b7ce421669f0b35}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!\+\_\+solve\+\_\+phi\+\_\+core@{\+\_\+solve\+\_\+phi\+\_\+core}}
+\index{\+\_\+solve\+\_\+phi\+\_\+core@{\+\_\+solve\+\_\+phi\+\_\+core}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+solve\+\_\+phi\+\_\+core}]{\setlength{\rightskip}{0pt plus 5cm}void Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::\+\_\+solve\+\_\+phi\+\_\+core (
+\begin{DoxyParamCaption}
+\item[{{\bf Real}($\ast$\&)}]{data\+\_\+fourier\mbox{[}2\mbox{]}, }
+\item[{{\bf Real}}]{H}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_a91285c45bc852d516b7ce421669f0b35}
+
+
+Here is the caller graph for this function\+:
+% FIG 7
+
+
+\hypertarget{class_velocity_solver___f_f_t_w_aa21455721c66e3c1ccb3f500ca25e769}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!\+\_\+solve\+\_\+velocity@{\+\_\+solve\+\_\+velocity}}
+\index{\+\_\+solve\+\_\+velocity@{\+\_\+solve\+\_\+velocity}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+solve\+\_\+velocity}]{\setlength{\rightskip}{0pt plus 5cm}template$<$int F\+Ddir$>$ void Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::\+\_\+solve\+\_\+velocity (
+\begin{DoxyParamCaption}
+\item[{const {\bf Layer} \&}]{psi, }
+\item[{{\bf Layer} \&}]{velocity}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_aa21455721c66e3c1ccb3f500ca25e769}
+
+
+Here is the call graph for this function\+:
+% FIG 8
+
+
+\hypertarget{class_velocity_solver___f_f_t_w_a95cbb50d8bfc937b4d9bcd9a97b7228f}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!operator()@{operator()}}
+\index{operator()@{operator()}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}void Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::operator() (
+\begin{DoxyParamCaption}
+\item[{{\bf Layer} \&}]{velocity, }
+\item[{int}]{Finite\+Difference\+Dir = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_velocity_solver___f_f_t_w_a95cbb50d8bfc937b4d9bcd9a97b7228f}
+
+
+Here is the call graph for this function\+:
+% FIG 9
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_velocity_solver___f_f_t_w_a589908f23d4caf65f23017d816c81dce}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!data\+\_\+fourier@{data\+\_\+fourier}}
+\index{data\+\_\+fourier@{data\+\_\+fourier}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{data\+\_\+fourier}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Real}($\ast$ Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::data\+\_\+fourier)\mbox{[}2\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_a589908f23d4caf65f23017d816c81dce}
+\hypertarget{class_velocity_solver___f_f_t_w_a4dbf941c9ca2b6dd4fc14380c7b8ebc6}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!fftw\+\_\+metadata@{fftw\+\_\+metadata}}
+\index{fftw\+\_\+metadata@{fftw\+\_\+metadata}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{fftw\+\_\+metadata}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::fftw\+\_\+metadata\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_a4dbf941c9ca2b6dd4fc14380c7b8ebc6}
+\hypertarget{class_velocity_solver___f_f_t_w_a048fe11e72b178af7649856b3671bf91}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!m\+\_\+b\+Double\+Precision@{m\+\_\+b\+Double\+Precision}}
+\index{m\+\_\+b\+Double\+Precision@{m\+\_\+b\+Double\+Precision}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{m\+\_\+b\+Double\+Precision}]{\setlength{\rightskip}{0pt plus 5cm}bool Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::m\+\_\+b\+Double\+Precision\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_a048fe11e72b178af7649856b3671bf91}
+\hypertarget{class_velocity_solver___f_f_t_w_aacf92cd1fa310188280e3c7f6352bede}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!m\+\_\+n\+Size@{m\+\_\+n\+Size}}
+\index{m\+\_\+n\+Size@{m\+\_\+n\+Size}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{m\+\_\+n\+Size}]{\setlength{\rightskip}{0pt plus 5cm}int Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::m\+\_\+n\+Size\mbox{[}2\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_aacf92cd1fa310188280e3c7f6352bede}
+\hypertarget{class_velocity_solver___f_f_t_w_ac0176cfda775251bb353dc0fdd3a21a4}{}\index{Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}!psi\+\_\+physical@{psi\+\_\+physical}}
+\index{psi\+\_\+physical@{psi\+\_\+physical}!Velocity\+Solver\+\_\+\+F\+F\+T\+W@{Velocity\+Solver\+\_\+\+F\+F\+T\+W}}
+\subsubsection[{psi\+\_\+physical}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Real}$\ast$ Velocity\+Solver\+\_\+\+F\+F\+T\+W\+::psi\+\_\+physical\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___f_f_t_w_ac0176cfda775251bb353dc0fdd3a21a4}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/source/\hyperlink{_operators___d_f_t_8h}{Operators\+\_\+\+D\+F\+T.\+h}\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/source/\hyperlink{_operators___d_f_t___f_f_t_w_8cpp}{Operators\+\_\+\+D\+F\+T\+\_\+\+F\+F\+T\+W.\+cpp}\end{DoxyCompactItemize}

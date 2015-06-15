@@ -1,0 +1,15 @@
+digraph "Sim_FSI_Gravity"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Sim_FSI_Gravity",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="firebrick4",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Sim_FSI_Fixed",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_sim___f_s_i___fixed.html"];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" grid" ,fontname="Helvetica"];
+  Node3 [label="Grid\< Block, allocator \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_grid.html"];
+  Node4 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" parser" ,fontname="Helvetica"];
+  Node4 [label="ArgumentParser",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_argument_parser.html"];
+  Node5 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" dumper" ,fontname="Helvetica"];
+  Node5 [label="SerializerIO_ImageVTK\l\< Grid, FluidVTKStreamer \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_serializer_i_o___image_v_t_k.html"];
+}

@@ -1,0 +1,214 @@
+\hypertarget{class_interface_f_f_t_w}{}\section{Interface\+F\+F\+T\+W Class Reference}
+\label{class_interface_f_f_t_w}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+
+
+{\ttfamily \#include $<$Interface\+F\+F\+T\+W.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$$>$ }\\void \hyperlink{class_interface_f_f_t_w_a89d340aba6fcaef5f9a50b106970192d}{\+\_\+allocate\+Region} (int n\+X, int n\+Y, double $\ast$\&t)
+\item 
+{\footnotesize template$<$$>$ }\\void \hyperlink{class_interface_f_f_t_w_a2433f0af2a6e14b35b998e90c25d7d85}{\+\_\+allocate\+Region} (int n\+X, int n\+Y, float $\ast$\&t)
+\item 
+{\footnotesize template$<$$>$ }\\void \hyperlink{class_interface_f_f_t_w_a5a6de494f17509cefb39883070592850}{\+\_\+allocate\+Region} (int n\+X, int n\+Y, double($\ast$\&t)\mbox{[}2\mbox{]})
+\item 
+{\footnotesize template$<$$>$ }\\void \hyperlink{class_interface_f_f_t_w_a0dfcb16dd95359fe2303f8a8a54f2259}{\+\_\+allocate\+Region} (int n\+X, int n\+Y, float($\ast$\&t)\mbox{[}2\mbox{]})
+\item 
+{\footnotesize template$<$$>$ }\\void \hyperlink{class_interface_f_f_t_w_ac5a59260adf072482e2230d97a438555}{\+\_\+deallocate\+Region} (float $\ast$t)
+\item 
+{\footnotesize template$<$$>$ }\\void \hyperlink{class_interface_f_f_t_w_a8df6e111ef75919697422e471d59cbab}{\+\_\+deallocate\+Region} (double $\ast$t)
+\item 
+{\footnotesize template$<$$>$ }\\void \hyperlink{class_interface_f_f_t_w_a779ecab958e3cabfcc3bc21d6cd0164d}{\+\_\+deallocate\+Region} (float($\ast$t)\mbox{[}2\mbox{]})
+\item 
+{\footnotesize template$<$$>$ }\\void \hyperlink{class_interface_f_f_t_w_aef606f9df4caa5e1a0532de1460ba8f8}{\+\_\+deallocate\+Region} (double($\ast$t)\mbox{[}2\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\static void \hyperlink{class_interface_f_f_t_w_ad0a54971c30188421efa89e7bb1de5be}{allocate\+Matrix} (\hyperlink{class_matrix2_d}{Matrix2\+D}$<$ T $>$ $\ast$\&mat, int n\+X, int n\+Y)
+\item 
+{\footnotesize template$<$typename T $>$ }\\static void \hyperlink{class_interface_f_f_t_w_a596e338aa62af9353d2fc61b5b39d989}{deallocate\+Matrix} (\hyperlink{class_matrix2_d}{Matrix2\+D}$<$ T $>$ $\ast$\&mat)
+\item 
+{\footnotesize template$<$typename T $>$ }\\static void \hyperlink{class_interface_f_f_t_w_ae4f34532c57a98db7339f8726054c497}{create\+Plan\+Forward} (string s\+Plan\+Name, \hyperlink{class_matrix2_d}{Matrix2\+D}$<$ T $>$ \&mat\+In, \hyperlink{class_matrix2_d}{Matrix2\+D}$<$ T\mbox{[}2\mbox{]}$>$ \&mat\+Out)
+\item 
+{\footnotesize template$<$typename T $>$ }\\static void \hyperlink{class_interface_f_f_t_w_a4986e58342aa4f57a1dc4d3f580d3241}{create\+Plan\+Backward} (string s\+Plan\+Name, \hyperlink{class_matrix2_d}{Matrix2\+D}$<$ T\mbox{[}2\mbox{]}$>$ \&mat\+In, \hyperlink{class_matrix2_d}{Matrix2\+D}$<$ T $>$ \&mat\+Out)
+\item 
+static void \hyperlink{class_interface_f_f_t_w_a924f23a03902c771f1ebd06ce9fe65a7}{erase\+Plan} (string s\+Plan\+Name)
+\item 
+static void \hyperlink{class_interface_f_f_t_w_ab8a43c25e4cef9fef7c5e842084a367d}{execute\+Plan} (string s\+Plan\+Name)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_interface_f_f_t_w_a89d340aba6fcaef5f9a50b106970192d}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!\+\_\+allocate\+Region@{\+\_\+allocate\+Region}}
+\index{\+\_\+allocate\+Region@{\+\_\+allocate\+Region}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+allocate\+Region}]{\setlength{\rightskip}{0pt plus 5cm}template$<$$>$ void Interface\+F\+F\+T\+W\+::\+\_\+allocate\+Region (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+X, }
+\item[{int}]{n\+Y, }
+\item[{double $\ast$\&}]{t}
+\end{DoxyParamCaption}
+)}\label{class_interface_f_f_t_w_a89d340aba6fcaef5f9a50b106970192d}
+\hypertarget{class_interface_f_f_t_w_a2433f0af2a6e14b35b998e90c25d7d85}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!\+\_\+allocate\+Region@{\+\_\+allocate\+Region}}
+\index{\+\_\+allocate\+Region@{\+\_\+allocate\+Region}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+allocate\+Region}]{\setlength{\rightskip}{0pt plus 5cm}template$<$$>$ void Interface\+F\+F\+T\+W\+::\+\_\+allocate\+Region (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+X, }
+\item[{int}]{n\+Y, }
+\item[{float $\ast$\&}]{t}
+\end{DoxyParamCaption}
+)}\label{class_interface_f_f_t_w_a2433f0af2a6e14b35b998e90c25d7d85}
+\hypertarget{class_interface_f_f_t_w_a5a6de494f17509cefb39883070592850}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!\+\_\+allocate\+Region@{\+\_\+allocate\+Region}}
+\index{\+\_\+allocate\+Region@{\+\_\+allocate\+Region}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+allocate\+Region}]{\setlength{\rightskip}{0pt plus 5cm}template$<$$>$ void Interface\+F\+F\+T\+W\+::\+\_\+allocate\+Region (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+X, }
+\item[{int}]{n\+Y, }
+\item[{double($\ast$\&)}]{t\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{class_interface_f_f_t_w_a5a6de494f17509cefb39883070592850}
+\hypertarget{class_interface_f_f_t_w_a0dfcb16dd95359fe2303f8a8a54f2259}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!\+\_\+allocate\+Region@{\+\_\+allocate\+Region}}
+\index{\+\_\+allocate\+Region@{\+\_\+allocate\+Region}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+allocate\+Region}]{\setlength{\rightskip}{0pt plus 5cm}template$<$$>$ void Interface\+F\+F\+T\+W\+::\+\_\+allocate\+Region (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+X, }
+\item[{int}]{n\+Y, }
+\item[{float($\ast$\&)}]{t\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{class_interface_f_f_t_w_a0dfcb16dd95359fe2303f8a8a54f2259}
+\hypertarget{class_interface_f_f_t_w_ac5a59260adf072482e2230d97a438555}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!\+\_\+deallocate\+Region@{\+\_\+deallocate\+Region}}
+\index{\+\_\+deallocate\+Region@{\+\_\+deallocate\+Region}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+deallocate\+Region}]{\setlength{\rightskip}{0pt plus 5cm}template$<$$>$ void Interface\+F\+F\+T\+W\+::\+\_\+deallocate\+Region (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\label{class_interface_f_f_t_w_ac5a59260adf072482e2230d97a438555}
+\hypertarget{class_interface_f_f_t_w_a8df6e111ef75919697422e471d59cbab}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!\+\_\+deallocate\+Region@{\+\_\+deallocate\+Region}}
+\index{\+\_\+deallocate\+Region@{\+\_\+deallocate\+Region}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+deallocate\+Region}]{\setlength{\rightskip}{0pt plus 5cm}template$<$$>$ void Interface\+F\+F\+T\+W\+::\+\_\+deallocate\+Region (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\label{class_interface_f_f_t_w_a8df6e111ef75919697422e471d59cbab}
+\hypertarget{class_interface_f_f_t_w_a779ecab958e3cabfcc3bc21d6cd0164d}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!\+\_\+deallocate\+Region@{\+\_\+deallocate\+Region}}
+\index{\+\_\+deallocate\+Region@{\+\_\+deallocate\+Region}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+deallocate\+Region}]{\setlength{\rightskip}{0pt plus 5cm}template$<$$>$ void Interface\+F\+F\+T\+W\+::\+\_\+deallocate\+Region (
+\begin{DoxyParamCaption}
+\item[{float($\ast$)}]{t\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{class_interface_f_f_t_w_a779ecab958e3cabfcc3bc21d6cd0164d}
+\hypertarget{class_interface_f_f_t_w_aef606f9df4caa5e1a0532de1460ba8f8}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!\+\_\+deallocate\+Region@{\+\_\+deallocate\+Region}}
+\index{\+\_\+deallocate\+Region@{\+\_\+deallocate\+Region}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{\+\_\+deallocate\+Region}]{\setlength{\rightskip}{0pt plus 5cm}template$<$$>$ void Interface\+F\+F\+T\+W\+::\+\_\+deallocate\+Region (
+\begin{DoxyParamCaption}
+\item[{double($\ast$)}]{t\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{class_interface_f_f_t_w_aef606f9df4caa5e1a0532de1460ba8f8}
+\hypertarget{class_interface_f_f_t_w_ad0a54971c30188421efa89e7bb1de5be}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!allocate\+Matrix@{allocate\+Matrix}}
+\index{allocate\+Matrix@{allocate\+Matrix}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{allocate\+Matrix}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ static void Interface\+F\+F\+T\+W\+::allocate\+Matrix (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix2\+D}$<$ T $>$ $\ast$\&}]{mat, }
+\item[{int}]{n\+X, }
+\item[{int}]{n\+Y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_interface_f_f_t_w_ad0a54971c30188421efa89e7bb1de5be}
+
+
+Here is the caller graph for this function\+:
+% FIG 0
+
+
+\hypertarget{class_interface_f_f_t_w_a4986e58342aa4f57a1dc4d3f580d3241}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!create\+Plan\+Backward@{create\+Plan\+Backward}}
+\index{create\+Plan\+Backward@{create\+Plan\+Backward}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{create\+Plan\+Backward}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ static void Interface\+F\+F\+T\+W\+::create\+Plan\+Backward (
+\begin{DoxyParamCaption}
+\item[{string}]{s\+Plan\+Name, }
+\item[{{\bf Matrix2\+D}$<$ T\mbox{[}2\mbox{]}$>$ \&}]{mat\+In, }
+\item[{{\bf Matrix2\+D}$<$ T $>$ \&}]{mat\+Out}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_interface_f_f_t_w_a4986e58342aa4f57a1dc4d3f580d3241}
+
+
+Here is the call graph for this function\+:
+% FIG 1
+
+
+
+
+Here is the caller graph for this function\+:
+% FIG 2
+
+
+\hypertarget{class_interface_f_f_t_w_ae4f34532c57a98db7339f8726054c497}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!create\+Plan\+Forward@{create\+Plan\+Forward}}
+\index{create\+Plan\+Forward@{create\+Plan\+Forward}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{create\+Plan\+Forward}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ static void Interface\+F\+F\+T\+W\+::create\+Plan\+Forward (
+\begin{DoxyParamCaption}
+\item[{string}]{s\+Plan\+Name, }
+\item[{{\bf Matrix2\+D}$<$ T $>$ \&}]{mat\+In, }
+\item[{{\bf Matrix2\+D}$<$ T\mbox{[}2\mbox{]}$>$ \&}]{mat\+Out}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_interface_f_f_t_w_ae4f34532c57a98db7339f8726054c497}
+
+
+Here is the call graph for this function\+:
+% FIG 3
+
+
+
+
+Here is the caller graph for this function\+:
+% FIG 4
+
+
+\hypertarget{class_interface_f_f_t_w_a596e338aa62af9353d2fc61b5b39d989}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!deallocate\+Matrix@{deallocate\+Matrix}}
+\index{deallocate\+Matrix@{deallocate\+Matrix}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{deallocate\+Matrix}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ static void Interface\+F\+F\+T\+W\+::deallocate\+Matrix (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix2\+D}$<$ T $>$ $\ast$\&}]{mat}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_interface_f_f_t_w_a596e338aa62af9353d2fc61b5b39d989}
+
+
+Here is the call graph for this function\+:
+% FIG 5
+
+
+
+
+Here is the caller graph for this function\+:
+% FIG 6
+
+
+\hypertarget{class_interface_f_f_t_w_a924f23a03902c771f1ebd06ce9fe65a7}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!erase\+Plan@{erase\+Plan}}
+\index{erase\+Plan@{erase\+Plan}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{erase\+Plan}]{\setlength{\rightskip}{0pt plus 5cm}static void Interface\+F\+F\+T\+W\+::erase\+Plan (
+\begin{DoxyParamCaption}
+\item[{string}]{s\+Plan\+Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_interface_f_f_t_w_a924f23a03902c771f1ebd06ce9fe65a7}
+
+
+Here is the caller graph for this function\+:
+% FIG 7
+
+
+\hypertarget{class_interface_f_f_t_w_ab8a43c25e4cef9fef7c5e842084a367d}{}\index{Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}!execute\+Plan@{execute\+Plan}}
+\index{execute\+Plan@{execute\+Plan}!Interface\+F\+F\+T\+W@{Interface\+F\+F\+T\+W}}
+\subsubsection[{execute\+Plan}]{\setlength{\rightskip}{0pt plus 5cm}static void Interface\+F\+F\+T\+W\+::execute\+Plan (
+\begin{DoxyParamCaption}
+\item[{string}]{s\+Plan\+Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{class_interface_f_f_t_w_ab8a43c25e4cef9fef7c5e842084a367d}
+
+
+Here is the caller graph for this function\+:
+% FIG 8
+
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/source/\hyperlink{_interface_f_f_t_w_8h}{Interface\+F\+F\+T\+W.\+h}\end{DoxyCompactItemize}

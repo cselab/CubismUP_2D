@@ -1,0 +1,160 @@
+\hypertarget{class_boundary_condition}{}\section{Boundary\+Condition$<$ T\+Block, T\+Element, allocator $>$ Class Template Reference}
+\label{class_boundary_condition}\index{Boundary\+Condition$<$ T\+Block, T\+Element, allocator $>$@{Boundary\+Condition$<$ T\+Block, T\+Element, allocator $>$}}
+
+
+{\ttfamily \#include $<$Boundary\+Conditions.\+h$>$}
+
+
+
+Collaboration diagram for Boundary\+Condition$<$ T\+Block, T\+Element, allocator $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{d7/d21/class_boundary_condition__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_boundary_condition_a89cbd322bff8127af5a49685e3bf04ce}{Boundary\+Condition} (const int ss\mbox{[}3\mbox{]}, const int se\mbox{[}3\mbox{]}, \hyperlink{class_matrix3_d}{Matrix3\+D}$<$ T\+Element, true, allocator $>$ $\ast$\hyperlink{class_boundary_condition_a1e0c33fa794a6d333d4451f8fde04c29}{cache\+Block})
+\item 
+T\+Element \& \hyperlink{class_boundary_condition_aadcfe05da7761b68191835b09d4d2cf0}{operator()} (int ix, int iy)
+\item 
+{\footnotesize template$<$int dir, int side$>$ }\\void \hyperlink{class_boundary_condition_adadad3f69ee5cf8ab11dc8f8a7763a4f}{apply\+B\+C\+\_\+dirichlet} (const T\+Element \&p)
+\item 
+{\footnotesize template$<$int dir, int side$>$ }\\void \hyperlink{class_boundary_condition_a101992951fb756135ca3e44f5d64bb60}{apply\+B\+C\+\_\+neumann} ()
+\item 
+{\footnotesize template$<$int dir, int side$>$ }\\void \hyperlink{class_boundary_condition_a60e154d33104f42e29dfa49061b266f6}{apply\+B\+C\+\_\+mixed\+Bottom} ()
+\item 
+{\footnotesize template$<$int dir, int side$>$ }\\void \hyperlink{class_boundary_condition_a77cf65bd542d198d80aa54a3de632ff5}{apply\+B\+C\+\_\+mixed\+Top} ()
+\item 
+{\footnotesize template$<$int dir, int side$>$ }\\void \hyperlink{class_boundary_condition_a81a9b161bd3b859dd3e58a15312f5b0f}{apply\+B\+C\+\_\+vortex} (const \hyperlink{struct_block_info}{Block\+Info} info)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$int dir, int side$>$ }\\void \hyperlink{class_boundary_condition_af8969c6c584388f44cf464a8021d125a}{\+\_\+setup} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_boundary_condition_a7734cfc6ee1ce3a1dea426ab289a299a}{s} \mbox{[}3\mbox{]}
+\item 
+int \hyperlink{class_boundary_condition_a755da05bbc5a09adb17a6f1e5a15f25b}{e} \mbox{[}3\mbox{]}
+\item 
+int \hyperlink{class_boundary_condition_aed1e3cfd20d69c6084d901c246698fdd}{stencil\+Start} \mbox{[}3\mbox{]}
+\item 
+int \hyperlink{class_boundary_condition_af396b479ba0487ba5c0e45d5b636f09e}{stencil\+End} \mbox{[}3\mbox{]}
+\item 
+\hyperlink{class_matrix3_d}{Matrix3\+D}$<$ T\+Element, true, allocator $>$ $\ast$ \hyperlink{class_boundary_condition_a1e0c33fa794a6d333d4451f8fde04c29}{cache\+Block}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_boundary_condition_a89cbd322bff8127af5a49685e3bf04ce}{}\index{Boundary\+Condition@{Boundary\+Condition}!Boundary\+Condition@{Boundary\+Condition}}
+\index{Boundary\+Condition@{Boundary\+Condition}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{Boundary\+Condition}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::{\bf Boundary\+Condition} (
+\begin{DoxyParamCaption}
+\item[{const int}]{ss\mbox{[}3\mbox{]}, }
+\item[{const int}]{se\mbox{[}3\mbox{]}, }
+\item[{{\bf Matrix3\+D}$<$ T\+Element, true, allocator $>$ $\ast$}]{cache\+Block}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_boundary_condition_a89cbd322bff8127af5a49685e3bf04ce}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_boundary_condition_af8969c6c584388f44cf464a8021d125a}{}\index{Boundary\+Condition@{Boundary\+Condition}!\+\_\+setup@{\+\_\+setup}}
+\index{\+\_\+setup@{\+\_\+setup}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{\+\_\+setup}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ template$<$int dir, int side$>$ void {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::\+\_\+setup (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_boundary_condition_af8969c6c584388f44cf464a8021d125a}
+\hypertarget{class_boundary_condition_adadad3f69ee5cf8ab11dc8f8a7763a4f}{}\index{Boundary\+Condition@{Boundary\+Condition}!apply\+B\+C\+\_\+dirichlet@{apply\+B\+C\+\_\+dirichlet}}
+\index{apply\+B\+C\+\_\+dirichlet@{apply\+B\+C\+\_\+dirichlet}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{apply\+B\+C\+\_\+dirichlet}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ template$<$int dir, int side$>$ void {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::apply\+B\+C\+\_\+dirichlet (
+\begin{DoxyParamCaption}
+\item[{const T\+Element \&}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_boundary_condition_adadad3f69ee5cf8ab11dc8f8a7763a4f}
+\hypertarget{class_boundary_condition_a60e154d33104f42e29dfa49061b266f6}{}\index{Boundary\+Condition@{Boundary\+Condition}!apply\+B\+C\+\_\+mixed\+Bottom@{apply\+B\+C\+\_\+mixed\+Bottom}}
+\index{apply\+B\+C\+\_\+mixed\+Bottom@{apply\+B\+C\+\_\+mixed\+Bottom}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{apply\+B\+C\+\_\+mixed\+Bottom}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ template$<$int dir, int side$>$ void {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::apply\+B\+C\+\_\+mixed\+Bottom (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_boundary_condition_a60e154d33104f42e29dfa49061b266f6}
+\hypertarget{class_boundary_condition_a77cf65bd542d198d80aa54a3de632ff5}{}\index{Boundary\+Condition@{Boundary\+Condition}!apply\+B\+C\+\_\+mixed\+Top@{apply\+B\+C\+\_\+mixed\+Top}}
+\index{apply\+B\+C\+\_\+mixed\+Top@{apply\+B\+C\+\_\+mixed\+Top}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{apply\+B\+C\+\_\+mixed\+Top}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ template$<$int dir, int side$>$ void {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::apply\+B\+C\+\_\+mixed\+Top (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_boundary_condition_a77cf65bd542d198d80aa54a3de632ff5}
+\hypertarget{class_boundary_condition_a101992951fb756135ca3e44f5d64bb60}{}\index{Boundary\+Condition@{Boundary\+Condition}!apply\+B\+C\+\_\+neumann@{apply\+B\+C\+\_\+neumann}}
+\index{apply\+B\+C\+\_\+neumann@{apply\+B\+C\+\_\+neumann}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{apply\+B\+C\+\_\+neumann}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ template$<$int dir, int side$>$ void {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::apply\+B\+C\+\_\+neumann (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_boundary_condition_a101992951fb756135ca3e44f5d64bb60}
+\hypertarget{class_boundary_condition_a81a9b161bd3b859dd3e58a15312f5b0f}{}\index{Boundary\+Condition@{Boundary\+Condition}!apply\+B\+C\+\_\+vortex@{apply\+B\+C\+\_\+vortex}}
+\index{apply\+B\+C\+\_\+vortex@{apply\+B\+C\+\_\+vortex}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{apply\+B\+C\+\_\+vortex}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ template$<$int dir, int side$>$ void {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::apply\+B\+C\+\_\+vortex (
+\begin{DoxyParamCaption}
+\item[{const {\bf Block\+Info}}]{info}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_boundary_condition_a81a9b161bd3b859dd3e58a15312f5b0f}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{db/d64/class_boundary_condition_a81a9b161bd3b859dd3e58a15312f5b0f_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_boundary_condition_aadcfe05da7761b68191835b09d4d2cf0}{}\index{Boundary\+Condition@{Boundary\+Condition}!operator()@{operator()}}
+\index{operator()@{operator()}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ T\+Element\& {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::operator() (
+\begin{DoxyParamCaption}
+\item[{int}]{ix, }
+\item[{int}]{iy}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_boundary_condition_aadcfe05da7761b68191835b09d4d2cf0}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{db/d64/class_boundary_condition_aadcfe05da7761b68191835b09d4d2cf0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_boundary_condition_a1e0c33fa794a6d333d4451f8fde04c29}{}\index{Boundary\+Condition@{Boundary\+Condition}!cache\+Block@{cache\+Block}}
+\index{cache\+Block@{cache\+Block}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{cache\+Block}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ {\bf Matrix3\+D}$<$T\+Element, true, allocator$>$$\ast$ {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::cache\+Block\hspace{0.3cm}{\ttfamily [protected]}}\label{class_boundary_condition_a1e0c33fa794a6d333d4451f8fde04c29}
+\hypertarget{class_boundary_condition_a755da05bbc5a09adb17a6f1e5a15f25b}{}\index{Boundary\+Condition@{Boundary\+Condition}!e@{e}}
+\index{e@{e}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{e}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ int {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::e\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}\label{class_boundary_condition_a755da05bbc5a09adb17a6f1e5a15f25b}
+\hypertarget{class_boundary_condition_a7734cfc6ee1ce3a1dea426ab289a299a}{}\index{Boundary\+Condition@{Boundary\+Condition}!s@{s}}
+\index{s@{s}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{s}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ int {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::s\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}\label{class_boundary_condition_a7734cfc6ee1ce3a1dea426ab289a299a}
+\hypertarget{class_boundary_condition_af396b479ba0487ba5c0e45d5b636f09e}{}\index{Boundary\+Condition@{Boundary\+Condition}!stencil\+End@{stencil\+End}}
+\index{stencil\+End@{stencil\+End}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{stencil\+End}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ int {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::stencil\+End\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}\label{class_boundary_condition_af396b479ba0487ba5c0e45d5b636f09e}
+\hypertarget{class_boundary_condition_aed1e3cfd20d69c6084d901c246698fdd}{}\index{Boundary\+Condition@{Boundary\+Condition}!stencil\+Start@{stencil\+Start}}
+\index{stencil\+Start@{stencil\+Start}!Boundary\+Condition@{Boundary\+Condition}}
+\subsubsection[{stencil\+Start}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T\+Block, typename T\+Element, template$<$ typename X $>$ class allocator = std\+::allocator$>$ int {\bf Boundary\+Condition}$<$ T\+Block, T\+Element, allocator $>$\+::stencil\+Start\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}\label{class_boundary_condition_aed1e3cfd20d69c6084d901c246698fdd}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Cubism\+U\+P\+\_\+2\+D/source/\hyperlink{_boundary_conditions_8h}{Boundary\+Conditions.\+h}\end{DoxyCompactItemize}

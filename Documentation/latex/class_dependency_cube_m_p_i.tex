@@ -1,0 +1,200 @@
+\hypertarget{class_dependency_cube_m_p_i}{}\section{Dependency\+Cube\+M\+P\+I$<$ Request $>$ Class Template Reference}
+\label{class_dependency_cube_m_p_i}\index{Dependency\+Cube\+M\+P\+I$<$ Request $>$@{Dependency\+Cube\+M\+P\+I$<$ Request $>$}}
+
+
+{\ttfamily \#include $<$Dependency\+Cube\+M\+P\+I.\+h$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_dependency_cube_m_p_i_1_1_corner}{Corner}
+\item 
+struct \hyperlink{struct_dependency_cube_m_p_i_1_1_edge}{Edge}
+\item 
+struct \hyperlink{struct_dependency_cube_m_p_i_1_1_face}{Face}
+\item 
+struct \hyperlink{struct_dependency_cube_m_p_i_1_1_object}{Object}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_dependency_cube_m_p_i_a52c63b5bddd26821abe26367cc24245c}{Dependency\+Cube\+M\+P\+I} (const int nx, const int ny, const int nz)
+\item 
+void \hyperlink{class_dependency_cube_m_p_i_a057adc047896117c998e5709d8a83d43}{face} (Request req, int d, int s)
+\item 
+void \hyperlink{class_dependency_cube_m_p_i_a3c346f1108cb4f571a250b5a6e3cd868}{edge} (Request req, int d, int a, int b)
+\item 
+void \hyperlink{class_dependency_cube_m_p_i_a797a6e9d3cb5d7edf9439f4abbf27b05}{corner} (Request req, int x, int y, int z)
+\item 
+void \hyperlink{class_dependency_cube_m_p_i_a249049eaa66b401dec5b777f91cf14fa}{inspect} ()
+\item 
+void \hyperlink{class_dependency_cube_m_p_i_a65a7562678c7f9d7ab63780ffbdfac87}{make\+\_\+dependencies} (const bool isroot)
+\item 
+void \hyperlink{class_dependency_cube_m_p_i_a6b7972db814a3469a2774946ba3062a4}{received} (Request req)
+\item 
+vector$<$ \hyperlink{struct_region}{Region} $>$ \hyperlink{class_dependency_cube_m_p_i_a95e03004604866099b5acf0af2cf3b1a}{avail} ()
+\item 
+int \hyperlink{class_dependency_cube_m_p_i_a9b187ce4ca44a150d71e55c35325afba}{pendingcount} () const 
+\item 
+void \hyperlink{class_dependency_cube_m_p_i_abd4e8187ccfe651ded18f8c5c10fa691}{prepare} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+set$<$ Request $>$ \hyperlink{class_dependency_cube_m_p_i_a4996ead8bdfbf954562d0177b6c24607}{all\+\_\+pending}
+\item 
+map$<$ \hyperlink{struct_region}{Region}, set$<$ Request $>$ $>$ \hyperlink{class_dependency_cube_m_p_i_a15e719dff5340ab953286ba4b9301a54}{pending}
+\item 
+bool \hyperlink{class_dependency_cube_m_p_i_a79cbdbeafcdad83edcfe7bfb786e8dbb}{finalized}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_dependency_cube_m_p_i_a52c63b5bddd26821abe26367cc24245c}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{Dependency\+Cube\+M\+P\+I}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::{\bf Dependency\+Cube\+M\+P\+I} (
+\begin{DoxyParamCaption}
+\item[{const int}]{nx, }
+\item[{const int}]{ny, }
+\item[{const int}]{nz}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_dependency_cube_m_p_i_a52c63b5bddd26821abe26367cc24245c}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_dependency_cube_m_p_i_a95e03004604866099b5acf0af2cf3b1a}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!avail@{avail}}
+\index{avail@{avail}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{avail}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ vector$<${\bf Region}$>$ {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::avail (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_dependency_cube_m_p_i_a95e03004604866099b5acf0af2cf3b1a}
+
+
+Here is the caller graph for this function\+:
+% FIG 0
+
+
+\hypertarget{class_dependency_cube_m_p_i_a797a6e9d3cb5d7edf9439f4abbf27b05}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!corner@{corner}}
+\index{corner@{corner}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{corner}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ void {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::corner (
+\begin{DoxyParamCaption}
+\item[{Request}]{req, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_dependency_cube_m_p_i_a797a6e9d3cb5d7edf9439f4abbf27b05}
+
+
+Here is the caller graph for this function\+:
+% FIG 1
+
+
+\hypertarget{class_dependency_cube_m_p_i_a3c346f1108cb4f571a250b5a6e3cd868}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!edge@{edge}}
+\index{edge@{edge}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{edge}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ void {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::edge (
+\begin{DoxyParamCaption}
+\item[{Request}]{req, }
+\item[{int}]{d, }
+\item[{int}]{a, }
+\item[{int}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_dependency_cube_m_p_i_a3c346f1108cb4f571a250b5a6e3cd868}
+
+
+Here is the caller graph for this function\+:
+% FIG 2
+
+
+\hypertarget{class_dependency_cube_m_p_i_a057adc047896117c998e5709d8a83d43}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!face@{face}}
+\index{face@{face}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{face}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ void {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::face (
+\begin{DoxyParamCaption}
+\item[{Request}]{req, }
+\item[{int}]{d, }
+\item[{int}]{s}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_dependency_cube_m_p_i_a057adc047896117c998e5709d8a83d43}
+
+
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\hypertarget{class_dependency_cube_m_p_i_a249049eaa66b401dec5b777f91cf14fa}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!inspect@{inspect}}
+\index{inspect@{inspect}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{inspect}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ void {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::inspect (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_dependency_cube_m_p_i_a249049eaa66b401dec5b777f91cf14fa}
+\hypertarget{class_dependency_cube_m_p_i_a65a7562678c7f9d7ab63780ffbdfac87}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!make\+\_\+dependencies@{make\+\_\+dependencies}}
+\index{make\+\_\+dependencies@{make\+\_\+dependencies}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{make\+\_\+dependencies}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ void {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::make\+\_\+dependencies (
+\begin{DoxyParamCaption}
+\item[{const bool}]{isroot}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_dependency_cube_m_p_i_a65a7562678c7f9d7ab63780ffbdfac87}
+
+
+Here is the caller graph for this function\+:
+% FIG 4
+
+
+\hypertarget{class_dependency_cube_m_p_i_a9b187ce4ca44a150d71e55c35325afba}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!pendingcount@{pendingcount}}
+\index{pendingcount@{pendingcount}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{pendingcount}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ int {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::pendingcount (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_dependency_cube_m_p_i_a9b187ce4ca44a150d71e55c35325afba}
+
+
+Here is the caller graph for this function\+:
+% FIG 5
+
+
+\hypertarget{class_dependency_cube_m_p_i_abd4e8187ccfe651ded18f8c5c10fa691}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!prepare@{prepare}}
+\index{prepare@{prepare}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{prepare}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ void {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::prepare (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_dependency_cube_m_p_i_abd4e8187ccfe651ded18f8c5c10fa691}
+
+
+Here is the caller graph for this function\+:
+% FIG 6
+
+
+\hypertarget{class_dependency_cube_m_p_i_a6b7972db814a3469a2774946ba3062a4}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!received@{received}}
+\index{received@{received}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{received}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ void {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::received (
+\begin{DoxyParamCaption}
+\item[{Request}]{req}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_dependency_cube_m_p_i_a6b7972db814a3469a2774946ba3062a4}
+
+
+Here is the caller graph for this function\+:
+% FIG 7
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_dependency_cube_m_p_i_a4996ead8bdfbf954562d0177b6c24607}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!all\+\_\+pending@{all\+\_\+pending}}
+\index{all\+\_\+pending@{all\+\_\+pending}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{all\+\_\+pending}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ set$<$Request$>$ {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::all\+\_\+pending}\label{class_dependency_cube_m_p_i_a4996ead8bdfbf954562d0177b6c24607}
+\hypertarget{class_dependency_cube_m_p_i_a79cbdbeafcdad83edcfe7bfb786e8dbb}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!finalized@{finalized}}
+\index{finalized@{finalized}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{finalized}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ bool {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::finalized}\label{class_dependency_cube_m_p_i_a79cbdbeafcdad83edcfe7bfb786e8dbb}
+\hypertarget{class_dependency_cube_m_p_i_a15e719dff5340ab953286ba4b9301a54}{}\index{Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}!pending@{pending}}
+\index{pending@{pending}!Dependency\+Cube\+M\+P\+I@{Dependency\+Cube\+M\+P\+I}}
+\subsubsection[{pending}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Request$>$ map$<${\bf Region}, set$<$Request$>$ $>$ {\bf Dependency\+Cube\+M\+P\+I}$<$ Request $>$\+::pending}\label{class_dependency_cube_m_p_i_a15e719dff5340ab953286ba4b9301a54}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/\+Cubism/\hyperlink{_dependency_cube_m_p_i_8h}{Dependency\+Cube\+M\+P\+I.\+h}\end{DoxyCompactItemize}

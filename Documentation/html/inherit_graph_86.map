@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$d1/d9b/class_test.html" title="Test" alt="" coords="5,129,51,155"/>
+<area shape="rect" id="node2" href="$d1/d76/class_test_advection.html" title="TestAdvection" alt="" coords="119,5,224,31"/>
+<area shape="rect" id="node3" href="$d9/d0f/class_test_diffusion.html" title="TestDiffusion" alt="" coords="123,55,220,80"/>
+<area shape="rect" id="node4" href="$d2/dcc/class_test_gravity.html" title="TestGravity" alt="" coords="127,104,215,129"/>
+<area shape="rect" id="node5" href="$d0/d08/class_test_penalization.html" title="TestPenalization" alt="" coords="112,153,231,179"/>
+<area shape="rect" id="node6" href="$df/ddc/class_test_pressure.html" title="TestPressure" alt="" coords="122,203,221,228"/>
+<area shape="rect" id="node7" href="$d7/d0a/class_test_var_coeff_poisson.html" title="TestVarCoeffPoisson" alt="" coords="99,252,244,277"/>
+</map>

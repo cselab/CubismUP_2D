@@ -1,0 +1,217 @@
+\hypertarget{class_grid}{}\section{Grid$<$ Block, allocator $>$ Class Template Reference}
+\label{class_grid}\index{Grid$<$ Block, allocator $>$@{Grid$<$ Block, allocator $>$}}
+
+
+{\ttfamily \#include $<$Grid.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef Block \hyperlink{class_grid_a455d62a62799b947e799a28315700b9e}{Block\+Type}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_grid_a31f48dede8dce2a6fb4260e42c991ec9}{Grid} (const unsigned int \hyperlink{class_grid_a5253120e941ec878f57dd17d5f54cadd}{N\+X}, const unsigned int \hyperlink{class_grid_a8956891d20426acabca4252ec7e299bc}{N\+Y}=1, const unsigned int \hyperlink{class_grid_ad6632ff47c714e008ba88a89b4c1684b}{N\+Z}=1)
+\item 
+virtual \hyperlink{class_grid_a64f8123459bcfe7c6f2aac0e21a93458}{$\sim$\+Grid} ()
+\item 
+void \hyperlink{class_grid_a754c47a84c734075e6ccffacb0b4509d}{setup} (const unsigned int n\+X, const unsigned int n\+Y, const unsigned int n\+Z)
+\item 
+virtual int \hyperlink{class_grid_a68154c3137ad02f44a24d2d75d807fe6}{get\+Blocks\+Per\+Dimension} (int idim) const 
+\item 
+virtual bool \hyperlink{class_grid_ae2014bfbb3953437effb08202e7cd482}{avail} (unsigned int ix, unsigned int iy=0, unsigned int iz=0) const 
+\item 
+virtual Block \& \hyperlink{class_grid_a04a6717ea6f8eb51607eaeaba2127055}{operator()} (unsigned int ix, unsigned int iy=0, unsigned int iz=0) const 
+\item 
+virtual std\+::vector$<$ \hyperlink{struct_block_info}{Block\+Info} $>$ \hyperlink{class_grid_a39aa8cb7fad1abcfe40fdd77d9b72d8a}{get\+Blocks\+Info} () const 
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_grid_a3b8f802b38cc4ce4bbd5d2ea9e13f5a3}{\+\_\+dealloc} ()
+\item 
+void \hyperlink{class_grid_a0d207eb76e069627ebe75c464da7b07a}{\+\_\+alloc} ()
+\item 
+Block $\ast$ \hyperlink{class_grid_a40a45d5ba147af8742dbe542d36064c4}{\+\_\+linaccess} (const unsigned int idx) const 
+\item 
+unsigned int \hyperlink{class_grid_aefd1612f9fe87762a3200a10258fe77b}{\+\_\+encode} (const unsigned int ix, const unsigned int iy, const unsigned int iz) const 
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const unsigned int \hyperlink{class_grid_a9ec3e376ce1de3c9e056a7ccebb34d42}{N}
+\item 
+const unsigned int \hyperlink{class_grid_a5253120e941ec878f57dd17d5f54cadd}{N\+X}
+\item 
+const unsigned int \hyperlink{class_grid_a8956891d20426acabca4252ec7e299bc}{N\+Y}
+\item 
+const unsigned int \hyperlink{class_grid_ad6632ff47c714e008ba88a89b4c1684b}{N\+Z}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Typedef Documentation}
+\hypertarget{class_grid_a455d62a62799b947e799a28315700b9e}{}\index{Grid@{Grid}!Block\+Type@{Block\+Type}}
+\index{Block\+Type@{Block\+Type}!Grid@{Grid}}
+\subsubsection[{Block\+Type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ typedef Block {\bf Grid}$<$ Block, allocator $>$\+::{\bf Block\+Type}}\label{class_grid_a455d62a62799b947e799a28315700b9e}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_grid_a31f48dede8dce2a6fb4260e42c991ec9}{}\index{Grid@{Grid}!Grid@{Grid}}
+\index{Grid@{Grid}!Grid@{Grid}}
+\subsubsection[{Grid}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ {\bf Grid}$<$ Block, allocator $>$\+::{\bf Grid} (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{N\+X, }
+\item[{const unsigned int}]{N\+Y = {\ttfamily 1}, }
+\item[{const unsigned int}]{N\+Z = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_grid_a31f48dede8dce2a6fb4260e42c991ec9}
+\hypertarget{class_grid_a64f8123459bcfe7c6f2aac0e21a93458}{}\index{Grid@{Grid}!````~Grid@{$\sim$\+Grid}}
+\index{````~Grid@{$\sim$\+Grid}!Grid@{Grid}}
+\subsubsection[{$\sim$\+Grid}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ virtual {\bf Grid}$<$ Block, allocator $>$\+::$\sim${\bf Grid} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_grid_a64f8123459bcfe7c6f2aac0e21a93458}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_grid_a0d207eb76e069627ebe75c464da7b07a}{}\index{Grid@{Grid}!\+\_\+alloc@{\+\_\+alloc}}
+\index{\+\_\+alloc@{\+\_\+alloc}!Grid@{Grid}}
+\subsubsection[{\+\_\+alloc}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ void {\bf Grid}$<$ Block, allocator $>$\+::\+\_\+alloc (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_grid_a0d207eb76e069627ebe75c464da7b07a}
+
+
+Here is the caller graph for this function\+:
+% FIG 0
+
+
+\hypertarget{class_grid_a3b8f802b38cc4ce4bbd5d2ea9e13f5a3}{}\index{Grid@{Grid}!\+\_\+dealloc@{\+\_\+dealloc}}
+\index{\+\_\+dealloc@{\+\_\+dealloc}!Grid@{Grid}}
+\subsubsection[{\+\_\+dealloc}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ void {\bf Grid}$<$ Block, allocator $>$\+::\+\_\+dealloc (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_grid_a3b8f802b38cc4ce4bbd5d2ea9e13f5a3}
+
+
+Here is the caller graph for this function\+:
+% FIG 1
+
+
+\hypertarget{class_grid_aefd1612f9fe87762a3200a10258fe77b}{}\index{Grid@{Grid}!\+\_\+encode@{\+\_\+encode}}
+\index{\+\_\+encode@{\+\_\+encode}!Grid@{Grid}}
+\subsubsection[{\+\_\+encode}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ unsigned int {\bf Grid}$<$ Block, allocator $>$\+::\+\_\+encode (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{ix, }
+\item[{const unsigned int}]{iy, }
+\item[{const unsigned int}]{iz}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_grid_aefd1612f9fe87762a3200a10258fe77b}
+
+
+Here is the caller graph for this function\+:
+% FIG 2
+
+
+\hypertarget{class_grid_a40a45d5ba147af8742dbe542d36064c4}{}\index{Grid@{Grid}!\+\_\+linaccess@{\+\_\+linaccess}}
+\index{\+\_\+linaccess@{\+\_\+linaccess}!Grid@{Grid}}
+\subsubsection[{\+\_\+linaccess}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ Block$\ast$ {\bf Grid}$<$ Block, allocator $>$\+::\+\_\+linaccess (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{idx}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_grid_a40a45d5ba147af8742dbe542d36064c4}
+
+
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\hypertarget{class_grid_ae2014bfbb3953437effb08202e7cd482}{}\index{Grid@{Grid}!avail@{avail}}
+\index{avail@{avail}!Grid@{Grid}}
+\subsubsection[{avail}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ virtual bool {\bf Grid}$<$ Block, allocator $>$\+::avail (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{ix, }
+\item[{unsigned int}]{iy = {\ttfamily 0}, }
+\item[{unsigned int}]{iz = {\ttfamily 0}}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_grid_ae2014bfbb3953437effb08202e7cd482}
+
+
+Here is the caller graph for this function\+:
+% FIG 4
+
+
+\hypertarget{class_grid_a39aa8cb7fad1abcfe40fdd77d9b72d8a}{}\index{Grid@{Grid}!get\+Blocks\+Info@{get\+Blocks\+Info}}
+\index{get\+Blocks\+Info@{get\+Blocks\+Info}!Grid@{Grid}}
+\subsubsection[{get\+Blocks\+Info}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ virtual std\+::vector$<${\bf Block\+Info}$>$ {\bf Grid}$<$ Block, allocator $>$\+::get\+Blocks\+Info (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_grid_a39aa8cb7fad1abcfe40fdd77d9b72d8a}
+
+
+Here is the caller graph for this function\+:
+% FIG 5
+
+
+\hypertarget{class_grid_a68154c3137ad02f44a24d2d75d807fe6}{}\index{Grid@{Grid}!get\+Blocks\+Per\+Dimension@{get\+Blocks\+Per\+Dimension}}
+\index{get\+Blocks\+Per\+Dimension@{get\+Blocks\+Per\+Dimension}!Grid@{Grid}}
+\subsubsection[{get\+Blocks\+Per\+Dimension}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ virtual int {\bf Grid}$<$ Block, allocator $>$\+::get\+Blocks\+Per\+Dimension (
+\begin{DoxyParamCaption}
+\item[{int}]{idim}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_grid_a68154c3137ad02f44a24d2d75d807fe6}
+
+
+Here is the caller graph for this function\+:
+% FIG 6
+
+
+\hypertarget{class_grid_a04a6717ea6f8eb51607eaeaba2127055}{}\index{Grid@{Grid}!operator()@{operator()}}
+\index{operator()@{operator()}!Grid@{Grid}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ virtual Block\& {\bf Grid}$<$ Block, allocator $>$\+::operator() (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{ix, }
+\item[{unsigned int}]{iy = {\ttfamily 0}, }
+\item[{unsigned int}]{iz = {\ttfamily 0}}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_grid_a04a6717ea6f8eb51607eaeaba2127055}
+\hypertarget{class_grid_a754c47a84c734075e6ccffacb0b4509d}{}\index{Grid@{Grid}!setup@{setup}}
+\index{setup@{setup}!Grid@{Grid}}
+\subsubsection[{setup}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ void {\bf Grid}$<$ Block, allocator $>$\+::setup (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{n\+X, }
+\item[{const unsigned int}]{n\+Y, }
+\item[{const unsigned int}]{n\+Z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_grid_a754c47a84c734075e6ccffacb0b4509d}
+
+
+Here is the caller graph for this function\+:
+% FIG 7
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_grid_a9ec3e376ce1de3c9e056a7ccebb34d42}{}\index{Grid@{Grid}!N@{N}}
+\index{N@{N}!Grid@{Grid}}
+\subsubsection[{N}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ const unsigned int {\bf Grid}$<$ Block, allocator $>$\+::N\hspace{0.3cm}{\ttfamily [protected]}}\label{class_grid_a9ec3e376ce1de3c9e056a7ccebb34d42}
+\hypertarget{class_grid_a5253120e941ec878f57dd17d5f54cadd}{}\index{Grid@{Grid}!N\+X@{N\+X}}
+\index{N\+X@{N\+X}!Grid@{Grid}}
+\subsubsection[{N\+X}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ const unsigned int {\bf Grid}$<$ Block, allocator $>$\+::N\+X\hspace{0.3cm}{\ttfamily [protected]}}\label{class_grid_a5253120e941ec878f57dd17d5f54cadd}
+\hypertarget{class_grid_a8956891d20426acabca4252ec7e299bc}{}\index{Grid@{Grid}!N\+Y@{N\+Y}}
+\index{N\+Y@{N\+Y}!Grid@{Grid}}
+\subsubsection[{N\+Y}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ const unsigned int {\bf Grid}$<$ Block, allocator $>$\+::N\+Y\hspace{0.3cm}{\ttfamily [protected]}}\label{class_grid_a8956891d20426acabca4252ec7e299bc}
+\hypertarget{class_grid_ad6632ff47c714e008ba88a89b4c1684b}{}\index{Grid@{Grid}!N\+Z@{N\+Z}}
+\index{N\+Z@{N\+Z}!Grid@{Grid}}
+\subsubsection[{N\+Z}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Block, template$<$ typename X $>$ class allocator = std\+::allocator$>$ const unsigned int {\bf Grid}$<$ Block, allocator $>$\+::N\+Z\hspace{0.3cm}{\ttfamily [protected]}}\label{class_grid_ad6632ff47c714e008ba88a89b4c1684b}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Seed/\+Cubism\+U\+P\+\_\+2\+D/\+Cubism/\hyperlink{_grid_8h}{Grid.\+h}\end{DoxyCompactItemize}

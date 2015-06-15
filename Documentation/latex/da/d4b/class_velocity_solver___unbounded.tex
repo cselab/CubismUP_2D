@@ -1,0 +1,258 @@
+\hypertarget{class_velocity_solver___unbounded}{}\section{Velocity\+Solver\+\_\+\+Unbounded Class Reference}
+\label{class_velocity_solver___unbounded}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+
+
+{\ttfamily \#include $<$Operators\+\_\+\+D\+F\+T.\+h$>$}
+
+
+
+Inheritance diagram for Velocity\+Solver\+\_\+\+Unbounded\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d46/class_velocity_solver___unbounded__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Velocity\+Solver\+\_\+\+Unbounded\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{d6/d65/class_velocity_solver___unbounded__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_velocity_solver___unbounded_a2a4f55337c05bd3e5a98d732d4524031}{Velocity\+Solver\+\_\+\+Unbounded} (const int n\+X, const int n\+Y)
+\item 
+virtual \hyperlink{class_velocity_solver___unbounded_ad2dda95d5b3e7cb435fc7223db486f44}{$\sim$\+Velocity\+Solver\+\_\+\+Unbounded} ()
+\item 
+void \hyperlink{class_velocity_solver___unbounded_a55beef939974ec2b79e869a403245534}{operator()} (const \hyperlink{struct_layer}{Layer} \&vorticity, \hyperlink{struct_layer}{Layer} \&velocity)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_velocity_solver___unbounded_a5e5995e7ef4cb324f6fe4085084b19e6}{\+\_\+init} ()=0
+\item 
+virtual void \hyperlink{class_velocity_solver___unbounded_ad4a668aa6fcd70274bb71258f2c13b2d}{\+\_\+solve} ()=0
+\item 
+void \hyperlink{class_velocity_solver___unbounded_a09eef51ffa637ea0ae168a72b4ed13f2}{\+\_\+copy\+R\+H\+S} (const \hyperlink{struct_layer}{Layer} \&vorticity, \hyperlink{class_matrix2_d}{Matrix2\+D}$<$ \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $>$ \&R\+H\+S)
+\item 
+void \hyperlink{class_velocity_solver___unbounded_a4e8deea623b04707623a2fa82ad151b7}{\+\_\+compute\+Velocity\+From\+Stream\+Function} (\hyperlink{struct_layer}{Layer} \&velocity)
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} \hyperlink{class_velocity_solver___unbounded_a3d4f3335a5457ac8c5a8d80797048223}{\+\_\+phys\+G\+F} (int x\+\_\+, int y\+\_\+, \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} h)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_velocity_solver___unbounded_a5a06247f4313780a5cb906d64bcd8f80}{m\+\_\+n\+Size} \mbox{[}2\mbox{]}
+\item 
+int \hyperlink{class_velocity_solver___unbounded_a8ef48a7fe2c413d388a5145a37716452}{m\+\_\+n\+Big\+Size} \mbox{[}2\mbox{]}
+\item 
+bool \hyperlink{class_velocity_solver___unbounded_ab4e11619c97d2ebfe551bed262118ab9}{m\+\_\+b\+Ready}
+\item 
+bool \hyperlink{class_velocity_solver___unbounded_a83aaa5f4615df58cfe939d661075f959}{m\+\_\+b\+R\+H\+S\+Alloc}
+\item 
+\hyperlink{class_matrix2_d}{Matrix2\+D}$<$ \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real}\mbox{[}2\mbox{]}$>$ $\ast$ \hyperlink{class_velocity_solver___unbounded_a11158418be011c0978f050fd74a04482}{m\+\_\+mat\+Fourier\+G\+F}
+\item 
+\hyperlink{class_matrix2_d}{Matrix2\+D}$<$ \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real}\mbox{[}2\mbox{]}$>$ $\ast$ \hyperlink{class_velocity_solver___unbounded_afcbee94365c2da82320e79181c8387b2}{m\+\_\+mat\+Fourier\+Psi}
+\item 
+\hyperlink{class_matrix2_d}{Matrix2\+D}$<$ \hyperlink{_h_d_f5_dumper_8h_a445a5f0e2a34c9d97d69a3c2d1957907}{Real} $>$ $\ast$ \hyperlink{class_velocity_solver___unbounded_afa889bd25dd44eb07f9aab6b0b0cd840}{m\+\_\+mat\+Psi}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_velocity_solver___unbounded_a2a4f55337c05bd3e5a98d732d4524031}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{Velocity\+Solver\+\_\+\+Unbounded}]{\setlength{\rightskip}{0pt plus 5cm}Velocity\+Solver\+\_\+\+Unbounded\+::\+Velocity\+Solver\+\_\+\+Unbounded (
+\begin{DoxyParamCaption}
+\item[{const int}]{n\+X, }
+\item[{const int}]{n\+Y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_velocity_solver___unbounded_a2a4f55337c05bd3e5a98d732d4524031}
+\hypertarget{class_velocity_solver___unbounded_ad2dda95d5b3e7cb435fc7223db486f44}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!````~Velocity\+Solver\+\_\+\+Unbounded@{$\sim$\+Velocity\+Solver\+\_\+\+Unbounded}}
+\index{````~Velocity\+Solver\+\_\+\+Unbounded@{$\sim$\+Velocity\+Solver\+\_\+\+Unbounded}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{$\sim$\+Velocity\+Solver\+\_\+\+Unbounded}]{\setlength{\rightskip}{0pt plus 5cm}virtual Velocity\+Solver\+\_\+\+Unbounded\+::$\sim$\+Velocity\+Solver\+\_\+\+Unbounded (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_velocity_solver___unbounded_ad2dda95d5b3e7cb435fc7223db486f44}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_velocity_solver___unbounded_a4e8deea623b04707623a2fa82ad151b7}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!\+\_\+compute\+Velocity\+From\+Stream\+Function@{\+\_\+compute\+Velocity\+From\+Stream\+Function}}
+\index{\+\_\+compute\+Velocity\+From\+Stream\+Function@{\+\_\+compute\+Velocity\+From\+Stream\+Function}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{\+\_\+compute\+Velocity\+From\+Stream\+Function}]{\setlength{\rightskip}{0pt plus 5cm}void Velocity\+Solver\+\_\+\+Unbounded\+::\+\_\+compute\+Velocity\+From\+Stream\+Function (
+\begin{DoxyParamCaption}
+\item[{{\bf Layer} \&}]{velocity}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_velocity_solver___unbounded_a4e8deea623b04707623a2fa82ad151b7}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d4b/class_velocity_solver___unbounded_a4e8deea623b04707623a2fa82ad151b7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d4b/class_velocity_solver___unbounded_a4e8deea623b04707623a2fa82ad151b7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_velocity_solver___unbounded_a09eef51ffa637ea0ae168a72b4ed13f2}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!\+\_\+copy\+R\+H\+S@{\+\_\+copy\+R\+H\+S}}
+\index{\+\_\+copy\+R\+H\+S@{\+\_\+copy\+R\+H\+S}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{\+\_\+copy\+R\+H\+S}]{\setlength{\rightskip}{0pt plus 5cm}void Velocity\+Solver\+\_\+\+Unbounded\+::\+\_\+copy\+R\+H\+S (
+\begin{DoxyParamCaption}
+\item[{const {\bf Layer} \&}]{vorticity, }
+\item[{{\bf Matrix2\+D}$<$ {\bf Real} $>$ \&}]{R\+H\+S}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_velocity_solver___unbounded_a09eef51ffa637ea0ae168a72b4ed13f2}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{da/d4b/class_velocity_solver___unbounded_a09eef51ffa637ea0ae168a72b4ed13f2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d4b/class_velocity_solver___unbounded_a09eef51ffa637ea0ae168a72b4ed13f2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_velocity_solver___unbounded_a5e5995e7ef4cb324f6fe4085084b19e6}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!\+\_\+init@{\+\_\+init}}
+\index{\+\_\+init@{\+\_\+init}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Velocity\+Solver\+\_\+\+Unbounded\+::\+\_\+init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}\label{class_velocity_solver___unbounded_a5e5995e7ef4cb324f6fe4085084b19e6}
+
+
+Implemented in \hyperlink{class_velocity_solver___unbounded___f_f_t_w_a438430f0e53d259baa46539c2ba5acbc}{Velocity\+Solver\+\_\+\+Unbounded\+\_\+\+F\+F\+T\+W}.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d4b/class_velocity_solver___unbounded_a5e5995e7ef4cb324f6fe4085084b19e6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_velocity_solver___unbounded_a3d4f3335a5457ac8c5a8d80797048223}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!\+\_\+phys\+G\+F@{\+\_\+phys\+G\+F}}
+\index{\+\_\+phys\+G\+F@{\+\_\+phys\+G\+F}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{\+\_\+phys\+G\+F}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Real} Velocity\+Solver\+\_\+\+Unbounded\+::\+\_\+phys\+G\+F (
+\begin{DoxyParamCaption}
+\item[{int}]{x\+\_\+, }
+\item[{int}]{y\+\_\+, }
+\item[{{\bf Real}}]{h}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}\label{class_velocity_solver___unbounded_a3d4f3335a5457ac8c5a8d80797048223}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d4b/class_velocity_solver___unbounded_a3d4f3335a5457ac8c5a8d80797048223_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_velocity_solver___unbounded_ad4a668aa6fcd70274bb71258f2c13b2d}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!\+\_\+solve@{\+\_\+solve}}
+\index{\+\_\+solve@{\+\_\+solve}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{\+\_\+solve}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Velocity\+Solver\+\_\+\+Unbounded\+::\+\_\+solve (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}\label{class_velocity_solver___unbounded_ad4a668aa6fcd70274bb71258f2c13b2d}
+
+
+Implemented in \hyperlink{class_velocity_solver___unbounded___f_f_t_w_abe6acc32fcfbcad312a5cecad3bad332}{Velocity\+Solver\+\_\+\+Unbounded\+\_\+\+F\+F\+T\+W}.
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d4b/class_velocity_solver___unbounded_ad4a668aa6fcd70274bb71258f2c13b2d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_velocity_solver___unbounded_a55beef939974ec2b79e869a403245534}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!operator()@{operator()}}
+\index{operator()@{operator()}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}void Velocity\+Solver\+\_\+\+Unbounded\+::operator() (
+\begin{DoxyParamCaption}
+\item[{const {\bf Layer} \&}]{vorticity, }
+\item[{{\bf Layer} \&}]{velocity}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_velocity_solver___unbounded_a55beef939974ec2b79e869a403245534}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d4b/class_velocity_solver___unbounded_a55beef939974ec2b79e869a403245534_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_velocity_solver___unbounded_ab4e11619c97d2ebfe551bed262118ab9}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!m\+\_\+b\+Ready@{m\+\_\+b\+Ready}}
+\index{m\+\_\+b\+Ready@{m\+\_\+b\+Ready}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{m\+\_\+b\+Ready}]{\setlength{\rightskip}{0pt plus 5cm}bool Velocity\+Solver\+\_\+\+Unbounded\+::m\+\_\+b\+Ready\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___unbounded_ab4e11619c97d2ebfe551bed262118ab9}
+\hypertarget{class_velocity_solver___unbounded_a83aaa5f4615df58cfe939d661075f959}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!m\+\_\+b\+R\+H\+S\+Alloc@{m\+\_\+b\+R\+H\+S\+Alloc}}
+\index{m\+\_\+b\+R\+H\+S\+Alloc@{m\+\_\+b\+R\+H\+S\+Alloc}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{m\+\_\+b\+R\+H\+S\+Alloc}]{\setlength{\rightskip}{0pt plus 5cm}bool Velocity\+Solver\+\_\+\+Unbounded\+::m\+\_\+b\+R\+H\+S\+Alloc\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___unbounded_a83aaa5f4615df58cfe939d661075f959}
+\hypertarget{class_velocity_solver___unbounded_a11158418be011c0978f050fd74a04482}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!m\+\_\+mat\+Fourier\+G\+F@{m\+\_\+mat\+Fourier\+G\+F}}
+\index{m\+\_\+mat\+Fourier\+G\+F@{m\+\_\+mat\+Fourier\+G\+F}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{m\+\_\+mat\+Fourier\+G\+F}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix2\+D}$<${\bf Real}\mbox{[}2\mbox{]}$>$$\ast$ Velocity\+Solver\+\_\+\+Unbounded\+::m\+\_\+mat\+Fourier\+G\+F\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___unbounded_a11158418be011c0978f050fd74a04482}
+\hypertarget{class_velocity_solver___unbounded_afcbee94365c2da82320e79181c8387b2}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!m\+\_\+mat\+Fourier\+Psi@{m\+\_\+mat\+Fourier\+Psi}}
+\index{m\+\_\+mat\+Fourier\+Psi@{m\+\_\+mat\+Fourier\+Psi}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{m\+\_\+mat\+Fourier\+Psi}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix2\+D}$<${\bf Real}\mbox{[}2\mbox{]}$>$$\ast$ Velocity\+Solver\+\_\+\+Unbounded\+::m\+\_\+mat\+Fourier\+Psi\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___unbounded_afcbee94365c2da82320e79181c8387b2}
+\hypertarget{class_velocity_solver___unbounded_afa889bd25dd44eb07f9aab6b0b0cd840}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!m\+\_\+mat\+Psi@{m\+\_\+mat\+Psi}}
+\index{m\+\_\+mat\+Psi@{m\+\_\+mat\+Psi}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{m\+\_\+mat\+Psi}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix2\+D}$<${\bf Real}$>$$\ast$ Velocity\+Solver\+\_\+\+Unbounded\+::m\+\_\+mat\+Psi\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___unbounded_afa889bd25dd44eb07f9aab6b0b0cd840}
+\hypertarget{class_velocity_solver___unbounded_a8ef48a7fe2c413d388a5145a37716452}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!m\+\_\+n\+Big\+Size@{m\+\_\+n\+Big\+Size}}
+\index{m\+\_\+n\+Big\+Size@{m\+\_\+n\+Big\+Size}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{m\+\_\+n\+Big\+Size}]{\setlength{\rightskip}{0pt plus 5cm}int Velocity\+Solver\+\_\+\+Unbounded\+::m\+\_\+n\+Big\+Size\mbox{[}2\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___unbounded_a8ef48a7fe2c413d388a5145a37716452}
+\hypertarget{class_velocity_solver___unbounded_a5a06247f4313780a5cb906d64bcd8f80}{}\index{Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}!m\+\_\+n\+Size@{m\+\_\+n\+Size}}
+\index{m\+\_\+n\+Size@{m\+\_\+n\+Size}!Velocity\+Solver\+\_\+\+Unbounded@{Velocity\+Solver\+\_\+\+Unbounded}}
+\subsubsection[{m\+\_\+n\+Size}]{\setlength{\rightskip}{0pt plus 5cm}int Velocity\+Solver\+\_\+\+Unbounded\+::m\+\_\+n\+Size\mbox{[}2\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}\label{class_velocity_solver___unbounded_a5a06247f4313780a5cb906d64bcd8f80}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Cubism\+U\+P\+\_\+2\+D/source/\hyperlink{_operators___d_f_t_8h}{Operators\+\_\+\+D\+F\+T.\+h}\end{DoxyCompactItemize}

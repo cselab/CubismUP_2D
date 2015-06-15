@@ -1,0 +1,161 @@
+\hypertarget{class_coordinator_diffusion}{}\section{Coordinator\+Diffusion$<$ Lab $>$ Class Template Reference}
+\label{class_coordinator_diffusion}\index{Coordinator\+Diffusion$<$ Lab $>$@{Coordinator\+Diffusion$<$ Lab $>$}}
+
+
+{\ttfamily \#include $<$Coordinator\+Diffusion.\+h$>$}
+
+
+
+Inheritance diagram for Coordinator\+Diffusion$<$ Lab $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=187pt]{d5/db2/class_coordinator_diffusion__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Coordinator\+Diffusion$<$ Lab $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{d5/d24/class_coordinator_diffusion__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_coordinator_diffusion_acd96f26a0bc606db956886cc77d7b4fa}{Coordinator\+Diffusion} (const double \hyperlink{class_coordinator_diffusion_a8e1ee974d96ba320f26bcf7197e959fe}{coeff}, \hyperlink{_definitions_8h_aff3288a3741f5098bcc456bb13440189}{Fluid\+Grid} $\ast$\hyperlink{class_generic_coordinator_aa514bbf7394bb5519c6f12daa33a375a}{grid})
+\item 
+void \hyperlink{class_coordinator_diffusion_a110e64039f79bcc6f0bfd430cb1f8c53}{operator()} (const double dt)
+\item 
+\hyperlink{testfpzip_8cpp_a984bb8e04129c4268bd6ff36a50c9fa4}{string} \hyperlink{class_coordinator_diffusion_ae06bddc3554895dbd7ebdf9218dfbd20}{get\+Name} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_coordinator_diffusion_a496dde2de4c2ca2fe4d19dad33d2e93e}{reset} ()
+\item 
+void \hyperlink{class_coordinator_diffusion_aa3c7fd1a3955f9f5358e093b296992a0}{update} ()
+\item 
+void \hyperlink{class_coordinator_diffusion_ae80d7775fcabdcd9934262ff2c7cf1b5}{diffuse} (const double dt, const int stage)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const double \hyperlink{class_coordinator_diffusion_a8e1ee974d96ba320f26bcf7197e959fe}{coeff}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_coordinator_diffusion_acd96f26a0bc606db956886cc77d7b4fa}{}\index{Coordinator\+Diffusion@{Coordinator\+Diffusion}!Coordinator\+Diffusion@{Coordinator\+Diffusion}}
+\index{Coordinator\+Diffusion@{Coordinator\+Diffusion}!Coordinator\+Diffusion@{Coordinator\+Diffusion}}
+\subsubsection[{Coordinator\+Diffusion}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Lab$>$ {\bf Coordinator\+Diffusion}$<$ Lab $>$\+::{\bf Coordinator\+Diffusion} (
+\begin{DoxyParamCaption}
+\item[{const double}]{coeff, }
+\item[{{\bf Fluid\+Grid} $\ast$}]{grid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_coordinator_diffusion_acd96f26a0bc606db956886cc77d7b4fa}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_coordinator_diffusion_ae80d7775fcabdcd9934262ff2c7cf1b5}{}\index{Coordinator\+Diffusion@{Coordinator\+Diffusion}!diffuse@{diffuse}}
+\index{diffuse@{diffuse}!Coordinator\+Diffusion@{Coordinator\+Diffusion}}
+\subsubsection[{diffuse}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Lab$>$ void {\bf Coordinator\+Diffusion}$<$ Lab $>$\+::diffuse (
+\begin{DoxyParamCaption}
+\item[{const double}]{dt, }
+\item[{const int}]{stage}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_coordinator_diffusion_ae80d7775fcabdcd9934262ff2c7cf1b5}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{d3/dd2/class_coordinator_diffusion_ae80d7775fcabdcd9934262ff2c7cf1b5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_coordinator_diffusion_ae06bddc3554895dbd7ebdf9218dfbd20}{}\index{Coordinator\+Diffusion@{Coordinator\+Diffusion}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Coordinator\+Diffusion@{Coordinator\+Diffusion}}
+\subsubsection[{get\+Name}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Lab$>$ {\bf string} {\bf Coordinator\+Diffusion}$<$ Lab $>$\+::get\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_coordinator_diffusion_ae06bddc3554895dbd7ebdf9218dfbd20}
+
+
+Implements \hyperlink{class_generic_coordinator_a8c1b9f4fa96d1c7b851e85e19325de1d}{Generic\+Coordinator}.
+
+\hypertarget{class_coordinator_diffusion_a110e64039f79bcc6f0bfd430cb1f8c53}{}\index{Coordinator\+Diffusion@{Coordinator\+Diffusion}!operator()@{operator()}}
+\index{operator()@{operator()}!Coordinator\+Diffusion@{Coordinator\+Diffusion}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Lab$>$ void {\bf Coordinator\+Diffusion}$<$ Lab $>$\+::operator() (
+\begin{DoxyParamCaption}
+\item[{const double}]{dt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_coordinator_diffusion_a110e64039f79bcc6f0bfd430cb1f8c53}
+
+
+Implements \hyperlink{class_generic_coordinator_a984696fef63daf7253b87ce21cce3f94}{Generic\+Coordinator}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{d3/dd2/class_coordinator_diffusion_a110e64039f79bcc6f0bfd430cb1f8c53_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_coordinator_diffusion_a496dde2de4c2ca2fe4d19dad33d2e93e}{}\index{Coordinator\+Diffusion@{Coordinator\+Diffusion}!reset@{reset}}
+\index{reset@{reset}!Coordinator\+Diffusion@{Coordinator\+Diffusion}}
+\subsubsection[{reset}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Lab$>$ void {\bf Coordinator\+Diffusion}$<$ Lab $>$\+::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_coordinator_diffusion_a496dde2de4c2ca2fe4d19dad33d2e93e}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{d3/dd2/class_coordinator_diffusion_a496dde2de4c2ca2fe4d19dad33d2e93e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_coordinator_diffusion_aa3c7fd1a3955f9f5358e093b296992a0}{}\index{Coordinator\+Diffusion@{Coordinator\+Diffusion}!update@{update}}
+\index{update@{update}!Coordinator\+Diffusion@{Coordinator\+Diffusion}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Lab$>$ void {\bf Coordinator\+Diffusion}$<$ Lab $>$\+::update (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\label{class_coordinator_diffusion_aa3c7fd1a3955f9f5358e093b296992a0}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{d3/dd2/class_coordinator_diffusion_aa3c7fd1a3955f9f5358e093b296992a0_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_coordinator_diffusion_a8e1ee974d96ba320f26bcf7197e959fe}{}\index{Coordinator\+Diffusion@{Coordinator\+Diffusion}!coeff@{coeff}}
+\index{coeff@{coeff}!Coordinator\+Diffusion@{Coordinator\+Diffusion}}
+\subsubsection[{coeff}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Lab$>$ const double {\bf Coordinator\+Diffusion}$<$ Lab $>$\+::coeff\hspace{0.3cm}{\ttfamily [protected]}}\label{class_coordinator_diffusion_a8e1ee974d96ba320f26bcf7197e959fe}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/cconti/\+Desktop/\+Mounts/\+Brutus\+Home/\+Cubism\+U\+P\+\_\+2\+D/source/\hyperlink{_coordinator_diffusion_8h}{Coordinator\+Diffusion.\+h}\end{DoxyCompactItemize}
