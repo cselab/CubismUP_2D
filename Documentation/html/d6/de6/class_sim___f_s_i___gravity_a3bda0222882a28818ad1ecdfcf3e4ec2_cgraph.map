@@ -1,7 +1,0 @@
-<map id="Sim_FSI_Gravity::_solvePressure" name="Sim_FSI_Gravity::_solvePressure">
-<area shape="rect" id="node2" href="$da/d74/class_grid.html#a39aa8cb7fad1abcfe40fdd77d9b72d8a" title="Grid::getBlocksInfo" alt="" coords="298,5,432,31"/>
-<area shape="rect" id="node3" href="$d3/d16/class_poisson_solver_scalar_f_f_t_w.html#a888b94b2f63f4c95c70da076b30fb31c" title="PoissonSolverScalarFFTW\l::solve" alt="" coords="275,55,456,93"/>
-<area shape="rect" id="node6" href="$d5/daa/_process_operators_o_m_p_8cpp.html#ad3e32a26df50c8e475277642d2c72b14" title="updatePressuresOMP" alt="" coords="289,117,442,143"/>
-<area shape="rect" id="node4" href="$db/db9/class_profiler.html#aad319c9a5c095ccce87c4e9f90c4dd15" title="Profiler::push_start" alt="" coords="504,37,637,63"/>
-<area shape="rect" id="node5" href="$db/db9/class_profiler.html#aed892ccd9527b4bf54af37621e1c913d" title="Profiler::pop_stop" alt="" coords="508,87,634,112"/>
-</map>

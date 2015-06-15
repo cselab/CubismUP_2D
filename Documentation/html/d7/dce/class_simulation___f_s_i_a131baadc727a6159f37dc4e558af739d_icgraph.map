@@ -1,5 +1,0 @@
-<map id="Simulation_FSI::_outputSettings" name="Simulation_FSI::_outputSettings">
-<area shape="rect" id="node2" href="$d8/d3d/class_sim___f_s_i___fixed.html#a61d404e4b83b3094bf3a6860eff1cb0a" title="Sim_FSI_Fixed::_outputSettings" alt="" coords="270,5,483,31"/>
-<area shape="rect" id="node3" href="$d6/de6/class_sim___f_s_i___gravity.html#a2486a6d3cdea039285513b5ff0808dcf" title="Sim_FSI_Gravity::_output\lSettings" alt="" coords="290,55,464,93"/>
-<area shape="rect" id="node4" href="$db/df6/class_sim___f_s_i___moving.html#a145a2c973658bdb03d89ff9cfc5a39ef" title="Sim_FSI_Moving::_outputSettings" alt="" coords="265,117,488,143"/>
-</map>

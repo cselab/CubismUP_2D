@@ -1,6 +1,0 @@
-<map id="BlockProcessing_TBB::process" name="BlockProcessing_TBB::process">
-<area shape="rect" id="node2" href="$d8/d3d/class_sim___f_s_i___fixed.html#ab30e00522a9a55a6555f3e8cca945899" title="Sim_FSI_Fixed::_ic" alt="" coords="212,12,349,37"/>
-<area shape="rect" id="node4" href="$d6/de6/class_sim___f_s_i___gravity.html#af85ffd4ea8c6745eaecf72093186473e" title="Sim_FSI_Gravity::_ic" alt="" coords="207,61,354,87"/>
-<area shape="rect" id="node5" href="$db/df6/class_sim___f_s_i___moving.html#a45d9af44039a61a6a4164f90869edd27" title="Sim_FSI_Moving::_ic" alt="" coords="207,111,354,136"/>
-<area shape="rect" id="node3" href="$d8/d3d/class_sim___f_s_i___fixed.html#aafc7f4d24e8753e801d70b9a69b2456c" title="Sim_FSI_Fixed::Sim\l_FSI_Fixed" alt="" coords="402,5,545,44"/>
-</map>

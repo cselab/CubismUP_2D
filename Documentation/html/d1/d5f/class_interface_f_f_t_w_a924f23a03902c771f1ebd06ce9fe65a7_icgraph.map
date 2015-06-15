@@ -1,8 +1,0 @@
-<map id="InterfaceFFTW::erasePlan" name="InterfaceFFTW::erasePlan">
-<area shape="rect" id="node2" href="$d9/d55/class_pressure_solver___f_f_t_w.html#ab241e86be401eb5471d610f39c3a7a74" title="PressureSolver_FFTW\l::~PressureSolver_FFTW" alt="" coords="239,5,411,44"/>
-<area shape="rect" id="node3" href="$d7/d74/class_velocity_solver___unbounded___f_f_t_w.html#a0a5e8585f426b49c9cb189bd28173e6f" title="VelocitySolver_Unbounded\l_FFTW::~VelocitySolver\l_Unbounded_FFTW" alt="" coords="235,68,416,120"/>
-<area shape="rect" id="node4" href="$d7/d74/class_velocity_solver___unbounded___f_f_t_w.html#a438430f0e53d259baa46539c2ba5acbc" title="VelocitySolver_Unbounded\l_FFTW::_init" alt="" coords="235,144,416,183"/>
-<area shape="rect" id="node7" href="$d0/de3/class_velocity_solver___unbounded___f_f_t_w___better_accuracy.html#abc43c362d0de7b3b256b1989ff316aa7" title="VelocitySolver_Unbounded\l_FFTW_BetterAccuracy::\l~VelocitySolver_Unbounded\l_FFTW_BetterAccuracy" alt="" coords="231,207,420,272"/>
-<area shape="rect" id="node5" href="$d3/dc0/class_pressure_solver___unbounded___f_f_t_w.html#af38fd881b74dd1d7c8e251156b0eae2c" title="PressureSolver_Unbounded\l_FFTW::operator()" alt="" coords="512,109,701,148"/>
-<area shape="rect" id="node6" href="$d0/de3/class_velocity_solver___unbounded___f_f_t_w___better_accuracy.html#a83c87183908cd6a75e46c789156db1de" title="VelocitySolver_Unbounded\l_FFTW_BetterAccuracy::Velocity\lSolver_Unbounded_FFTW_BetterAccuracy" alt="" coords="468,172,746,224"/>
-</map>

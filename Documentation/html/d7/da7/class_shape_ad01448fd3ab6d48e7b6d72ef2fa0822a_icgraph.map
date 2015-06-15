@@ -1,8 +1,0 @@
-<map id="Shape::outputSettings" name="Shape::outputSettings">
-<area shape="rect" id="node2" href="$d5/db6/class_disk.html#a6ebb0b61828eb8396977fff0e84d5480" title="Disk::outputSettings" alt="" coords="242,5,382,31"/>
-<area shape="rect" id="node3" href="$dc/d25/class_ellipse.html#a58769b0a44b34c8d045be4ef0bcd4a71" title="Ellipse::outputSettings" alt="" coords="235,55,388,80"/>
-<area shape="rect" id="node4" href="$d7/dce/class_simulation___f_s_i.html#a131baadc727a6159f37dc4e558af739d" title="Simulation_FSI::_outputSettings" alt="" coords="206,104,418,129"/>
-<area shape="rect" id="node5" href="$d8/d3d/class_sim___f_s_i___fixed.html#a61d404e4b83b3094bf3a6860eff1cb0a" title="Sim_FSI_Fixed::_outputSettings" alt="" coords="471,48,683,73"/>
-<area shape="rect" id="node6" href="$d6/de6/class_sim___f_s_i___gravity.html#a2486a6d3cdea039285513b5ff0808dcf" title="Sim_FSI_Gravity::_output\lSettings" alt="" coords="490,97,664,136"/>
-<area shape="rect" id="node7" href="$db/df6/class_sim___f_s_i___moving.html#a145a2c973658bdb03d89ff9cfc5a39ef" title="Sim_FSI_Moving::_outputSettings" alt="" coords="466,160,689,185"/>
-</map>

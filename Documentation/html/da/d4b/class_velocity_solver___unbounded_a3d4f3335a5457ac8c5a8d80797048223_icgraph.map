@@ -1,5 +1,0 @@
-<map id="VelocitySolver_Unbounded::_physGF" name="VelocitySolver_Unbounded::_physGF">
-<area shape="rect" id="node2" href="$d7/d74/class_velocity_solver___unbounded___f_f_t_w.html#a438430f0e53d259baa46539c2ba5acbc" title="VelocitySolver_Unbounded\l_FFTW::_init" alt="" coords="235,40,416,79"/>
-<area shape="rect" id="node3" href="$d3/dc0/class_pressure_solver___unbounded___f_f_t_w.html#af38fd881b74dd1d7c8e251156b0eae2c" title="PressureSolver_Unbounded\l_FFTW::operator()" alt="" coords="509,5,698,44"/>
-<area shape="rect" id="node4" href="$d0/de3/class_velocity_solver___unbounded___f_f_t_w___better_accuracy.html#a83c87183908cd6a75e46c789156db1de" title="VelocitySolver_Unbounded\l_FFTW_BetterAccuracy::Velocity\lSolver_Unbounded_FFTW_BetterAccuracy" alt="" coords="464,68,742,120"/>
-</map>

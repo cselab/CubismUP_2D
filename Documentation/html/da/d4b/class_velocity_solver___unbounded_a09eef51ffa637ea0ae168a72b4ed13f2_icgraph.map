@@ -1,5 +1,0 @@
-<map id="VelocitySolver_Unbounded::_copyRHS" name="VelocitySolver_Unbounded::_copyRHS">
-<area shape="rect" id="node2" href="$da/d4b/class_velocity_solver___unbounded.html#a55beef939974ec2b79e869a403245534" title="VelocitySolver_Unbounded\l::operator()" alt="" coords="259,5,440,44"/>
-<area shape="rect" id="node3" href="$d3/dc0/class_pressure_solver___unbounded___f_f_t_w.html#af38fd881b74dd1d7c8e251156b0eae2c" title="PressureSolver_Unbounded\l_FFTW::operator()" alt="" coords="255,68,444,107"/>
-<area shape="rect" id="node4" href="$d0/de3/class_velocity_solver___unbounded___f_f_t_w___better_accuracy.html#a198cd7b4b476ce4c9d9284e16ec29883" title="VelocitySolver_Unbounded\l_FFTW_BetterAccuracy::operator()" alt="" coords="235,131,464,169"/>
-</map>

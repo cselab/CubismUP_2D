@@ -1,6 +1,0 @@
-<map id="Sim_Jet::_ic" name="Sim_Jet::_ic">
-<area shape="rect" id="node2" href="$db/db9/class_profiler.html#aad319c9a5c095ccce87c4e9f90c4dd15" title="Profiler::push_start" alt="" coords="148,5,281,31"/>
-<area shape="rect" id="node3" href="$da/d74/class_grid.html#a39aa8cb7fad1abcfe40fdd77d9b72d8a" title="Grid::getBlocksInfo" alt="" coords="147,55,281,80"/>
-<area shape="rect" id="node4" href="$d4/ded/struct_block_info.html#abcc226bdb973d09286902ae23f3962fd" title="BlockInfo::pos" alt="" coords="162,104,267,129"/>
-<area shape="rect" id="node5" href="$db/db9/class_profiler.html#aed892ccd9527b4bf54af37621e1c913d" title="Profiler::pop_stop" alt="" coords="151,153,277,179"/>
-</map>

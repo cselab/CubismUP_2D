@@ -1,6 +1,0 @@
-<map id="CoordinatorDiffusion::operator()" name="CoordinatorDiffusion::operator()">
-<area shape="rect" id="node2" href="$d5/d8b/class_generic_coordinator.html#a3391a6091f1d5115af4b92656c39cd85" title="GenericCoordinator\l::check" alt="" coords="198,5,336,44"/>
-<area shape="rect" id="node3" href="$d3/dd2/class_coordinator_diffusion.html#a496dde2de4c2ca2fe4d19dad33d2e93e" title="CoordinatorDiffusion\l::reset" alt="" coords="196,68,339,107"/>
-<area shape="rect" id="node4" href="$d3/dd2/class_coordinator_diffusion.html#ae80d7775fcabdcd9934262ff2c7cf1b5" title="CoordinatorDiffusion\l::diffuse" alt="" coords="196,131,339,169"/>
-<area shape="rect" id="node5" href="$d3/dd2/class_coordinator_diffusion.html#aa3c7fd1a3955f9f5358e093b296992a0" title="CoordinatorDiffusion\l::update" alt="" coords="196,193,339,232"/>
-</map>

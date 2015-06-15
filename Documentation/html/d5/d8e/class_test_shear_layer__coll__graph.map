@@ -1,6 +1,0 @@
-<map id="TestShearLayer" name="TestShearLayer">
-<area shape="rect" id="node2" href="$d1/d9b/class_test.html" title="Test" alt="" coords="42,99,87,124"/>
-<area shape="rect" id="node3" href="$d3/d52/class_argument_parser.html" title="ArgumentParser" alt="" coords="5,5,124,31"/>
-<area shape="rect" id="node4" href="$da/d74/class_grid.html" title="Grid\&lt; Block, allocator \&gt;" alt="" coords="111,99,271,124"/>
-<area shape="rect" id="node5" href="$dd/d8e/class_serializer_i_o___image_v_t_k.html" title="SerializerIO_ImageVTK\l\&lt; Grid, FluidVTKStreamer \&gt;" alt="" coords="295,92,482,131"/>
-</map>

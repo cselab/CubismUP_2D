@@ -1,5 +1,0 @@
-<map id="Simulation_MP::init" name="Simulation_MP::init">
-<area shape="rect" id="node2" href="$d1/d16/class_sim___bubble.html#ae06e5f52f73f0c4e45e049ff8619703e" title="Sim_Bubble::init" alt="" coords="200,5,317,31"/>
-<area shape="rect" id="node3" href="$d1/dc2/class_sim___jet.html#aec86e6b61d327624b44b4b6e9136845f" title="Sim_Jet::init" alt="" coords="211,55,305,80"/>
-<area shape="rect" id="node4" href="$df/d26/class_sim___rayleigh_taylor.html#a55ee82000e3f09d000473f7dd270f450" title="Sim_RayleighTaylor\l::init" alt="" coords="189,104,328,143"/>
-</map>

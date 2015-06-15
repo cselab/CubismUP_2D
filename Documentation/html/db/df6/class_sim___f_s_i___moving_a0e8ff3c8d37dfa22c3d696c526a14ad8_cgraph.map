@@ -1,8 +1,0 @@
-<map id="Sim_FSI_Moving::setup" name="Sim_FSI_Moving::setup">
-<area shape="rect" id="node2" href="$d3/d52/class_argument_parser.html#af30fc2364f2e0cf72e9ce17bf30fd645" title="ArgumentParser::set\l_strict_mode" alt="" coords="222,5,366,44"/>
-<area shape="rect" id="node3" href="$d7/da7/class_shape.html#a702acbc7c7ac03d89a994404569f173f" title="Shape::getCharLength" alt="" coords="216,68,372,93"/>
-<area shape="rect" id="node4" href="$d8/d08/class_timer.html#a3a8b5272198d029779dc9302a54305a8" title="Timer::start" alt="" coords="250,117,338,143"/>
-<area shape="rect" id="node5" href="$da/d74/class_grid.html#a39aa8cb7fad1abcfe40fdd77d9b72d8a" title="Grid::getBlocksInfo" alt="" coords="227,167,361,192"/>
-<area shape="rect" id="node6" href="$d0/d8d/class_block_processing___t_b_b.html#afb4ac5aee8af3d4e9f3a0f572bdd0a04" title="BlockProcessing_TBB\l::process" alt="" coords="217,216,371,255"/>
-<area shape="rect" id="node7" href="$d8/d08/class_timer.html#a988f79aa183d9d5473c13106f5babe48" title="Timer::stop" alt="" coords="250,279,338,304"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="BlockLabMPI::prepare" name="BlockLabMPI::prepare">
-<area shape="rect" id="node2" href="$d0/ddf/class_synchronizer_m_p_i.html#ad67473ef9e13988052feef92c4c3f086" title="SynchronizerMPI::getpedata" alt="" coords="221,5,411,31"/>
-<area shape="rect" id="node3" href="$d0/ddf/class_synchronizer_m_p_i.html#a3ef18cbe8ce8ce18e7c96dbd09419e11" title="SynchronizerMPI::getstencil" alt="" coords="223,55,409,80"/>
-<area shape="rect" id="node4" href="$da/d04/struct_stencil_info.html#ade52d43b224cc671c6082237e699f9e7" title="StencilInfo::isvalid" alt="" coords="252,104,380,129"/>
-<area shape="rect" id="node5" href="$d9/d3c/class_grid_m_p_i.html#aad5685d311020dd70b9af3b08f51450f" title="GridMPI::getBlocksPerDimension" alt="" coords="207,153,426,179"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="PressureSolver_FFTW::_init" name="PressureSolver_FFTW::_init">
-<area shape="rect" id="node2" href="$d1/d5f/class_interface_f_f_t_w.html#ad0a54971c30188421efa89e7bb1de5be" title="InterfaceFFTW::allocateMatrix" alt="" coords="210,5,410,31"/>
-<area shape="rect" id="node3" href="$d1/d5f/class_interface_f_f_t_w.html#ae4f34532c57a98db7339f8726054c497" title="InterfaceFFTW::createPlan\lForward" alt="" coords="220,117,401,156"/>
-<area shape="rect" id="node6" href="$d1/d5f/class_interface_f_f_t_w.html#a4986e58342aa4f57a1dc4d3f580d3241" title="InterfaceFFTW::createPlan\lBackward" alt="" coords="220,55,401,93"/>
-<area shape="rect" id="node4" href="$d2/d76/class_matrix2_d.html#aec1488d6824828fad81ab3532aad7b52" title="Matrix2D::getSize" alt="" coords="466,65,593,91"/>
-<area shape="rect" id="node5" href="$d2/d76/class_matrix2_d.html#aeb645f6067a4bcce6e29ab37e0c2b67a" title="Matrix2D::LinAccess" alt="" coords="458,121,601,147"/>
-</map>

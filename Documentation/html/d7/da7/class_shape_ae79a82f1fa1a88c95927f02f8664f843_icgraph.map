@@ -1,9 +1,0 @@
-<map id="Shape::getOrientation" name="Shape::getOrientation">
-<area shape="rect" id="node2" href="$d6/de6/class_sim___f_s_i___gravity.html#a0eb1be561cbc294534d7598b736515f0" title="Sim_FSI_Gravity::_diagnostics" alt="" coords="204,19,408,44"/>
-<area shape="rect" id="node4" href="$d0/d20/class_test_rotation.html#ade4e840eb3f45d8009447f28104cd209" title="TestRotation::check" alt="" coords="237,92,375,117"/>
-<area shape="rect" id="node3" href="$d6/de6/class_sim___f_s_i___gravity.html#add86d6f52de51511f0bb93714fc504c4" title="Sim_FSI_Gravity::simulate" alt="" coords="456,5,635,31"/>
-<area shape="rect" id="node5" href="$dc/dd0/main_test_8cpp.html#aaf9934bea2ba2a807cc51a395cb2a142" title="spatialConvergence" alt="" coords="476,55,615,80"/>
-<area shape="rect" id="node7" href="$dc/dd0/main_test_8cpp.html#aeb862b79c383ff205957c81ef3d2cd02" title="temporalConvergence" alt="" coords="469,104,622,129"/>
-<area shape="rect" id="node8" href="$dc/dd0/main_test_8cpp.html#ab65d2413fe7560131439bf1b915ec49e" title="baseTest" alt="" coords="508,153,583,179"/>
-<area shape="rect" id="node6" href="$dc/dd0/main_test_8cpp.html#a217dbf8b442f20279ea00b898af96f52" title="main" alt="" coords="683,104,733,129"/>
-</map>
