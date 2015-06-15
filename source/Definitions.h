@@ -245,7 +245,7 @@ struct StreamerSerialization
 			case 9: *ovalue = input.divU; break;
 			case 10: *ovalue = input.rk2u; break;
 			case 11: *ovalue = input.rk2v; break;
-			default: printf("unknown field\n"); abort(); break;
+			default: throw std::invalid_argument("unknown field!"); break;
 		}
 	}
 	
@@ -266,7 +266,7 @@ struct StreamerSerialization
 			case 9:  output.divU = ivalue; break;
 			case 10: output.rk2u = ivalue; break;
 			case 11: output.rk2v = ivalue; break;
-			default: printf("unknown field\n"); abort(); break;
+			default: throw std::invalid_argument("unknown field!"); break;
 		}
 	}
 	

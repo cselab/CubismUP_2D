@@ -64,7 +64,7 @@ protected:
 						
 						// threshold density
 #ifdef _PARTICLES_
-						Real density = min(max(b(ix,iy).tmp,(Real)min(1.,rhoS)),max(1.,rhoS));
+						Real density = min(max(b(ix,iy).tmp,min((Real)1.,rhoS)),max((Real)1.,rhoS));
 						b(ix,iy).rho = density;
 #else // _PARTICLES_
 						b(ix,iy).rho = b(ix,iy).tmp;

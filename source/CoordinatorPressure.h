@@ -126,8 +126,7 @@ public:
 		pressureSolver.solve(*grid,false);
 		computeSplit<OperatorGradPSplit>(dt);
 #else // _SP_COMP_
-		cout << "FFTW double precision not supported - aborting now!\n";
-		abort();
+		throw std::invalid_argument("FFTW double precision not supported!");
 #endif // _SP_COMP_
 #endif // _SPLIT_
 #ifdef _MULTIGRID_
@@ -232,8 +231,7 @@ public:
 #ifdef _SP_COMP_
 		pressureSolver.solve(*grid,true);
 #else // _SP_COMP_
-		cout << "FFTW double precision not supported - aborting now!\n";
-		abort();
+		throw std::invalid_argument("FFTW double precision not supported!");
 #endif // _SP_COMP_
 		compute<OperatorGradP>(dt);
 		

@@ -16,6 +16,7 @@
 		DD58CAD81A5EF49D00291455 /* TestAdvection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CAD61A5EF49D00291455 /* TestAdvection.cpp */; };
 		DD58CADB1A60148E00291455 /* ProcessOperatorsOMP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CADA1A60148E00291455 /* ProcessOperatorsOMP.cpp */; };
 		DD58CAE91A60320400291455 /* TestPressure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD58CAE71A60320400291455 /* TestPressure.cpp */; };
+		DD5FCAB21B2F1E6B000232B9 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = DD5FCAB01B2F1E6B000232B9 /* Makefile */; };
 		DD64F6D61A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD64F6D31A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp */; };
 		DD66B5DE1A7649B6003FE36B /* Sim_FSI_Moving.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD66B5DC1A7649B6003FE36B /* Sim_FSI_Moving.cpp */; };
 		DD66B5E21A764CEC003FE36B /* Sim_FSI_Gravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD66B5E01A764CEC003FE36B /* Sim_FSI_Gravity.cpp */; };
@@ -58,7 +59,6 @@
 		DD54FE9D1B03A33F00101525 /* TestPoiseuille.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPoiseuille.h; sourceTree = "<group>"; };
 		DD54FEA01B03A5B300101525 /* Poiseuille.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Poiseuille.sh; sourceTree = "<group>"; };
 		DD58CA9E1A5D977C00291455 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		DD58CA9F1A5D977C00291455 /* makefiles.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = makefiles.xcodeproj; path = makefiles/makefiles.xcodeproj; sourceTree = "<group>"; };
 		DD58CAA41A5D9A3700291455 /* launchSimulation.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = launchSimulation.sh; sourceTree = "<group>"; };
 		DD58CAA51A5DA20200291455 /* OperatorAdvection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorAdvection.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		DD58CAA81A5DA2ED00291455 /* OperatorDiffusion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorDiffusion.h; sourceTree = "<group>"; };
@@ -105,6 +105,10 @@
 		DD58CAE81A60320400291455 /* TestPressure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPressure.h; sourceTree = "<group>"; };
 		DD58CAEE1A614B6D00291455 /* LayerToVTK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerToVTK.h; sourceTree = "<group>"; };
 		DD5FCAAD1B2EF32C000232B9 /* Bubble.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Bubble.sh; sourceTree = "<group>"; };
+		DD5FCAAE1B2F1E6B000232B9 /* make.brutus */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = make.brutus; path = makefiles/make.brutus; sourceTree = "<group>"; };
+		DD5FCAAF1B2F1E6B000232B9 /* make.euler */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = make.euler; path = makefiles/make.euler; sourceTree = "<group>"; };
+		DD5FCAB01B2F1E6B000232B9 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = Makefile; path = makefiles/Makefile; sourceTree = "<group>"; };
+		DD5FCAB11B2F1E6B000232B9 /* makeTest.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = makeTest.sh; path = makefiles/makeTest.sh; sourceTree = "<group>"; };
 		DD609B751B00D8C600E2C31A /* testAdvection.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = testAdvection.sh; sourceTree = "<group>"; };
 		DD609B761B00D8C600E2C31A /* testDiffusion.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = testDiffusion.sh; sourceTree = "<group>"; };
 		DD64F6D01A63C16400D17B72 /* Timer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
@@ -214,13 +218,6 @@
 				DDD30B7E1AA9901D008F9EE1 /* Shapes */,
 			);
 			path = source;
-			sourceTree = "<group>";
-		};
-		DD58CAA01A5D977C00291455 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		DD58CAA31A5D9A3700291455 /* launch */ = {
@@ -418,7 +415,10 @@
 		DDFAAA071A5D971200BCE3E7 = {
 			isa = PBXGroup;
 			children = (
-				DD58CA9F1A5D977C00291455 /* makefiles.xcodeproj */,
+				DD5FCAAE1B2F1E6B000232B9 /* make.brutus */,
+				DD5FCAAF1B2F1E6B000232B9 /* make.euler */,
+				DD5FCAB01B2F1E6B000232B9 /* Makefile */,
+				DD5FCAB11B2F1E6B000232B9 /* makeTest.sh */,
 				DD58CAB31A5E8A7000291455 /* Cubism */,
 				DD58CAA31A5D9A3700291455 /* launch */,
 				DD58CA9D1A5D977C00291455 /* source */,
@@ -478,12 +478,6 @@
 			mainGroup = DDFAAA071A5D971200BCE3E7;
 			productRefGroup = DDFAAA111A5D971200BCE3E7 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = DD58CAA01A5D977C00291455 /* Products */;
-					ProjectRef = DD58CA9F1A5D977C00291455 /* makefiles.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				DDFAAA0F1A5D971200BCE3E7 /* CubismUP_2D */,
@@ -508,6 +502,7 @@
 				DD838C401AB6DEA300018A75 /* TestTranslation.cpp in Sources */,
 				DD54FE9E1B03A33F00101525 /* TestPoiseuille.cpp in Sources */,
 				DDE251701AD822C400F6029B /* Sim_Jet.cpp in Sources */,
+				DD5FCAB21B2F1E6B000232B9 /* Makefile in Sources */,
 				DD58CADB1A60148E00291455 /* ProcessOperatorsOMP.cpp in Sources */,
 				DD58CAD81A5EF49D00291455 /* TestAdvection.cpp in Sources */,
 				DD8BE0121AEFACAE008467AA /* TestShearLayer.cpp in Sources */,

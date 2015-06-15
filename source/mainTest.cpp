@@ -193,10 +193,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 			cout << "========================================================================================\n";
 		}
 		else
-		{
-			cout << "IC " << ic << " doesn't exist\n";
-			abort();
-		}
+			throw std::invalid_argument("Chosen IC does not exist!");
 		
 		for (double dt=minDT; dt<=maxDT; dt*=2)
 		{
@@ -252,7 +249,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 		else if (ic==1)
 			cout << "\t\tTranslation Test (Time) - Velocity from Flow\n";
 		else
-			abort();
+			throw std::invalid_argument("Chosen IC does not exist!");
 		cout << "========================================================================================\n";
 		for (double dt=minDT; dt<=maxDT; dt*=2)
 		{
@@ -270,7 +267,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 		else if (ic==1)
 			cout << "\t\tRotation Test (Time) - Velocity from Flow\n";
 		else
-			abort();
+			throw std::invalid_argument("Chosen IC does not exist!");
 		cout << "========================================================================================\n";
 		for (double dt=minDT; dt<=maxDT; dt*=2)
 		{
@@ -301,10 +298,7 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 			cout << "========================================================================================\n";
 		}
 		else
-		{
-			cout << "IC " << ic << " doesn't exist\n";
-			abort();
-		}
+			throw std::invalid_argument("Chosen IC does not exist!");
 		
 		TestAdvection * advection = new TestAdvection(argc, argv, ic, bpd, dt, tEnd);
 		advection->run();
@@ -335,10 +329,7 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 			cout << "\t\tPressure Test - Multigrid (Variable Coefficents) - ";
 #endif // _MULTIGRID_
 		else
-		{
-			cout << "Solver case " << solver << " doesn't exist\n";
-			abort();
-		}
+			throw std::invalid_argument("Chosen solver does not exist!");
 		
 		if (ic==0)
 			cout << "Poisson equation\n";
@@ -347,7 +338,7 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 		else if (ic==2)
 			cout << "Mixed Boundary Conditions\n";
 		else
-			abort();
+			throw std::invalid_argument("Chosen IC does not exist!");
 		cout << "========================================================================================\n";
 		TestPressure * pressure = new TestPressure(argc, argv, solver, ic, bpd, dt);
 		pressure->run();
@@ -381,7 +372,7 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 		else if (ic==1)
 			cout << "\t\tTranslation Test - Velocity from Flow\n";
 		else
-			abort();
+			throw std::invalid_argument("Chosen IC does not exist!");
 		cout << "========================================================================================\n";
 		TestTranslation * translation = new TestTranslation(argc, argv, ic, bpd, dt);
 		translation->run();
@@ -396,7 +387,7 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 		else if (ic==1)
 			cout << "\t\tRotation Test - Velocity from Flow\n";
 		else
-			abort();
+			throw std::invalid_argument("Chosen IC does not exist!");
 		cout << "========================================================================================\n";
 		TestRotation * rotation = new TestRotation(argc, argv, ic, bpd, dt);
 		rotation->run();

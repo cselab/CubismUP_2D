@@ -100,7 +100,7 @@ public:
 			case 0: return NX;
 			case 1: return NY;
 			case 2: return NZ;
-			default: abort();
+			default: throw std::invalid_argument("invalid argument for getBlocksPerDimension!");
 				return 0;
 		}	
 	}
