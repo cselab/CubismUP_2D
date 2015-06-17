@@ -20,6 +20,8 @@ protected:
 	int stencilStart[3], stencilEnd[3];
 	Matrix3D<TElement, true, allocator> * cacheBlock;
 	
+	// this guy includes corners!
+	// what happens if they are not allocated?
 	template<int dir, int side>
 	void _setup()
 	{
@@ -79,54 +81,49 @@ public:
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
 			{
-				(*this)(ix,iy) = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1):ix,
-										 dir==1? (side==0? 0:TBlock::sizeY-1):iy);
+				(*this)(ix,iy) = (*this)(dir==0 ? (side==0 ? 0 : TBlock::sizeX-1) : ix,
+										 dir==1 ? (side==0 ? 0 : TBlock::sizeY-1) : iy);
 			}
 	}
 	
 	template<int dir, int side>
 	void applyBC_mixedBottom()
 	{
+		assert(dir==1);
+		
 		_setup<dir,side>();
 		
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
 			{
-				(*this)(ix,iy).rho = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rho;
+				(*this)(ix,iy).rho = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).rho;
 				(*this)(ix,iy).chi = 0;
 				(*this)(ix,iy).u   = 0;
 				(*this)(ix,iy).v   = 0;
 				(*this)(ix,iy).rk2u = 0;
 				(*this)(ix,iy).rk2v = 0;
-				(*this)(ix,iy).p   = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).p;
-				(*this)(ix,iy).pOld = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-											  dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).pOld;
-				(*this)(ix,iy).divU = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-											  dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).divU;
+				(*this)(ix,iy).p   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).p;
+				(*this)(ix,iy).pOld = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).pOld;
+				(*this)(ix,iy).divU = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).divU;
 			}
 	}
 	
 	template<int dir, int side>
 	void applyBC_mixedTop()
 	{
+		assert(dir==1);
+		
 		_setup<dir,side>();
 		
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
 			{
-				(*this)(ix,iy).rho = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rho;
+				(*this)(ix,iy).rho = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).rho;
 				(*this)(ix,iy).chi = 0;
-				(*this)(ix,iy).u   = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).u;
-				(*this)(ix,iy).v   = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-											 dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).v;
-				(*this)(ix,iy).rk2u = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-											  dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rk2u;
-				(*this)(ix,iy).rk2v = (*this)(dir==0? (side==0? 0:TBlock::sizeX-1-ix+s[0]):ix,
-											  dir==1? (side==0? 0:TBlock::sizeY-1-iy+s[1]):iy).rk2v;
+				(*this)(ix,iy).u   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).u;
+				(*this)(ix,iy).v   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).v;
+				(*this)(ix,iy).rk2u = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).rk2u;
+				(*this)(ix,iy).rk2v = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).rk2v;
 				(*this)(ix,iy).p   = 0;
 				(*this)(ix,iy).pOld = 0;
 				(*this)(ix,iy).divU = 0;

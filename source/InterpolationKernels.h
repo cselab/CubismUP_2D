@@ -21,6 +21,22 @@ struct Hat
 	}
 };
 
+struct Lambda2
+{
+	static const int support_start = -1;
+	static const int support_end = 3;
+	static const int support = 4;
+	
+	static Real weight(const Real x)
+	{
+		Real absx = abs(x);
+		
+		if (absx>1.5) return 0;
+		
+		return (absx<.5) * (1-absx*absx) + (absx>=.5 && absx<1.5) * (1-absx)*(2-absx);
+	}
+};
+
 struct Mp4
 {
 	static const int support_start = -1;

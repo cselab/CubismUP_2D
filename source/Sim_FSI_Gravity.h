@@ -39,6 +39,21 @@
 //		-nu:			mu for diffusion operator (which is divided by the density to recover nu)
 //		-ypos:			position in the vertical direction used to place the shape in the initial conditions
 //
+//	Output
+//		diagnostics.dat
+//			 0 - step
+//			 1 - time
+//			 2 - dt
+//			 3 - bpdx
+//			 4 - lambda
+//			 5 - cD
+//			 6 - Re
+//			 7 - x[0]
+//			 8 - x[1]
+//			 9 - u[0]
+//			10 - u[1]
+//			11 - orientation
+//
 //  Created by Christian Conti on 1/26/15.
 //  Copyright (c) 2015 ETHZ. All rights reserved.
 //

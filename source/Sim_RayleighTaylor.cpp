@@ -130,9 +130,9 @@ void Sim_RayleighTaylor::simulate()
 		if (rank==0)
 		{
 			vector<BlockInfo> vInfo = grid->getBlocksInfo();
+			profiler.push_start("DT");
 			/*
 			// choose dt (CFL, Fourier)
-			profiler.push_start("DT");
 			maxU = findMaxUOMP(vInfo,*grid);
 			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;
 			dtCFL     = maxU==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/abs(maxU);

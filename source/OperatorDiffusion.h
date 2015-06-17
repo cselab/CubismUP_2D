@@ -54,6 +54,8 @@ public:
 					
 					o(ix,iy).tmpU = phi.u + prefactor/phi.rho * (phiN.u + phiS.u + phiE.u + phiW.u - phi.u*4.);
 					o(ix,iy).tmpV = phi.v + prefactor/phi.rho * (phiN.v + phiS.v + phiE.v + phiW.v - phi.v*4.);
+					//o(ix,iy).tmpU = phi.u + prefactor * (phiN.u + phiS.u + phiE.u + phiW.u - phi.u*4.);
+					//o(ix,iy).tmpV = phi.v + prefactor * (phiN.v + phiS.v + phiE.v + phiW.v - phi.v*4.);
 				}
 		/*
 		// stage 2 of RK2

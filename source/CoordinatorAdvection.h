@@ -67,7 +67,9 @@ protected:
 						Real density = min(max(b(ix,iy).tmp,min((Real)1.,rhoS)),max((Real)1.,rhoS));
 						b(ix,iy).rho = density;
 #else // _PARTICLES_
-						b(ix,iy).rho = b(ix,iy).tmp;
+	  //b(ix,iy).rho = b(ix,iy).tmp;
+						Real density = min(max(b(ix,iy).tmp,min((Real)1.,rhoS)),max((Real)1.,rhoS));
+						b(ix,iy).rho = density;
 #endif // _PARTICLES_
 #endif // _MULTIPHASE_
 					}
@@ -90,6 +92,7 @@ protected:
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 #else // _PARTICLES_
 			//OperatorAdvection<Hat> kernel(dt);
+			//OperatorAdvection<Lambda2> kernel(dt);
 			//OperatorAdvection<Mp4> kernel(dt);
 			OperatorAdvection<Ms6> kernel(dt);
 			

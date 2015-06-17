@@ -2,16 +2,16 @@ module purge
 module load gcc open_mpi
 cd ../makefiles
 make clean
-make config=production poisson=hypre bc=mixed precision=double -j
+make config=production poisson=hypre bc=mixed precision=double particles=false -j
 cd ../launch
 
 for BPD in 32
 #64 128
 do
-	FOLDER_1=/cluster/scratch_xp/public/cconti/CubismUP/Fields_split_bpd${BPD}_ic1
-	FOLDER_2=/cluster/scratch_xp/public/cconti/CubismUP/Fields_split_bpd${BPD}_ic2
-	FOLDER_3=/cluster/scratch_xp/public/cconti/CubismUP/Fields_split_bpd${BPD}_ic3
-	FOLDER_4=/cluster/scratch_xp/public/cconti/CubismUP/Fields_split_bpd${BPD}_ic4
+	FOLDER_1=/cluster/scratch_xp/public/cconti/CubismUP/Fields_split_FD_bpd${BPD}_ic1
+	FOLDER_2=/cluster/scratch_xp/public/cconti/CubismUP/Fields_split_FD_bpd${BPD}_ic2
+	FOLDER_3=/cluster/scratch_xp/public/cconti/CubismUP/Fields_split_FD_bpd${BPD}_ic3
+	FOLDER_4=/cluster/scratch_xp/public/cconti/CubismUP/Fields_split_FD_bpd${BPD}_ic4
 	mkdir ${FOLDER_1}
 	mkdir ${FOLDER_2}
 	mkdir ${FOLDER_3}

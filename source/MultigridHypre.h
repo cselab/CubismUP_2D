@@ -365,7 +365,7 @@ private:
 				b(ix,iy).tmp  = values[idx]; // this is used for debugging
 				b(ix,iy).divU = values[idx];
 #else // _PERIODIC_
-				b(ix,iy).tmp  = values[idx]-avg; // this is used for debugging
+	  			b(ix,iy).tmp  = values[idx]-avg; // this is used for debugging
 				b(ix,iy).divU = values[idx]-avg;
 #endif // _PERIODIC_
 			}

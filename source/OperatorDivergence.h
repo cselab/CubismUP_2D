@@ -162,6 +162,7 @@ public:
 				const Real uW = lab(ix-1,iy  ).u;
 				const Real uE = lab(ix+1,iy  ).u;
 				o(ix, iy).divU = factor * (uE-uW + vN-vS);
+				//o(ix, iy).tmp = factor * (uE-uW + vN-vS);
 			}
 	}
 };
