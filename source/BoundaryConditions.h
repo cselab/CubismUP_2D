@@ -68,8 +68,6 @@ public:
 				(*this)(ix,iy).v   = p.v;
 				(*this)(ix,iy).chi = p.chi;
 				(*this)(ix,iy).tmp = p.tmp;
-				(*this)(ix,iy).rk2u = p.rk2u;
-				(*this)(ix,iy).rk2v = p.rk2v;
 			}
 	}
 	
@@ -100,8 +98,6 @@ public:
 				(*this)(ix,iy).chi = 0;
 				(*this)(ix,iy).u   = 0;
 				(*this)(ix,iy).v   = 0;
-				(*this)(ix,iy).rk2u = 0;
-				(*this)(ix,iy).rk2v = 0;
 				(*this)(ix,iy).p   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).p;
 				(*this)(ix,iy).pOld = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).pOld;
 				(*this)(ix,iy).divU = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).divU;
@@ -122,8 +118,6 @@ public:
 				(*this)(ix,iy).chi = 0;
 				(*this)(ix,iy).u   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).u;
 				(*this)(ix,iy).v   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).v;
-				(*this)(ix,iy).rk2u = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).rk2u;
-				(*this)(ix,iy).rk2v = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).rk2v;
 				(*this)(ix,iy).p   = 0;
 				(*this)(ix,iy).pOld = 0;
 				(*this)(ix,iy).divU = 0;
@@ -159,8 +153,6 @@ public:
 				(*this)(ix,iy).v   =  p[0];//-sin(p[0]);//*invR;
 				(*this)(ix,iy).chi = 0;
 				 // what about pressure?
-				//(*this)(ix,iy).rk2u = sin(p[1]);//*invR;
-				//(*this)(ix,iy).rk2v = -sin(p[0]);//*invR;
 				 //*/
 			}
 	}
