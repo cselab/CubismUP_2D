@@ -22,10 +22,10 @@ void Sim_Bubble::_diagnostics()
 {
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	double pMin = 10;
-	double pMax = 0;
+	double vBubble = 0;
+	double volume = 0;
 	
-#pragma omp parallel for schedule(static) reduction(max:pMax) reduction (min:pMin)
+#pragma omp parallel for schedule(static) reduction(+:vBubble) reduction(+:volume)
 	for(int i=0; i<vInfo.size(); i++)
 	{
 		BlockInfo info = vInfo[i];
@@ -34,8 +34,11 @@ void Sim_Bubble::_diagnostics()
 		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
 			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
 			{
-				pMin = min(pMin,(double)b(ix,iy).p);
-				pMax = max(pMax,(double)b(ix,iy).p);
+				if (abs(b(ix,iy).rho-rhoS) < 10*std::numeric_limits<Real>::epsilon())
+				{
+					vBubble += b(ix,iy).v;
+					volume += 1;
+				}
 				
 				if (std::isnan(b(ix,iy).u) ||
 					std::isnan(b(ix,iy).v) ||
@@ -49,12 +52,17 @@ void Sim_Bubble::_diagnostics()
 			}
 	}
 	
+	vBubble /= volume;
+	volume *= vInfo[0].h_gridpoint*vInfo[0].h_gridpoint;
+	double vPredicted = time*gravity[1]*(rhoS-1)/(rhoS+.5);
+	double vPredictedNoAM = time*gravity[1]*(rhoS-1)/(rhoS);
+	
 	stringstream ss;
 	ss << path2file << "_diagnostics.dat";
 	ofstream myfile(ss.str(), fstream::app);
 	if (verbose)
-		cout << step << " " << time << " " << " " << pMax << " " << -gravity[1] << endl;
-	myfile << step << " " << time << " " << pMax << " " << -gravity[1] << endl;
+		cout << step << " " << time << " " << vBubble << " " << vPredicted << " " << vPredictedNoAM << " " << volume << endl;
+	myfile << step << " " << time << " " << vBubble << " " << vPredicted << " " << vPredictedNoAM << " " << volume << endl;
 }
 
 void Sim_Bubble::_ic()
@@ -138,8 +146,6 @@ void Sim_Bubble::init()
 {
 	Simulation_MP::init();
 	
-	Real gravityInv[2] = { -gravity[0], -gravity[1] };
-	
 	_ic();
 	
 	pipeline.clear();
@@ -149,9 +155,8 @@ void Sim_Bubble::init()
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid,rhoS));
 #endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
-	pipeline.push_back(new CoordinatorGravity(gravityInv, grid));
-	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs)); // this should only compute the dynamic pressure
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
+	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs)); // this should only compute the dynamic pressure
 	
 	if (rank==0)
 	{
@@ -184,7 +189,7 @@ void Sim_Bubble::simulate()
 			// choose dt (CFL, Fourier)
 			profiler.push_start("DT");
 			maxU = findMaxUOMP(vInfo,*grid);
-			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;//*min(rhoS,(Real)1)
+			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu*min(rhoS,(Real)1);
 			dtCFL     = maxU==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/abs(maxU);
 			assert(!std::isnan(maxU));
 			dt = min(dtCFL,dtFourier);

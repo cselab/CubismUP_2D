@@ -40,10 +40,10 @@ public:
 		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
 			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
 			{
-				const Real divUN = lab(ix,iy+1).divU;
-				const Real divUS = lab(ix,iy-1).divU;
-				const Real divUE = lab(ix+1,iy).divU;
-				const Real divUW = lab(ix-1,iy).divU;
+				const Real divUN = lab(ix  ,iy+1).divU;
+				const Real divUS = lab(ix  ,iy-1).divU;
+				const Real divUE = lab(ix+1,iy  ).divU;
+				const Real divUW = lab(ix-1,iy  ).divU;
 				
 				// divU contains the pressure correction after the Poisson solver
 				o(ix,iy).u += prefactor * (divUE - divUW) / lab(ix,iy).rho;

@@ -217,7 +217,7 @@ protected:
 			
 			bPing = !bPing;
 		}
-}
+	}
 	
 	void _deserialize()
 	{

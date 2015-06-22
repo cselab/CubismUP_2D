@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD0984031B33130100AB357D /* TestAddedMass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD0984011B33130100AB357D /* TestAddedMass.cpp */; };
 		DD355D201A8116B100711A51 /* TestGravity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD355D1E1A8116B100711A51 /* TestGravity.cpp */; };
 		DD355D241A8118FE00711A51 /* TestPenalization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD355D221A8118FE00711A51 /* TestPenalization.cpp */; };
 		DD54FE9E1B03A33F00101525 /* TestPoiseuille.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD54FE9C1B03A33F00101525 /* TestPoiseuille.cpp */; };
@@ -43,10 +44,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DD0984011B33130100AB357D /* TestAddedMass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestAddedMass.cpp; sourceTree = "<group>"; };
+		DD0984021B33130100AB357D /* TestAddedMass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAddedMass.h; sourceTree = "<group>"; };
 		DD09BBE71A77E54E00BA7066 /* BoundaryConditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoundaryConditions.h; sourceTree = "<group>"; };
 		DD0C48BE1A7100B300CC0C89 /* launchInteractiveSimulation.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = launchInteractiveSimulation.sh; sourceTree = "<group>"; };
 		DD0C48C11A710A2B00CC0C89 /* OperatorComputeShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorComputeShape.h; sourceTree = "<group>"; };
 		DD0C48C21A712FA500CC0C89 /* OperatorGravity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorGravity.h; sourceTree = "<group>"; };
+		DD0D8F621B32C83600BEC57C /* Disks.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Disks.sh; sourceTree = "<group>"; };
 		DD2A4CE71ADFA06200C3C034 /* Guermond.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Guermond.sh; sourceTree = "<group>"; };
 		DD2A4CEB1ADFA09500C3C034 /* Jets.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Jets.sh; sourceTree = "<group>"; };
 		DD2CF51C1B0E433F003C912A /* testPoisson.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = testPoisson.sh; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 		DD2A4CE91ADFA07100C3C034 /* FallingBodies */ = {
 			isa = PBXGroup;
 			children = (
+				DD0D8F621B32C83600BEC57C /* Disks.sh */,
 				DD7D01D01AC0691A00695EC9 /* Kolomenskiy.sh */,
 				DD7D01CF1AC0691A00695EC9 /* Glowinski.sh */,
 				DD9DC1441AB2F6B0009BFBEE /* Fields.sh */,
@@ -333,6 +338,8 @@
 				DD8BE0101AEFACAE008467AA /* TestShearLayer.cpp */,
 				DD54FE9D1B03A33F00101525 /* TestPoiseuille.h */,
 				DD54FE9C1B03A33F00101525 /* TestPoiseuille.cpp */,
+				DD0984021B33130100AB357D /* TestAddedMass.h */,
+				DD0984011B33130100AB357D /* TestAddedMass.cpp */,
 			);
 			name = TestingUnits;
 			sourceTree = "<group>";
@@ -492,6 +499,7 @@
 			files = (
 				DDBBA0071A7292670041496C /* TestVarCoeffPoisson.cpp in Sources */,
 				DD66B5DE1A7649B6003FE36B /* Sim_FSI_Moving.cpp in Sources */,
+				DD0984031B33130100AB357D /* TestAddedMass.cpp in Sources */,
 				DD66B5E21A764CEC003FE36B /* Sim_FSI_Gravity.cpp in Sources */,
 				DD58CAE91A60320400291455 /* TestPressure.cpp in Sources */,
 				DD58CAD41A5ECB8200291455 /* mainTest.cpp in Sources */,

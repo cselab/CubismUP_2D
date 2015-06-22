@@ -63,6 +63,10 @@ protected:
 						assert(!std::isnan(b(ix,iy).tmpV));
 						assert(!std::isnan(b(ix,iy).tmp));
 						assert(!std::isnan(b(ix,iy).divU));
+						assert(b(ix,iy).rho < 1e10);
+						assert(b(ix,iy).u < 1e10);
+						assert(b(ix,iy).v < 1e10);
+						assert(b(ix,iy).p < 1e10);
 					}
 			}
 		}

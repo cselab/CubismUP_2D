@@ -186,7 +186,7 @@ void Sim_FSI_Gravity::_inputSettings(istream& inStream)
 	Simulation_FSI::_inputSettings(inStream);
 }
 
-Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uBody{0,0}, omegaBody(0), gravity{0,-9.81}, dtCFL(0), dtFourier(0), dtBody(0), re(0), nu(0), minRho(0), bSplit(false), stepStartBody(100)
+Sim_FSI_Gravity::Sim_FSI_Gravity(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uBody{0,0}, omegaBody(0), gravity{0,-9.81}, dtCFL(0), dtFourier(0), dtBody(0), re(0), nu(0), minRho(0), bSplit(false)
 {
 #ifdef _MULTIGRID_
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
@@ -239,16 +239,16 @@ void Sim_FSI_Gravity::init()
 	}
 	
 	pipeline.clear();
-	pipeline.push_back(new CoordinatorGravity(gravity, grid));
 #ifndef _MULTIPHASE_
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
 #else
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid,1));
 #endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
+	pipeline.push_back(new CoordinatorGravity(gravity, grid));
 	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs));
-	if (step>=stepStartBody) pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
-	if (step>=stepStartBody) pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
+	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
+	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
 	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid));
 	
 	if (rank==0)
@@ -282,7 +282,7 @@ void Sim_FSI_Gravity::simulate()
 			// choose dt (CFL, Fourier)
 			profiler.push_start("DT");
 			maxU = findMaxUOMP(vInfo,*grid);
-			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;
+			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu*min(shape->getRhoS(),(Real)1);
 			dtCFL     = maxU==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/abs(maxU);
 			dtBody    = max(abs(uBody[0]),abs(uBody[1]))==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/max(abs(uBody[0]),abs(uBody[1]));
 			assert(!std::isnan(maxU));
@@ -324,26 +324,13 @@ void Sim_FSI_Gravity::simulate()
 			step++;
 		}
 		
-		if (step==stepStartBody)
-		{
-			vector<GenericCoordinator *>::iterator it = pipeline.begin();
-			pipeline.insert(it+4, new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
-			pipeline.insert(it+5, new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
-			
-			if (rank==0)
-			{
-				cout << "Coordinator/Operator ordering:\n";
-				for (int c=0; c<pipeline.size(); c++)
-					cout << "\t" << pipeline[c]->getName() << endl;
-			}
-		}
-		
 		if (rank==0)
 		{
 			//if (step<100)
 			{
 				// this still needs to be corrected to the frame of reference!
 				double accM = (uBody[1]-vOld)/dt;
+				vOld = uBody[1];
 				double accT = (shape->getRhoS()-1)/(shape->getRhoS()+1) * gravity[1];
 				double accN = (shape->getRhoS()-1)/(shape->getRhoS()  ) * gravity[1];
 				if (verbose) cout << "Acceleration with added mass (measured, expected, no added mass)\t" << accM << "\t" << accT << "\t" << accN << endl;

@@ -74,8 +74,6 @@ protected:
 	
 	Real gravity[2];
 	
-	int stepStartBody; // could become time
-	
 	void _diagnostics();
 	void _ic();
 	double _nonDimensionalTime();

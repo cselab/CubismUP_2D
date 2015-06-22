@@ -17,6 +17,8 @@
 #include "MultigridHypre.h"
 #endif // _MULTIGRID_
 
+#define _HYDROSTATIC_
+
 template <typename Lab>
 class CoordinatorPressure : public GenericCoordinator
 {
@@ -35,6 +37,25 @@ protected:
 #ifdef _MULTIGRID_
 	MultigridHypre mg;
 #endif // _MULTIGRID_
+	
+	inline void addHydrostaticPressure(const double dt)
+	{
+		const int N = vInfo.size();
+		
+#pragma omp parallel for schedule(static)
+		for(int i=0; i<N; i++)
+		{
+			BlockInfo info = vInfo[i];
+			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
+			
+			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+				{
+					// TODO still need to pass g as parameter! - this is dangerous!
+					b(ix,iy).v += dt*9.81/b(ix,iy).rho;
+				}
+		}
+	}
 	
 	inline void updatePressure()
 	{
@@ -122,6 +143,9 @@ public:
 		// pressure
 #ifdef _SPLIT_
 #ifdef _SP_COMP_
+#ifdef _HYDROSTATIC_
+		addHydrostaticPressure(dt);
+#endif
 		computeSplit<OperatorDivergenceSplit>(dt);
 		pressureSolver.solve(*grid,false);
 		computeSplit<OperatorGradPSplit>(dt);
@@ -132,6 +156,9 @@ public:
 #ifdef _MULTIGRID_
 		if (rank==0)
 		{
+#ifdef _HYDROSTATIC_
+			addHydrostaticPressure(dt);
+#endif
 			if (bSplit)
 				computeSplit<OperatorDivergenceSplit>(dt);
 			else

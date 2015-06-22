@@ -67,7 +67,7 @@ protected:
 						Real density = min(max(b(ix,iy).tmp,min((Real)1.,rhoS)),max((Real)1.,rhoS));
 						b(ix,iy).rho = density;
 #else // _PARTICLES_
-	  //b(ix,iy).rho = b(ix,iy).tmp;
+						//b(ix,iy).rho = b(ix,iy).tmp;
 						Real density = min(max(b(ix,iy).tmp,min((Real)1.,rhoS)),max((Real)1.,rhoS));
 						b(ix,iy).rho = density;
 #endif // _PARTICLES_

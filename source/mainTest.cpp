@@ -27,6 +27,7 @@ using namespace std;
 #include "TestTravelingWave.h"
 #include "TestShearLayer.h"
 #include "TestPoiseuille.h"
+#include "TestAddedMass.h"
 #include "Definitions.h"
 
 void spatialConvergence(int argc, const char **argv, const int solver, const int ic, const string test, const int minBPD, const int maxBPD, const double dt)
@@ -170,6 +171,19 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 			wave->run();
 			wave->check();
 			delete wave;
+		}
+	}
+	else if (test=="addedmass")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tAdded Mass Test (Space)\n";
+		cout << "========================================================================================\n";
+		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
+		{
+			TestAddedMass * am = new TestAddedMass(argc, argv, bpd);
+			am->run();
+			am->check();
+			delete am;
 		}
 	}
 	else
@@ -419,10 +433,20 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 		cout << "========================================================================================\n";
 		cout << "\t\tPoiseuille Test\n";
 		cout << "========================================================================================\n";
-		TestPoiseuille * wave = new TestPoiseuille(argc, argv, bpd);
-		wave->run();
-		wave->check();
-		delete wave;
+		TestPoiseuille * poiseuille = new TestPoiseuille(argc, argv, bpd);
+		poiseuille->run();
+		poiseuille->check();
+		delete poiseuille;
+	}
+	else if (test=="addedmass")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tAdded Mass Test\n";
+		cout << "========================================================================================\n";
+		TestAddedMass * am = new TestAddedMass(argc, argv, bpd);
+		am->run();
+		am->check();
+		delete am;
 	}
 	else
 		throw std::invalid_argument("This test setting does not exist!");
