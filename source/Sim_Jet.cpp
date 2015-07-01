@@ -68,13 +68,6 @@ void Sim_Jet::_ic()
 				}
 		}
 		
-		CoordinatorPressure<Lab> * coordP = new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs);
-		
-		for (int i=0; i<10; i++)
-			(*coordP)(.01);
-		
-		delete coordP;
-		
 		stringstream ss;
 		ss << path2file << "-IC.vti";
 		dumper.Write(*grid, ss.str());
@@ -138,6 +131,8 @@ void Sim_Jet::init()
 	
 	_ic();
 	
+	Real g[2] = {0,0};
+	
 	pipeline.clear();
 #ifndef _MULTIPHASE_
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
@@ -145,7 +140,7 @@ void Sim_Jet::init()
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid,rhoS));
 #endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
-	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs));
+	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, g, &step, bSplit, grid, rank, nprocs));
 	
 	if (rank==0)
 	{

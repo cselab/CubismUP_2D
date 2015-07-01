@@ -103,7 +103,7 @@ void Sim_RayleighTaylor::init()
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid,rhoS));
 #endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
-	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs));
+	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &step, bSplit, grid, rank, nprocs));
 	
 	if (rank==0)
 	{

@@ -25,6 +25,7 @@ class CoordinatorPressure : public GenericCoordinator
 protected:
 	const int rank, nprocs;
 	const double minRho;
+	Real gravity[2];
 	int * step;
 	const bool bSplit;
 	
@@ -51,8 +52,12 @@ protected:
 			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
 				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
 				{
-					// TODO still need to pass g as parameter! - this is dangerous!
-					b(ix,iy).v += dt*9.81/b(ix,iy).rho;
+					b(ix,iy).u -= dt*gravity[0]/b(ix,iy).rho;
+					b(ix,iy).v -= dt*gravity[1]/b(ix,iy).rho;
+					
+					// doesn't help much
+					//b(ix,iy).u -= dt*minRho*gravity[0]/b(ix,iy).rho + (minRho<1 ? dt*(1-minRho)*gravity[0] : 0);
+					//b(ix,iy).v -= dt*minRho*gravity[1]/b(ix,iy).rho + (minRho<1 ? dt*(1-minRho)*gravity[1] : 0);
 				}
 		}
 	}
@@ -122,7 +127,7 @@ protected:
 	}
 	
 public:
-	CoordinatorPressure(const double minRho, int * step, const bool bSplit, FluidGrid * grid, const int rank, const int nprocs) : GenericCoordinator(grid), rank(rank), nprocs(nprocs), minRho(minRho), step(step), bSplit(bSplit)
+	CoordinatorPressure(const double minRho, const Real gravity[2], int * step, const bool bSplit, FluidGrid * grid, const int rank, const int nprocs) : GenericCoordinator(grid), rank(rank), nprocs(nprocs), minRho(minRho), step(step), bSplit(bSplit), gravity{gravity[0],gravity[1]}
 #ifdef _SPLIT_
 #ifdef _SP_COMP_
 	, pressureSolver(NTHREADS)

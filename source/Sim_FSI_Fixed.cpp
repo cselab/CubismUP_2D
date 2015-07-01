@@ -73,7 +73,7 @@ void Sim_FSI_Fixed::_ic()
 
 double Sim_FSI_Fixed::_nonDimensionalTime()
 {
-	return time*abs(uinf)/shape->getCharLength();
+	return 2*time*abs(uinf)/shape->getCharLength();
 }
 
 void Sim_FSI_Fixed::_outputSettings(ostream &outStream)

@@ -2,5 +2,11 @@ cd ../makefiles
 make clean
 make config=debug poisson=hypre bc=mixed precision=double particles=false -j
 cd ../launch
-#export OMP_NUM_THREADS=48;mpirun -np 32 ../makefiles/simulation -file /cluster/scratch_xp/public/cconti/CubismUP/FallingCylinder_Kolomenskiy_CFL0.1_bpd16 -CFL 0.1 -bpdx 16 -bpdy 16 -radius .0125 -tend 2. -rhoS 2 -ypos .85 -nu 0.0001551888 -sim falling -fdump 100
-export OMP_NUM_THREADS=48;mpirun -np 32 ../makefiles/simulation -file /cluster/scratch_xp/public/cconti/CubismUP/FallingCylinder_Kolomenskiy_CFL0.1_bpd16 -CFL 0.1 -bpdx 16 -bpdy 16 -radius .05 -tend 2. -rhoS .001 -ypos .65 -nu 0.001 -sim falling -fdump 100
+
+for BPD in 16 32 64
+do
+	FOLDER=/cluster/scratch_xp/public/cconti/CubismUP/FallingCylinder_Kolomenskiy_bpd${BPD}
+	mkdir ${FOLDER}
+	cp ../makefiles/simulation ${FOLDER}
+	export OMP_NUM_THREADS=48;bsub -n 48 -W 10:00 -o Kolomenskiy_${BPD} -J Kolomenskiy_${BPD} mpirun -np 32 ${FOLDER}/simulation -file /cluster/scratch_xp/public/cconti/CubismUP/FallingCylinder_Kolomenskiy_bpd${BPD}/FallingCylinder_Kolomenskiy_bpd${BPD} -CFL 0.1 -LCFL 0.1 -bpdx ${BPD} -bpdy ${BPD} -radius .0125 -tend 2. -rhoS 2. -ypos .9 -nu 0.000155188776172763 -sim falling -tdump 0.01
+done

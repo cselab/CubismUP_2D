@@ -73,7 +73,7 @@ void Sim_FSI_Moving::_ic()
 
 double Sim_FSI_Moving::_nonDimensionalTime()
 {
-	return time*abs(uBody[0])/shape->getCharLength();
+	return 2*time*abs(uBody[0])/shape->getCharLength();
 }
 
 void Sim_FSI_Moving::_outputSettings(ostream &outStream)

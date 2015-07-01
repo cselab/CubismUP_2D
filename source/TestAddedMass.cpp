@@ -27,7 +27,7 @@ void TestAddedMass::_ic()
 	path2file = parser("-file").asString("../data/AddedMass");
 	
 	rhoS = parser("-rhoS").asDouble(1);
-	minRho = min((Real)1.,rhoS);
+	minRho = min((Real)1.,(Real)rhoS);
 	
 	Real centerOfMass[2] = {.5,.5};
 	bool bPeriodic[2] = {false,false};
@@ -43,10 +43,6 @@ void TestAddedMass::_ic()
 		CoordinatorIC coordIC(shape,0,grid);
 		coordIC(0);
 	}
-	
-	//GenericCoordinator * pressure = new CoordinatorPressure<Lab>(minRho, &step, false, grid, rank, nprocs);
-	//(*pressure)(1e-7);
-	//(*pressure)(1e-7);
 }
 
 TestAddedMass::TestAddedMass(const int argc, const char ** argv, const int bpd) : Test(argc, argv), parser(argc,argv), bpd(bpd), gravity{0,-9.81}, uBody{0,0}, omegaBody(0), bSplit(false), step(0), rank(0), nprocs(1)
@@ -67,7 +63,7 @@ TestAddedMass::TestAddedMass(const int argc, const char ** argv, const int bpd) 
 #endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
-	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs));
+	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &step, bSplit, grid, rank, nprocs));
 	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
 	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
 	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid));
@@ -93,7 +89,7 @@ void TestAddedMass::run()
 	MPI_Barrier(MPI_COMM_WORLD);
 #endif // _MULTIGRID_
 	
-	nsteps = 3;
+	nsteps = parser("-nsteps").asInt(3);
 	double dt = 1e-07;
 	
 	for (step=0; step<nsteps; step++)
@@ -109,6 +105,10 @@ void TestAddedMass::run()
 		
 		if (rank==0)
 		{
+			stringstream sstmp;
+			sstmp << path2file << bpd << "-" << step << ".vti";
+			dumper.Write(*grid, sstmp.str());
+			
 			// this still needs to be corrected to the frame of reference!
 			double accM = (uBody[1]-vOld)/dt;
 			vOld = uBody[1];

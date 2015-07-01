@@ -91,8 +91,9 @@ TestPoiseuille::TestPoiseuille(const int argc, const char ** argv, const int bpd
 #ifndef _MULTIGRID_
 	pipeline.push_back(new CoordinatorPressureSimple<Lab>(grid)); // need to also test with Hypre!
 #else
+	Real g[2] = {0,0};
 	bool bSplit = false;
-	pipeline.push_back(new CoordinatorPressure<Lab>(1, &step, bSplit, grid, rank, nprocs));
+	pipeline.push_back(new CoordinatorPressure<Lab>(1, g, &step, bSplit, grid, rank, nprocs));
 #endif
 }
 
@@ -155,9 +156,9 @@ void TestPoiseuille::run()
 		
 		if (step%10==0)
 		{
-		stringstream sstmp;
-		sstmp << path2file << bpd << "-" << step << ".vti";
-		dumper.Write(*grid, sstmp.str());
+			stringstream sstmp;
+			sstmp << path2file << bpd << "-" << step << ".vti";
+			dumper.Write(*grid, sstmp.str());
 		}
 		
 		// check nondimensional time

@@ -95,7 +95,8 @@ TestTravelingWave::TestTravelingWave(const int argc, const char ** argv, const i
 	pipeline.push_back(new CoordinatorPressureSimple<Lab>(grid)); // need to also test with Hypre!
 #else
 	bool bSplit = false;
-	pipeline.push_back(new CoordinatorPressure<Lab>(1, &step, bSplit, grid, rank, nprocs));
+	Real g[2] = {0,0};
+	pipeline.push_back(new CoordinatorPressure<Lab>(1, g, &step, bSplit, grid, rank, nprocs));
 #endif
 }
 

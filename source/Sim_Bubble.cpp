@@ -156,7 +156,7 @@ void Sim_Bubble::init()
 #endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
-	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, &step, bSplit, grid, rank, nprocs)); // this should only compute the dynamic pressure
+	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &step, bSplit, grid, rank, nprocs)); // this should only compute the dynamic pressure
 	
 	if (rank==0)
 	{
@@ -189,7 +189,7 @@ void Sim_Bubble::simulate()
 			// choose dt (CFL, Fourier)
 			profiler.push_start("DT");
 			maxU = findMaxUOMP(vInfo,*grid);
-			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu*min(rhoS,(Real)1);
+			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu*min((Real)rhoS,(Real)1);
 			dtCFL     = maxU==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/abs(maxU);
 			assert(!std::isnan(maxU));
 			dt = min(dtCFL,dtFourier);
