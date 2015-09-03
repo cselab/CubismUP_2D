@@ -33,6 +33,9 @@ protected:
 				{
 					b(ix,iy).tmpU = 0;
 					b(ix,iy).tmpV = 0;
+#ifdef _DENSITYDIFF_
+					b(ix,iy).tmp = 0;
+#endif
 				}
 		}
 	};
@@ -52,12 +55,9 @@ protected:
 				{
 					b(ix,iy).u = b(ix,iy).tmpU;
 					b(ix,iy).v = b(ix,iy).tmpV;
-					/*
-					 // there is no diffusion of density!
-#ifdef _MULTIPHASE_
+#ifdef _DENSITYDIFF_
 					b(ix,iy).rho = b(ix,iy).tmp;
-#endif // _MULTIPHASE_
-					 */
+#endif
 				}
 		}
 	 }
@@ -95,7 +95,9 @@ public:
 		
 		reset();
 		diffuse(dt,0);
+#ifdef _RK2_
 		diffuse(dt,1);
+#endif
 		update();
 		
 		check("diffusion - end");

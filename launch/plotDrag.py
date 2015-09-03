@@ -48,7 +48,7 @@ pRe40.set_xlim(0,5)
 pRe40.set_ylim(0,10)
 pRe100.set_xlim(0,20)
 pRe100.set_ylim(0,2)
-pRe1000.set_xlim(0,3)
+pRe1000.set_xlim(0,5)
 pRe1000.set_ylim(0,2)
 
 pRe40.set_title("Re40")

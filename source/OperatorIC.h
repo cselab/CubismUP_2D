@@ -34,7 +34,7 @@ public:
 				info.pos(p, ix, iy);
 				
 				block(ix,iy).u = uinf;
-				block(ix,iy).v = 0;
+				block(ix,iy).v = 0;//uinf/1000.*sin(p[0]*100);
 				block(ix,iy).chi = shape->chi(p, info.h_gridpoint);
 				
 				// assume fluid with density 1

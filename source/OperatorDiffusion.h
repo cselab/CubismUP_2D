@@ -31,7 +31,9 @@ public:
 		stencil_end[1] = 2;
 		stencil_end[2] = 1;
 		
-		//dt = (stage==0) ? dt*.5 : dt;
+#ifdef _RK2_
+		dt = (stage==0) ? dt*.5 : dt;
+#endif
 	}
 	
 	~OperatorDiffusion() {}
@@ -51,13 +53,24 @@ public:
 					FluidElement& phiS = lab(ix,iy-1);
 					FluidElement& phiE = lab(ix+1,iy);
 					FluidElement& phiW = lab(ix-1,iy);
+#ifdef _DENSITYDIFF_
+					o(ix,iy).tmp = phi.rho + 1e-5 * dt / (info.h_gridpoint*info.h_gridpoint) * (phiN.rho + phiS.rho + phiE.rho + phiW.rho - phi.rho*4.);
+#endif
 					
+#ifdef _MULTIPHASE_
 					o(ix,iy).tmpU = phi.u + prefactor/phi.rho * (phiN.u + phiS.u + phiE.u + phiW.u - phi.u*4.);
 					o(ix,iy).tmpV = phi.v + prefactor/phi.rho * (phiN.v + phiS.v + phiE.v + phiW.v - phi.v*4.);
-					//o(ix,iy).tmpU = phi.u + prefactor * (phiN.u + phiS.u + phiE.u + phiW.u - phi.u*4.);
-					//o(ix,iy).tmpV = phi.v + prefactor * (phiN.v + phiS.v + phiE.v + phiW.v - phi.v*4.);
+#else
+#ifdef _CONSTNU_
+					o(ix,iy).tmpU = phi.u + prefactor * (phiN.u + phiS.u + phiE.u + phiW.u - phi.u*4.);
+					o(ix,iy).tmpV = phi.v + prefactor * (phiN.v + phiS.v + phiE.v + phiW.v - phi.v*4.);
+#else
+					o(ix,iy).tmpU = phi.u + prefactor/phi.rho * (phiN.u + phiS.u + phiE.u + phiW.u - phi.u*4.);
+					o(ix,iy).tmpV = phi.v + prefactor/phi.rho * (phiN.v + phiS.v + phiE.v + phiW.v - phi.v*4.);
+#endif // _CONSTNU_
+#endif // _MULTIPHASE_
 				}
-		/*
+#ifdef _RK2_
 		// stage 2 of RK2
 		else if (stage==1)
 			for(int iy=0; iy<FluidBlock::sizeY; ++iy)
@@ -68,11 +81,24 @@ public:
 					FluidElement& phiS = lab(ix,iy-1);
 					FluidElement& phiE = lab(ix+1,iy);
 					FluidElement& phiW = lab(ix-1,iy);
+#ifdef _DENSITYDIFF_
+					o(ix,iy).tmp = phi.rho + 1e-5 * dt / (info.h_gridpoint*info.h_gridpoint) * (phiN.tmp + phiS.tmp + phiE.tmp + phiW.tmp - phi.tmp*4.);
+#endif
 					
-					o(ix,iy).tmpU = phi.u + prefactor * (phiN.tmpU + phiS.tmpU + phiE.tmpU + phiW.tmpU - 4.*phi.tmpU);
-					o(ix,iy).tmpV = phi.v + prefactor * (phiN.tmpV + phiS.tmpV + phiE.tmpV + phiW.tmpV - 4.*phi.tmpV);
+#ifdef _MULTIPHASE_
+					o(ix,iy).tmpU = phi.u + prefactor/phi.rho * (phiN.tmpU + phiS.tmpU + phiE.tmpU + phiW.tmpU - phi.tmpU*4.);
+					o(ix,iy).tmpV = phi.v + prefactor/phi.rho * (phiN.tmpV + phiS.tmpV + phiE.tmpV + phiW.tmpV - phi.tmpV*4.);
+#else
+#ifdef _CONSTNU_
+					o(ix,iy).tmpU = phi.u + prefactor * (phiN.tmpU + phiS.tmpU + phiE.tmpU + phiW.tmpU - phi.tmpU*4.);
+					o(ix,iy).tmpV = phi.v + prefactor * (phiN.tmpV + phiS.tmpV + phiE.tmpV + phiW.tmpV - phi.tmpV*4.);
+#else
+					o(ix,iy).tmpU = phi.u + prefactor/phi.rho * (phiN.tmpU + phiS.tmpU + phiE.tmpU + phiW.tmpU - phi.tmpU*4.);
+					o(ix,iy).tmpV = phi.v + prefactor/phi.rho * (phiN.tmpV + phiS.tmpV + phiE.tmpV + phiW.tmpV - phi.tmpV*4.);
+#endif // _CONSTNU_
+#endif // _MULTIPHASE_
 				}
-		 */
+#endif // _RK2_
 	}
 };
 

@@ -13,10 +13,11 @@ class CoordinatorBodyVelocities : public GenericCoordinator
 {
 protected:
 	Real *uBody, *vBody, *omegaBody;
-	Real lambda;
+	Real *lambda;
+	Real rhoS;
 	
 public:
-	CoordinatorBodyVelocities(Real * uBody, Real * vBody, Real * omegaBody, const Real lambda, FluidGrid * grid) : GenericCoordinator(grid), uBody(uBody), vBody(vBody), omegaBody(omegaBody), lambda(lambda)
+	CoordinatorBodyVelocities(Real * uBody, Real * vBody, Real * omegaBody, Real * lambda, Real rhoS, FluidGrid * grid) : GenericCoordinator(grid), uBody(uBody), vBody(vBody), omegaBody(omegaBody), lambda(lambda), rhoS(rhoS)
 	{
 	}
 	
@@ -25,6 +26,7 @@ public:
 		double centerTmpX = 0;
 		double centerTmpY = 0;
 		double mass = 0;
+		double volume = 0;
 		double u = 0;
 		double v = 0;
 		double momOfInertia = 0;
@@ -44,10 +46,15 @@ public:
 				{
 					double p[2] = {0,0};
 					info.pos(p, ix, iy);
+#ifdef _MATTIA_
+					double rhochi = rhoS * b(ix,iy).chi;
+#else
 					double rhochi = b(ix,iy).rho * b(ix,iy).chi;
+#endif
 					centerTmpX += p[0] * rhochi;
 					centerTmpY += p[1] * rhochi;
 					mass += rhochi;
+					volume += b(ix,iy).chi;
 				}
 		}
 		
@@ -68,22 +75,37 @@ public:
 				{
 					double p[2] = {0,0};
 					info.pos(p, ix, iy);
+#ifndef _AVGU_
 					double rhochi = b(ix,iy).rho * b(ix,iy).chi;
 					u += b(ix,iy).u * rhochi;
 					v += b(ix,iy).v * rhochi;
 					momOfInertia    += rhochi * ((p[0]-centerTmpX)*(p[0]-centerTmpX) + (p[1]-centerTmpY)*(p[1]-centerTmpY));
 					angularMomentum += rhochi * ((p[0]-centerTmpX)*b(ix,iy).v        - (p[1]-centerTmpY)*b(ix,iy).u);
+#else
+					double chi = b(ix,iy).chi;
+					u += b(ix,iy).u * chi;
+					v += b(ix,iy).v * chi;
+					momOfInertia    += chi * ((p[0]-centerTmpX)*(p[0]-centerTmpX) + (p[1]-centerTmpY)*(p[1]-centerTmpY));
+					angularMomentum += chi * ((p[0]-centerTmpX)*b(ix,iy).v        - (p[1]-centerTmpY)*b(ix,iy).u);
+#endif
 				}
 		}
-		
+	
+#ifndef _AVGU_
 		*uBody = u / mass;
 		*vBody = v / mass;
+#else
+		*uBody = u / volume;
+		*vBody = v / volume;
+#endif
 		*omegaBody = angularMomentum / momOfInertia;
 		
 		/*/
-		 #pragma omp parallel for schedule(static) reduction(+:u) reduction(+:v)
-		 for(int i=0; i<N; i++)
-		 {
+		u=0;
+		v=0;
+#pragma omp parallel for schedule(static) reduction(+:u) reduction(+:v)
+		for(int i=0; i<N; i++)
+		{
 		 BlockInfo info = vInfo[i];
 		 FluidBlock& b = *(FluidBlock*)info.ptrBlock;
 		 
@@ -92,14 +114,16 @@ public:
 		 for(int iy=0; iy<FluidBlock::sizeY; ++iy)
 			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
 			{
-		 u += (b(ix,iy).u-ub[0]) * b(ix,iy).chi;
-		 v += (b(ix,iy).v-ub[1]) * b(ix,iy).chi;
+				u += (b(ix,iy).u-(*uBody)) * b(ix,iy).chi;
+				v += (b(ix,iy).v-(*vBody)) * b(ix,iy).chi;
 			}
-		 }
-		 
-		 ub[0] += dt*u*lambda / mass;
-		 ub[1] += dt*v*lambda / mass;
-		 //*/
+		}
+		
+		*uBody += dt*u*(*lambda) / mass;
+		*vBody += dt*v*(*lambda) / mass;
+		
+		cout << "vBody is " << *vBody << endl;
+		//*/
 	}
 	
 	string getName()

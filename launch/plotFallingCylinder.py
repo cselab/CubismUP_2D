@@ -15,16 +15,16 @@ x = []
 y = []
 r = []
 v = []
-xref = [0, 10]
-rref = [157, 157]
-vref = [-0.044, -0.044]
+xref = [0, 20]
+rref = [40, 40]
+vref = [-.48, -.48]
 
 p1 = fig.add_subplot(131)
 p2 = fig.add_subplot(132)
 p3 = fig.add_subplot(133)
 
 for dirName, subDirList, fileList in os.walk(rootDir):
-	if "Namkoong" in dirName:
+	if "Falling_Re40_0109_Lambda1e" in dirName and "CFL0.05" in dirName:
 		for file in fileList:
 			if "diagnostics.dat" in file:
 				#and "128" in file:
@@ -39,30 +39,30 @@ for dirName, subDirList, fileList in os.walk(rootDir):
 				p2.plot(x[idx],v[idx],label=file)
 				p3.plot(x[idx],y[idx],label=file)
 
-				#p1.legend()
+				p3.legend()
 
 p1.plot(xref,rref)
 p2.plot(xref,vref)
 
-#handles, labels = p1.get_legend_handles_labels()
-#p1.legend(handles, labels)
+handles, labels = p3.get_legend_handles_labels()
+p3.legend(handles, labels)
 
-p1.set_xlim(0,10)
-p1.set_ylim(0,200)
-p2.set_xlim(0,10)
-p2.set_ylim(-.05,0)
-p3.set_xlim(0,10)
+p1.set_xlim(0,2)
+p1.set_ylim(0,100)
+p2.set_xlim(0,2)
+p2.set_ylim(-1,0)
+p3.set_xlim(0,2)
 p3.set_ylim(0,1)
 
-p1.set_title("Namkoong")
+p1.set_title("Re40")
 p1.set_xlabel('Time')
 p1.set_ylabel('Re')
 
-p2.set_title("Namkoong")
+p2.set_title("Re40")
 p2.set_xlabel('Time')
 p2.set_ylabel('velocity v')
 
-p3.set_title("Namkoong")
+p3.set_title("Re40")
 p3.set_xlabel('Time')
 p3.set_ylabel('position y')
 

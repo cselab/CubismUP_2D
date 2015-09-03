@@ -21,7 +21,7 @@ class Simulation_FSI : public Simulation_Fluid
 {
 protected:
 	// penalization parameter
-	double lambda;
+	Real lambda;
 	
 	// body
 	Shape * shape;

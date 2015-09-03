@@ -246,10 +246,12 @@ void Sim_FSI_Gravity::init()
 #endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
-	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &step, bSplit, grid, rank, nprocs));
-	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, lambda, grid));
+	
+	// reordered - before was pressure, then penalization
+	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, &lambda, shape->getRhoS(), grid));
 	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
-	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid));
+	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid));
+	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &step, bSplit, grid, rank, nprocs));
 	
 	if (rank==0)
 	{
@@ -309,6 +311,9 @@ void Sim_FSI_Gravity::simulate()
 		
 		if (dt!=0)
 		{
+#ifdef _DLM_
+			lambda = 1./dt;
+#endif
 			for (int c=0; c<pipeline.size(); c++)
 			{
 #ifdef _MULTIGRID_

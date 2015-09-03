@@ -19,6 +19,11 @@ protected:
 	double dtCFL, dtLCFL, dtFourier;
 	double time, endTime;
 	const int bpd, bpdRef;
+	int step;
+	const double rhoS;
+	
+	// MPI stuff - required for Hypre
+	int rank, nprocs;
 	
 	string path2file;
 	SerializerIO_ImageVTK<FluidGrid, FluidVTKStreamer> dumper;

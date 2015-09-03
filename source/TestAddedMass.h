@@ -27,7 +27,7 @@ protected:
 	Real gravity[2];
 	
 	// penalization parameter
-	double lambda;
+	Real lambda;
 	
 	string path2file;
 	SerializerIO_ImageVTK<FluidGrid, FluidVTKStreamer> dumper;

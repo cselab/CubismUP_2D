@@ -34,7 +34,6 @@ public:
         for(int iy=0; iy<FluidBlock::sizeY; ++iy)
             for(int ix=0; ix<FluidBlock::sizeX; ++ix)
 			{
-				//*
 				Real p[2] = {0,0};
 				info.pos(p,ix,iy);
 				block(ix,iy).u = (block(ix,iy).u + dt * lambda * block(ix,iy).chi * (uBody[0] - omegaBody*(p[1]-centerOfMass[1]))) / (1 + dt * lambda * block(ix,iy).chi);

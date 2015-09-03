@@ -14,7 +14,6 @@
 #include "CoordinatorIC.h"
 #include "CoordinatorAdvection.h"
 #include "CoordinatorDiffusion.h"
-#include "CoordinatorPenalization.h"
 #include "CoordinatorPressure.h"
 #include "CoordinatorGravity.h"
 

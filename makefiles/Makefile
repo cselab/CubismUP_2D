@@ -10,6 +10,14 @@ multiphase ?= false
 bs ?= 32
 vertexcentered ?= false
 particles ?= true
+dlm ?= false
+
+constnu ?= false
+densitydiff ?= false
+mattia ?= false
+avgu ?= false
+
+rk2 ?= true
 
 CPPFLAGS+= -w
 
@@ -55,6 +63,30 @@ endif
 
 ifeq "$(particles)" "true"
 	CPPFLAGS += -D_PARTICLES_
+endif
+
+ifeq "$(dlm)" "true"
+	CPPFLAGS += -D_DLM_
+endif
+
+ifeq "$(mattia)" "true"
+	CPPFLAGS += -D_MATTIA_
+endif
+
+ifeq "$(constnu)" "true"
+	CPPFLAGS += -D_CONSTNU_
+endif
+
+ifeq "$(densitydiff)" "true"
+	CPPFLAGS += -D_DENSITYDIFF_
+endif
+
+ifeq "$(avgu)" "true"
+CPPFLAGS += -D_AVGU_
+endif
+
+ifeq "$(rk2)" "true"
+	CPPFLAGS += -D_RK2_
 endif
 
 vtk-inc ?= 

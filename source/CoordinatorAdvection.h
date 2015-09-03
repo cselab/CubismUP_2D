@@ -186,9 +186,13 @@ public:
 		
 #pragma omp parallel
 		{
+#ifndef _PARTICLES_
+			OperatorTransportUpwind3rdOrder kernel(dt,0);
+#else
 			//OperatorTransport<Hat> kernel(dt);
 			//OperatorTransport<Mp4> kernel(dt);
 			OperatorTransport<Ms6> kernel(dt);
+#endif
 			
 			Lab mylab;
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
@@ -201,6 +205,27 @@ public:
 				kernel(mylab, ary[i], *(FluidBlock*)ary[i].ptrBlock);
 			}
 		}
+		
+#ifndef _PARTICLES_
+#ifdef _RK2_
+		abort();
+#pragma omp parallel
+		{
+			OperatorTransportUpwind3rdOrder kernel(dt,1);
+			
+			Lab mylab;
+			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
+			
+#pragma omp for schedule(static)
+			for (int i=0; i<N; i++)
+			{
+				mylab.load(ary[i], 0);
+				
+				kernel(mylab, ary[i], *(FluidBlock*)ary[i].ptrBlock);
+			}
+		}
+#endif
+#endif
 		
 		update();
 	}

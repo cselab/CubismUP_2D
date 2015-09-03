@@ -33,7 +33,7 @@ void TestDiffusion::_ic()
 				double p[3];
 				info.pos(p, ix, iy);
 				
-				b(ix, iy).rho = 0;
+				b(ix, iy).rho = 1;
 				b(ix, iy).u   = _analytical(p[0],p[1],0);
 				b(ix, iy).v   = 0;
 				b(ix, iy).chi = 0;

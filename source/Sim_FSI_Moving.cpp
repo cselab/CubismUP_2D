@@ -166,7 +166,7 @@ void Sim_FSI_Moving::init()
 #endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
 	pipeline.push_back(new CoordinatorPressureSimple<Lab>(grid));
-	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid));
+	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid));
 	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
 	
 	cout << "Coordinator/Operator ordering:\n";
@@ -207,6 +207,9 @@ void Sim_FSI_Moving::simulate()
 			dt = min(dt,endTime-_nonDimensionalTime());
 		if (verbose)
 			cout << "dt (Fourier, CFL, body): " << dtFourier << " " << dtCFL << " " << dtBody << endl;
+#ifdef _DLM_
+		lambda = 1./dt;
+#endif
 		profiler.pop_stop();
 		
 		for (int c=0; c<pipeline.size(); c++)

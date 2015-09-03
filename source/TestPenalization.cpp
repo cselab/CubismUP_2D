@@ -47,7 +47,7 @@ void TestPenalization::run()
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
 	Real omegaBody = 0;
-	CoordinatorPenalization coordPenalization(&uBody[0], &uBody[1], &omegaBody, shape, lambda, grid);
+	CoordinatorPenalization coordPenalization(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid);
 	
 	for (int i=0; i<10; i++)
 	{

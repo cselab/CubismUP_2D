@@ -18,7 +18,7 @@ class TestPenalization : public Test
 private:
 	int bpd;
 	double dt;
-	double lambda;
+	Real lambda;
 	Real uBody[2];
 	Shape * shape;
 	

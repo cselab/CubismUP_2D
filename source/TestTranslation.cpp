@@ -75,7 +75,7 @@ void TestTranslation::run()
 	Real omega = 0;
 	Real lambda = 1;
 	CoordinatorComputeShape coordComputeShape(&u[0], &u[1], &omega, shape, grid);
-	CoordinatorBodyVelocities coordBodyVelocities(&u[0], &u[1], &omega, lambda, grid);
+	CoordinatorBodyVelocities coordBodyVelocities(&u[0], &u[1], &omega, &lambda, shape->getRhoS(), grid);
 	
 	for (int step=0; step<50; step++)
 	{

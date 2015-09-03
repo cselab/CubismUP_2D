@@ -139,7 +139,8 @@ void Sim_FSI_Fixed::init()
 		uinf = parser("-uinf").asDouble(0.1);
 		re = parser("-Re").asDouble(100);
 		
-		Real center[2] = {.15,.5};
+		//Real center[2] = {.15,.5};
+		Real center[2] = {.125,.125};
 		shape->setPosition(center);
 		nu = shape->getCharLength()*uinf/re;
 		
@@ -154,7 +155,7 @@ void Sim_FSI_Fixed::init()
 #endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
 	pipeline.push_back(new CoordinatorPressureSimple<Lab>(grid));
-	pipeline.push_back(new CoordinatorPenalizationFixed(shape, lambda, grid));
+	pipeline.push_back(new CoordinatorPenalizationFixed(shape, &lambda, grid));
 	
 	cout << "Coordinator/Operator ordering:\n";
 	for (int c=0; c<pipeline.size(); c++)
@@ -192,6 +193,9 @@ void Sim_FSI_Fixed::simulate()
 			dt = min(dt,endTime-_nonDimensionalTime());
 		if (verbose)
 			cout << "dt (Fourier, CFL): " << dtFourier << " " << dtCFL << endl;
+#ifdef _DLM_
+		lambda = 1./dt;
+#endif
 		profiler.pop_stop();
 		
 		for (int c=0; c<pipeline.size(); c++)
