@@ -85,7 +85,7 @@ public:
 	}
 	
 	template<int dir, int side>
-	void applyBC_mixedBottom()
+	void applyBC_mixedBottom(const TElement& p)
 	{
 		assert(dir==1);
 		
@@ -95,9 +95,9 @@ public:
 			for(int ix=s[0]; ix<e[0]; ix++)
 			{
 				(*this)(ix,iy).rho = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).rho;
-				(*this)(ix,iy).chi = 0;
-				(*this)(ix,iy).u   = 0;
-				(*this)(ix,iy).v   = 0;
+				(*this)(ix,iy).chi = p.chi;
+				(*this)(ix,iy).u   = p.u;
+				(*this)(ix,iy).v   = p.v;
 				(*this)(ix,iy).p   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).p;
 				(*this)(ix,iy).pOld = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).pOld;
 				(*this)(ix,iy).divU = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).divU;
@@ -105,7 +105,7 @@ public:
 	}
 	
 	template<int dir, int side>
-	void applyBC_mixedTop()
+	void applyBC_mixedTop(const TElement& p)
 	{
 		assert(dir==1);
 		
@@ -115,12 +115,12 @@ public:
 			for(int ix=s[0]; ix<e[0]; ix++)
 			{
 				(*this)(ix,iy).rho = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).rho;
-				(*this)(ix,iy).chi = 0;
+				(*this)(ix,iy).chi = p.chi;
 				(*this)(ix,iy).u   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).u;
 				(*this)(ix,iy).v   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).v;
-				(*this)(ix,iy).p   = 0;
-				(*this)(ix,iy).pOld = 0;
-				(*this)(ix,iy).divU = 0;
+				(*this)(ix,iy).p   = p.p;
+				(*this)(ix,iy).pOld = p.pOld;
+				(*this)(ix,iy).divU = p.divU;
 			}
 	}
 	
