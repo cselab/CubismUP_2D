@@ -48,10 +48,7 @@ void TestAdvection::_icLinear()
 				double p[3];
 				info.pos(p, ix, iy);
 				
-				double rho = 0;
-				if (ix==FluidBlock::sizeX/2 && iy==FluidBlock::sizeY/2)
-					rho = 1;
-				b(ix, iy).rho = rho;//abs(p[0]-.5);
+                b(ix, iy).rho = sin(p[0]*8.*M_PI);//*sin(p[1]*2.*M_PI);
 				b(ix, iy).u   = 1;
 				b(ix, iy).v   = 1;
 				b(ix, iy).chi = 0;
@@ -88,13 +85,12 @@ void TestAdvection::_icVortex()
 				p[0] = p[0]*2.-1.;
 				p[1] = p[1]*2.-1.;
 				
-				const Real r = sqrt(p[0]*p[0] + p[1]*p[1]);
-				const Real invR = 1/r;
-				
-				
-				b(ix, iy).rho = r;
-				b(ix, iy).u   = -p[1];// sin(p[1])*cos(r*M_PI/2)*invR;
-				b(ix, iy).v   =  p[0];//-sin(p[0])*cos(r*M_PI/2)*invR;
+                const Real r = sqrt(p[0]*p[0] + p[1]*p[1]);
+                const Real invR = 1./r;
+								
+                b(ix, iy).rho = r;
+				b(ix, iy).u   =   sin(p[1])*cos(r*M_PI/2)*invR;//-p[1];//
+				b(ix, iy).v   =  -sin(p[0])*cos(r*M_PI/2)*invR;// p[0];//
 				b(ix, iy).chi = 0;
 				/*
 				if (r>.5)
@@ -224,37 +220,27 @@ void TestAdvection::run()
 {
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
-	/*
-	 if (testCase==0)
-		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/1. << ")\n";
-	 else
-		cout << "Using dt " << dt << " (CFL time step: " << vInfo[0].h_gridpoint/1. << ")\n";
-	 //*/
 	
 	int step = 0;
-	
-	//CoordinatorAdvection<Lab> coordAdvection(grid);
-	CoordinatorTransport<Lab> coordTransport(grid);
-	
-	while (step<nsteps)
-	{
-		//coordAdvection(dt);
-		coordTransport(dt);
-		
-		//dump some time steps every now and then
-		/*
-		if(step % 10 == 0)
-		{
-			stringstream ss;
-			ss << path2file << "-" << step << ".vti" ;
-			
-			dumper.Write(*grid, ss.str());
-		}
-		//*/
-		
-		time += dt;
-		step++;
-	}
+    
+    if (nsteps==1)
+    {
+        CoordinatorTransport<Lab> coordTransport(grid);
+        coordTransport(dt);
+        time += dt;
+        step++;
+    }
+    else
+    {
+        CoordinatorTransportTimeTest<Lab> coordTransport(grid);
+        while(step<nsteps)
+        {
+            coordTransport(dt);
+            
+            time += dt;
+            step++;
+        }
+    }
 	
 	stringstream ss;
 	ss << path2file << "-test" << testCase << "-bpd" << bpd << ".vti";
@@ -295,13 +281,14 @@ void TestAdvection::check()
 					double p[3];
 					info.pos(p, ix, iy);
 					
-					double uError, vError;
-					uError = b(ix, iy).u - 1;
-					vError = b(ix, iy).v - 1;
+					double error;
+                    error = b(ix, iy).rho - sin((p[0]-time)*8.*M_PI);//*sin((p[1]+dt)*2.*M_PI);
+                    b(ix,iy).chi = error;
+                    
 					
-					uLinf = max(uLinf,abs(uError));
-					uL1 += abs(uError);
-					uL2 += uError*uError;
+					uLinf = max(uLinf,abs(error));
+					uL1 += abs(error);
+					uL2 += error*error;
 				}
 		}
 	}
@@ -324,7 +311,7 @@ void TestAdvection::check()
 					
 					Real r = sqrt(p[0]*p[0] + p[1]*p[1]);
 					
-					double error = b(ix, iy).rho - r;
+                    double error = b(ix, iy).rho - r;
 					b(ix,iy).chi = error;
 					
 					uLinf = max(uLinf,abs(error));

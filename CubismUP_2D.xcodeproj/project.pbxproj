@@ -146,7 +146,7 @@
 		DD8BE00F1AEF7EFC008467AA /* TravelingWave.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = TravelingWave.sh; sourceTree = "<group>"; };
 		DD8BE0101AEFACAE008467AA /* TestShearLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestShearLayer.cpp; sourceTree = "<group>"; };
 		DD8BE0111AEFACAE008467AA /* TestShearLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestShearLayer.h; sourceTree = "<group>"; };
-		DD8BE0131AEFB422008467AA /* ShearLayer.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ShearLayer.sh; sourceTree = "<group>"; };
+		DD8BE0131AEFB422008467AA /* ShearLayerCFL.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ShearLayerCFL.sh; sourceTree = "<group>"; };
 		DD90D83C1B01D8B800013E04 /* Herrmann.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Herrmann.sh; sourceTree = "<group>"; };
 		DD9DC1441AB2F6B0009BFBEE /* Fields.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Fields.sh; sourceTree = "<group>"; };
 		DD9DC1461AB2F6B6009BFBEE /* Namkoong.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Namkoong.sh; sourceTree = "<group>"; };
@@ -252,7 +252,7 @@
 				DD2CF51D1B0E433F003C912A /* testPressure.sh */,
 				DD8BE00F1AEF7EFC008467AA /* TravelingWave.sh */,
 				DD54FEA01B03A5B300101525 /* Poiseuille.sh */,
-				DD8BE0131AEFB422008467AA /* ShearLayer.sh */,
+				DD8BE0131AEFB422008467AA /* ShearLayerCFL.sh */,
 				DD4134711B8768AA00CCAAE4 /* ShearLayer2.sh */,
 				DD58CAA41A5D9A3700291455 /* launchSimulation.sh */,
 				DD838C411ABAD1F200018A75 /* launchValidationDrag.sh */,

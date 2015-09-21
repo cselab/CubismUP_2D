@@ -144,13 +144,13 @@ public:
 				
 				p[0] = p[0]*2.-1.;
 				p[1] = p[1]*2.-1.;
-				
-				//const Real invR = 1./sqrt(p[0]*p[0] + p[1]*p[1]);
-				
-				const Real r = sqrt(p[0]*p[0] + p[1]*p[1]);
-				(*this)(ix,iy).rho = r;
-				(*this)(ix,iy).u   = -p[1];//sin(p[1]);//*invR;
-				(*this)(ix,iy).v   =  p[0];//-sin(p[0]);//*invR;
+                
+                const Real r = sqrt(p[0]*p[0] + p[1]*p[1]);
+				const Real invR = 1./r;
+                
+                (*this)(ix,iy).rho = r;
+                (*this)(ix,iy).u   =   sin(p[1])*cos(r*M_PI/2)*invR;//-p[1];//
+                (*this)(ix,iy).v   =  -sin(p[0])*cos(r*M_PI/2)*invR;// p[0];//
 				(*this)(ix,iy).chi = 0;
 				 // what about pressure?
 				 //*/

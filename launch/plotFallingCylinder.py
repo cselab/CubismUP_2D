@@ -24,7 +24,7 @@ p2 = fig.add_subplot(132)
 p3 = fig.add_subplot(133)
 
 for dirName, subDirList, fileList in os.walk(rootDir):
-	if "Falling_Re40_0109_Lambda1e" in dirName and "CFL0.05" in dirName:
+	if "Falling_Re40_0409" in dirName:
 		for file in fileList:
 			if "diagnostics.dat" in file:
 				#and "128" in file:

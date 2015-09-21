@@ -64,7 +64,7 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 		cout << "========================================================================================\n";
 		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
 		{
-			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, 1);
+			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, 1, 8);
 			diffusion->run();
 			diffusion->check();
 			delete diffusion;
@@ -224,7 +224,7 @@ void temporalConvergence(int argc, const char **argv, const int solver, const in
 		cout << "========================================================================================\n";
 		for (double dt=minDT; dt<=maxDT; dt*=2)
 		{
-			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, 1000);
+			TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, 10000, 4);
 			diffusion->run();
 			diffusion->check();
 			delete diffusion;
@@ -324,7 +324,7 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 		cout << "========================================================================================\n";
 		cout << "\t\tDiffusion Test\n";
 		cout << "========================================================================================\n";
-		TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, tEnd);
+		TestDiffusion * diffusion = new TestDiffusion(argc, argv, bpd, dt, tEnd, 8);
 		diffusion->run();
 		diffusion->check();
 		delete diffusion;

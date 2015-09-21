@@ -13,7 +13,7 @@
 
 double TestDiffusion::_analytical(double px, double py, double t)
 {
-	return sin(px*2.*M_PI) * sin(py*2.*M_PI) * exp(-8.*nu*M_PI*M_PI*t);
+    return sin(px*2.*freq*M_PI) * sin(py*2.*freq*M_PI) * exp(-4.*2*freq*freq*nu*M_PI*M_PI*t);
 }
 
 void TestDiffusion::_ic()
@@ -51,7 +51,7 @@ void TestDiffusion::_ic()
 	dumper.Write(*grid, ss.str());
 }
 
-TestDiffusion::TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt, const int nsteps) : Test(argc, argv), bpd(bpd), time(0), dt(dt), nsteps(nsteps)
+TestDiffusion::TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt, const int nsteps, const double freq) : Test(argc, argv), bpd(bpd), time(0), dt(dt), nsteps(nsteps), freq(freq)
 {
 	// test settings
 	nu = parser("-nu").asDouble(1);
@@ -77,15 +77,26 @@ void TestDiffusion::run()
 	//cout << "Using dt " << dt << " (Fourier time step: " << vInfo[0].h_gridpoint*vInfo[0].h_gridpoint*.25/nu << ")\n";
 	int step = 0;
 	
-	CoordinatorDiffusion<Lab> coordDiffusion(nu, grid);
-	
-	while(step<nsteps)
-	{
-		coordDiffusion(dt);
-		
-		time += dt;
-		step++;
-	}
+    if (nsteps==1)
+    {
+        CoordinatorDiffusion<Lab> coordDiffusion(nu, grid);
+        coordDiffusion(dt);
+        time += dt;
+        step++;
+    }
+	else
+    {
+        CoordinatorDiffusionTimeTest coordDiffusion(nu, freq, grid);
+        //CoordinatorDiffusion<Lab> coordDiffusion(nu, grid);
+        
+        while(step<nsteps)
+        {
+            coordDiffusion(dt);
+            
+            time += dt;
+            step++;
+        }
+    }
 	
 	stringstream ss;
 	ss << path2file << "-bpd" << bpd << ".vti";

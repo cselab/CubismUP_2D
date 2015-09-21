@@ -150,7 +150,7 @@ public:
 #ifdef _SP_COMP_
 #ifdef _HYDROSTATIC_
 		addHydrostaticPressure(dt);
-#endif
+#endif // _HYDROSTATIC_
 		computeSplit<OperatorDivergenceSplit>(dt);
 		pressureSolver.solve(*grid,false);
 		computeSplit<OperatorGradPSplit>(dt);
@@ -172,9 +172,9 @@ public:
 		check("pressure - preMG");
 		mg.setup(grid, bSplit, rank, nprocs);
 		mg();
-#ifdef _MULTIGRID_
+        
 		MPI_Barrier(MPI_COMM_WORLD);
-#endif // _MULTIGRID_
+        
 		check("pressure - postMG");
 		if (rank==0)
 		{

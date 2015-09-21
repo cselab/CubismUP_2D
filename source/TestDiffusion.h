@@ -11,7 +11,6 @@
 
 #include <stdio.h>
 #include "Test.h"
-//#include "OperatorDiffusion.h"
 
 class TestDiffusion : public Test
 {
@@ -20,6 +19,7 @@ private:
     double time, dt;
 	const int bpd;
 	const int nsteps;
+    const double freq;
     
     string path2file;
     SerializerIO_ImageVTK<FluidGrid, FluidVTKStreamer> dumper;
@@ -30,7 +30,7 @@ private:
     double _analytical(double ix, double iy, double t);
     
 public:
-    TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt, const int nsteps);
+    TestDiffusion(const int argc, const char ** argv, const int bpd, const double dt, const int nsteps, const double freq);
 	~TestDiffusion();
 		
     void run();
