@@ -46,11 +46,7 @@ public:
 				{
 					double p[2] = {0,0};
 					info.pos(p, ix, iy);
-#ifdef _MATTIA_
-					double rhochi = rhoS * b(ix,iy).chi;
-#else
 					double rhochi = b(ix,iy).rho * b(ix,iy).chi;
-#endif
 					centerTmpX += p[0] * rhochi;
 					centerTmpY += p[1] * rhochi;
 					mass += rhochi;

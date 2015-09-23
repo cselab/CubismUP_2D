@@ -240,18 +240,18 @@ void Sim_FSI_Gravity::init()
 	
 	pipeline.clear();
 #ifndef _MULTIPHASE_
-	pipeline.push_back(new CoordinatorAdvection<Lab>(grid));
+	pipeline.push_back(new CoordinatorAdvection<Lab>(&uBody[0],&uBody[1],grid));
 #else
-	pipeline.push_back(new CoordinatorAdvection<Lab>(grid,1));
+	pipeline.push_back(new CoordinatorAdvection<Lab>(&uBody[0],&uBody[1],grid,1));
 #endif
-	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
+	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu,&uBody[0],&uBody[1],grid));
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
 	
 	// reordered - before was pressure, then penalization
 	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, &lambda, shape->getRhoS(), grid));
 	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid));
 	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
-	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &step, bSplit, grid, rank, nprocs));
+	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &uBody[0], &uBody[1], &step, bSplit, grid, rank, nprocs));
 	
 	if (rank==0)
 	{

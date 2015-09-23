@@ -16,7 +16,8 @@ template <typename Lab>
 class CoordinatorDiffusion : public GenericCoordinator
 {
 protected:
-	const double coeff;
+    const double coeff;
+    Real *uBody, *vBody;
 	
 	inline void reset()
 	{
@@ -72,7 +73,11 @@ protected:
 			OperatorDiffusion kernel(dt, coeff, stage);
 			//OperatorDiffusionHighOrder kernel(dt, coeff, stage);
 			
-			Lab mylab;
+            Lab mylab;
+#ifdef _MOVING_FRAME_
+            //mylab.pDirichlet.u = 0;
+            //mylab.pDirichlet.v = *vBody;
+#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 			
 #pragma omp for schedule(static)
@@ -85,10 +90,14 @@ protected:
 	}
 	
 public:
-	CoordinatorDiffusion(const double coeff, FluidGrid * grid) : GenericCoordinator(grid), coeff(coeff)
+	CoordinatorDiffusion(const double coeff, Real * uBody, Real * vBody, FluidGrid * grid) : GenericCoordinator(grid), coeff(coeff), uBody(uBody), vBody(vBody)
 	{
 	}
 	
+    CoordinatorDiffusion(const double coeff, FluidGrid * grid) : GenericCoordinator(grid), coeff(coeff), uBody(NULL), vBody(NULL)
+    {
+    }
+    
 	void operator()(const double dt)
 	{
 		check("diffusion - start");

@@ -75,10 +75,11 @@ public:
 	void applyBC_neumann()
 	{
 		_setup<dir,side>();
-		
+        abort();
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
-			{
+            {
+                // the Neumann BC is incorrect!
 				(*this)(ix,iy) = (*this)(dir==0 ? (side==0 ? 0 : TBlock::sizeX-1) : ix,
 										 dir==1 ? (side==0 ? 0 : TBlock::sizeY-1) : iy);
 			}
@@ -88,19 +89,21 @@ public:
 	void applyBC_mixedBottom(const TElement& p)
 	{
 		assert(dir==1);
+        assert(side==0);
 		
 		_setup<dir,side>();
 		
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
-			{
-				(*this)(ix,iy).rho = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).rho;
-				(*this)(ix,iy).chi = p.chi;
-				(*this)(ix,iy).u   = p.u;
-				(*this)(ix,iy).v   = p.v;
-				(*this)(ix,iy).p   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).p;
-				(*this)(ix,iy).pOld = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).pOld;
-				(*this)(ix,iy).divU = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1).divU;
+            {
+                // the Neumann BC is incorrect! This might explain the issues with the high order diffusion!
+                (*this)(ix,iy).rho  = (*this)(ix, -iy).rho;
+				(*this)(ix,iy).chi  = p.chi;
+				(*this)(ix,iy).u    = p.u;
+				(*this)(ix,iy).v    = -p.v;
+				(*this)(ix,iy).p    = (*this)(ix, -iy).p;
+				(*this)(ix,iy).pOld = (*this)(ix, -iy).pOld;
+				(*this)(ix,iy).divU = (*this)(ix, -iy).divU;
 			}
 	}
 	
@@ -108,17 +111,19 @@ public:
 	void applyBC_mixedTop(const TElement& p)
 	{
 		assert(dir==1);
+        assert(side==1);
 		
 		_setup<dir,side>();
 		
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
 			{
-				(*this)(ix,iy).rho = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).rho;
-				(*this)(ix,iy).chi = p.chi;
-				(*this)(ix,iy).u   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).u;
-				(*this)(ix,iy).v   = (*this)(ix, side==0 ? 0 : TBlock::sizeY-1-iy+s[1]).v;
-				(*this)(ix,iy).p   = p.p;
+                // are the Neumann BC correct?
+				(*this)(ix,iy).rho  = (*this)(ix, TBlock::sizeY-2-iy+s[1]).rho;
+				(*this)(ix,iy).chi  = p.chi;
+				(*this)(ix,iy).u    = (*this)(ix, TBlock::sizeY-2-iy+s[1]).u;
+				(*this)(ix,iy).v    = (*this)(ix, TBlock::sizeY-2-iy+s[1]).v;
+				(*this)(ix,iy).p    = p.p;
 				(*this)(ix,iy).pOld = p.pOld;
 				(*this)(ix,iy).divU = p.divU;
 			}

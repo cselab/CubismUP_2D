@@ -27,7 +27,8 @@ protected:
 	const double minRho;
 	Real gravity[2];
 	int * step;
-	const bool bSplit;
+    const bool bSplit;
+    Real *uBody, *vBody;
 	
 #ifdef _SPLIT_
 #ifdef _SP_COMP_
@@ -113,7 +114,11 @@ protected:
 		{
 			Operator kernel(dt);
 			
-			Lab mylab;
+            Lab mylab;
+#ifdef _MOVING_FRAME_
+            //mylab.pDirichlet.u = 0;
+            //mylab.pDirichlet.v = *vBody;
+#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
 			
 #pragma omp for schedule(static)
@@ -127,7 +132,7 @@ protected:
 	}
 	
 public:
-	CoordinatorPressure(const double minRho, const Real gravity[2], int * step, const bool bSplit, FluidGrid * grid, const int rank, const int nprocs) : GenericCoordinator(grid), rank(rank), nprocs(nprocs), minRho(minRho), step(step), bSplit(bSplit), gravity{gravity[0],gravity[1]}
+	CoordinatorPressure(const double minRho, const Real gravity[2], Real * uBody, Real * vBody, int * step, const bool bSplit, FluidGrid * grid, const int rank, const int nprocs) : GenericCoordinator(grid), rank(rank), nprocs(nprocs), minRho(minRho), step(step), bSplit(bSplit), uBody(uBody), vBody(vBody), gravity{gravity[0],gravity[1]}
 #ifdef _SPLIT_
 #ifdef _SP_COMP_
 	, pressureSolver(NTHREADS)
@@ -135,6 +140,15 @@ public:
 #endif // _SPLIT_
 	{
 	}
+    
+    CoordinatorPressure(const double minRho, const Real gravity[2], int * step, const bool bSplit, FluidGrid * grid, const int rank, const int nprocs) : GenericCoordinator(grid), rank(rank), nprocs(nprocs), minRho(minRho), step(step), bSplit(bSplit), uBody(NULL), vBody(NULL), gravity{gravity[0],gravity[1]}
+#ifdef _SPLIT_
+#ifdef _SP_COMP_
+    , pressureSolver(NTHREADS)
+#endif // _SP_COMP_
+#endif // _SPLIT_
+    {
+    }
 	
 	void operator()(const double dt)
 	{

@@ -1,6 +1,6 @@
 cd ../makefiles
 make clean
-make config=production poisson=hypre bc=mixed precision=double particles=false -j
+make config=production poisson=hypre bc=mixed precision=double particles=false movingframe=false -j
 cd ../launch
 export OMP_NUM_THREADS=48
 

@@ -817,19 +817,32 @@ class OperatorAdvectionUpwind3rdOrder : public GenericLabOperator
 {
 private:
 	double dt;
-	const int stage;
+    const int stage;
+    Real *uBody, *vBody;
 	
 public:
-	OperatorAdvectionUpwind3rdOrder(double dt, const int stage) : dt(dt), stage(stage)
-	{
-		stencil_start[0] = -2;
-		stencil_start[1] = -2;
-		stencil_start[2] = 0;
-		
-		stencil_end[0] = 3;
-		stencil_end[1] = 3;
-		stencil_end[2] = 1;
-	}
+    OperatorAdvectionUpwind3rdOrder(double dt, Real * uBody, Real * vBody, const int stage) : dt(dt), uBody(uBody), vBody(vBody), stage(stage)
+    {
+        stencil_start[0] = -2;
+        stencil_start[1] = -2;
+        stencil_start[2] = 0;
+        
+        stencil_end[0] = 3;
+        stencil_end[1] = 3;
+        stencil_end[2] = 1;
+    }
+    
+    OperatorAdvectionUpwind3rdOrder(double dt, const int stage) : dt(dt), uBody(NULL), vBody(NULL), stage(stage)
+    {
+        stencil_start[0] = -2;
+        stencil_start[1] = -2;
+        stencil_start[2] = 0;
+        
+        stencil_end[0] = 3;
+        stencil_end[1] = 3;
+        stencil_end[2] = 1;
+    }
+    
 	~OperatorAdvectionUpwind3rdOrder() {}
 	
 	template <typename Lab, typename BlockType>
@@ -858,11 +871,15 @@ public:
 						                   -  lab(ix  ,iy+2).v + 6*lab(ix  ,iy+1).v - 3*lab(ix  ,iy  ).v - 2*lab(ix  ,iy-1).v};
 			
 					const Real u = o(ix,iy).u;
-					const Real v = o(ix,iy).v;
+#ifndef _MOVING_FRAME_
+                    const Real v = o(ix,iy).v;
+#else
+					const Real v = o(ix,iy).v - *vBody;
+#endif
 			
 					o(ix,iy).tmpU = u + factor*(max(u,(Real)0) * dudx[0] + min(u,(Real)0) * dudx[1] +
 												max(v,(Real)0) * dudy[0] + min(v,(Real)0) * dudy[1]);
-					o(ix,iy).tmpV = v + factor*(max(u,(Real)0) * dvdx[0] + min(u,(Real)0) * dvdx[1] +
+					o(ix,iy).tmpV = o(ix,iy).v + factor*(max(u,(Real)0) * dvdx[0] + min(u,(Real)0) * dvdx[1] +
 												max(v,(Real)0) * dvdy[0] + min(v,(Real)0) * dvdy[1]);
 #ifndef _RK2_
 #ifdef _MULTIPHASE_
@@ -902,8 +919,12 @@ public:
 					const Real drdy[2] = {  2*lab(ix  ,iy+1).tmp + 3*lab(ix  ,iy  ).tmp - 6*lab(ix  ,iy-1).tmp +   lab(ix  ,iy-2).tmp,
 										   -  lab(ix  ,iy+2).tmp + 6*lab(ix  ,iy+1).tmp - 3*lab(ix  ,iy  ).tmp - 2*lab(ix  ,iy-1).tmp};
 			
-					const Real u = lab(ix,iy).tmpU;
-					const Real v = lab(ix,iy).tmpV;
+                    const Real u = lab(ix,iy).tmpU;
+#ifndef _MOVING_FRAME_
+                    const Real v = lab(ix,iy).tmpV;
+#else
+                    const Real v = lab(ix,iy).tmpV - *vBody;
+#endif
 			
 					o(ix,iy).tmpU = o(ix,iy).u + factor*(max(u,(Real)0) * dudx[0] + min(u,(Real)0) * dudx[1] +
                                                          max(v,(Real)0) * dudy[0] + min(v,(Real)0) * dudy[1]);

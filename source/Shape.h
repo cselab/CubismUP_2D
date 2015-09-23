@@ -54,7 +54,9 @@ public:
 	void updatePosition(Real u[2], Real omega, Real dt)
 	{
 		center[0] += dt*u[0];
-		center[1] += dt*u[1];
+#ifndef _MOVING_FRAME_
+        center[1] += dt*u[1];
+#endif
 		orientation += dt*omega;
 	}
 	

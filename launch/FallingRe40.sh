@@ -1,8 +1,8 @@
 cd ../makefiles
 make clean
-make config=production poisson=hypre bc=mixed precision=single particles=false -j
+make config=production poisson=hypre bc=mixed precision=single particles=false rk2=true -j
 cd ../launch
-for C in 0.2
+for C in 0.3
 #0.05 0.1 0.2
 do
 	for L in 1e6
@@ -10,7 +10,7 @@ do
 	do
 		for BPD in 8 16 32
 		do
-			NAME=Falling_Re40_0409_reordered_Lambda${L}_bpd${BPD}_CFL${C}
+			NAME=Falling_Re40_2109_Lambda${L}_bpd${BPD}_CFL${C}
 			FOLDER=/cluster/scratch_xp/public/cconti/CubismUP/${NAME}
 			mkdir ${FOLDER}
 			cp ../makefiles/simulation ${FOLDER}

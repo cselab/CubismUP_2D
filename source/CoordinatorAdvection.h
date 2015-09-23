@@ -17,6 +17,7 @@ template <typename Lab>
 class CoordinatorAdvection : public GenericCoordinator
 {
 protected:
+    Real *uBody, *vBody;
 #ifdef _MULTIPHASE_
 	Real rhoS;
 #endif
@@ -84,11 +85,14 @@ protected:
 #pragma omp parallel
 		{
 #ifndef _PARTICLES_
-			// this is wrong - using -u instead of u?
-			OperatorAdvectionUpwind3rdOrder kernel(dt,0);
+			OperatorAdvectionUpwind3rdOrder kernel(dt,uBody,vBody,0);
 			//OperatorAdvectionFD kernel(dt);
 			
-			Lab mylab;
+            Lab mylab;
+#ifdef _MOVING_FRAME_
+            mylab.pDirichlet.u = 0;
+            mylab.pDirichlet.v = *vBody;
+#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 #else // _PARTICLES_
 			//OperatorAdvection<Hat> kernel(dt);
@@ -96,7 +100,11 @@ protected:
 			//OperatorAdvection<Mp4> kernel(dt);
 			OperatorAdvection<Ms6> kernel(dt);
 			
-			Lab mylab;
+            Lab mylab;
+#ifdef _MOVING_FRAME_
+            mylab.pDirichlet.u = 0;
+            mylab.pDirichlet.v = *vBody;
+#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
 #endif // _PARTICLES_
 			
@@ -114,10 +122,14 @@ protected:
 #pragma omp parallel
 		{
 			// this is wrong - using -u instead of u?
-			OperatorAdvectionUpwind3rdOrder kernel(dt,1);
+			OperatorAdvectionUpwind3rdOrder kernel(dt,uBody,vBody,1);
 			//OperatorAdvectionFD kernel(dt);
 			
-			Lab mylab;
+            Lab mylab;
+#ifdef _MOVING_FRAME_
+            mylab.pDirichlet.u = 0;
+            mylab.pDirichlet.v = *vBody;
+#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 			
 #pragma omp for schedule(static)
@@ -134,12 +146,20 @@ protected:
 	
 public:
 #ifndef _MULTIPHASE_
-	CoordinatorAdvection(FluidGrid * grid) : GenericCoordinator(grid)
+    CoordinatorAdvection(Real * uBody, Real * vBody, FluidGrid * grid) : GenericCoordinator(grid), uBody(uBody), vBody(vBody)
 #else
-	CoordinatorAdvection(FluidGrid * grid, Real rhoS) : GenericCoordinator(grid), rhoS(rhoS)
+    CoordinatorAdvection(Real * uBody, Real * vBody, FluidGrid * grid, Real rhoS) : GenericCoordinator(grid), uBody(uBody), vBody(vBody), rhoS(rhoS)
 #endif
-	{
-	}
+    {
+    }
+    
+#ifndef _MULTIPHASE_
+    CoordinatorAdvection(FluidGrid * grid) : GenericCoordinator(grid), uBody(NULL), vBody(NULL)
+#else
+    CoordinatorAdvection(FluidGrid * grid, Real rhoS) : GenericCoordinator(grid), uBody(NULL), vBody(NULL), rhoS(rhoS)
+#endif
+    {
+    }
 	
 	void operator()(const double dt)
 	{

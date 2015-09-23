@@ -14,8 +14,9 @@ dlm ?= false
 
 constnu ?= false
 densitydiff ?= false
-mattia ?= false
 avgu ?= false
+
+movingframe ?= false
 
 rk2 ?= true
 
@@ -69,10 +70,6 @@ ifeq "$(dlm)" "true"
 	CPPFLAGS += -D_DLM_
 endif
 
-ifeq "$(mattia)" "true"
-	CPPFLAGS += -D_MATTIA_
-endif
-
 ifeq "$(constnu)" "true"
 	CPPFLAGS += -D_CONSTNU_
 endif
@@ -87,6 +84,10 @@ endif
 
 ifeq "$(rk2)" "true"
 	CPPFLAGS += -D_RK2_
+endif
+
+ifeq "$(movingframe)" "true"
+CPPFLAGS += -D_MOVING_FRAME_
 endif
 
 vtk-inc ?= 
