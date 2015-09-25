@@ -116,8 +116,8 @@ protected:
 			
             Lab mylab;
 #ifdef _MOVING_FRAME_
-            //mylab.pDirichlet.u = 0;
-            //mylab.pDirichlet.v = *vBody;
+            mylab.pDirichlet.u = 0;
+            mylab.pDirichlet.v = *vBody;
 #endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
 			

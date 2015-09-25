@@ -92,13 +92,16 @@ void TestPressure::_ic()
 						//	0-dirichlet on x=0
 						//	0-neumann on x=1
 						
-						const int size = 1+1/dh;
-						const int by = info.index[1]*FluidBlock::sizeY;
-						p[1] = (by+iy+1.5)/(double)size;
-						double y = p[1]*M_PI_2;
-						b(ix,iy).rho = 1;
-						b(ix,iy).divU = -M_PI*M_PI_4 * cos(y);
-						b(ix,iy).u = cos(y);
+                        const int size = 1+1/dh;
+                        const int bx = info.index[0]*FluidBlock::sizeX;
+                        const int by = info.index[1]*FluidBlock::sizeY;
+                        p[0] = (bx+ix+1.5)/(double)size;
+                        p[1] = (by+iy+1.5)/(double)size;
+                        double x = 4*p[0]*M_PI_2;
+                        double y = p[1]*M_PI_2;
+                        b(ix,iy).divU = -17*M_PI_2*M_PI_2 * cos(y) * cos(x);
+                        b(ix,iy).rho = b(ix,iy).divU;
+						b(ix,iy).u = cos(y)*cos(x);
 					}
 				}
 	}
@@ -144,8 +147,16 @@ void TestPressure::run()
 	if (solver==0)
 	{
 #ifdef _SP_COMP_
-		PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
-		pressureSolver.solve(*grid,false);
+        if (ic!=2)
+        {
+            PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
+            pressureSolver.solve(*grid,false);
+        }
+        else
+        {
+            PoissonSolverScalarFFTW_DST<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
+            pressureSolver.solve(*grid,false);
+        }
 #else // _SP_COMP_
 		cout << "FFTW double precision not supported - aborting now!\n";
 		abort();
@@ -154,8 +165,16 @@ void TestPressure::run()
 	else if (solver==1)
 	{
 #ifdef _SP_COMP_
-		PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
-		pressureSolver.solve(*grid,true);
+        if (ic!=2)
+        {
+            PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
+            pressureSolver.solve(*grid,true);
+        }
+        else
+        {
+            PoissonSolverScalarFFTW_DST<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
+            pressureSolver.solve(*grid,true);
+        }
 #else // _SP_COMP_
 		cout << "FFTW double precision not supported - aborting now!\n";
 		abort();
