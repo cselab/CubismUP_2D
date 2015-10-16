@@ -154,4 +154,58 @@ public:
 };
 
 
+
+class OperatorLaplace : public GenericLabOperator
+{
+private:
+    double dt;
+    
+public:
+    OperatorLaplace(double dt) : dt(dt)
+    {
+        //*
+        stencil_start[0] = -2;
+        stencil_start[1] = -2;
+        stencil_start[2] = 0;
+        stencil_end[0] = 3;
+        stencil_end[1] = 3;
+        stencil_end[2] = 1;
+        /*/
+        stencil_start[0] = -1;
+        stencil_start[1] = -1;
+        stencil_start[2] = 0;
+        stencil_end[0] = 2;
+        stencil_end[1] = 2;
+        stencil_end[2] = 1;
+        //*/
+    }
+    
+    ~OperatorLaplace() {}
+    
+    template <typename Lab, typename BlockType>
+    void operator()(Lab & lab, const BlockInfo& info, BlockType& o) const
+    {
+        const double prefactor = 1. / (12*info.h_gridpoint*info.h_gridpoint);
+        //const double prefactor = 1. / (info.h_gridpoint*info.h_gridpoint);
+        
+        for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+            for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+            {
+                FluidElement& phi = lab(ix,iy);
+                FluidElement& phiN = lab(ix,iy+1);
+                FluidElement& phiS = lab(ix,iy-1);
+                FluidElement& phiE = lab(ix+1,iy);
+                FluidElement& phiW = lab(ix-1,iy);
+                FluidElement& phiN2 = lab(ix,iy+2);
+                FluidElement& phiS2 = lab(ix,iy-2);
+                FluidElement& phiE2 = lab(ix+2,iy);
+                FluidElement& phiW2 = lab(ix-2,iy);
+                
+                o(ix,iy).v = prefactor * (-(phiN2.divU + phiS2.divU + phiE2.divU + phiW2.divU) + 16*(phiN.divU + phiS.divU + phiE.divU + phiW.divU) - 60.*phi.divU);
+                //o(ix,iy).v = prefactor * (phiN.divU + phiS.divU + phiE.divU + phiW.divU - 4.*phi.divU);
+            }
+    }
+};
+
+
 #endif

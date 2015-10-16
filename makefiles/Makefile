@@ -135,7 +135,15 @@ LIBS += -lstdc++ -lm \
 	-lvtkjpeg \
 	-lvtkzlib \
 	-lvtksys -lz \
-	-L$(fftw-lib) -lfftw3 -lfftw3f  -lfftw3f_threads
+	-L$(fftw-lib)
+
+ifeq "$(precision)" "single"
+    LIBS += -lfftw3 -lfftw3f -lfftw3f_threads
+endif
+ifeq "$(precision)" "double"
+    LIBS += -lfftw3 -lfftw3_threads
+endif
+
 LIBS += -L../tools/fpzip/lib -lfpzip
 
 ifeq "$(poisson)" "hypre"

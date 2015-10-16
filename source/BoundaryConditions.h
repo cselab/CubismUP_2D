@@ -56,36 +56,6 @@ public:
 	}
 	
 	template<int dir, int side>
-	void applyBC_dirichlet(const TElement& p)
-	{
-		_setup<dir,side>();
-		
-		for(int iy=s[1]; iy<e[1]; iy++)
-			for(int ix=s[0]; ix<e[0]; ix++)
-			{
-				(*this)(ix,iy).rho = p.rho;
-				(*this)(ix,iy).u   = p.u;
-				(*this)(ix,iy).v   = p.v;
-				(*this)(ix,iy).chi = p.chi;
-				(*this)(ix,iy).tmp = p.tmp;
-			}
-	}
-	
-	template<int dir, int side>
-	void applyBC_neumann()
-	{
-		_setup<dir,side>();
-        abort();
-		for(int iy=s[1]; iy<e[1]; iy++)
-			for(int ix=s[0]; ix<e[0]; ix++)
-            {
-                // the Neumann BC is incorrect!
-				(*this)(ix,iy) = (*this)(dir==0 ? (side==0 ? 0 : TBlock::sizeX-1) : ix,
-										 dir==1 ? (side==0 ? 0 : TBlock::sizeY-1) : iy);
-			}
-	}
-	
-	template<int dir, int side>
 	void applyBC_mixedBottom(const TElement& p)
 	{
 		assert(dir==1);
@@ -96,14 +66,33 @@ public:
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
             {
-                // the Neumann BC is incorrect! This might explain the issues with the high order diffusion!
-                (*this)(ix,iy).rho  = (*this)(ix, -iy).rho;
-				(*this)(ix,iy).chi  = p.chi;
-				(*this)(ix,iy).u    = p.u;
-				(*this)(ix,iy).v    = -p.v;
-				(*this)(ix,iy).p    = (*this)(ix, -iy).p;
-				(*this)(ix,iy).pOld = (*this)(ix, -iy).pOld;
-				(*this)(ix,iy).divU = (*this)(ix, -iy).divU;
+                // TODO: check again!!!
+                (*this)(ix,iy).rho  = (*this)(ix, 0).rho;
+                (*this)(ix,iy).chi  = p.chi;
+                
+                // dirichlet BC
+                (*this)(ix,iy).u = 2*p.u - (*this)(ix, -iy-1).u;
+                (*this)(ix,iy).v = 2*p.v - (*this)(ix, -iy-1).v;
+                /*
+                if (iy==e[1]-1)
+                {
+                    (*this)(ix,iy).u = p.u;
+                    (*this)(ix,iy).v = p.v;
+                }
+                else
+                {
+                    (*this)(ix,iy).u =  p.u-(*this)(ix, TBlock::sizeY-iy+s[1]).u;
+                    (*this)(ix,iy).v = -p.v-(*this)(ix, TBlock::sizeY-iy+s[1]).v;
+                }
+                //*/
+                
+                // Neumann BC
+                (*this)(ix,iy).p    = (*this)(ix, -iy-1).p;
+                (*this)(ix,iy).pOld = (*this)(ix, -iy-1).pOld;
+                (*this)(ix,iy).divU = (*this)(ix, -iy-1).divU; // needed because we compute gradP on this!
+                //(*this)(ix,iy).p    = (*this)(ix, -iy).p;
+                //(*this)(ix,iy).pOld = (*this)(ix, -iy).pOld;
+                //(*this)(ix,iy).divU = (*this)(ix, -iy).divU; // needed because we compute gradP on this!
 			}
 	}
 	
@@ -117,15 +106,34 @@ public:
 		
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
-			{
-                // are the Neumann BC correct?
-				(*this)(ix,iy).rho  = (*this)(ix, TBlock::sizeY-2-iy+s[1]).rho;
-				(*this)(ix,iy).chi  = p.chi;
-				(*this)(ix,iy).u    = (*this)(ix, TBlock::sizeY-2-iy+s[1]).u;
-				(*this)(ix,iy).v    = (*this)(ix, TBlock::sizeY-2-iy+s[1]).v;
-				(*this)(ix,iy).p    = p.p;
-				(*this)(ix,iy).pOld = p.pOld;
-				(*this)(ix,iy).divU = p.divU;
+            {
+                // TODO: check again!!!
+                (*this)(ix,iy).rho  = (*this)(ix, TBlock::sizeY-1).rho;
+                (*this)(ix,iy).chi  = p.chi;
+                
+                // dirichlet BC
+                (*this)(ix,iy).p    = 2*p.p    - (*this)(ix,2*TBlock::sizeY-1-iy).p;
+                (*this)(ix,iy).pOld = 2*p.pOld - (*this)(ix,2*TBlock::sizeY-1-iy).pOld;
+                (*this)(ix,iy).divU = 2*p.divU - (*this)(ix,2*TBlock::sizeY-1-iy).divU; // needed because we compute gradP on this!
+                /*
+                if (iy==s[1])
+                {
+                    (*this)(ix,iy).p    = p.p;
+                    (*this)(ix,iy).pOld = p.pOld;
+                    (*this)(ix,iy).divU = p.divU; // needed because we compute gradP on this!
+                }
+                else
+                {
+                    (*this)(ix,iy).p    = p.p   -(*this)(ix, TBlock::sizeY-iy+s[1]).p;
+                    (*this)(ix,iy).pOld = p.pOld-(*this)(ix, TBlock::sizeY-iy+s[1]).pOld;
+                    (*this)(ix,iy).divU = p.divU-(*this)(ix, TBlock::sizeY-iy+s[1]).divU;
+                }
+                */
+                // Neumann BC
+                (*this)(ix,iy).u = (*this)(ix, 2*TBlock::sizeY-1-iy).u;
+                (*this)(ix,iy).v = (*this)(ix, 2*TBlock::sizeY-1-iy).v;
+                //(*this)(ix,iy).u = (*this)(ix, TBlock::sizeY-2-iy+s[1]).u;
+                //(*this)(ix,iy).v = (*this)(ix, TBlock::sizeY-2-iy+s[1]).v;
 			}
 	}
 	

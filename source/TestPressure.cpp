@@ -8,6 +8,7 @@
 
 #include "TestPressure.h"
 #include "OperatorDivergence.h"
+#include "OperatorDiffusion.h"
 #include "OperatorGradP.h"
 #include "PoissonSolverScalarFFTW.h"
 #include "ProcessOperatorsOMP.h"
@@ -45,6 +46,22 @@ public:
 		
 		return (1 + 3*(1-t)*(1 + (1-t)*(1 - (1-t))))/6;
 	}
+};
+
+
+class CubicBspline
+{
+public:
+    static inline double eval(double x)
+    {
+        const double t = fabs(x);
+        
+        if (t>2) return 0;
+        
+        if (t>1) return pow(2-t,3)/6;
+        
+        return (1 + 3*(1-t)*(1 + (1-t)*(1 - (1-t))))/6;
+    }
 };
 
 void TestPressure::_ic()
@@ -91,17 +108,27 @@ void TestPressure::_ic()
 						// this is a test for:
 						//	0-dirichlet on x=0
 						//	0-neumann on x=1
-						
-                        const int size = 1+1/dh;
+                        /*
+                        info.pos(p, ix, iy);
+                        b(ix,iy).divU = 4*CubicBspline::eval(8*(p[1]-0.5));
+                        b(ix,iy).rho = b(ix,iy).divU;
+                        //*/
+						const int size = 1/dh;
                         const int bx = info.index[0]*FluidBlock::sizeX;
                         const int by = info.index[1]*FluidBlock::sizeY;
-                        p[0] = (bx+ix+1.5)/(double)size;
-                        p[1] = (by+iy+1.5)/(double)size;
-                        double x = 4*p[0]*M_PI_2;
-                        double y = p[1]*M_PI_2;
-                        b(ix,iy).divU = -17*M_PI_2*M_PI_2 * cos(y) * cos(x);
+                        p[0] = (bx+ix+.5)/(double)size;
+                        p[1] = (by+iy+.5)/(double)size;
+                        double x = 4*p[0]*M_PI;
+                        double y = 3*p[1]*M_PI_2;
+                        //b(ix,iy).divU = 81*M_PI_2*M_PI_2 * cos(y);
+                        //b(ix,iy).divU = -64*M_PI_2*M_PI_2 * cos(x);
+                        //b(ix,iy).divU = -9*M_PI_2*M_PI_2 * cos(y) + -64*M_PI_2*M_PI_2 * sin(x);
+                        b(ix,iy).divU = -(64+9)*M_PI_2*M_PI_2 * cos(y) * sin(x);
                         b(ix,iy).rho = b(ix,iy).divU;
-						b(ix,iy).u = cos(y)*cos(x);
+                        //b(ix,iy).u = -cos(y);
+                        //b(ix,iy).u = cos(x);
+                        //b(ix,iy).u = cos(y)+sin(x);
+                        b(ix,iy).u = cos(y)*sin(x);
 					}
 				}
 	}
@@ -146,39 +173,31 @@ void TestPressure::run()
 	
 	if (solver==0)
 	{
-#ifdef _SP_COMP_
         if (ic!=2)
         {
-            PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
+            PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS,*grid);
             pressureSolver.solve(*grid,false);
         }
         else
         {
-            PoissonSolverScalarFFTW_DST<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
+            PoissonSolverScalarFFTW_DCT<FluidGrid, StreamerDiv> pressureSolver(NTHREADS,*grid);
             pressureSolver.solve(*grid,false);
         }
-#else // _SP_COMP_
-		cout << "FFTW double precision not supported - aborting now!\n";
-		abort();
-#endif // _SP_COMP_
 	}
 	else if (solver==1)
 	{
-#ifdef _SP_COMP_
         if (ic!=2)
         {
-            PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
+            PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS,*grid);
             pressureSolver.solve(*grid,true);
         }
         else
         {
-            PoissonSolverScalarFFTW_DST<FluidGrid, StreamerDiv> pressureSolver(NTHREADS);
+            cout << "DCT spectral not supported - aborting now!\n";
+            abort();
+            PoissonSolverScalarFFTW_DCT<FluidGrid, StreamerDiv> pressureSolver(NTHREADS,*grid);
             pressureSolver.solve(*grid,true);
         }
-#else // _SP_COMP_
-		cout << "FFTW double precision not supported - aborting now!\n";
-		abort();
-#endif // _SP_COMP_
 	}
 #ifdef _MULTIGRID_
 	else if (solver==2)
@@ -201,6 +220,28 @@ void TestPressure::run()
 	
 	if (ic==1 && rank==0)
 		processOMP<Lab, OperatorGradP>(dt, vInfo, *grid);
+    
+    
+    if (ic==2)
+    {
+        BlockInfo * ary = &vInfo.front();
+        const int N = vInfo.size();
+        
+#pragma omp parallel
+        {
+            OperatorLaplace kernel(dt);
+            
+            Lab mylab;
+            mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
+            
+#pragma omp for schedule(static)
+            for (int i=0; i<N; i++)
+            {
+                mylab.load(ary[i], 0);
+                kernel(mylab, ary[i], *(FluidBlock*)ary[i].ptrBlock);
+            }
+        }
+    }
 	
 	if (rank==0)
 	{
@@ -220,10 +261,10 @@ void TestPressure::check()
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
 		const int size = bpd * FluidBlock::sizeX;
 		
-		Layer divergence(size,size,1);
-		processOMP<Lab, OperatorDivergenceLayer>(divergence,vInfo,*grid);
-		
-		
+        Layer divergence(size,size,1);
+        if (ic!=0 && ic!=2)
+            processOMP<Lab, OperatorDivergenceLayer>(divergence,vInfo,*grid);
+        
 		cout << "\tErrors (Linf, L1, L2):\t";
 		double Linf = 0.;
 		double L1 = 0.;
@@ -244,10 +285,29 @@ void TestPressure::check()
 			for(int iy=0; iy<FluidBlock::sizeY; iy++)
 				for(int ix=0; ix<FluidBlock::sizeX; ix++)
 				{
-					double error;
+                    double error=0;
 					if (ic==0)
-						error = b(ix,iy).divU - b(ix,iy).u;
-					else
+						error = b(ix,iy).divU - b(ix,iy).rho;
+                    else if (ic==2)
+                    {
+                        error = b(ix,iy).divU - b(ix,iy).u;
+                        //error = b(ix,iy).v - b(ix,iy).rho;
+                        /*
+                        // exclude y-boundaries
+                        if (info.index[1]==0 && iy<2)
+                            error = 0;
+                        
+                        if (info.index[1]==grid->getBlocksPerDimension(1)-1 && iy>FluidBlock::sizeY-3)
+                            error = 0;
+                        
+                        //if (error>0.01)
+                        //    cout << ix << " " << iy << " " << error << endl;
+                        
+                        //if (abs(error) > .2)
+                        //    cout << info.index[0]*FluidBlock::sizeX+ix << " " << info.index[1]*FluidBlock::sizeY+iy << " " << b(ix,iy).v << " " << b(ix,iy).rho << endl;
+                         //*/
+                    }
+                    else
 						error = divergence(ix,iy);
 					
 					Linf = max(Linf,abs(error));

@@ -219,7 +219,7 @@ void Sim_FSI_Gravity::init()
 		nu = parser("-nu").asDouble(1e-2);
 		minRho = min((Real)1.,shape->getRhoS());
 		
-		const float aspectRatio = (float)bpdx/(float)bpdy;
+		const Real aspectRatio = (Real)bpdx/(Real)bpdy;
 		Real center[2] = {.5*aspectRatio,parser("-ypos").asDouble(.85)};
 		shape->setPosition(center);
 		

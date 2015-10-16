@@ -118,12 +118,17 @@ struct StreamerDiv
 	static void operate(const FluidElement& input, Real output[1])
 	{
 		output[0] = input.divU;
-	}
-	
-	static void operate(const Real input[1], FluidElement& output)
-	{
-		output.divU = input[0];
-	}
+    }
+    
+    static void operate(const Real input[1], FluidElement& output)
+    {
+        output.divU = input[0];
+    }
+    
+    static void setTmp(const Real input[1], FluidElement& output)
+    {
+        output.tmp = input[0];
+    }
 };
 
 struct FluidBlock
@@ -261,53 +266,6 @@ struct StreamerSerialization
 	}
 	
 	static const char * getAttributeName() { return "Tensor"; }
-};
-
-
-template<typename BlockType, template<typename X> class allocator=std::allocator>
-class BlockLabDirichlet : public BlockLab<BlockType,allocator>
-{
-	typedef typename BlockType::ElementType ElementTypeBlock;
-	
-public:
-	BlockLabDirichlet(): BlockLab<BlockType,allocator>(){}
-	
-	void _apply_bc(const BlockInfo& info, const Real t=0)
-	{
-		BoundaryCondition<BlockType,ElementTypeBlock,allocator> bc(this->m_stencilStart, this->m_stencilEnd, this->m_cacheBlock);
-		
-		ElementTypeBlock p;
-		
-		p.rho = 1;
-		p.u   = 0;
-		p.v   = 0;
-		p.tmp = 0;
-		if (info.index[0]==0)          bc.template applyBC_dirichlet<0,0>(p);
-		if (info.index[0]==this->NX-1) bc.template applyBC_dirichlet<0,1>(p);
-		if (info.index[1]==0)		   bc.template applyBC_dirichlet<1,0>(p);
-		if (info.index[1]==this->NY-1) bc.template applyBC_dirichlet<1,1>(p);
-	}
-};
-
-template<typename BlockType, template<typename X> class allocator=std::allocator>
-class BlockLabNeumann : public BlockLab<BlockType,allocator>
-{
-	typedef typename BlockType::ElementType ElementTypeBlock;
-	
-public:
-	BlockLabNeumann(): BlockLab<BlockType,allocator>(){}
-	
-	void _apply_bc(const BlockInfo& info, const Real t=0)
-	{
-		BoundaryCondition<BlockType,ElementTypeBlock,allocator> bc(this->m_stencilStart, this->m_stencilEnd, this->m_cacheBlock);
-		
-		ElementTypeBlock p;
-		
-		if (info.index[0]==0)          bc.template applyBC_neumann<0,0>();
-		if (info.index[0]==this->NX-1) bc.template applyBC_neumann<0,1>();
-		if (info.index[1]==0)		   bc.template applyBC_neumann<1,0>();
-		if (info.index[1]==this->NY-1) bc.template applyBC_neumann<1,1>();
-	}
 };
 
 template<typename BlockType, template<typename X> class allocator=std::allocator>

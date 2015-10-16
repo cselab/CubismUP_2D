@@ -31,9 +31,11 @@ protected:
     Real *uBody, *vBody;
 	
 #ifdef _SPLIT_
-#ifdef _SP_COMP_
+#ifndef _MIXED_
 	PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver;
-#endif // _SP_COMP_
+#else // _MIXED_
+    PoissonSolverScalarFFTW_DCT<FluidGrid, StreamerDiv> pressureSolver;
+#endif // _MIXED_
 #endif // _SPLIT_
 	
 #ifdef _MULTIGRID_
@@ -134,18 +136,14 @@ protected:
 public:
 	CoordinatorPressure(const double minRho, const Real gravity[2], Real * uBody, Real * vBody, int * step, const bool bSplit, FluidGrid * grid, const int rank, const int nprocs) : GenericCoordinator(grid), rank(rank), nprocs(nprocs), minRho(minRho), step(step), bSplit(bSplit), uBody(uBody), vBody(vBody), gravity{gravity[0],gravity[1]}
 #ifdef _SPLIT_
-#ifdef _SP_COMP_
-	, pressureSolver(NTHREADS)
-#endif // _SP_COMP_
+	, pressureSolver(NTHREADS,*grid)
 #endif // _SPLIT_
 	{
 	}
     
     CoordinatorPressure(const double minRho, const Real gravity[2], int * step, const bool bSplit, FluidGrid * grid, const int rank, const int nprocs) : GenericCoordinator(grid), rank(rank), nprocs(nprocs), minRho(minRho), step(step), bSplit(bSplit), uBody(NULL), vBody(NULL), gravity{gravity[0],gravity[1]}
 #ifdef _SPLIT_
-#ifdef _SP_COMP_
-    , pressureSolver(NTHREADS)
-#endif // _SP_COMP_
+    , pressureSolver(NTHREADS,*grid)
 #endif // _SPLIT_
     {
     }
@@ -161,16 +159,12 @@ public:
 		
 		// pressure
 #ifdef _SPLIT_
-#ifdef _SP_COMP_
 #ifdef _HYDROSTATIC_
 		addHydrostaticPressure(dt);
 #endif // _HYDROSTATIC_
 		computeSplit<OperatorDivergenceSplit>(dt);
 		pressureSolver.solve(*grid,false);
 		computeSplit<OperatorGradPSplit>(dt);
-#else // _SP_COMP_
-		throw std::invalid_argument("FFTW double precision not supported!");
-#endif // _SP_COMP_
 #endif // _SPLIT_
 #ifdef _MULTIGRID_
 		if (rank==0)
@@ -217,9 +211,11 @@ template <typename Lab>
 class CoordinatorPressureSimple : public GenericCoordinator
 {
 protected:
-#ifdef _SP_COMP_
-	PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver;
-#endif // _SP_COMP_
+#ifndef _MIXED_
+    PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver;
+#else
+    PoissonSolverScalarFFTW_DCT<FluidGrid, StreamerDiv> pressureSolver;
+#endif // _MIXED_
 	
 	inline void updatePressure()
 	{
@@ -264,21 +260,14 @@ protected:
 	}
 	
 public:
-	CoordinatorPressureSimple(FluidGrid * grid) : GenericCoordinator(grid)
-#ifdef _SP_COMP_
-	, pressureSolver(NTHREADS)
-#endif // _SP_COMP_
+	CoordinatorPressureSimple(FluidGrid * grid) : GenericCoordinator(grid), pressureSolver(NTHREADS,*grid)
 	{
 	}
 	
 	void operator()(const double dt)
 	{
 		compute<OperatorDivergence>(dt);
-#ifdef _SP_COMP_
 		pressureSolver.solve(*grid,true);
-#else // _SP_COMP_
-		throw std::invalid_argument("FFTW double precision not supported!");
-#endif // _SP_COMP_
 		compute<OperatorGradP>(dt);
 		
 		updatePressure();
