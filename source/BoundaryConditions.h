@@ -67,8 +67,8 @@ public:
 			for(int ix=s[0]; ix<e[0]; ix++)
             {
                 // TODO: check again!!!
-                (*this)(ix,iy).rho  = (*this)(ix, 0).rho;
-                (*this)(ix,iy).chi  = p.chi;
+                (*this)(ix,iy).rho  = p.rho;
+                (*this)(ix,iy).chi  = 0;
                 
                 // dirichlet BC
                 (*this)(ix,iy).u = 2*p.u - (*this)(ix, -iy-1).u;
@@ -108,8 +108,8 @@ public:
 			for(int ix=s[0]; ix<e[0]; ix++)
             {
                 // TODO: check again!!!
-                (*this)(ix,iy).rho  = (*this)(ix, TBlock::sizeY-1).rho;
-                (*this)(ix,iy).chi  = p.chi;
+                (*this)(ix,iy).rho  = p.rho;
+                (*this)(ix,iy).chi  = 0;
                 
                 // dirichlet BC
                 (*this)(ix,iy).p    = 2*p.p    - (*this)(ix,2*TBlock::sizeY-1-iy).p;

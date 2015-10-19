@@ -28,6 +28,7 @@ using namespace std;
 #include "TestShearLayer.h"
 #include "TestPoiseuille.h"
 #include "TestAddedMass.h"
+#include "TestBoundaryConditions.h"
 #include "Definitions.h"
 
 void spatialConvergence(int argc, const char **argv, const int solver, const int ic, const string test, const int minBPD, const int maxBPD, const double dt)
@@ -437,17 +438,27 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 		poiseuille->run();
 		poiseuille->check();
 		delete poiseuille;
-	}
-	else if (test=="addedmass")
-	{
-		cout << "========================================================================================\n";
-		cout << "\t\tAdded Mass Test\n";
-		cout << "========================================================================================\n";
-		TestAddedMass * am = new TestAddedMass(argc, argv, bpd);
-		am->run();
-		am->check();
-		delete am;
-	}
+    }
+    else if (test=="addedmass")
+    {
+        cout << "========================================================================================\n";
+        cout << "\t\tAdded Mass Test\n";
+        cout << "========================================================================================\n";
+        TestAddedMass * am = new TestAddedMass(argc, argv, bpd);
+        am->run();
+        am->check();
+        delete am;
+    }
+    else if (test=="bc")
+    {
+        cout << "========================================================================================\n";
+        cout << "\t\tBoundary Conditions Test\n";
+        cout << "========================================================================================\n";
+        TestBoundaryConditions * am = new TestBoundaryConditions(argc, argv);
+        am->run();
+        am->check();
+        delete am;
+    }
 	else
 		throw std::invalid_argument("This test setting does not exist!");
 }

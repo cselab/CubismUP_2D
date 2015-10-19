@@ -70,8 +70,8 @@ protected:
 		
 #pragma omp parallel
 		{
-			OperatorDiffusion kernel(dt, coeff, stage);
-			//OperatorDiffusionHighOrder kernel(dt, coeff, stage);
+			//OperatorDiffusion kernel(dt, coeff, stage);
+			OperatorDiffusionHighOrder kernel(dt, coeff, stage);
 			
             Lab mylab;
 #ifdef _MOVING_FRAME_
