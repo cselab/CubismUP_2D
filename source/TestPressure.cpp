@@ -265,7 +265,7 @@ void TestPressure::check()
         if (ic!=0 && ic!=2)
             processOMP<Lab, OperatorDivergenceLayer>(divergence,vInfo,*grid);
         
-		cout << "\tErrors (Linf, L1, L2):\t";
+		//cout << "\tErrors (Linf, L1, L2):\t";
 		double Linf = 0.;
 		double L1 = 0.;
 		double L2 = 0.;

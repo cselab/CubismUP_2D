@@ -9,7 +9,7 @@ poisson ?= split-fftw
 multiphase ?= false
 bs ?= 32
 vertexcentered ?= false
-particles ?= true
+particles ?= false
 dlm ?= false
 
 constnu ?= false

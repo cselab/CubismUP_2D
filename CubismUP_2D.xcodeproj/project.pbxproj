@@ -46,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		DD0423E41B395242002FEC70 /* plotEllipses.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotEllipses.py; sourceTree = "<group>"; };
+		DD078FDA1BD6629800BEE021 /* FallingDensities.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = FallingDensities.sh; sourceTree = "<group>"; };
+		DD078FDB1BD785B800BEE021 /* Fields.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Fields.sh; sourceTree = "<group>"; };
 		DD0984011B33130100AB357D /* TestAddedMass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestAddedMass.cpp; sourceTree = "<group>"; };
 		DD0984021B33130100AB357D /* TestAddedMass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAddedMass.h; sourceTree = "<group>"; };
 		DD09BBE71A77E54E00BA7066 /* BoundaryConditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoundaryConditions.h; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 		DD0C7DF71B3AEFC8006B5880 /* Fields_parameter_study.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Fields_parameter_study.sh; sourceTree = "<group>"; };
 		DD0C7DF81B3AF492006B5880 /* plotParamTest.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotParamTest.py; sourceTree = "<group>"; };
 		DD0D8F621B32C83600BEC57C /* AddedMass.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = AddedMass.sh; sourceTree = "<group>"; };
+		DD1AD63F1BD7950000231777 /* plotAndersen.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotAndersen.py; sourceTree = "<group>"; };
 		DD20D2DB1B417166003741F6 /* plotKolomenskiy.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotKolomenskiy.py; sourceTree = "<group>"; };
 		DD20D2DD1B417379003741F6 /* Kolomenskiy.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Kolomenskiy.sh; sourceTree = "<group>"; };
 		DD20D2DE1B41ADA2003741F6 /* plotDrag.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotDrag.py; sourceTree = "<group>"; };
@@ -152,7 +155,7 @@
 		DD8BE0111AEFACAE008467AA /* TestShearLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestShearLayer.h; sourceTree = "<group>"; };
 		DD8BE0131AEFB422008467AA /* ShearLayerCFL.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ShearLayerCFL.sh; sourceTree = "<group>"; };
 		DD90D83C1B01D8B800013E04 /* Herrmann.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Herrmann.sh; sourceTree = "<group>"; };
-		DD9DC1441AB2F6B0009BFBEE /* Fields.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Fields.sh; sourceTree = "<group>"; };
+		DD9DC1441AB2F6B0009BFBEE /* Andersen.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Andersen.sh; sourceTree = "<group>"; };
 		DD9DC1461AB2F6B6009BFBEE /* Namkoong.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Namkoong.sh; sourceTree = "<group>"; };
 		DDA9C81C1AC5C07D008D69E4 /* GenericCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenericCoordinator.h; sourceTree = "<group>"; };
 		DDA9C81D1AC5C1D1008D69E4 /* CoordinatorIC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorIC.h; sourceTree = "<group>"; };
@@ -199,19 +202,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DD2A4CE91ADFA07100C3C034 /* FallingBodies */ = {
+		DD1AD6401BD7CCA100231777 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				DD0D8F621B32C83600BEC57C /* AddedMass.sh */,
+				DD7D01CF1AC0691A00695EC9 /* Glowinski.sh */,
 				DDFE3D071B46B53200092857 /* Coquerelle.sh */,
 				DD20D2DD1B417379003741F6 /* Kolomenskiy.sh */,
 				DD20D2DB1B417166003741F6 /* plotKolomenskiy.py */,
-				DD7D01CF1AC0691A00695EC9 /* Glowinski.sh */,
-				DD9DC1441AB2F6B0009BFBEE /* Fields.sh */,
+				DD078FDB1BD785B800BEE021 /* Fields.sh */,
 				DD0423E41B395242002FEC70 /* plotEllipses.py */,
 				DD0C7DF71B3AEFC8006B5880 /* Fields_parameter_study.sh */,
 				DD0C7DF81B3AF492006B5880 /* plotParamTest.py */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
+		DD2A4CE91ADFA07100C3C034 /* FallingBodies */ = {
+			isa = PBXGroup;
+			children = (
+				DD1AD6401BD7CCA100231777 /* Other */,
+				DD0D8F621B32C83600BEC57C /* AddedMass.sh */,
+				DD9DC1441AB2F6B0009BFBEE /* Andersen.sh */,
+				DD1AD63F1BD7950000231777 /* plotAndersen.py */,
 				DD9DC1461AB2F6B6009BFBEE /* Namkoong.sh */,
+				DD078FDA1BD6629800BEE021 /* FallingDensities.sh */,
 				DD2E83231B8D9AB9006EB00A /* FallingRe40.sh */,
 				DD780F701B3BEF90007ED7B7 /* plotFallingCylinder.py */,
 			);

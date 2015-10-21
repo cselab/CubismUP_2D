@@ -68,7 +68,7 @@ void Sim_FSI_Gravity::_diagnostics()
 	
 	double cD = 2*drag/(uBody[1]*uBody[1]*shape->getCharLength());
 	cD = abs(uBody[1])>0 ? cD : 1e10;
-	const Real Re_uBody = shape->getCharLength()*abs(uBody[1])/nu;
+	const Real Re_uBody = shape->getCharLength()*sqrt(uBody[0]*uBody[0]+uBody[1]*uBody[1])/nu;
 	Real center[2];
 	shape->getPosition(center);
 	
@@ -220,7 +220,7 @@ void Sim_FSI_Gravity::init()
 		minRho = min((Real)1.,shape->getRhoS());
 		
 		const Real aspectRatio = (Real)bpdx/(Real)bpdy;
-		Real center[2] = {.5*aspectRatio,parser("-ypos").asDouble(.85)};
+		Real center[2] = {parser("-xpos").asDouble(.5*aspectRatio),parser("-ypos").asDouble(.85)};
 		shape->setPosition(center);
 		
 		stringstream ss;

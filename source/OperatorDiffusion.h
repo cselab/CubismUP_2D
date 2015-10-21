@@ -145,11 +145,56 @@ public:
 					FluidElement& phiN2 = lab(ix,iy+2);
 					FluidElement& phiS2 = lab(ix,iy-2);
 					FluidElement& phiE2 = lab(ix+2,iy);
-					FluidElement& phiW2 = lab(ix-2,iy);
-				
-					o(ix,iy).tmpU += phi.u + prefactor * (-(phiN2.u + phiS2.u + phiE2.u + phiW2.u) + 16*(phiN.u + phiS.u + phiE.u + phiW.u) - 60.*phi.u);
-					o(ix,iy).tmpV += phi.v + prefactor * (-(phiN2.v + phiS2.v + phiE2.v + phiW2.v) + 16*(phiN.v + phiS.v + phiE.v + phiW.v) - 60.*phi.v);
-				}
+                    FluidElement& phiW2 = lab(ix-2,iy);
+                    
+#ifdef _DENSITYDIFF_
+                    o(ix,iy).tmp = phi.rho + 1e-5 * dt / (info.h_gridpoint*info.h_gridpoint) * (-(phiN2.rho + phiS2.rho + phiE2.rho + phiW2.rho) + 16*(phiN.rho + phiS.rho + phiE.rho + phiW.rho) - 60.*phi.rho);
+#endif
+                    
+#ifdef _MULTIPHASE_
+					o(ix,iy).tmpU += phi.u + prefactor/phi.rho * (-(phiN2.u + phiS2.u + phiE2.u + phiW2.u) + 16*(phiN.u + phiS.u + phiE.u + phiW.u) - 60.*phi.u);
+                    o(ix,iy).tmpV += phi.v + prefactor/phi.rho * (-(phiN2.v + phiS2.v + phiE2.v + phiW2.v) + 16*(phiN.v + phiS.v + phiE.v + phiW.v) - 60.*phi.v);
+#else
+#ifdef _CONSTNU_
+                    o(ix,iy).tmpU += phi.u + prefactor * (-(phiN2.u + phiS2.u + phiE2.u + phiW2.u) + 16*(phiN.u + phiS.u + phiE.u + phiW.u) - 60.*phi.u);
+                    o(ix,iy).tmpV += phi.v + prefactor * (-(phiN2.v + phiS2.v + phiE2.v + phiW2.v) + 16*(phiN.v + phiS.v + phiE.v + phiW.v) - 60.*phi.v);
+#else
+                    o(ix,iy).tmpU += phi.u + prefactor/phi.rho * (-(phiN2.u + phiS2.u + phiE2.u + phiW2.u) + 16*(phiN.u + phiS.u + phiE.u + phiW.u) - 60.*phi.u);
+                    o(ix,iy).tmpV += phi.v + prefactor/phi.rho * (-(phiN2.v + phiS2.v + phiE2.v + phiW2.v) + 16*(phiN.v + phiS.v + phiE.v + phiW.v) - 60.*phi.v);
+#endif // _CONSTNU_
+#endif // _MULTIPHASE_
+                }
+        else if (stage==1)
+            for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+                for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+                {
+                    FluidElement& phi = lab(ix,iy);
+                    FluidElement& phiN = lab(ix,iy+1);
+                    FluidElement& phiS = lab(ix,iy-1);
+                    FluidElement& phiE = lab(ix+1,iy);
+                    FluidElement& phiW = lab(ix-1,iy);
+                    FluidElement& phiN2 = lab(ix,iy+2);
+                    FluidElement& phiS2 = lab(ix,iy-2);
+                    FluidElement& phiE2 = lab(ix+2,iy);
+                    FluidElement& phiW2 = lab(ix-2,iy);
+            
+#ifdef _DENSITYDIFF_
+                    o(ix,iy).tmp = phi.rho + 1e-5 * dt / (info.h_gridpoint*info.h_gridpoint) * (-(phiN2.tmp + phiS2.tmp + phiE2.tmp + phiW2.tmp) + 16*(phiN.tmp + phiS.tmp + phiE.tmp + phiW.tmp) - 60.*phi.tmp);
+#endif
+            
+#ifdef _MULTIPHASE_
+                    o(ix,iy).tmpU += phi.u + prefactor/phi.rho * (-(phiN2.tmpU + phiS2.tmpU + phiE2.tmpU + phiW2.tmpU) + 16*(phiN.tmpU + phiS.tmpU + phiE.tmpU + phiW.tmpU) - 60.*phi.tmpU);
+                    o(ix,iy).tmpV += phi.v + prefactor/phi.rho * (-(phiN2.tmpV + phiS2.tmpV + phiE2.tmpV + phiW2.tmpV) + 16*(phiN.tmpV + phiS.tmpV + phiE.tmpV + phiW.tmpV) - 60.*phi.tmpV);
+#else
+#ifdef _CONSTNU_
+                    o(ix,iy).tmpU += phi.u + prefactor * (-(phiN2.tmpU + phiS2.tmpU + phiE2.tmpU + phiW2.tmpU) + 16*(phiN.tmpU + phiS.tmpU + phiE.tmpU + phiW.tmpU) - 60.*phi.tmpU);
+                    o(ix,iy).tmpV += phi.v + prefactor * (-(phiN2.tmpV + phiS2.tmpV + phiE2.tmpV + phiW2.tmpV) + 16*(phiN.tmpV + phiS.tmpV + phiE.tmpV + phiW.tmpV) - 60.*phi.tmpV);
+#else
+                    o(ix,iy).tmpU += phi.u + prefactor/phi.rho * (-(phiN2.tmpU + phiS2.tmpU + phiE2.tmpU + phiW2.tmpU) + 16*(phiN.tmpU + phiS.tmpU + phiE.tmpU + phiW.tmpU) - 60.*phi.tmpU);
+                    o(ix,iy).tmpV += phi.v + prefactor/phi.rho * (-(phiN2.tmpV + phiS2.tmpV + phiE2.tmpV + phiW2.tmpV) + 16*(phiN.tmpV + phiS.tmpV + phiE.tmpV + phiW.tmpV) - 60.*phi.tmpV);
+#endif // _CONSTNU_
+#endif // _MULTIPHASE_
+                }
 	}
 };
 

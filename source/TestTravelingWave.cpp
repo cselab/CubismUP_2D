@@ -188,7 +188,7 @@ void TestTravelingWave::check()
 #else
 		cout << "FFTW - single";
 #endif
-		cout << "\tErrors (Linf_u, L1_u, L2_u, Linf_v, L1_v, L2_v, Linf_p, L1_p, L2_p):\t";
+//		cout << "\tErrors (Linf_u, L1_u, L2_u, Linf_v, L1_v, L2_v, Linf_p, L1_p, L2_p):\t";
 		double Linf_u = 0.;
 		double L1_u = 0.;
 		double L2_u = 0.;

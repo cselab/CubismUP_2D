@@ -30,7 +30,7 @@ for I in [1, 2, 3, 4]:
 	bIdx = 0
 	for B in [16, 32, 64, 128]:
 			
-		dirName = 'Fields_perturbed_bpd'+str(B)+'_ic'+str(I)
+		dirName = 'Fields_bpd'+str(B)+'_ic'+str(I)
 		fileName = dirName+'_diagnostics.dat'
 		fullName = rootDir+dirName+'/'+fileName
 		if os.path.isfile(fullName):
@@ -43,15 +43,15 @@ for I in [1, 2, 3, 4]:
 			n.append(x[idx].size)
 			ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.05, height=h[I-1], angle=a[idx][i]*360/(2*math.pi))
 						 for i in range(n[idx])])
-			increment = 10
+			increment = 100
 			for i in range(1,n[idx],increment):
 				e = ells[idx][i]
 				p[plotIdx-1].add_artist(e)
 				e.set_clip_box(p[plotIdx-1].bbox)
 				e.set_alpha(float(i)/float(n[idx]))
 				e.set_facecolor((float(bIdx)*.33,float(3-bIdx)*.05,float(3-bIdx)*.33))
-		else:
-			print fullName
+        #		else:
+        #			print fullName
 		bIdx = bIdx+1
 
 	p[plotIdx-1].set_xlim(0, 1)

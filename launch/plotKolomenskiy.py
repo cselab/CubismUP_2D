@@ -21,7 +21,7 @@ pku = fig.add_subplot(111)
 
 for dirName, subDirList, fileList in os.walk(rootDir):
 	for file in fileList:
-		if "diagnostics.dat" in file and "Kolomenskiy" in file and "Mattiafalse" in file and "Nufalse" in file and "1e" in file and "bpd32" in file:
+		if "diagnostics.dat" in file and "Kolomenskiy" in file and "1e6" in file:
 # and "Avgu" in file:
 			data.append(np.genfromtxt(fname=dirName+'/'+file))
 			idx = len(data)-1
