@@ -18,6 +18,7 @@ class CoordinatorComputeShape : public GenericCoordinator
 protected:
 	Real *uBody, *vBody, *omegaBody;
 	Shape * shape;
+    
 public:
 	CoordinatorComputeShape(Real * uBody, Real * vBody, Real * omegaBody, Shape * shape, FluidGrid * grid) : GenericCoordinator(grid), uBody(uBody), vBody(vBody), omegaBody(omegaBody), shape(shape)
 	{
@@ -32,6 +33,14 @@ public:
 		
 		Real ub[2] = { *uBody, *vBody };
 		shape->updatePosition(ub, *omegaBody, dt);
+		
+		Real domainSize[2] = { grid->getBlocksPerDimension(0)*FluidBlock::sizeX*vInfo[0].h_gridpoint,
+							   grid->getBlocksPerDimension(1)*FluidBlock::sizeY*vInfo[0].h_gridpoint};
+		Real p[2] = {0,0};
+		shape->getPosition(p);
+		
+		if (p[0]<0 || p[0]>domainSize[0] || p[1]<0 || p[1]>domainSize[1])
+			exit(0);
 		
 #pragma omp parallel
 		{

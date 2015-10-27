@@ -17,10 +17,17 @@
 void TestRotation::_ic()
 {
 	Real center[2] = {.5,.5};
-	Real semiAxis[2] = {.1,.2};
+	Real semiAxis[2] = {.05,.4};
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
-	bool bPeriodic[2] = {false,false};
-	shape = new Ellipse(center, semiAxis, (Real)M_PI/4, (Real)2, (Real)2, (Real)2, bPeriodic);
+    bool bPeriodic[2] = {false,false};
+    
+    const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+        FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
+	
+	const Real moll = 2;
+	const Real rho = 2;
+	const Real angle = M_PI/4.;
+	shape = new Ellipse(center, semiAxis, angle, rho, moll, moll, bPeriodic, domainSize);
 
 	const double dh = vInfo[0].h_gridpoint;
 	
@@ -113,5 +120,5 @@ void TestRotation::run()
 void TestRotation::check()
 {
 	// the only thing to check here is the orientation
-	cout << "Orientation error: " << shape->getOrientation() - M_PI/4. - M_PI*2 << endl;
+	cout << "Orientation error: " << shape->getOrientation() - M_PI/4. << endl;
 }

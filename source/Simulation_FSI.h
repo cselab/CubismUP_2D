@@ -82,8 +82,11 @@ protected:
 			inStream >> variableName;
 			assert(variableName=="mollRho");
 			inStream >> mollRho;
-			
-			shape = new Disk(center, radius, rhoS, mollChi, mollRho, bPeriodic);
+            
+            vector<BlockInfo> vInfo = grid->getBlocksInfo();
+            const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+                FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
+			shape = new Disk(center, radius, rhoS, mollChi, mollRho, bPeriodic, domainSize);
 		}
 		else if (variableName=="Ellipse")
 		{
@@ -114,8 +117,12 @@ protected:
 			inStream >> mollChi;
 			inStream >> variableName;
 			assert(variableName=="mollRho");
-			inStream >> mollRho;
-			shape = new Ellipse(center, semiAxis, angle, rhoS, mollChi, mollRho, bPeriodic);
+            inStream >> mollRho;
+            
+            vector<BlockInfo> vInfo = grid->getBlocksInfo();
+            const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+                FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
+			shape = new Ellipse(center, semiAxis, angle, rhoS, mollChi, mollRho, bPeriodic, domainSize);
 		}
 		else
 		{
@@ -142,18 +149,23 @@ public:
 			double rhoS = parser("-rhoS").asDouble(1);
 			Real centerOfMass[2] = {0,0};
 			bool bPeriodic[2] = {false,false};
+            
+            vector<BlockInfo> vInfo = grid->getBlocksInfo();
+            const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+                                         FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
 			
 			string shapeType = parser("-shape").asString("disk");
+            const int eps = 2;
 			if (shapeType=="disk")
 			{
 				Real radius = parser("-radius").asDouble(0.1);
-				shape = new Disk(centerOfMass, radius, rhoS, 2, 2, bPeriodic);
+				shape = new Disk(centerOfMass, radius, rhoS, eps, eps, bPeriodic, domainSize);
 			}
 			else if (shapeType=="ellipse")
 			{
 				Real semiAxis[2] = {parser("-semiAxisX").asDouble(0.1),parser("-semiAxisY").asDouble(0.2)};
 				Real angle = parser("-angle").asDouble(0.0);
-				shape = new Ellipse(centerOfMass, semiAxis, angle, rhoS, 2, 2, bPeriodic);
+				shape = new Ellipse(centerOfMass, semiAxis, angle, rhoS, eps, eps, bPeriodic, domainSize);
 			}
 			else
 			{

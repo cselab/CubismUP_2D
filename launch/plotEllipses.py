@@ -43,7 +43,7 @@ for I in [1, 2, 3, 4]:
 			n.append(x[idx].size)
 			ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.05, height=h[I-1], angle=a[idx][i]*360/(2*math.pi))
 						 for i in range(n[idx])])
-			increment = 100
+			increment = 25
 			for i in range(1,n[idx],increment):
 				e = ells[idx][i]
 				p[plotIdx-1].add_artist(e)

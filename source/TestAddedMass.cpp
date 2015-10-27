@@ -30,10 +30,14 @@ void TestAddedMass::_ic()
 	minRho = min((Real)1.,(Real)rhoS);
 	
 	Real centerOfMass[2] = {.5,.5};
-	bool bPeriodic[2] = {false,false};
+    bool bPeriodic[2] = {false,false};
+    
+    vector<BlockInfo> vInfo = grid->getBlocksInfo();
+    const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+        FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
 	
-	Real radius = parser("-radius").asDouble(0.1);
-	shape = new Disk(centerOfMass, radius, rhoS, 2, 2, bPeriodic);
+    Real radius = parser("-radius").asDouble(0.1);
+	shape = new Disk(centerOfMass, radius, rhoS, 2, 2, bPeriodic, domainSize);
 	
 #ifdef _MULTIGRID_
 	if (rank==0)

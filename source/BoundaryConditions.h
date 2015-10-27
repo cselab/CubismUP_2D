@@ -65,13 +65,16 @@ public:
 		
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
-            {
+        {
                 (*this)(ix,iy).rho  = p.rho;
+                (*this)(ix,iy).tmp  = p.tmp;
                 (*this)(ix,iy).chi  = 0;
                 
                 // dirichlet BC
                 (*this)(ix,iy).u = 2*p.u - (*this)(ix, -iy-1).u;
                 (*this)(ix,iy).v = 2*p.v - (*this)(ix, -iy-1).v;
+                (*this)(ix,iy).tmpU = 2*p.tmpU - (*this)(ix, -iy-1).tmpU;
+                (*this)(ix,iy).tmpV = 2*p.tmpV - (*this)(ix, -iy-1).tmpV;
                 
                 // Neumann BC
                 (*this)(ix,iy).p    = (*this)(ix, -iy-1).p;
@@ -92,6 +95,7 @@ public:
 			for(int ix=s[0]; ix<e[0]; ix++)
             {
                 (*this)(ix,iy).rho  = (*this)(ix, TBlock::sizeY-1).rho;//p.rho;
+                (*this)(ix,iy).tmp  = (*this)(ix, TBlock::sizeY-1).tmp;//p.rho;
                 (*this)(ix,iy).chi  = 0;
                 
                 // dirichlet BC
@@ -102,6 +106,8 @@ public:
                 // Neumann BC
                 (*this)(ix,iy).u = (*this)(ix, 2*TBlock::sizeY-1-iy).u;
                 (*this)(ix,iy).v = (*this)(ix, 2*TBlock::sizeY-1-iy).v;
+                (*this)(ix,iy).tmpU = (*this)(ix, 2*TBlock::sizeY-1-iy).tmpU;
+                (*this)(ix,iy).tmpV = (*this)(ix, 2*TBlock::sizeY-1-iy).tmpV;
 			}
 	}
 	

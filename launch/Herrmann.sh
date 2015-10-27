@@ -1,11 +1,11 @@
-BASENAME=RTI_dct_diff4th_211015
+BASENAME=RTI_dct_diff2nd_211015
 FOLDER=/cluster/scratch_xp/public/cconti/CubismUP/${BASENAME}
 mkdir ${FOLDER}
 
 cd ../makefiles/
 make clean
 #does not seem to work with RK2
-make poisson=split-fftw bc=mixed config=production multiphase=true particles=false rk2=false -j
+make poisson=split-fftw bc=mixed config=production multiphase=true particles=false rk2=true -j
 cd -
 for BPD in 2 4 8 16 32
 do

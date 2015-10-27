@@ -285,6 +285,9 @@ public:
         pDirichlet.p = 0;
         pDirichlet.pOld = 0;
         pDirichlet.divU = 0;
+        pDirichlet.tmp = 1;
+        pDirichlet.tmpU = 0;
+        pDirichlet.tmpV = 0;
     }
 	
 	void _apply_bc(const BlockInfo& info, const Real t=0)

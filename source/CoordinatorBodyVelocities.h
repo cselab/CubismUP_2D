@@ -54,6 +54,7 @@ public:
 				}
 		}
 		
+        // needs to be fixed for periodicity
 		centerTmpX /= mass;
 		centerTmpY /= mass;
 		

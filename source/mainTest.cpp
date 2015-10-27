@@ -448,17 +448,17 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
         am->run();
         am->check();
         delete am;
-    }
-    else if (test=="bc")
-    {
-        cout << "========================================================================================\n";
-        cout << "\t\tBoundary Conditions Test\n";
-        cout << "========================================================================================\n";
-        TestBoundaryConditions * am = new TestBoundaryConditions(argc, argv);
-        am->run();
-        am->check();
-        delete am;
-    }
+	}
+	else if (test=="bc")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tBoundary Conditions Test\n";
+		cout << "========================================================================================\n";
+		TestBoundaryConditions * am = new TestBoundaryConditions(argc, argv);
+		am->run();
+		am->check();
+		delete am;
+	}
 	else
 		throw std::invalid_argument("This test setting does not exist!");
 }

@@ -18,8 +18,12 @@ void TestTranslation::_ic()
 	Real center[2] = {.25,.25};
 	Real semiAxis[2] = {.05,.15};
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
-	bool bPeriodic[2] = {false,false};
-	shape = new Ellipse(center, semiAxis, (Real)M_PI/4, (Real)2, (Real)2, (Real)2, bPeriodic);
+    bool bPeriodic[2] = {false,false};
+    
+    const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+        FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
+    
+	shape = new Ellipse(center, semiAxis, (Real)M_PI/4, (Real)2, (Real)2, (Real)2, bPeriodic, domainSize);
 	
 	const double dh = vInfo[0].h_gridpoint;
 	

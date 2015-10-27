@@ -21,52 +21,36 @@ n = []
 ells = []
 
 p = fig.add_subplot(111, aspect='equal')
+bIdx = 0;
 
-bIdx = 0
-for B in [32, 64]:
-	dirName = 'Andersen_2110_CFL0.01_bpd'+str(B)
-    #	dirName = 'Andersen_2110_bpd'+str(B)
-	fileNameT = dirName+'_T_diagnostics.dat'
-	fullNameT = rootDir+dirName+'/'+fileNameT
-	if os.path.isfile(fullNameT):
-		data.append(np.genfromtxt(fname=fullNameT))
-		idx = len(data)-1
-		dataset = data[idx]
-		x.append(dataset[:,7])
-		y.append(dataset[:,8])
-		a.append(dataset[:,11])
-		n.append(x[idx].size)
-		ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.05, height=0.00625, angle=a[idx][i]*360/(2*math.pi))
-					 for i in range(n[idx])])
-		increment = 10
-		for i in range(1,n[idx],increment):
-			e = ells[idx][i]
-			p.add_artist(e)
-			e.set_clip_box(p.bbox)
-			e.set_alpha(float(i)/float(n[idx]))
-			e.set_facecolor((float(bIdx)*.33,float(3-bIdx)*.05,float(3-bIdx)*.33))
-
-	fileNameF = dirName+'_F_diagnostics.dat'
-	fullNameF = rootDir+dirName+'/'+fileNameF
-	if os.path.isfile(fullNameF):
-		data.append(np.genfromtxt(fname=fullNameF))
-		idx = len(data)-1
-		dataset = data[idx]
-		x.append(dataset[:,7])
-		y.append(dataset[:,8])
-		a.append(dataset[:,11])
-		n.append(x[idx].size)
-		ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.05, height=0.00625, angle=a[idx][i]*360/(2*math.pi))
-					 for i in range(n[idx])])
-		increment = 10
-		for i in range(1,n[idx],increment):
-			e = ells[idx][i]
-			p.add_artist(e)
-			e.set_clip_box(p.bbox)
-			e.set_alpha(float(i)/float(n[idx]))
-			e.set_facecolor((float(bIdx)*.33,float(3-bIdx)*.25,float(3-bIdx)*.33))
-
-	bIdx = bIdx+1
+for dirName, subDirList, fileList in os.walk(rootDir):
+	if "Andersen" in dirName and "Andersen_2610" in dirName:
+		if "bpd64" in dirName:
+			bIdx = 1
+		if "bpd128" in dirName:
+			bIdx = 2
+		if "bpd256" in dirName:
+			bIdx = 3
+		for file in fileList:
+			if "diagnostics.dat" in file:
+				data.append(np.genfromtxt(fname=dirName+'/'+file))
+				idx = len(data)-1
+				dataset = data[idx]
+				x.append(dataset[:,7])
+				y.append(dataset[:,8])
+				a.append(dataset[:,11])
+				n.append(x[idx].size)
+				#ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.2, height=0.025, angle=a[idx][i]*360/(2*math.pi))
+				ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.1, height=0.0125, angle=a[idx][i]*360/(2*math.pi))
+				#ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.05, height=0.00625, angle=a[idx][i]*360/(2*math.pi))
+							 for i in range(n[idx])])
+				increment = 20
+				for i in range(1,n[idx],increment):
+					e = ells[idx][i]
+					p.add_artist(e)
+					e.set_clip_box(p.bbox)
+					e.set_alpha(float(i)/float(n[idx]))
+					e.set_facecolor((float(bIdx)*.25,float(3-bIdx)*.05,float(3-bIdx)*.25))
 
 p.set_xlim(0, 1)
 p.set_ylim(0, 1)

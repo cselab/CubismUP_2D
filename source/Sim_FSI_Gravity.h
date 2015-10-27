@@ -53,6 +53,7 @@
 //			 9 - u[0]
 //			10 - u[1]
 //			11 - orientation
+//			12 - omegaBody
 //
 //  Created by Christian Conti on 1/26/15.
 //  Copyright (c) 2015 ETHZ. All rights reserved.

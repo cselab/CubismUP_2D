@@ -113,8 +113,8 @@ public:
 	OperatorDiffusionHighOrder(double dt, double mu, const int stage) : mu(mu), dt(dt), stage(stage)
 	{
 		// it might be working - but the error is too small to measure!
-		//cout << "This operator needs debugging - it's not working correctly!\n";
-		//abort();
+		cout << "This operator needs debugging - it's not working correctly!\n";
+		abort();
 		
 		stencil_start[0] = -2;
 		stencil_start[1] = -2;
@@ -122,8 +122,10 @@ public:
 		stencil_end[0] = 3;
 		stencil_end[1] = 3;
 		stencil_end[2] = 1;
-		
-		//dt = (stage==0) ? dt*.5 : dt;
+        
+#ifdef _RK2_
+        dt = (stage==0) ? dt*.5 : dt;
+#endif
 	}
 	
 	~OperatorDiffusionHighOrder() {}
@@ -164,6 +166,7 @@ public:
 #endif // _CONSTNU_
 #endif // _MULTIPHASE_
                 }
+#ifdef _RK2_
         else if (stage==1)
             for(int iy=0; iy<FluidBlock::sizeY; ++iy)
                 for(int ix=0; ix<FluidBlock::sizeX; ++ix)
@@ -195,6 +198,7 @@ public:
 #endif // _CONSTNU_
 #endif // _MULTIPHASE_
                 }
+#endif // _RK2_
 	}
 };
 

@@ -58,6 +58,7 @@
 		DD0C7DF81B3AF492006B5880 /* plotParamTest.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotParamTest.py; sourceTree = "<group>"; };
 		DD0D8F621B32C83600BEC57C /* AddedMass.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = AddedMass.sh; sourceTree = "<group>"; };
 		DD1AD63F1BD7950000231777 /* plotAndersen.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotAndersen.py; sourceTree = "<group>"; };
+		DD1D1C3D1BD928D200E8A55B /* plotVelocityEllipses.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotVelocityEllipses.py; sourceTree = "<group>"; };
 		DD20D2DB1B417166003741F6 /* plotKolomenskiy.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotKolomenskiy.py; sourceTree = "<group>"; };
 		DD20D2DD1B417379003741F6 /* Kolomenskiy.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Kolomenskiy.sh; sourceTree = "<group>"; };
 		DD20D2DE1B41ADA2003741F6 /* plotDrag.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotDrag.py; sourceTree = "<group>"; };
@@ -224,6 +225,7 @@
 				DD0D8F621B32C83600BEC57C /* AddedMass.sh */,
 				DD9DC1441AB2F6B0009BFBEE /* Andersen.sh */,
 				DD1AD63F1BD7950000231777 /* plotAndersen.py */,
+				DD1D1C3D1BD928D200E8A55B /* plotVelocityEllipses.py */,
 				DD9DC1461AB2F6B6009BFBEE /* Namkoong.sh */,
 				DD078FDA1BD6629800BEE021 /* FallingDensities.sh */,
 				DD2E83231B8D9AB9006EB00A /* FallingRe40.sh */,
