@@ -1,45 +1,72 @@
 #module load gcc
 export OMP_NUM_THREADS=48
 
-cd ../makefiles/;make clean;make config=production bc=periodic precision=single particles=false -j;cd ../launch/
+BASEPATH=/cluster/scratch_xp/public/cconti/CubismUP/
+BASENAME_FIXED=Drag_FlowPastFixedCylinder_3010_
+BASENAME_MOVING=Drag_FlowPastMovingCylinder_3010_
 
-for B in 32
-#128 256
-#32 64 128 256
+cd ../makefiles/;make clean;make config=production bc=periodic precision=single particles=false dlm=true -j;cd ../launch/
+
+for CFL in 0.1 0.01
 do
+for LAMBDA in 0.1 0.5 1 2 10
+#1e4 1e5 1e6
+do
+for B in 32 64 128
+do
+	OPTIONS=" -bpdx ${B} -bpdy ${B} -CFL ${CFL} -radius .025 -uinf .01 -rhoS 1.00 -lambda ${LAMBDA} -dlm ${LAMBDA}"
+
 	# Re 40
-	FOLDER_FIXED=/cluster/scratch_xp/public/cconti/CubismUP/Drag_FlowPastFixedCylinderRe40_2110_lambda1e6_$[${B}*32]
+	NAME_RE40=Re40_DLM${LAMBDA}_CFL${CFL}_$[${B}*32]
+
+	FOLDER_FIXED=${BASEPATH}${BASENAME_FIXED}${NAME_RE40}
 	mkdir ${FOLDER_FIXED}
 	cp ../makefiles/simulation ${FOLDER_FIXED}
-	bsub -n 48 -W 10:00 -o FlowPastFixedCylinderRe40_$[${B}*32] ${FOLDER_FIXED}/simulation -file ${FOLDER_FIXED}/FlowPastFixedCylinderRe40_$[${B}*32] -bpdx ${B} -bpdy ${B} -CFL 0.01 -radius .025 -uinf .01 -Re 40 -tend 8 -rhoS 1.00 -sim fixed -lambda 1e6
+	cp launchValidationDrag.sh ${FOLDER_FIXED}
+	bsub -n 48 -W 10:00 -o ${BASENAME_FIXED}${NAME_RE40} -J ${BASENAME_FIXED}${NAME_RE40} ${FOLDER_FIXED}/simulation -file ${FOLDER_FIXED}/${BASENAME_FIXED}${NAME_RE40} -sim fixed -Re 40 -tend 8 ${OPTIONS}
 
 
-	FOLDER_MOVING=/cluster/scratch_xp/public/cconti/CubismUP/Drag_FlowPastMovingCylinderRe40_2110_lambda1e6_$[${B}*32]
+	FOLDER_MOVING=${BASEPATH}${BASENAME_MOVING}${NAME_RE40}
 	mkdir ${FOLDER_MOVING}
 	cp ../makefiles/simulation ${FOLDER_MOVING}
-	bsub -n 48 -W 10:00 -o FlowPastMovingCylinderRe40_$[${B}*32] ${FOLDER_MOVING}/simulation -file ${FOLDER_MOVING}/FlowPastMovingCylinderRe40_$[${B}*32] -bpdx ${B} -bpdy ${B} -CFL 0.01 -radius .025 -uinf .01 -Re 40 -tend 8 -rhoS 1.00 -sim moving -lambda 1e6
+	cp launchValidationDrag.sh ${FOLDER_MOVING}
+	bsub -n 48 -W 10:00 -o ${BASENAME_MOVING}${NAME_RE40} -J ${BASENAME_MOVING}${NAME_RE40} ${FOLDER_MOVING}/simulation -file ${FOLDER_MOVING}/${BASENAME_MOVING}${NAME_RE40} -sim moving -Re 40 -tend 8 ${OPTIONS}
+
+
 
 	# Re 100
-	FOLDER_FIXED=/cluster/scratch_xp/public/cconti/CubismUP/Drag_FlowPastFixedCylinderRe100_2110_lambda1e6_$[${B}*32]
+	NAME_RE100=Re100_DLM${LAMBDA}_CFL${CFL}_$[${B}*32]
+
+	FOLDER_FIXED=${BASEPATH}${BASENAME_FIXED}${NAME_RE100}
 	mkdir ${FOLDER_FIXED}
 	cp ../makefiles/simulation ${FOLDER_FIXED}
-	bsub -n 48 -W 10:00 -o FlowPastFixedCylinderRe100_$[${B}*32] ${FOLDER_FIXED}/simulation -file ${FOLDER_FIXED}/FlowPastFixedCylinderRe100_$[${B}*32] -bpdx ${B} -bpdy ${B} -CFL 0.01 -radius .025 -uinf .01 -Re 100 -tend 30 -rhoS 1.00 -sim fixed -lambda 1e6
+	cp launchValidationDrag.sh ${FOLDER_FIXED}
+	bsub -n 48 -W 10:00 -o ${BASENAME_FIXED}${NAME_RE100} -J ${BASENAME_FIXED}${NAME_RE100} ${FOLDER_FIXED}/simulation -file ${FOLDER_FIXED}/${BASENAME_FIXED}${NAME_RE100} -sim fixed -Re 100 -tend 15 ${OPTIONS}
 
 
-	FOLDER_MOVING=/cluster/scratch_xp/public/cconti/CubismUP/Drag_FlowPastMovingCylinderRe100_2110_lambda1e6_$[${B}*32]
+	FOLDER_MOVING=${BASEPATH}${BASENAME_MOVING}${NAME_RE100}
 	mkdir ${FOLDER_MOVING}
 	cp ../makefiles/simulation ${FOLDER_MOVING}
-	bsub -n 48 -W 10:00 -o FlowPastMovingCylinderRe100_$[${B}*32] ${FOLDER_MOVING}/simulation -file ${FOLDER_MOVING}/FlowPastMovingCylinderRe100_$[${B}*32] -bpdx ${B} -bpdy ${B} -CFL 0.01 -radius .025 -uinf .01 -Re 100 -tend 30 -rhoS 1.00 -sim moving -lambda 1e6
+	cp launchValidationDrag.sh ${FOLDER_MOVING}
+	bsub -n 48 -W 10:00 -o ${BASENAME_MOVING}${NAME_RE100} -J ${BASENAME_MOVING}${NAME_RE100} ${FOLDER_MOVING}/simulation -file ${FOLDER_MOVING}/${BASENAME_MOVING}${NAME_RE1000} -sim moving -Re 100 -tend 15 ${OPTIONS}
+
+
 
 	# Re 1000
-	FOLDER_FIXED=/cluster/scratch_xp/public/cconti/CubismUP/Drag_FlowPastFixedCylinderRe1000_2110_lambda1e6_$[${B}*32]
+	NAME_RE1000=Re1000_DLM${LAMBDA}_CFL${CFL}_$[${B}*32]
+
+	FOLDER_FIXED=${BASEPATH}${BASENAME_FIXED}${NAME_RE1000}
 	mkdir ${FOLDER_FIXED}
 	cp ../makefiles/simulation ${FOLDER_FIXED}
-	bsub -n 48 -W 10:00 -o FlowPastFixedCylinderRe1000_$[${B}*32] ${FOLDER_FIXED}/simulation -file ${FOLDER_FIXED}/FlowPastFixedCylinderRe1000_$[${B}*32] -bpdx ${B} -bpdy ${B} -CFL 0.01 -radius .025 -uinf .01 -Re 1000 -tend 5 -rhoS 1.00 -sim fixed -lambda 1e6
+	cp launchValidationDrag.sh ${FOLDER_FIXED}
+	bsub -n 48 -W 10:00 -o ${BASENAME_FIXED}${NAME_RE1000} -J ${BASENAME_FIXED}${NAME_RE1000} ${FOLDER_FIXED}/simulation -file ${FOLDER_FIXED}/${BASENAME_FIXED}${NAME_RE1000} -sim fixed -Re 1000 -tend 5 ${OPTIONS}
 
 
-	FOLDER_MOVING=/cluster/scratch_xp/public/cconti/CubismUP/Drag_FlowPastMovingCylinderRe1000_2110_lambda1e6_$[${B}*32]
+	FOLDER_MOVING=${BASEPATH}${BASENAME_MOVING}${NAME_RE1000}
 	mkdir ${FOLDER_MOVING}
 	cp ../makefiles/simulation ${FOLDER_MOVING}
-	bsub -n 48 -W 10:00 -o FlowPastMovingCylinderRe1000_$[${B}*32] ${FOLDER_MOVING}/simulation -file ${FOLDER_MOVING}/FlowPastMovingCylinderRe1000_$[${B}*32] -bpdx ${B} -bpdy ${B} -CFL 0.01 -radius .025 -uinf .01 -Re 1000 -tend 5 -rhoS 1.00 -sim moving -lambda 1e6
+	cp launchValidationDrag.sh ${FOLDER_MOVING}
+	bsub -n 48 -W 10:00 -o ${BASENAME_MOVING}${NAME_RE1000} -J ${BASENAME_MOVING}${NAME_RE1000} ${FOLDER_MOVING}/simulation -file ${FOLDER_MOVING}/${BASENAME_MOVING}${NAME_RE1000} -sim moving -Re 1000 -tend 5 ${OPTIONS}
+done
+done
 done

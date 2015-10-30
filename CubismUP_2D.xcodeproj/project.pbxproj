@@ -168,6 +168,10 @@
 		DDAD48D01AA9ECA600A2C354 /* GenericOperator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenericOperator.h; sourceTree = "<group>"; };
 		DDB174C61B072F5600458CBA /* OperatorPressureGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorPressureGradient.h; sourceTree = "<group>"; };
 		DDB174C91B0731A200458CBA /* CoordinatorPressureGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoordinatorPressureGradient.h; sourceTree = "<group>"; };
+		DDB58F6F1BDFB96D00403C7C /* Andersen_ParameterStudy.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Andersen_ParameterStudy.sh; sourceTree = "<group>"; };
+		DDB58F701BDFC14000403C7C /* plotAndersenParamStudy.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotAndersenParamStudy.py; sourceTree = "<group>"; };
+		DDB58F711BE0D81200403C7C /* plotParamStudyEllipses.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotParamStudyEllipses.py; sourceTree = "<group>"; };
+		DDB58F721BE1204B00403C7C /* plotNamkoong.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = plotNamkoong.py; sourceTree = "<group>"; };
 		DDBBA0051A7292670041496C /* TestVarCoeffPoisson.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestVarCoeffPoisson.cpp; sourceTree = "<group>"; };
 		DDBBA0061A7292670041496C /* TestVarCoeffPoisson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestVarCoeffPoisson.h; sourceTree = "<group>"; };
 		DDBFCB871AC92C640031708C /* CoordinatorComputeShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoordinatorComputeShape.h; sourceTree = "<group>"; };
@@ -226,7 +230,11 @@
 				DD9DC1441AB2F6B0009BFBEE /* Andersen.sh */,
 				DD1AD63F1BD7950000231777 /* plotAndersen.py */,
 				DD1D1C3D1BD928D200E8A55B /* plotVelocityEllipses.py */,
+				DDB58F6F1BDFB96D00403C7C /* Andersen_ParameterStudy.sh */,
+				DDB58F701BDFC14000403C7C /* plotAndersenParamStudy.py */,
+				DDB58F711BE0D81200403C7C /* plotParamStudyEllipses.py */,
 				DD9DC1461AB2F6B6009BFBEE /* Namkoong.sh */,
+				DDB58F721BE1204B00403C7C /* plotNamkoong.py */,
 				DD078FDA1BD6629800BEE021 /* FallingDensities.sh */,
 				DD2E83231B8D9AB9006EB00A /* FallingRe40.sh */,
 				DD780F701B3BEF90007ED7B7 /* plotFallingCylinder.py */,

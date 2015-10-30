@@ -310,7 +310,7 @@ void Sim_FSI_Gravity::simulate()
 		if (dt!=0)
 		{
 #ifdef _DLM_
-			lambda = 1./dt;
+			lambda = dlm/dt;
 #endif
 			for (int c=0; c<pipeline.size(); c++)
 			{

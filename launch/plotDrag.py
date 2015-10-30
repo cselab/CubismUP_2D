@@ -19,7 +19,7 @@ pRe100 = fig.add_subplot(312)
 pRe1000 = fig.add_subplot(313)
 
 for dirName, subDirList, fileList in os.walk(rootDir):
-	if "Drag" in dirName:
+	if "Drag" in dirName and "3010" in dirName:
 		for file in fileList:
 			if "diagnostics.dat" in file:
 				data.append(np.genfromtxt(fname=dirName+'/'+file))
@@ -46,7 +46,7 @@ pRe1000.legend(handlesRe1000, labelsRe1000)
 """
 pRe40.set_xlim(0,5)
 pRe40.set_ylim(0,10)
-pRe100.set_xlim(0,20)
+pRe100.set_xlim(0,15)
 pRe100.set_ylim(0,2)
 pRe1000.set_xlim(0,5)
 pRe1000.set_ylim(0,2)

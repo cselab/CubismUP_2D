@@ -32,7 +32,7 @@ counter = 0
 
 for dirName, subDirList, fileList in os.walk(rootDir):
 	for file in fileList:
-		if "diagnostics.dat" in file and "Andersen_NewEllipse_2710_CFL0." in dirName and "medium_short_bpd" in dirName:
+		if "diagnostics.dat" in file and "Andersen_NewEllipse_2710_CFL0.01" in dirName and "medium_short_bpd64" in dirName:
 			data.append(np.genfromtxt(fname=dirName+'/'+file))
 			idx = len(data)-1
 			dataset = data[idx]

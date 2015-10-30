@@ -208,7 +208,7 @@ void Sim_FSI_Moving::simulate()
 		if (verbose)
 			cout << "dt (Fourier, CFL, body): " << dtFourier << " " << dtCFL << " " << dtBody << endl;
 #ifdef _DLM_
-		lambda = 1./dt;
+		lambda = dlm/dt;
 #endif
 		profiler.pop_stop();
 		

@@ -194,7 +194,7 @@ void Sim_FSI_Fixed::simulate()
 		if (verbose)
 			cout << "dt (Fourier, CFL): " << dtFourier << " " << dtCFL << endl;
 #ifdef _DLM_
-		lambda = 1./dt;
+		lambda = dlm/dt;
 #endif
 		profiler.pop_stop();
 		

@@ -19,9 +19,9 @@ v = []
 xa = []
 a = []
 aT = []
-xref = [0, 5]
-rref = [40, 40]
-vref = [-.68, -.68]
+xref = [0, 20]
+rref = [157, 157]
+vref = [-0.0443709505194559, -0.0443709505194559]
 
 p1 = fig.add_subplot(221)
 p2 = fig.add_subplot(222)
@@ -29,9 +29,9 @@ p3 = fig.add_subplot(223)
 p4 = fig.add_subplot(224)
 
 for dirName, subDirList, fileList in os.walk(rootDir):
-	if "Falling_DCT_Re40_2810" in dirName:
+	if "FallingCylinder_Namkoong_2810" in dirName:
 		for file in fileList:
-			if "diagnostics.dat" in file and "DLM" in file:
+			if "diagnostics.dat" in file and "DLM10" in file and "CFL0.1" in file:
 				#and "128" in file:
 				data.append(np.genfromtxt(fname=dirName+'/'+file))
 				idx = len(data)-1
@@ -45,7 +45,7 @@ for dirName, subDirList, fileList in os.walk(rootDir):
 				p3.plot(x[idx],y[idx],label=file)
 				p3.legend()
                     
-			if "addedmass.dat" in file and "DLM" in file:
+			if "addedmass.dat" in file:
 				data2.append(np.genfromtxt(fname=dirName+'/'+file))
 				idx = len(data2)-1
 				dataset2 = data2[idx]
@@ -61,28 +61,28 @@ p2.plot(xref,vref)
 #handles, labels = p3.get_legend_handles_labels()
 #p3.legend(handles, labels)
 
-p1.set_xlim(0,2)
-p1.set_ylim(0,50)
-p2.set_xlim(0,2)
-p2.set_ylim(-1,0)
-p3.set_xlim(0,2)
+p1.set_xlim(0,20)
+p1.set_ylim(0,200)
+p2.set_xlim(0,20)
+p2.set_ylim(-.06,0)
+p3.set_xlim(0,20)
 p3.set_ylim(0,1)
 p4.set_xlim(0,20)
-p4.set_ylim(-4,0)
+p4.set_ylim(-.1,0)
 
-p1.set_title("Re40")
+p1.set_title("Namkoong")
 p1.set_xlabel('Time')
 p1.set_ylabel('Re')
 
-p2.set_title("Re40")
+p2.set_title("Namkoong")
 p2.set_xlabel('Time')
 p2.set_ylabel('velocity v')
 
-p3.set_title("Re40")
+p3.set_title("Namkoong")
 p3.set_xlabel('Time')
 p3.set_ylabel('position y')
 
-p4.set_title("Re40")
+p4.set_title("Namkoong")
 p4.set_xlabel('Timestep')
 p4.set_ylabel('acceleration')
 

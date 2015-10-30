@@ -21,7 +21,7 @@ class Simulation_FSI : public Simulation_Fluid
 {
 protected:
 	// penalization parameter
-	Real lambda;
+	Real lambda, dlm;
 	
 	// body
 	Shape * shape;
@@ -31,6 +31,7 @@ protected:
 	{
 		outStream << "Simulation_FSI\n";
 		outStream << "lambda " << lambda << endl;
+		outStream << "dlm " << dlm << endl;
 		shape->outputSettings(outStream);
 		
 		Simulation_Fluid::_outputSettings(outStream);
@@ -51,6 +52,9 @@ protected:
 		inStream >> variableName;
 		assert(variableName=="lambda");
 		inStream >> lambda;
+		inStream >> variableName;
+		assert(variableName=="dlm");
+		inStream >> dlm;
 		
 		inStream >> variableName;
 		Real center[2];
@@ -145,6 +149,7 @@ public:
 		if (!bRestart)
 		{
 			lambda = parser("-lambda").asDouble(1e5);
+			dlm = parser("-lambda").asDouble(1.);
 			
 			double rhoS = parser("-rhoS").asDouble(1);
 			Real centerOfMass[2] = {0,0};
