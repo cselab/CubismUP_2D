@@ -107,7 +107,7 @@ void TestAddedMass::run()
 				(*pipeline[c])(dt);
 		}
 		
-		if (rank==0)
+		if (rank==0 && step==nsteps-1)
 		{
 			stringstream sstmp;
 			sstmp << path2file << bpd << "-" << step << ".vti";

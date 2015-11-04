@@ -14,8 +14,20 @@ do
 						do
 							for DLM in true false
 							do
-								make clean
-								make config=${CONFIG} bc=${BC} precision=${PRECISION} multiphase=${MULTIPHASE} particles=${PARTICLES} vertexcentered=${VERTEX} dlm=${DLM} -j
+								for NU in true false
+								do
+									for DENSITYDIFF in true false
+									do
+										for AVGU in true false
+										do
+											for RK2 in true false
+											do
+												make clean
+												make config=${CONFIG} bc=${BC} precision=${PRECISION} multiphase=${MULTIPHASE} particles=${PARTICLES} vertexcentered=${VERTEX} dlm=${DLM} constnu=${NU} densitydiff=${DENSITYDIFF} avgu=${AVGU} rk2=${RK2} -j
+											done
+										done
+									done
+								done
 							done
 						done
 					done

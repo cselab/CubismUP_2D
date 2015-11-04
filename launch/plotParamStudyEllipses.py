@@ -32,20 +32,14 @@ counter = 0
 
 for dirName, subDirList, fileList in os.walk(rootDir):
 	for file in fileList:
-		if "diagnostics.dat" in file and "Andersen_ParamStudy_2810_Fluttering" in dirName and "Andersen_ParamStudy_2810_CFL0.1_bpd16_rho1.25_alpha0.2_DLM_xpos0.5_S_diagnostics.dat" in file:
+		if "diagnostics.dat" in file and "SamplesTumblingFluttering" in dirName and "_F_" in file:
 			fname=dirName+'/'+file
 			print(fname)
 			data.append(np.genfromtxt(fname))
-			if "lambda1e4" in file and "CFL0.01" in file:
-				counter=0
-			if "lambda1e4" in file and "CFL0.1" in file:
-				counter=1
-			if "DLM" in file and "CFL0.1" in file:
-				counter=2
-			if "DLM" in file and "CFL0.01" in file:
+			if "_F_" in file:
 				counter=3
-			if "lambda1e3" in file and "CFL0.1" in file:
-				counter=4
+			if "_T_" in file:
+				counter=1
 			
 			idx = len(data)-1
 			dataset = data[idx]
@@ -75,10 +69,10 @@ for dirName, subDirList, fileList in os.walk(rootDir):
 				e.set_alpha(float(i)/float(n[idx]))
 				e.set_facecolor(colorList[counter])
 
-pu.set_xlim(-.3,.3)
-pu.set_ylim(-.4,.2)
+pu.set_xlim(-1,1)
+pu.set_ylim(-1.1,.9)
 pa.set_xlim(-math.pi,math.pi)
-pa.set_ylim(-5,5)
+pa.set_ylim(-25,25)
 
 pu.set_xlabel('u',fontsize="30")
 pu.set_ylabel('v',fontsize="30")
@@ -92,5 +86,5 @@ p.set_ylabel('y',fontsize="30")
 
 mng = plt.get_current_fig_manager()
 mng.resize(*mng.window.maxsize())
-fig.savefig("ParamStudyLambda.png",dpi=300,transparent=True)
+fig.savefig("ParamStudyFluttering.png",dpi=300,transparent=True)
 show()
