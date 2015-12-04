@@ -29,9 +29,9 @@ p3 = fig.add_subplot(223)
 p4 = fig.add_subplot(224)
 
 for dirName, subDirList, fileList in os.walk(rootDir):
-	if "FallingCylinder_Namkoong_2810" in dirName:
+	if "FallingCylinder_Namkoong_2711" in dirName:
 		for file in fileList:
-			if "diagnostics.dat" in file and "DLM10" in file and "CFL0.1" in file:
+			if "diagnostics.dat" in file and "256" in file:
 				#and "128" in file:
 				data.append(np.genfromtxt(fname=dirName+'/'+file))
 				idx = len(data)-1

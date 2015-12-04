@@ -140,14 +140,14 @@ public:
 				for(int ix=0; ix<FluidBlock::sizeX; ++ix)
 				{
 					FluidElement& phi = lab(ix,iy);
-					FluidElement& phiN = lab(ix,iy+1);
-					FluidElement& phiS = lab(ix,iy-1);
-					FluidElement& phiE = lab(ix+1,iy);
 					FluidElement& phiW = lab(ix-1,iy);
-					FluidElement& phiN2 = lab(ix,iy+2);
-					FluidElement& phiS2 = lab(ix,iy-2);
+					FluidElement& phiE = lab(ix+1,iy);
+					FluidElement& phiS = lab(ix,iy-1);
+					FluidElement& phiN = lab(ix,iy+1);
+					FluidElement& phiW2 = lab(ix-2,iy);
 					FluidElement& phiE2 = lab(ix+2,iy);
-                    FluidElement& phiW2 = lab(ix-2,iy);
+					FluidElement& phiS2 = lab(ix,iy-2);
+					FluidElement& phiN2 = lab(ix,iy+2);
                     
 #ifdef _DENSITYDIFF_
                     o(ix,iy).tmp = phi.rho + 1e-5 * dt / (info.h_gridpoint*info.h_gridpoint) * (-(phiN2.rho + phiS2.rho + phiE2.rho + phiW2.rho) + 16*(phiN.rho + phiS.rho + phiE.rho + phiW.rho) - 60.*phi.rho);
@@ -256,5 +256,48 @@ public:
     }
 };
 
+class OperatorViscousDrag : public GenericLabOperator
+{
+private:
+	double dt;
+	Real viscousDrag;
+	
+public:
+	OperatorViscousDrag(double dt) : dt(dt), viscousDrag(0)
+	{
+		stencil_start[0] = -1;
+		stencil_start[1] = -1;
+		stencil_start[2] = 0;
+		stencil_end[0] = 2;
+		stencil_end[1] = 2;
+		stencil_end[2] = 1;
+	}
+	
+	~OperatorViscousDrag() {}
+	
+	template <typename Lab, typename BlockType>
+	void operator()(Lab & lab, const BlockInfo& info, BlockType& o)
+	{
+		const double prefactor = 1. / (info.h_gridpoint*info.h_gridpoint);
+		viscousDrag = 0;
+		
+		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+		for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+		{
+			FluidElement& phi = lab(ix,iy);
+			FluidElement& phiN = lab(ix,iy+1);
+			FluidElement& phiS = lab(ix,iy-1);
+			FluidElement& phiE = lab(ix+1,iy);
+			FluidElement& phiW = lab(ix-1,iy);
+			
+			viscousDrag += prefactor * (phiN.divU + phiS.divU + phiE.divU + phiW.divU - 4.*phi.divU);
+		}
+	}
+	
+	inline Real getDrag()
+	{
+		return viscousDrag;
+	}
+};
 
 #endif

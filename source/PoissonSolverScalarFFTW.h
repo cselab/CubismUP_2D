@@ -596,9 +596,19 @@ protected:
             //  Backward Y: DST-II
 #ifndef _SP_COMP_
             rhs = fftw_alloc_real(nx*ny);
-            
+			
+#ifdef _MIXED_
             fwd = fftw_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_R2HC, FFTW_REDFT11, FFTW_MEASURE);
             bwd = fftw_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_HC2R, FFTW_REDFT11, FFTW_MEASURE);
+#endif
+#ifdef _OPENBOX_
+			fwd = fftw_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_REDFT10, FFTW_REDFT11, FFTW_MEASURE);
+			bwd = fftw_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_REDFT01, FFTW_REDFT11, FFTW_MEASURE);
+#endif
+#ifdef _BOX_
+			fwd = fftw_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_REDFT10, FFTW_REDFT10, FFTW_MEASURE);
+			bwd = fftw_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_REDFT01, FFTW_REDFT01, FFTW_MEASURE);
+#endif
             //fwd = fftw_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_R2HC, FFTW_REDFT01, FFTW_MEASURE);
             //bwd = fftw_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_HC2R, FFTW_REDFT10, FFTW_MEASURE); // is the inverse correct? taken from http://www.manpagez.com/info/fftw3/fftw3-3.1.2/fftw3_35.php#SEC42
 #else // _SP_COMP_
@@ -606,8 +616,18 @@ protected:
             
             //fwd = fftwf_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_R2HC, FFTW_REDFT01, FFTW_MEASURE);
             //bwd = fftwf_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_HC2R, FFTW_REDFT10, FFTW_MEASURE);
+#ifdef _MIXED_
             fwd = fftwf_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_R2HC, FFTW_REDFT11, FFTW_MEASURE);
             bwd = fftwf_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_HC2R, FFTW_REDFT11, FFTW_MEASURE);
+#endif
+#ifdef _OPENBOX_
+			fwd = fftwf_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_REDFT10, FFTW_REDFT11, FFTW_MEASURE);
+			bwd = fftwf_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_REDFT01, FFTW_REDFT11, FFTW_MEASURE);
+#endif
+#ifdef _BOX_
+			fwd = fftwf_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_REDFT10, FFTW_REDFT10, FFTW_MEASURE);
+			bwd = fftwf_plan_r2r_2d(nx, ny, rhs, rhs, FFTW_REDFT01, FFTW_REDFT01, FFTW_MEASURE);
+#endif
 #endif // _SP_COMP_
         }
     }
@@ -659,8 +679,18 @@ protected:
                 
                 // based on the 5 point stencil in 1D (h^4 error)
                 //const Real denomY = 32.*cos(1.5*M_PI*(j+.5)/ny) - 2.*cos(2.5*M_PI*(j+.5)/ny) - 30.;
+#ifdef _MIXED_
                 const Real denomY = 32.*cos(M_PI*(j+.5)/ny) - 2.*cos(2*M_PI*(j+.5)/ny) - 30.;
                 const Real denomX = 32.*cos(2.*M_PI*i/nx)   - 2.*cos(4.*M_PI*i/nx)     - 30.;
+#endif
+#ifdef _OPENBOX_
+				const Real denomY = 32.*cos(M_PI*(j+.5)/ny) - 2.*cos(2*M_PI*(j+.5)/ny) - 30.;
+				const Real denomX = 32.*cos(M_PI*i/nx) - 2.*cos(2*M_PI*i/nx) - 30.;
+#endif
+#ifdef _BOX_
+				const Real denomY = 32.*cos(M_PI*j/ny) - 2.*cos(2*M_PI*j/ny) - 30.;
+				const Real denomX = 32.*cos(M_PI*i/nx) - 2.*cos(2*M_PI*i/nx) - 30.;
+#endif
                 const Real denom = denomX + denomY;
                 const Real inv_denom = (denom==0)? 0.:1./denom;
                 const Real fatfactor = 12. * inv_denom * factor;
@@ -768,10 +798,20 @@ public:
         fftwf_execute(fwd);
 #endif // _SP_COMP_
         profiler.pop_stop();
-        
+
+#ifdef _MIXED_
         const Real norm_factor = .5/(gsize[0]*gsize[1]);
+#endif
+#ifdef _OPENBOX_
+		const Real norm_factor = .25/(gsize[0]*gsize[1]);
+#endif
+#ifdef _BOX_
+		const Real norm_factor = .25/(gsize[0]*gsize[1]);
+#endif
         const Real h = grid.getBlocksInfo().front().h_gridpoint;
-        assert(1./gsize[0]==h);
+		//cout << (int)(1+1./h) << " " << max(gsize[0],gsize[1]) << endl;
+		// why sometimes +1 and sometimes not?
+		assert(max(gsize[0],gsize[1])==(int)(1+1./h));
         
         profiler.push_start("SOLVE");
         if(spectral)

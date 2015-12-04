@@ -8,7 +8,7 @@ import matplotlib
 import matplotlib.gridspec as gridspec
 
 fig = figure(figsize=(16,9))
-fig.canvas.set_window_title('Falling Cylinders')
+fig.canvas.set_window_title('Falling Ellipses')
 
 rootDir = '/cluster/scratch_xp/public/cconti/CubismUP/'
 
@@ -32,7 +32,7 @@ counter = 0
 
 for dirName, subDirList, fileList in os.walk(rootDir):
 	for file in fileList:
-		if "diagnostics.dat" in file and "Andersen_NewEllipse_2710_CFL0.01" in dirName and "medium_short_bpd64" in dirName:
+		if "Andersen_0412_Re1100_small_box_DLM0.75_CFL0.01_bpd16_.1_T_diagnostics.dat" in file and "keep" in dirName:
 			data.append(np.genfromtxt(fname=dirName+'/'+file))
 			idx = len(data)-1
 			dataset = data[idx]
@@ -48,8 +48,9 @@ for dirName, subDirList, fileList in os.walk(rootDir):
 			a.append(dataset[:,11])
 			n.append(x[idx].size)
 			#ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.2, height=0.025, angle=a[idx][i]*360/(2*math.pi))
-			ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.1, height=0.0125, angle=a[idx][i]*360/(2*math.pi))
+			#ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.1, height=0.0125, angle=a[idx][i]*360/(2*math.pi))
 			#ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.05, height=0.00625, angle=a[idx][i]*360/(2*math.pi))
+			ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.025, height=0.003125, angle=a[idx][i]*360/(2*math.pi))
 						 for i in range(n[idx])])
 			increment = 10
 			for i in range(1,n[idx],increment):
@@ -62,8 +63,8 @@ for dirName, subDirList, fileList in os.walk(rootDir):
 #e.set_facecolor((float(bIdx)*.25,float(3-bIdx)*.05,float(3-bIdx)*.25))
 			counter=(counter+1)%4
 
-pu.set_xlim(-2,2)
-pu.set_ylim(-2,2)
+pu.set_xlim(-.75,.75)
+pu.set_ylim(-.75,.75)
 pa.set_xlim(0,2*math.pi)
 pa.set_ylim(-20,20)
 #pa.set_xlim(-10,10)

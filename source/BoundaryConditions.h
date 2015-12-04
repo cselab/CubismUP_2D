@@ -59,28 +59,28 @@ public:
 	void applyBC_mixedBottom(const TElement& p)
 	{
 		assert(dir==1);
-        assert(side==0);
+		assert(side==0);
 		
 		_setup<dir,side>();
 		
 		for(int iy=s[1]; iy<e[1]; iy++)
-			for(int ix=s[0]; ix<e[0]; ix++)
-        {
-                (*this)(ix,iy).rho  = p.rho;
-                (*this)(ix,iy).tmp  = p.tmp;
-                (*this)(ix,iy).chi  = 0;
-                
-                // dirichlet BC
-                (*this)(ix,iy).u = 2*p.u - (*this)(ix, -iy-1).u;
-                (*this)(ix,iy).v = 2*p.v - (*this)(ix, -iy-1).v;
-                (*this)(ix,iy).tmpU = 2*p.tmpU - (*this)(ix, -iy-1).tmpU;
-                (*this)(ix,iy).tmpV = 2*p.tmpV - (*this)(ix, -iy-1).tmpV;
-                
-                // Neumann BC
-                (*this)(ix,iy).p    = (*this)(ix, -iy-1).p;
-                (*this)(ix,iy).pOld = (*this)(ix, -iy-1).pOld;
-                (*this)(ix,iy).divU = (*this)(ix, -iy-1).divU;
-			}
+		for(int ix=s[0]; ix<e[0]; ix++)
+		{
+			(*this)(ix,iy).rho  = p.rho;
+			(*this)(ix,iy).tmp  = p.tmp;
+			(*this)(ix,iy).chi  = 0;
+			
+			// dirichlet BC
+			(*this)(ix,iy).u = 2*p.u - (*this)(ix, -iy-1).u;
+			(*this)(ix,iy).v = 2*p.v - (*this)(ix, -iy-1).v;
+			(*this)(ix,iy).tmpU = 2*p.tmpU - (*this)(ix, -iy-1).tmpU;
+			(*this)(ix,iy).tmpV = 2*p.tmpV - (*this)(ix, -iy-1).tmpV;
+			
+			// Neumann BC
+			(*this)(ix,iy).p    = (*this)(ix, -iy-1).p;
+			(*this)(ix,iy).pOld = (*this)(ix, -iy-1).pOld;
+			(*this)(ix,iy).divU = (*this)(ix, -iy-1).divU;
+		}
 	}
 	
 	template<int dir, int side>
@@ -109,6 +109,90 @@ public:
                 (*this)(ix,iy).tmpU = (*this)(ix, 2*TBlock::sizeY-1-iy).tmpU;
                 (*this)(ix,iy).tmpV = (*this)(ix, 2*TBlock::sizeY-1-iy).tmpV;
 			}
+	}
+	
+	template<int dir, int side>
+	void applyBC_BoxLeft(const TElement& p)
+	{
+		assert(dir==0);
+		assert(side==0);
+		
+		_setup<dir,side>();
+		
+		for(int iy=s[1]; iy<e[1]; iy++)
+		for(int ix=s[0]; ix<e[0]; ix++)
+		{
+			(*this)(ix,iy).rho  = p.rho;
+			(*this)(ix,iy).tmp  = p.tmp;
+			(*this)(ix,iy).chi  = 0;
+			
+			// dirichlet BC
+			(*this)(ix,iy).u = 2*p.u - (*this)(-ix-1, iy).u;
+			(*this)(ix,iy).v = 2*p.v - (*this)(-ix-1, iy).v;
+			(*this)(ix,iy).tmpU = 2*p.tmpU - (*this)(-ix-1, iy).tmpU;
+			(*this)(ix,iy).tmpV = 2*p.tmpV - (*this)(-ix-1, iy).tmpV;
+			
+			// Neumann BC
+			(*this)(ix,iy).p    = (*this)(-ix-1,iy).p;
+			(*this)(ix,iy).pOld = (*this)(-ix-1,iy).pOld;
+			(*this)(ix,iy).divU = (*this)(-ix-1,iy).divU;
+		}
+	}
+	
+	template<int dir, int side>
+	void applyBC_BoxRight(const TElement& p)
+	{
+		assert(dir==0);
+		assert(side==1);
+		
+		_setup<dir,side>();
+		
+		for(int iy=s[1]; iy<e[1]; iy++)
+		for(int ix=s[0]; ix<e[0]; ix++)
+		{
+			(*this)(ix,iy).rho  = p.rho;
+			(*this)(ix,iy).tmp  = p.tmp;
+			(*this)(ix,iy).chi  = 0;
+			
+			// dirichlet BC
+			(*this)(ix,iy).u = 2*p.u - (*this)(2*TBlock::sizeX-1-ix,iy).u;
+			(*this)(ix,iy).v = 2*p.v - (*this)(2*TBlock::sizeX-1-ix,iy).v;
+			(*this)(ix,iy).tmpU = 2*p.tmpU - (*this)(2*TBlock::sizeX-1-ix,iy).tmpU;
+			(*this)(ix,iy).tmpV = 2*p.tmpV - (*this)(2*TBlock::sizeX-1-ix,iy).tmpV;
+			
+			// Neumann BC
+			(*this)(ix,iy).p    = (*this)(2*TBlock::sizeX-1-ix,iy).p;
+			(*this)(ix,iy).pOld = (*this)(2*TBlock::sizeX-1-ix,iy).pOld;
+			(*this)(ix,iy).divU = (*this)(2*TBlock::sizeX-1-ix,iy).divU;
+		}
+	}
+	
+	template<int dir, int side>
+	void applyBC_BoxTop(const TElement& p)
+	{
+		assert(dir==1);
+		assert(side==1);
+		
+		_setup<dir,side>();
+		
+		for(int iy=s[1]; iy<e[1]; iy++)
+		for(int ix=s[0]; ix<e[0]; ix++)
+		{
+			(*this)(ix,iy).rho  = p.rho;
+			(*this)(ix,iy).tmp  = p.tmp;
+			(*this)(ix,iy).chi  = 0;
+			
+			// dirichlet BC
+			(*this)(ix,iy).u = 2*p.u - (*this)(ix,2*TBlock::sizeY-1-iy).u;
+			(*this)(ix,iy).v = 2*p.v - (*this)(ix,2*TBlock::sizeY-1-iy).v;
+			(*this)(ix,iy).tmpU = 2*p.tmpU - (*this)(ix,2*TBlock::sizeY-1-iy).tmpU;
+			(*this)(ix,iy).tmpV = 2*p.tmpV - (*this)(ix,2*TBlock::sizeY-1-iy).tmpV;
+			
+			// Neumann BC
+			(*this)(ix,iy).p    = (*this)(ix,2*TBlock::sizeY-1-iy).p;
+			(*this)(ix,iy).pOld = (*this)(ix,2*TBlock::sizeY-1-iy).pOld;
+			(*this)(ix,iy).divU = (*this)(ix,2*TBlock::sizeY-1-iy).divU;
+		}
 	}
 	
 	template<int dir, int side>

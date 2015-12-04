@@ -27,7 +27,8 @@ void TestRotation::_ic()
 	const Real moll = 2;
 	const Real rho = 2;
 	const Real angle = M_PI/4.;
-	shape = new Ellipse(center, semiAxis, angle, rho, moll, moll, bPeriodic, domainSize);
+	//shape = new Ellipse(center, semiAxis, angle, rho, moll, moll, bPeriodic, domainSize);
+	shape = new EllipseVarDensity(center, semiAxis, angle, rho, 2*rho, moll, moll, bPeriodic, domainSize);
 
 	const double dh = vInfo[0].h_gridpoint;
 	
@@ -85,7 +86,7 @@ void TestRotation::run()
 	Real omega = 0;
 	Real lambda = 1;
 	CoordinatorComputeShape coordComputeShape(&u[0], &u[1], &omega, shape, grid);
-	CoordinatorBodyVelocities coordBodyVelocities(&u[0], &u[1], &omega, &lambda, shape->getRhoS(), grid);
+	CoordinatorBodyVelocities coordBodyVelocities(&u[0], &u[1], &omega, shape, &lambda, grid);
 	
 	for (int step=0; step<100; step++)
 	{

@@ -18,6 +18,7 @@ class CoordinatorDiffusion : public GenericCoordinator
 protected:
     const double coeff;
     Real *uBody, *vBody;
+    Real *viscousDrag;
 	
 	inline void reset()
 	{
@@ -88,16 +89,51 @@ protected:
 			}
 		}
 	}
+    
+    inline void drag()
+    {
+        BlockInfo * ary = &vInfo.front();
+        const int N = vInfo.size();
+		*viscousDrag = 0;
+		
+		Real tmpDrag = 0;
+        
+#pragma omp parallel
+        {
+            OperatorViscousDrag kernel(0);
+            
+            Lab mylab;
+#ifdef _MOVING_FRAME_
+            mylab.pDirichlet.u = 0;
+            mylab.pDirichlet.v = *vBody;
+#endif
+            mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
+            
+#pragma omp for schedule(static) reduction(+:tmpDrag)
+            for (int i=0; i<N; i++)
+            {
+                mylab.load(ary[i], 0);
+                kernel(mylab, ary[i], *(FluidBlock*)ary[i].ptrBlock);
+				tmpDrag += kernel.getDrag();
+            }
+        }
+		
+		*viscousDrag = tmpDrag*coeff;
+    }
 	
 public:
-	CoordinatorDiffusion(const double coeff, Real * uBody, Real * vBody, FluidGrid * grid) : GenericCoordinator(grid), coeff(coeff), uBody(uBody), vBody(vBody)
+	CoordinatorDiffusion(const double coeff, Real * uBody, Real * vBody, Real *viscousDrag, FluidGrid * grid) : GenericCoordinator(grid), coeff(coeff), uBody(uBody), vBody(vBody), viscousDrag(viscousDrag)
 	{
 	}
 	
-    CoordinatorDiffusion(const double coeff, FluidGrid * grid) : GenericCoordinator(grid), coeff(coeff), uBody(NULL), vBody(NULL)
-    {
-    }
-    
+	CoordinatorDiffusion(const double coeff, Real *viscousDrag, FluidGrid * grid) : GenericCoordinator(grid), coeff(coeff), uBody(NULL), vBody(NULL), viscousDrag(viscousDrag)
+	{
+	}
+	
+	CoordinatorDiffusion(const double coeff, FluidGrid * grid) : GenericCoordinator(grid), coeff(coeff), uBody(NULL), vBody(NULL), viscousDrag(NULL)
+	{
+	}
+	
 	void operator()(const double dt)
 	{
 		check("diffusion - start");
@@ -108,6 +144,8 @@ public:
 		diffuse(dt,1);
 #endif
 		update();
+        
+        drag();
 		
 		check("diffusion - end");
 	}

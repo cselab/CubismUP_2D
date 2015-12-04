@@ -1,27 +1,27 @@
 //
-//  Sim_FSI_Fixed.cpp
+//  Sim_FSI_Oscillating.cpp
 //  CubismUP_2D
 //
-//  Created by Christian Conti on 1/8/15.
+//  Created by Christian Conti on 1/26/15.
 //  Copyright (c) 2015 ETHZ. All rights reserved.
 //
 
-#include "Sim_FSI_Fixed.h"
+#include "Sim_FSI_Oscillating.h"
 
 #include "ProcessOperatorsOMP.h"
 #include "OperatorDivergence.h"
 #include "OperatorVorticity.h"
+#include "PoissonSolverScalarFFTW.h"
 #include "OperatorGradP.h"
-#include "OperatorComputeShape.h"
 
 #include "CoordinatorIC.h"
 #include "CoordinatorAdvection.h"
 #include "CoordinatorDiffusion.h"
 #include "CoordinatorPenalization.h"
+#include "CoordinatorComputeShape.h"
 #include "CoordinatorPressure.h"
 
-
-void Sim_FSI_Fixed::_diagnostics()
+void Sim_FSI_Oscillating::_diagnostics()
 {
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
 	
@@ -40,7 +40,7 @@ void Sim_FSI_Fixed::_diagnostics()
 			{
 				if (b(ix,iy).chi>0)
 				{
-					drag += b(ix,iy).u * b(ix,iy).chi;
+					drag += (b(ix,iy).u-uBody[0]) * b(ix,iy).chi;
 					volume += b(ix,iy).chi;
 				}
 			}
@@ -49,19 +49,22 @@ void Sim_FSI_Fixed::_diagnostics()
 	drag *= dh*dh*lambda;
 	volume *= dh*dh;
 	
-	const double cD = 2.*drag/(uinf*uinf*shape->getCharLength());
+	const double cD = 2*drag/(uBody[0]*uBody[0]*shape->getCharLength());
+	
+	Real dragPD = (dragP[0]+dragV)*dh*dh;
+	const Real cD_PD = 2*dragPD/(uBody[0]*uBody[0]*shape->getCharLength());
 	
 	stringstream ss;
 	ss << path2file << "_diagnostics.dat";
 	ofstream myfile(ss.str(), fstream::app);
 	if (verbose)
-		cout << step << " " << _nonDimensionalTime() << " " << bpdx << " " << dt << " " << dtCFL << " " << dtFourier << " " << drag << " " << lambda << endl;
-	myfile << step << " " << _nonDimensionalTime() << " " << bpdx << " " << dt << " " << dtCFL << " " << dtFourier << " " << cD << " " << lambda << endl;
+		cout << step << " " << _nonDimensionalTime() << " " << bpdx << " " << dt << " " << cD << " " << cD_PD  << " " << dragPD*2/(umax*umax*shape->getCharLength()) << " " << drag << " " << dragPD << " " << dragP[0]*dh*dh << " " << dragV*dh*dh << " " << " " << uBody[0] << endl;
+	myfile << step << " " << _nonDimensionalTime() << " " << bpdx << " " << dt << " " << cD << " " << cD_PD << " " << dragPD*2/(umax*umax*shape->getCharLength()) << " " << drag  << " " << dragPD << " " << dragP[0]*dh*dh << " " << dragV*dh*dh << " " << uBody[0] << endl;
 }
 
-void Sim_FSI_Fixed::_ic()
+void Sim_FSI_Oscillating::_ic()
 {
-	CoordinatorIC coordIC(shape,uinf,grid);
+	CoordinatorIC coordIC(shape,0,grid);
 	profiler.push_start(coordIC.getName());
 	coordIC(0);
 	
@@ -71,43 +74,56 @@ void Sim_FSI_Fixed::_ic()
 	profiler.pop_stop();
 }
 
-double Sim_FSI_Fixed::_nonDimensionalTime()
+double Sim_FSI_Oscillating::_nonDimensionalTime()
 {
-	return 2*time*abs(uinf)/shape->getCharLength();
+	return time*freq;
+	//return 2*time*abs(umax)/shape->getCharLength();
 }
 
-void Sim_FSI_Fixed::_outputSettings(ostream &outStream)
+void Sim_FSI_Oscillating::_outputSettings(ostream &outStream)
 {
-	outStream << "Fixed_FSI\n";
-	outStream << "uinf " << uinf << endl;
+	outStream << "Oscillating_FSI\n";
+	outStream << "uBody " << uBody[0] << endl;
+	outStream << "vBody " << uBody[1] << endl;
+	outStream << "omegaBody " << omegaBody << endl;
 	outStream << "re " << re << endl;
+	outStream << "nu " << nu << endl;
 	
 	Simulation_FSI::_outputSettings(outStream);
 }
 
-void Sim_FSI_Fixed::_inputSettings(istream& inStream)
+void Sim_FSI_Oscillating::_inputSettings(istream& inStream)
 {
 	string variableName;
 	
 	inStream >> variableName;
-	if (variableName != "Fixed_FSI")
+	if (variableName != "Oscillating_FSI")
 	{
-		cout << "Error in deserialization - Simulation_Fixed_FSI\n";
+		cout << "Error in deserialization - Simulation_Oscillating_FSI\n";
 		abort();
 	}
 	
 	// read data
 	inStream >> variableName;
-	assert(variableName=="uinf");
-	inStream >> uinf;
+	assert(variableName=="uBody");
+	inStream >> uBody[0];
+	inStream >> variableName;
+	assert(variableName=="vBody");
+	inStream >> uBody[1];
+	inStream >> variableName;
+	assert(variableName=="omegaBody");
+	inStream >> omegaBody;
 	inStream >> variableName;
 	assert(variableName=="re");
 	inStream >> re;
+	inStream >> variableName;
+	assert(variableName=="nu");
+	inStream >> nu;
 	
 	Simulation_FSI::_inputSettings(inStream);
 }
 
-Sim_FSI_Fixed::Sim_FSI_Fixed(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uinf(0), re(0), nu(0), dtCFL(0), dtFourier(0)
+Sim_FSI_Oscillating::Sim_FSI_Oscillating(const int argc, const char ** argv) : Simulation_FSI(argc, argv), uBody{0,0}, omegaBody(0), re(0), nu(0), dtBody(0), dtCFL(0), dtFourier(0)
 {
 	int rank = 0;
 #ifdef _MULTIGRID_
@@ -120,31 +136,39 @@ Sim_FSI_Fixed::Sim_FSI_Fixed(const int argc, const char ** argv) : Simulation_FS
 	if (rank==0)
 	{
 		cout << "====================================================================================================================\n";
-		cout << "\t\t\tFlow past a fixed body\n";
+		cout << "\t\t\tFlow past an oscillating cylinder\n";
 		cout << "====================================================================================================================\n";
 	}
 }
 
-Sim_FSI_Fixed::~Sim_FSI_Fixed()
+Sim_FSI_Oscillating::~Sim_FSI_Oscillating()
 {
 }
 
-void Sim_FSI_Fixed::init()
+void Sim_FSI_Oscillating::init()
 {
 	Simulation_FSI::init();
 	
 	if (!bRestart)
 	{
 		// simulation settings
-		uinf = parser("-uinf").asDouble(0.1);
 		re = parser("-Re").asDouble(100);
+		kc = parser("-KC").asDouble(5);
 		
-		//Real center[2] = {.15,.5};
-		Real center[2] = {.125,.125};
+		uBody[0] = 0;
+		freq = 5;
+		
+		Real center[2] = {.5,.5};
 		shape->setCentroid(center);
-		nu = shape->getCharLength()*uinf/re;
+		umax = kc*freq*shape->getCharLength();
+		nu = shape->getCharLength()*abs(umax)/re;
 		
 		_ic();
+	}
+	else
+	{
+		cout << "Not ready for restart\n";
+		abort();
 	}
 	
 	pipeline.clear();
@@ -155,33 +179,38 @@ void Sim_FSI_Fixed::init()
 #endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, &dragV, grid));
 	pipeline.push_back(new CoordinatorPressureSimple<Lab>(&dragP[0], &dragP[1], grid));
-	pipeline.push_back(new CoordinatorPenalizationFixed(shape, &lambda, grid));
+	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid));
+	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
 	
 	cout << "Coordinator/Operator ordering:\n";
 	for (int c=0; c<pipeline.size(); c++)
 		cout << "\t" << pipeline[c]->getName() << endl;
+	
+	assert(uBody[1] == 0);
 }
 
-void Sim_FSI_Fixed::simulate()
+void Sim_FSI_Oscillating::simulate()
 {
-	const Real uBody[2] = {0,0};
 	const int sizeX = bpdx * FluidBlock::sizeX;
 	const int sizeY = bpdy * FluidBlock::sizeY;
 	
 	double nextDumpTime = time;
-	double maxU = uinf;
+	double maxU = umax;
 	double maxA = 0;
 	
-    while (true)
+	while (true)
 	{
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
+		uBody[0] = -umax*cos(2*M_PI*freq*time);
 		
 		// choose dt (CFL, Fourier)
 		profiler.push_start("DT");
 		maxU = findMaxUOMP(vInfo,*grid);
+		if (maxU==0) maxU = umax;
 		dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;
 		dtCFL     = CFL*vInfo[0].h_gridpoint/abs(maxU);
-		dt = min(dtCFL,dtFourier);
+		dtBody    = uBody[0]==0 ? CFL*vInfo[0].h_gridpoint/umax : CFL*vInfo[0].h_gridpoint/abs(uBody[0]);
+		dt = min(min(dtCFL,dtFourier),dtBody);
 #ifdef _PARTICLES_
 		maxA = findMaxAOMP<Lab>(vInfo,*grid);
 		dtLCFL = maxA==0 ? 1e5 : LCFL/abs(maxA);
@@ -192,7 +221,7 @@ void Sim_FSI_Fixed::simulate()
 		if (endTime>0)
 			dt = min(dt,endTime-_nonDimensionalTime());
 		if (verbose)
-			cout << "dt (Fourier, CFL): " << dtFourier << " " << dtCFL << endl;
+			cout << "dt (Fourier, CFL, body): " << dtFourier << " " << dtCFL << " " << dtBody << endl;
 #ifdef _DLM_
 		lambda = dlm/dt;
 #endif
@@ -222,16 +251,13 @@ void Sim_FSI_Fixed::simulate()
 		_dump(nextDumpTime);
 		profiler.pop_stop();
 		
-			
-		if (step % 1000 == 0)
+		
+		if(step % 1000 == 0)
 			profiler.printSummary();
 		
 		// check nondimensional time
 		if ((endTime>0 && abs(_nonDimensionalTime()-endTime) < 10*std::numeric_limits<Real>::epsilon()) || (nsteps!=0 && step>=nsteps))
 		{
-			if (verbose)
-				cout << "Finished at time " << _nonDimensionalTime() << " (target end time " << endTime << ") in " << step << " step of " << nsteps << endl;
-			
 			profiler.push_start("Dump");
 			stringstream ss;
 			ss << path2file << "-Final.vti";
@@ -250,5 +276,5 @@ void Sim_FSI_Fixed::simulate()
 			
 			exit(0);
 		}
-    }
+	}
 }

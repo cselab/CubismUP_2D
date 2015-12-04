@@ -37,10 +37,13 @@ public:
 		Real domainSize[2] = { grid->getBlocksPerDimension(0)*FluidBlock::sizeX*vInfo[0].h_gridpoint,
 							   grid->getBlocksPerDimension(1)*FluidBlock::sizeY*vInfo[0].h_gridpoint};
 		Real p[2] = {0,0};
-		shape->getPosition(p);
+		shape->getCentroid(p);
 		
 		if (p[0]<0 || p[0]>domainSize[0] || p[1]<0 || p[1]>domainSize[1])
+		{
+			cout << "Body out of domain: " << p[0] << " " << p[1] << endl;
 			exit(0);
+		}
 		
 #pragma omp parallel
 		{

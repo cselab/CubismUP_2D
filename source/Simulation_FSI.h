@@ -22,6 +22,7 @@ class Simulation_FSI : public Simulation_Fluid
 protected:
 	// penalization parameter
 	Real lambda, dlm;
+	Real dragP[2], dragV;
 	
 	// body
 	Shape * shape;
@@ -149,7 +150,7 @@ public:
 		if (!bRestart)
 		{
 			lambda = parser("-lambda").asDouble(1e5);
-			dlm = parser("-lambda").asDouble(1.);
+			dlm = parser("-dlm").asDouble(1.);
 			
 			double rhoS = parser("-rhoS").asDouble(1);
 			Real centerOfMass[2] = {0,0};
@@ -160,17 +161,32 @@ public:
                                          FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
 			
 			string shapeType = parser("-shape").asString("disk");
-            const int eps = 2;
+			const int epsChi = parser("-eps").asInt(2);
+			const int epsRho = parser("-eps").asInt(2);
 			if (shapeType=="disk")
 			{
 				Real radius = parser("-radius").asDouble(0.1);
-				shape = new Disk(centerOfMass, radius, rhoS, eps, eps, bPeriodic, domainSize);
+				shape = new Disk(centerOfMass, radius, rhoS, epsChi, epsRho, bPeriodic, domainSize);
 			}
 			else if (shapeType=="ellipse")
 			{
 				Real semiAxis[2] = {parser("-semiAxisX").asDouble(0.1),parser("-semiAxisY").asDouble(0.2)};
 				Real angle = parser("-angle").asDouble(0.0);
-				shape = new Ellipse(centerOfMass, semiAxis, angle, rhoS, eps, eps, bPeriodic, domainSize);
+				shape = new Ellipse(centerOfMass, semiAxis, angle, rhoS, epsChi, epsRho, bPeriodic, domainSize);
+			}
+			else if (shapeType=="diskVarDensity")
+			{
+				Real radius = parser("-radius").asDouble(0.1);
+				double rhoS2 = parser("-rhoS2").asDouble(1);
+				Real angle = parser("-angle").asDouble(0.0);
+				shape = new DiskVarDensity(centerOfMass, radius, angle, rhoS, rhoS2, epsChi, epsRho, bPeriodic, domainSize);
+			}
+			else if (shapeType=="ellipseVarDensity")
+			{
+				Real semiAxis[2] = {parser("-semiAxisX").asDouble(0.1),parser("-semiAxisY").asDouble(0.2)};
+				double rhoS2 = parser("-rhoS2").asDouble(1);
+				Real angle = parser("-angle").asDouble(0.0);
+				shape = new EllipseVarDensity(centerOfMass, semiAxis, angle, rhoS, rhoS2, epsChi, epsRho, bPeriodic, domainSize);
 			}
 			else
 			{

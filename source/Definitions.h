@@ -297,7 +297,6 @@ public:
 		// keep periodicity in x direction
 		if (info.index[1]==0)		   bc.template applyBC_mixedBottom<1,0>(pDirichlet);
 		if (info.index[1]==this->NY-1) bc.template applyBC_mixedTop<1,1>(pDirichlet);
-		//if (info.index[1]==this->NY-1) bc.template applyBC_mixedBottom<1,1>();
 	}
 };
 
@@ -315,25 +314,6 @@ public:
 		
 		if (info.index[1]==0)		   bc.template applyBC_mixedBottom<1,0>();
 		if (info.index[1]==this->NY-1) bc.template applyBC_mixedBottom<1,1>();
-	}
-};
-
-template<typename BlockType, template<typename X> class allocator=std::allocator>
-class BlockLabBox : public BlockLab<BlockType,allocator>
-{
-	typedef typename BlockType::ElementType ElementTypeBlock;
-	
-public:
-	BlockLabBox(): BlockLab<BlockType,allocator>(){}
-	
-	void _apply_bc(const BlockInfo& info, const Real t=0)
-	{
-		BoundaryCondition<BlockType,ElementTypeBlock,allocator> bc(this->m_stencilStart, this->m_stencilEnd, this->m_cacheBlock);
-		
-		if (info.index[0]==0)		   bc.template applyBC_mixedBottom<0,0>();
-		if (info.index[0]==this->NX-1) bc.template applyBC_mixedBottom<0,1>();
-		if (info.index[1]==0)		   bc.template applyBC_mixedBottom<1,0>();
-		if (info.index[1]==this->NY-1) bc.template applyBC_mixedTop<1,1>();
 	}
 };
 
@@ -356,6 +336,72 @@ public:
 	}
 };
 
+template<typename BlockType, template<typename X> class allocator=std::allocator>
+class BlockLabOpenBox : public BlockLab<BlockType,allocator>
+{
+	typedef typename BlockType::ElementType ElementTypeBlock;
+	
+public:
+	ElementTypeBlock pDirichlet;
+	
+	BlockLabOpenBox(): BlockLab<BlockType,allocator>()
+	{
+		pDirichlet.rho = 1;
+		pDirichlet.chi = 0;
+		pDirichlet.u = 0;
+		pDirichlet.v = 0;
+		pDirichlet.p = 0;
+		pDirichlet.pOld = 0;
+		pDirichlet.divU = 0;
+		pDirichlet.tmp = 1;
+		pDirichlet.tmpU = 0;
+		pDirichlet.tmpV = 0;
+	}
+	
+	void _apply_bc(const BlockInfo& info, const Real t=0)
+	{
+		BoundaryCondition<BlockType,ElementTypeBlock,allocator> bc(this->m_stencilStart, this->m_stencilEnd, this->m_cacheBlock);
+		
+		if (info.index[0]==0)		   bc.template applyBC_BoxLeft<0,0>(pDirichlet);
+		if (info.index[0]==this->NX-1) bc.template applyBC_BoxRight<0,1>(pDirichlet);
+		if (info.index[1]==0)		   bc.template applyBC_mixedBottom<1,0>(pDirichlet);
+		if (info.index[1]==this->NY-1) bc.template applyBC_mixedTop<1,1>(pDirichlet);
+	}
+};
+
+template<typename BlockType, template<typename X> class allocator=std::allocator>
+class BlockLabBox : public BlockLab<BlockType,allocator>
+{
+	typedef typename BlockType::ElementType ElementTypeBlock;
+	
+public:
+	ElementTypeBlock pDirichlet;
+	
+	BlockLabBox(): BlockLab<BlockType,allocator>()
+	{
+		pDirichlet.rho = 1;
+		pDirichlet.chi = 0;
+		pDirichlet.u = 0;
+		pDirichlet.v = 0;
+		pDirichlet.p = 0;
+		pDirichlet.pOld = 0;
+		pDirichlet.divU = 0;
+		pDirichlet.tmp = 1;
+		pDirichlet.tmpU = 0;
+		pDirichlet.tmpV = 0;
+	}
+	
+	void _apply_bc(const BlockInfo& info, const Real t=0)
+	{
+		BoundaryCondition<BlockType,ElementTypeBlock,allocator> bc(this->m_stencilStart, this->m_stencilEnd, this->m_cacheBlock);
+		
+		if (info.index[0]==0)		   bc.template applyBC_BoxLeft<0,0>(pDirichlet);
+		if (info.index[0]==this->NX-1) bc.template applyBC_BoxRight<0,1>(pDirichlet);
+		if (info.index[1]==0)		   bc.template applyBC_mixedBottom<1,0>(pDirichlet);
+		if (info.index[1]==this->NY-1) bc.template applyBC_BoxTop<1,1>(pDirichlet);
+	}
+};
+
 typedef Grid<FluidBlock, std::allocator> FluidGrid;
 
 #ifdef _MIXED_
@@ -372,6 +418,14 @@ typedef BlockLabVortex<FluidBlock, std::allocator> Lab;
 
 #ifdef _PIPE_
 typedef BlockLabPipe<FluidBlock, std::allocator> Lab;
+#endif // _PIPE_
+
+#ifdef _OPENBOX_
+typedef BlockLabOpenBox<FluidBlock, std::allocator> Lab;
+#endif // _PIPE_
+
+#ifdef _BOX_
+typedef BlockLabBox<FluidBlock, std::allocator> Lab;
 #endif // _PIPE_
 
 

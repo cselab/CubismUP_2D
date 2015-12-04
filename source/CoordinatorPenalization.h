@@ -34,7 +34,7 @@ public:
 #pragma omp parallel
 		{
 			Real com[2];
-			shape->getPosition(com);
+			shape->getCenterOfMass(com);
 			OperatorPenalization kernel(dt, 0, 0, 0, com[0], com[1], *lambda);
 			
 #pragma omp for schedule(static)
@@ -73,7 +73,7 @@ public:
 #pragma omp parallel
 		{
 			Real com[2];
-			shape->getPosition(com);
+			shape->getCenterOfMass(com);
 			OperatorPenalization kernel(dt, *uBody, *vBody, *omegaBody, com[0], com[1], *lambda);
 			
 #pragma omp for schedule(static)

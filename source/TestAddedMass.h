@@ -24,6 +24,7 @@ protected:
 	const int bpd;
 	
 	Real uBody[2], omegaBody;
+	Real dragP[2], dragV;
 	Real gravity[2];
 	
 	// penalization parameter

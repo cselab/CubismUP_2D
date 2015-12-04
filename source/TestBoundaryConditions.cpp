@@ -39,12 +39,13 @@ void TestBoundaryConditions::_ic()
                 const int by = info.index[1]*FluidBlock::sizeY;
                 p[0] = (bx+ix+.5)/(double)size;
                 p[1] = (by+iy+.5)/(double)size;
-                double x = 4*p[0]*M_PI;
-                double y = 3*p[1]*M_PI_2;
-                b(ix,iy).divU = cos(y)*sin(x);
+                double x = 5*p[0]*M_PI;
+				double y = 3*p[1]*M_PI_2;
+				b(ix,iy).divU = cos(y)*sin(x);
+				b(ix,iy).tmpU = cos(y)*sin(x);
             }
     }
-    
+	
     
     stringstream ss;
     ss << path2file << "-IC.vti";

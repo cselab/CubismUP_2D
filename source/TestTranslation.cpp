@@ -79,7 +79,7 @@ void TestTranslation::run()
 	Real omega = 0;
 	Real lambda = 1;
 	CoordinatorComputeShape coordComputeShape(&u[0], &u[1], &omega, shape, grid);
-	CoordinatorBodyVelocities coordBodyVelocities(&u[0], &u[1], &omega, &lambda, shape->getRhoS(), grid);
+	CoordinatorBodyVelocities coordBodyVelocities(&u[0], &u[1], &omega, shape, &lambda, grid);
 	
 	for (int step=0; step<50; step++)
 	{
@@ -118,7 +118,7 @@ void TestTranslation::check()
 {
 	// the only thing to check here is the orientation
 	Real p[2];
-	shape->getPosition(p);
+	shape->getCenterOfMass(p);
 	cout << "Translation error X: " << p[0] - .75 << endl;
 	cout << "Translation error Y: " << p[1] - .75 << endl;
 }

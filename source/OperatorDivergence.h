@@ -157,12 +157,12 @@ public:
 		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
 			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
 			{
-				const Real vN = lab(ix  ,iy+1).v;
-				const Real vS = lab(ix  ,iy-1).v;
 				const Real uW = lab(ix-1,iy  ).u;
 				const Real uE = lab(ix+1,iy  ).u;
+				const Real vS = lab(ix  ,iy-1).v;
+				const Real vN = lab(ix  ,iy+1).v;
 				o(ix, iy).divU = factor * (uE-uW + vN-vS);
-				o(ix, iy).tmp = factor * (uE-uW + vN-vS);
+				o(ix, iy).tmp  = factor * (uE-uW + vN-vS);
 			}
 	}
 };
@@ -194,14 +194,14 @@ public:
 		for(int ix=0; ix<FluidBlock::sizeX; ++ix)
 		{
 			FluidElement& phi  = lab(ix  ,iy  );
-			FluidElement& phiN = lab(ix  ,iy+1);
+			FluidElement& phiW = lab(ix-1,iy  );
+			FluidElement& phiE = lab(ix+1,iy  );
 			FluidElement& phiS = lab(ix  ,iy-1);
-			FluidElement& phiW = lab(ix+1,iy  );
-			FluidElement& phiE = lab(ix-1,iy  );
-			FluidElement& phiN2 = lab(ix  ,iy+2);
-			FluidElement& phiS2 = lab(ix  ,iy-2);
-			FluidElement& phiW2 = lab(ix+2,iy  );
-			FluidElement& phiE2 = lab(ix-2,iy  );
+			FluidElement& phiN = lab(ix  ,iy+1);
+			FluidElement& phiW2 = lab(ix-2,iy  );
+			FluidElement& phiE2 = lab(ix+2,iy  );
+			FluidElement& phiN2 = lab(ix  ,iy-2);
+			FluidElement& phiS2 = lab(ix  ,iy+2);
 			
 			o(ix, iy).divU = factor * (-phiE2.u + 8*phiE.u - 8*phiW.u + phiW2.u - phiN2.v + 8*phiN.v - 8*phiS.v + phiS2.v);
 		}
@@ -214,7 +214,7 @@ private:
 	double dt, rho0;
 	int step;
 	
-	inline void _mean(const Real c, const Real e, const Real w, const Real n, const Real s, Real& avgE, Real& avgW, Real& avgN, Real& avgS) const
+	inline void _mean(const Real c, const Real w, const Real e, const Real s, const Real n, Real& avgW, Real& avgE, Real& avgS, Real& avgN) const
 	{
 		avgE = .5 * (c + e);
 		avgW = .5 * (c + w);
@@ -222,7 +222,7 @@ private:
 		avgS = .5 * (c + s);
 	}
 	
-	inline void _harmonicAvg(const Real c, const Real e, const Real w, const Real n, const Real s, Real& avgE, Real& avgW, Real& avgN, Real& avgS) const
+	inline void _harmonicAvg(const Real c, const Real w, const Real e, const Real s, const Real n, Real& avgW, Real& avgE, Real& avgS, Real& avgN) const
 	{
 		avgE = 2. * c * e / (c + e);
 		avgW = 2. * c * w / (c + w);
@@ -260,8 +260,8 @@ public:
 			
 			
 			Real rhoE, rhoW, rhoN, rhoS;
-			//_mean(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
-			_harmonicAvg(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
+			//_mean(phi.rho, phiW.rho, phiE.rho, phiS.rho, phiN.rho, rhoW, rhoE, rhoS, rhoN);
+			_harmonicAvg(phi.rho, phiW.rho, phiE.rho, phiS.rho, phiN.rho, rhoW, rhoE, rhoS, rhoN);
 			
 			Real p, pN, pS, pW, pE;
 			if (step>=2)
@@ -294,7 +294,7 @@ public:
 			assert(fE<=1);
 			
 			o(ix, iy).divU = factor * (phiE.u-phiW.u + phiN.v-phiS.v) + invH2 * (fW*pW + fE*pE + fN*pN + fS*pS - (fW+fE+fN+fS)*p);
-			o(ix, iy).tmp = factor * (phiE.u-phiW.u + phiN.v-phiS.v) + invH2 * (fW*pW + fE*pE + fN*pN + fS*pS - (fW+fE+fN+fS)*p);
+			o(ix, iy).tmp  = factor * (phiE.u-phiW.u + phiN.v-phiS.v) + invH2 * (fW*pW + fE*pE + fN*pN + fS*pS - (fW+fE+fN+fS)*p);
 		}
 	}
 };
@@ -305,7 +305,7 @@ private:
 	double dt, rho0;
 	int step;
 	
-	inline void _mean(const Real c, const Real e, const Real w, const Real n, const Real s, Real& avgE, Real& avgW, Real& avgN, Real& avgS) const
+	inline void _mean(const Real c, const Real w, const Real e, const Real s, const Real n, Real& avgW, Real& avgE, Real& avgS, Real& avgN) const
 	{
 		avgE = .5 * (c + e);
 		avgW = .5 * (c + w);
@@ -313,7 +313,7 @@ private:
 		avgS = .5 * (c + s);
 	}
 	
-	inline void _harmonicAvg(const Real c, const Real e, const Real w, const Real n, const Real s, Real& avgE, Real& avgW, Real& avgN, Real& avgS) const
+	inline void _harmonicAvg(const Real c, const Real w, const Real e, const Real s, const Real n, Real& avgW, Real& avgE, Real& avgS, Real& avgN) const
 	{
 		avgE = 2. * c * e / (c + e);
 		avgW = 2. * c * w / (c + w);
@@ -344,20 +344,20 @@ public:
 		for(int ix=0; ix<FluidBlock::sizeX; ++ix)
 		{
 			FluidElement& phi  = lab(ix  ,iy  );
-			FluidElement& phiN = lab(ix  ,iy+1);
+			FluidElement& phiW = lab(ix-1,iy  );
+			FluidElement& phiE = lab(ix+1,iy  );
 			FluidElement& phiS = lab(ix  ,iy-1);
-			FluidElement& phiW = lab(ix+1,iy  );
-			FluidElement& phiE = lab(ix-1,iy  );
-			FluidElement& phiN2 = lab(ix  ,iy+2);
+			FluidElement& phiN = lab(ix  ,iy+1);
+			FluidElement& phiW2 = lab(ix-2,iy  );
+			FluidElement& phiE2 = lab(ix+2,iy  );
 			FluidElement& phiS2 = lab(ix  ,iy-2);
-			FluidElement& phiW2 = lab(ix+2,iy  );
-			FluidElement& phiE2 = lab(ix-2,iy  );
+			FluidElement& phiN2 = lab(ix  ,iy+2);
 			
 			o(ix, iy).divU = factor * (-phiE2.u + 8*phiE.u - 8*phiW.u + phiW2.u - phiN2.v + 8*phiN.v - 8*phiS.v + phiS2.v);
 			
 			Real rhoE, rhoW, rhoN, rhoS;
-			//_mean(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
-			_harmonicAvg(phi.rho, phiE.rho, phiW.rho, phiN.rho, phiS.rho, rhoE, rhoW, rhoN, rhoS);
+			//_mean(phi.rho, phiW.rho, phiE.rho, phiS.rho, phiN.rho, rhoW, rhoE, rhoS, rhoN);
+			_harmonicAvg(phi.rho, phiW.rho, phiE.rho, phiS.rho, phiN.rho, rhoW, rhoE, rhoS, rhoN);
 			
 			Real p, pN, pS, pW, pE;
 			if (step>=2)

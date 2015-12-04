@@ -29,9 +29,17 @@
 #export OMP_NUM_THREADS=48;time ../makefiles/test -minBPD 8 -maxBPD 64 -test pressure -solver 0 -ic 2 -minDT 1 -maxDT 1
 
 
+#cd ../makefiles
+#make clean
+#make config=production poisson=hypre bc=mixed precision=double bs=32 -j
+#cd ../launch/
+#export OMP_NUM_THREADS=48;time ../makefiles/test -minBPD 8 -maxBPD 64 -test pressure -solver 2 -ic 2 -minDT 1 -maxDT 1
+#export OMP_NUM_THREADS=48;time ../makefiles/test -minBPD 8 -maxBPD 64 -test pressure -solver 0 -ic 2 -minDT 1 -maxDT 1
+
+
 cd ../makefiles
 make clean
-make config=production poisson=hypre bc=mixed precision=double bs=32 -j
+make config=production poisson=split-fftw bc=box precision=double bs=32 -j
 cd ../launch/
 #export OMP_NUM_THREADS=48;time ../makefiles/test -minBPD 8 -maxBPD 64 -test pressure -solver 2 -ic 2 -minDT 1 -maxDT 1
-export OMP_NUM_THREADS=48;time ../makefiles/test -minBPD 8 -maxBPD 64 -test pressure -solver 0 -ic 2 -minDT 1 -maxDT 1
+export OMP_NUM_THREADS=48;time ../makefiles/test -minBPD 8 -maxBPD 64 -test pressure -solver 0 -ic 3 -minDT 1 -maxDT 1

@@ -130,6 +130,32 @@ void TestPressure::_ic()
                         //b(ix,iy).u = cos(y)+sin(x);
                         b(ix,iy).u = cos(y)*sin(x);
 					}
+					else if (ic==3)
+					{
+						// this is a test for:
+						//	0-neumann on all boundaries
+						/*
+						 info.pos(p, ix, iy);
+						 b(ix,iy).divU = 4*CubicBspline::eval(8*(p[1]-0.5));
+						 b(ix,iy).rho = b(ix,iy).divU;
+						 //*/
+						const int size = 1/dh;
+						const int bx = info.index[0]*FluidBlock::sizeX;
+						const int by = info.index[1]*FluidBlock::sizeY;
+						p[0] = (bx+ix+.5)/(double)size;
+						p[1] = (by+iy+.5)/(double)size;
+						double x = 4*p[0]*M_PI;
+						double y = 4*p[1]*M_PI;
+						//b(ix,iy).divU = 81*M_PI_2*M_PI_2 * cos(y);
+						//b(ix,iy).divU = -64*M_PI_2*M_PI_2 * cos(x);
+						//b(ix,iy).divU = -9*M_PI_2*M_PI_2 * cos(y) + -64*M_PI_2*M_PI_2 * sin(x);
+						b(ix,iy).divU = -(64+64)*M_PI_2*M_PI_2 * cos(y) * cos(x);
+						b(ix,iy).rho = b(ix,iy).divU;
+						//b(ix,iy).u = -cos(y);
+						//b(ix,iy).u = cos(x);
+						//b(ix,iy).u = cos(y)+sin(x);
+						b(ix,iy).u = cos(y)*cos(x);
+					}
 				}
 	}
 	
@@ -139,7 +165,7 @@ void TestPressure::_ic()
 	dumper.Write(*grid, ss.str());
 }
 
-TestPressure::TestPressure(const int argc, const char ** argv, const int solver, const int ic, const int bpd, const double dt) : Test(argc, argv), solver(solver), ic(ic), bpd(bpd), dt(dt)
+TestPressure::TestPressure(const int argc, const char ** argv, const int solver, const int ic, const int bpd, const double dt) : Test(argc, argv), solver(solver), ic(ic), bpd(bpd), dt(dt), rank(0)
 {
 #ifdef _MULTIGRID_
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
@@ -173,7 +199,7 @@ void TestPressure::run()
 	
 	if (solver==0)
 	{
-        if (ic!=2)
+        if (ic!=2 && ic!=3)
         {
             PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS,*grid);
             pressureSolver.solve(*grid,false);
@@ -186,7 +212,7 @@ void TestPressure::run()
 	}
 	else if (solver==1)
 	{
-        if (ic!=2)
+        if (ic!=2 && ic!=3)
         {
             PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver(NTHREADS,*grid);
             pressureSolver.solve(*grid,true);
@@ -222,7 +248,7 @@ void TestPressure::run()
 		processOMP<Lab, OperatorGradP>(dt, vInfo, *grid);
     
     
-    if (ic==2)
+    if (ic==2 || ic==3)
     {
         BlockInfo * ary = &vInfo.front();
         const int N = vInfo.size();
@@ -243,7 +269,9 @@ void TestPressure::run()
         }
     }
 	
+#ifdef _MULTIGRID_
 	if (rank==0)
+#endif
 	{
 		stringstream ss;
 		ss << path2file << "-solver" << solver << "-ic" << ic << "-bpd" << bpd << ".vti";
@@ -288,7 +316,7 @@ void TestPressure::check()
                     double error=0;
 					if (ic==0)
 						error = b(ix,iy).divU - b(ix,iy).rho;
-                    else if (ic==2)
+                    else if (ic==2 || ic==3)
                     {
                         error = b(ix,iy).divU - b(ix,iy).u;
                         //error = b(ix,iy).v - b(ix,iy).rho;

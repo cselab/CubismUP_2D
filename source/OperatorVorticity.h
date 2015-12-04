@@ -48,7 +48,7 @@ public:
 				const Real uS = lab(ix,iy-1).u;
 				const Real uN = lab(ix,iy+1).u;
 				
-				o(ix,iy).tmp = factor * ((vE-vW) - (uN-uS));
+				o(ix,iy).tmp                = factor * ((vE-vW) - (uN-uS));
 				vorticity(bx + ix, by + iy) = factor * ((vE-vW) - (uN-uS));
 			}
 	}

@@ -152,7 +152,7 @@ void Sim_FSI_Moving::init()
 		
 		uBody[0] = - parser("-uBody").asDouble(0.1);
 		Real center[2] = {.85,.5};
-		shape->setPosition(center);
+		shape->setCentroid(center);
 		nu = shape->getCharLength()*abs(uBody[0])/re;
 		
 		_ic();
@@ -164,8 +164,8 @@ void Sim_FSI_Moving::init()
 #else
 	pipeline.push_back(new CoordinatorAdvection<Lab>(grid,1));
 #endif
-	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, grid));
-	pipeline.push_back(new CoordinatorPressureSimple<Lab>(grid));
+	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, &dragV, grid));
+	pipeline.push_back(new CoordinatorPressureSimple<Lab>(&dragP[0], &dragP[1], grid));
 	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid));
 	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
 	

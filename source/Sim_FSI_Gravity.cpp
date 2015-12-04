@@ -29,9 +29,15 @@ void Sim_FSI_Gravity::_diagnostics()
 	double volF = 0;
 	double pMin = 10;
 	double pMax = 0;
+	double centerMassX = 0;
+	double centerMassY = 0;
+	double centroidX = 0;
+	double centroidY = 0;
+	double mass = 0;
+	double volume = 0;
 	const double dh = vInfo[0].h_gridpoint;
 	
-#pragma omp parallel for schedule(static) reduction(+:drag) reduction(+:volS) reduction(+:volF) reduction(max:pMax) reduction (min:pMin)
+#pragma omp parallel for schedule(static) reduction(+:drag) reduction(+:volS) reduction(+:volF) reduction(max:pMax) reduction (min:pMin) reduction(+:centerMassX) reduction(+:centerMassY) reduction(+:centroidX) reduction(+:centroidY) reduction(+:mass) reduction(+:volume)
 	for(int i=0; i<vInfo.size(); i++)
 	{
 		BlockInfo info = vInfo[i];
@@ -39,7 +45,18 @@ void Sim_FSI_Gravity::_diagnostics()
 		
 		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
 			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
-			{
+		{
+			double p[2] = {0,0};
+			info.pos(p, ix, iy);
+			const double chi = b(ix,iy).chi;
+			const double rhochi = b(ix,iy).rho * chi;
+			centerMassX += p[0] * rhochi;
+			centerMassY += p[1] * rhochi;
+			centroidX += p[0] * chi;
+			centroidY += p[1] * chi;
+			mass += rhochi;
+			volume += chi;
+			
 				pMin = min(pMin,(double)b(ix,iy).p);
 				pMax = max(pMax,(double)b(ix,iy).p);
 				
@@ -66,18 +83,28 @@ void Sim_FSI_Gravity::_diagnostics()
 	volS *= dh*dh;
 	volF *= dh*dh;
 	
+	centerMassX /= mass;
+	centerMassY /= mass;
+	centroidX /= volume;
+	centroidY /= volume;
+	const double rhoSAvg = mass/volume;
+	
 	double cD = 2*drag/(uBody[1]*uBody[1]*shape->getCharLength());
 	cD = abs(uBody[1])>0 ? cD : 1e10;
 	const Real Re_uBody = shape->getCharLength()*sqrt(uBody[0]*uBody[0]+uBody[1]*uBody[1])/nu;
-	Real center[2];
-	shape->getPosition(center);
+	Real centroid[2], com[2];
+	shape->getCentroid(centroid);
+	shape->getCenterOfMass(com);
+    
+    Real dragPD = (dragP[1]+dragV)*dh*dh;
+    Real cD_PD = 2*dragPD/(uBody[1]*uBody[1]*shape->getCharLength());
 	
 	stringstream ss;
 	ss << path2file << "_diagnostics.dat";
 	ofstream myfile(ss.str(), fstream::app);
 	if (verbose)
-		cout << step << " " << time << " " << dt << " " << bpdx << " " << lambda << " " << cD << " " << Re_uBody << " " << center[0] << " " << center[1] << " " << uBody[0] << " " << uBody[1] << " " << shape->getOrientation() << " " << omegaBody << endl;
-	myfile << step << " " << time << " " << dt << " " << bpdx << " " << lambda << " " << cD << " " << Re_uBody << " " << center[0] << " " << center[1] << " " << uBody[0] << " " << uBody[1] << " " << shape->getOrientation() << " " << omegaBody << endl;
+		cout << step << " " << time << " " << dt << " " << bpdx << " " << lambda << " " << cD << " " << Re_uBody << " " << centroid[0] << " " << centroid[1] << " " << uBody[0] << " " << uBody[1] << " " << shape->getOrientation() << " " << omegaBody << " " << com[0] << " " << com[1] << " " << centerMassX << " " << centerMassY << " " << centroidX << " " << centroidY << " " << rhoSAvg << " " << cD_PD << endl;
+	myfile << step << " " << time << " " << dt << " " << bpdx << " " << lambda << " " << cD << " " << Re_uBody << " " << centroid[0] << " " << centroid[1] << " " << uBody[0] << " " << uBody[1] << " " << shape->getOrientation() << " " << omegaBody << " " << com[0] << " " << com[1] << " " << centerMassX << " " << centerMassY << " " << centroidX << " " << centroidY << " " << rhoSAvg << " " << cD_PD << endl;
 }
 
 void Sim_FSI_Gravity::_dumpSettings(ostream& outStream)
@@ -90,9 +117,9 @@ void Sim_FSI_Gravity::_dumpSettings(ostream& outStream)
 		outStream << "Physical Settings\n";
 		outStream << "\tradius\t" << shape->getCharLength()*.5 << endl;
 		outStream << "\tnu\t" << nu << endl;
-		outStream << "\tRhoS\t" << shape->getRhoS() << endl;
+		outStream << "\tMinRhoS\t" << shape->getMinRhoS() << endl;
 		Real center[2];
-		shape->getPosition(center);
+		shape->getCentroid(center);
 		outStream << "\tyPos\t" << center[1] << endl;
 		
 		outStream << "\nSimulation Settings\n";
@@ -217,11 +244,13 @@ void Sim_FSI_Gravity::init()
 		// simulation settings
 		bSplit = parser("-split").asBool(false);
 		nu = parser("-nu").asDouble(1e-2);
-		minRho = min((Real)1.,shape->getRhoS());
+		minRho = min((Real)1.,shape->getMinRhoS());
+		
+		gravity[1] = -parser("-g").asDouble(9.81);
 		
 		const Real aspectRatio = (Real)bpdx/(Real)bpdy;
 		Real center[2] = {parser("-xpos").asDouble(.5*aspectRatio),parser("-ypos").asDouble(.85)};
-		shape->setPosition(center);
+		shape->setCentroid(center);
 		
 		stringstream ss;
 		ss << path2file << "_settings.dat";
@@ -240,14 +269,14 @@ void Sim_FSI_Gravity::init()
 	
 	pipeline.clear();
 #ifndef _MULTIPHASE_
-	pipeline.push_back(new CoordinatorAdvection<Lab>(&uBody[0],&uBody[1],grid));
+	pipeline.push_back(new CoordinatorAdvection<Lab>(&uBody[0], &uBody[1], grid));
 #else
-	pipeline.push_back(new CoordinatorAdvection<Lab>(&uBody[0],&uBody[1],grid,1));
+	pipeline.push_back(new CoordinatorAdvection<Lab>(&uBody[0], &uBody[1], grid, 1));
 #endif
-	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu,&uBody[0],&uBody[1],grid));
+	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, &uBody[0], &uBody[1], &dragV, grid));
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
-	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &uBody[0], &uBody[1], &step, bSplit, grid, rank, nprocs));
-	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, &lambda, shape->getRhoS(), grid));
+	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &uBody[0], &uBody[1], &dragP[0], &dragP[1], &step, bSplit, grid, rank, nprocs));
+	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid));
 	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid));
 	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
 	
@@ -282,7 +311,15 @@ void Sim_FSI_Gravity::simulate()
 			// choose dt (CFL, Fourier)
 			profiler.push_start("DT");
 			maxU = findMaxUOMP(vInfo,*grid);
-			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu*min(shape->getRhoS(),(Real)1);
+#ifdef _MULTIPHASE_
+			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu*min(shape->getMinRhoS(),(Real)1);
+#else
+#ifdef _CONSTNU_
+			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu;
+#else
+			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu*min(shape->getMinRhoS(),(Real)1);
+#endif
+#endif
 			dtCFL     = maxU==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/abs(maxU);
 			dtBody    = max(abs(uBody[0]),abs(uBody[1]))==0 ? 1e5 : CFL*vInfo[0].h_gridpoint/max(abs(uBody[0]),abs(uBody[1]));
 			assert(!std::isnan(maxU));
@@ -300,7 +337,7 @@ void Sim_FSI_Gravity::simulate()
 			if (endTime>0)
 				dt = min(dt,endTime-_nonDimensionalTime());
 			if (verbose)
-				cout << "dt (Fourier, CFL, body): " << dt << " " << dtFourier << " " << dtCFL << " " << dtBody << endl;
+				cout << "time, dt (Fourier, CFL, body): " << time << " " << dt << " " << dtFourier << " " << dtCFL << " " << dtBody << endl;
 			profiler.pop_stop();
 		}
 #ifdef _MULTIGRID_
@@ -332,10 +369,11 @@ void Sim_FSI_Gravity::simulate()
 			//if (step<100)
 			{
 				// this still needs to be corrected to the frame of reference!
+				// this test only works for constant density disks as it is written now
 				double accM = (uBody[1]-vOld)/dt;
 				vOld = uBody[1];
-				double accT = (shape->getRhoS()-1)/(shape->getRhoS()+1) * gravity[1];
-				double accN = (shape->getRhoS()-1)/(shape->getRhoS()  ) * gravity[1];
+				double accT = (shape->getMinRhoS()-1)/(shape->getMinRhoS()+1) * gravity[1];
+				double accN = (shape->getMinRhoS()-1)/(shape->getMinRhoS()  ) * gravity[1];
 				if (verbose) cout << "Acceleration with added mass (measured, expected, no added mass)\t" << accM << "\t" << accT << "\t" << accN << endl;
 				stringstream ss;
 				ss << path2file << "_addedmass.dat";

@@ -29,6 +29,7 @@ using namespace std;
 #include "TestPoiseuille.h"
 #include "TestAddedMass.h"
 #include "TestBoundaryConditions.h"
+#include "TestConditionNumber.h"
 #include "Definitions.h"
 
 void spatialConvergence(int argc, const char **argv, const int solver, const int ic, const string test, const int minBPD, const int maxBPD, const double dt)
@@ -93,6 +94,8 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 			cout << "Velocity field (Projection)\n";
 		else if (ic==2)
 			cout << "Mixed Boundary Conditions\n";
+		else if (ic==3)
+			cout << "Box Boundary Conditions\n";
 		else
 			throw std::invalid_argument("This test setting does not exist!");
 		cout << "========================================================================================\n";
@@ -185,6 +188,19 @@ void spatialConvergence(int argc, const char **argv, const int solver, const int
 			am->run();
 			am->check();
 			delete am;
+		}
+	}
+	else if (test=="condition")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tCondition Number Test\n";
+		cout << "========================================================================================\n";
+		for (int bpd=minBPD; bpd<=maxBPD; bpd*=2)
+		{
+			TestConditionNumber * cn = new TestConditionNumber(argc, argv, bpd);
+			cn->run();
+			cn->check();
+			delete cn;
 		}
 	}
 	else
@@ -352,6 +368,8 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 			cout << "Velocity field (Projection)\n";
 		else if (ic==2)
 			cout << "Mixed Boundary Conditions\n";
+		else if (ic==3)
+			cout << "Box Boundary Conditions\n";
 		else
 			throw std::invalid_argument("Chosen IC does not exist!");
 		cout << "========================================================================================\n";
@@ -454,10 +472,20 @@ void baseTest(int argc, const char **argv, const int solver, const int ic, const
 		cout << "========================================================================================\n";
 		cout << "\t\tBoundary Conditions Test\n";
 		cout << "========================================================================================\n";
-		TestBoundaryConditions * am = new TestBoundaryConditions(argc, argv);
-		am->run();
-		am->check();
-		delete am;
+		TestBoundaryConditions * bc = new TestBoundaryConditions(argc, argv);
+		bc->run();
+		bc->check();
+		delete bc;
+	}
+	else if (test=="condition")
+	{
+		cout << "========================================================================================\n";
+		cout << "\t\tCondition Number Test\n";
+		cout << "========================================================================================\n";
+		TestConditionNumber * cn = new TestConditionNumber(argc, argv, bpd);
+		cn->run();
+		cn->check();
+		delete cn;
 	}
 	else
 		throw std::invalid_argument("This test setting does not exist!");

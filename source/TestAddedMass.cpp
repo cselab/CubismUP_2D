@@ -65,10 +65,10 @@ TestAddedMass::TestAddedMass(const int argc, const char ** argv, const int bpd) 
 #else
 	pipeline.push_back(new CoordinatorAdvection<Lab>(&uBody[0], &uBody[1], grid,1));
 #endif
-	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, &uBody[0], &uBody[1], grid));
+	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, &uBody[0], &uBody[1], &dragV, grid));
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
-	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &step, bSplit, grid, rank, nprocs));
-	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, &lambda, shape->getRhoS(), grid));
+	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &uBody[0], &uBody[1], &dragP[0], &dragP[1], &step, bSplit, grid, rank, nprocs));
+	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid));
 	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
 	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid));
 }
@@ -116,8 +116,8 @@ void TestAddedMass::run()
 			// this still needs to be corrected to the frame of reference!
 			double accM = (uBody[1]-vOld)/dt;
 			vOld = uBody[1];
-			double accT = (shape->getRhoS()-1)/(shape->getRhoS()+1) * gravity[1];
-			double accN = (shape->getRhoS()-1)/(shape->getRhoS()  ) * gravity[1];
+			double accT = (shape->getMinRhoS()-1)/(shape->getMinRhoS()+1) * gravity[1];
+			double accN = (shape->getMinRhoS()-1)/(shape->getMinRhoS()  ) * gravity[1];
 			cout << bpd << "\t" << rhoS << "\t" << step << "\t" << accM << "\t" << accT << "\t" << accN << endl;
 			stringstream ss;
 			ss << path2file << "_addedmass.dat";
