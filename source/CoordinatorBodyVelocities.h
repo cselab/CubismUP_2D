@@ -31,11 +31,13 @@ public:
 		double mass = 0;
 		double u = 0;
 		double v = 0;
+		//double vTmp = 0;
 		double momOfInertia = 0;
 		double angularMomentum = 0;
 		const int N = vInfo.size();
 		
-#pragma omp parallel for schedule(static) reduction(+:mass)
+#pragma omp parallel for schedule(static) reduction(+:mass) reduction(+:u) reduction(+:v)
+		//reduction(+:vTmp)
 		for(int i=0; i<N; i++)
 		{
 			BlockInfo info = vInfo[i];
@@ -50,11 +52,20 @@ public:
 				info.pos(p, ix, iy);
 				const double chi = b(ix,iy).chi;
 				const double rhochi = b(ix,iy).rho * chi;
+				//const double rhochi = shape->getMinRhoS() * chi;
 				mass += rhochi;
+				u += b(ix,iy).u * rhochi;
+				v += b(ix,iy).v * rhochi;
+				//vTmp += b(ix,iy).v * b(ix,iy).rho * (chi==1?1:0);
 			}
 		}
 		
-#pragma omp parallel for schedule(static) reduction(+:u) reduction(+:v) reduction(+:momOfInertia) reduction(+:angularMomentum)
+		//cout << "Velocity Out/In " << (v-vTmp)/vTmp << endl;
+		
+		*uBody = u / mass;
+		*vBody = v / mass;
+		
+#pragma omp parallel for schedule(static) reduction(+:momOfInertia) reduction(+:angularMomentum)
 		for(int i=0; i<N; i++)
 		{
 			BlockInfo info = vInfo[i];
@@ -69,15 +80,19 @@ public:
 					info.pos(p, ix, iy);
 					
 					double rhochi = b(ix,iy).rho * b(ix,iy).chi;
-					u += b(ix,iy).u * rhochi;
-					v += b(ix,iy).v * rhochi;
 					momOfInertia    += rhochi * ((p[0]-centerOfMass[0])*(p[0]-centerOfMass[0]) + (p[1]-centerOfMass[1])*(p[1]-centerOfMass[1]));
-					angularMomentum += rhochi * ((p[0]-centerOfMass[0])*b(ix,iy).v             - (p[1]-centerOfMass[1])*b(ix,iy).u);
+					angularMomentum += rhochi * ((p[0]-centerOfMass[0])*(b(ix,iy).v-v/mass)    - (p[1]-centerOfMass[1])*(b(ix,iy).u-u/mass));
 				}
 		}
-	
-		*uBody = u / mass;
-		*vBody = v / mass;
+		
+		momOfInertia = shape->getMomentOfInertia();
+		
+		stringstream ss;
+		ss << "momentOfInertia.dat";
+		ofstream myfile(ss.str(), fstream::app);
+		myfile << momOfInertia << endl;
+		cout << momOfInertia << endl;
+		
 		*omegaBody = angularMomentum / momOfInertia;
 	}
 	

@@ -38,6 +38,30 @@ public:
 				kernel(ary[i], *(FluidBlock*)ary[i].ptrBlock);
 		}
 		
+		double J = 0;
+		Real centerOfMass[2];
+		shape->getCenterOfMass(centerOfMass);
+		
+#pragma omp parallel for reduction(+:J)
+		for(int i=0; i<(int)vInfo.size(); i++)
+		{
+			BlockInfo info = vInfo[i];
+			FluidBlock& b = *(FluidBlock*)info.ptrBlock;
+			
+			for(int iz=0; iz<FluidBlock::sizeZ; iz++)
+				for(int iy=0; iy<FluidBlock::sizeY; iy++)
+					for(int ix=0; ix<FluidBlock::sizeX; ix++)
+					{
+						Real p[3];
+						info.pos(p, ix, iy);
+						
+						const Real rhochi = b(ix,iy,iz).rho * b(ix,iy,iz).chi;
+						J += rhochi * ((p[0]-centerOfMass[0])*(p[0]-centerOfMass[0]) + (p[1]-centerOfMass[1])*(p[1]-centerOfMass[1]));
+					}
+		}
+		
+		shape->setMomentOfInertia(J);
+		
 		check("IC - end");
 	}
 	

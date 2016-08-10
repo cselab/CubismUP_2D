@@ -89,10 +89,6 @@ protected:
 			//OperatorAdvectionFD kernel(dt);
 			
             Lab mylab;
-#ifdef _MOVING_FRAME_
-            mylab.pDirichlet.u = 0;
-            mylab.pDirichlet.v = *vBody;
-#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 #else // _PARTICLES_
 			//OperatorAdvection<Hat> kernel(dt);
@@ -101,10 +97,6 @@ protected:
 			OperatorAdvection<Ms6> kernel(dt);
 			
             Lab mylab;
-#ifdef _MOVING_FRAME_
-            mylab.pDirichlet.u = 0;
-            mylab.pDirichlet.v = *vBody;
-#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
 #endif // _PARTICLES_
 			
@@ -126,10 +118,6 @@ protected:
 			//OperatorAdvectionFD kernel(dt);
 			
             Lab mylab;
-#ifdef _MOVING_FRAME_
-            mylab.pDirichlet.u = 0;
-            mylab.pDirichlet.v = *vBody;
-#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 			
 #pragma omp for schedule(static)

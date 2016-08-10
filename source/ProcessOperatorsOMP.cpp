@@ -31,6 +31,28 @@ double findMaxUOMP(vector<BlockInfo>& myInfo, FluidGrid & grid)
 	return maxU;
 };
 
+double findMaxUOMP(Real uBody, Real vBody, vector<BlockInfo>& myInfo, FluidGrid & grid)
+{
+	double maxU = 0;
+	const int N = myInfo.size();
+	
+#pragma omp parallel for schedule(static) reduction(max:maxU)
+	for(int i=0; i<N; i++)
+	{
+		BlockInfo info = myInfo[i];
+		FluidBlock& b = *(FluidBlock*)info.ptrBlock;
+		
+		for(int iy=0; iy<FluidBlock::sizeY; ++iy)
+			for(int ix=0; ix<FluidBlock::sizeX; ++ix)
+			{
+				maxU = max(maxU,(double)abs(b(ix,iy).u-uBody));
+				maxU = max(maxU,(double)abs(b(ix,iy).v-vBody));
+			}
+	}
+	
+	return maxU;
+};
+
 void computeForcesFromVorticity(vector<BlockInfo>& myInfo, FluidGrid & grid, Real ub[2], Real oldAccVort[2], Real rhoS)
 {
 	Real mU = 0;

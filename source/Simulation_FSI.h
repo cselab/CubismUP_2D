@@ -89,7 +89,7 @@ protected:
 			inStream >> mollRho;
             
             vector<BlockInfo> vInfo = grid->getBlocksInfo();
-            const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+            Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
                 FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
 			shape = new Disk(center, radius, rhoS, mollChi, mollRho, bPeriodic, domainSize);
 		}
@@ -125,7 +125,7 @@ protected:
             inStream >> mollRho;
             
             vector<BlockInfo> vInfo = grid->getBlocksInfo();
-            const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+            Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
                 FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
 			shape = new Ellipse(center, semiAxis, angle, rhoS, mollChi, mollRho, bPeriodic, domainSize);
 		}
@@ -157,7 +157,7 @@ public:
 			bool bPeriodic[2] = {false,false};
             
             vector<BlockInfo> vInfo = grid->getBlocksInfo();
-            const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+            Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
                                          FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
 			
 			string shapeType = parser("-shape").asString("disk");
@@ -187,6 +187,13 @@ public:
 				double rhoS2 = parser("-rhoS2").asDouble(1);
 				Real angle = parser("-angle").asDouble(0.0);
 				shape = new EllipseVarDensity(centerOfMass, semiAxis, angle, rhoS, rhoS2, epsChi, epsRho, bPeriodic, domainSize);
+			}
+			else if (shapeType=="fish")
+			{
+				Real radius = parser("-radius").asDouble(0.1);
+				double rhoS2 = parser("-rhoS2").asDouble(1);
+				Real angle = parser("-angle").asDouble(0.0);
+				shape = new Fish(centerOfMass, radius, angle, rhoS, rhoS2, epsChi, epsRho, bPeriodic, domainSize);
 			}
 			else
 			{

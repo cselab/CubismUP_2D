@@ -691,6 +691,17 @@ protected:
 				const Real denomY = 32.*cos(M_PI*j/ny) - 2.*cos(2*M_PI*j/ny) - 30.;
 				const Real denomX = 32.*cos(M_PI*i/nx) - 2.*cos(2*M_PI*i/nx) - 30.;
 #endif
+				
+#ifndef _BOX_
+#ifndef _OPENBOX_
+#ifndef _MIXED_
+				const Real denomY = 0;
+				const Real denomX = 0;
+				cout << "I should not be here!\n";
+				abort();
+#endif
+#endif
+#endif
                 const Real denom = denomX + denomY;
                 const Real inv_denom = (denom==0)? 0.:1./denom;
                 const Real fatfactor = 12. * inv_denom * factor;
@@ -807,6 +818,17 @@ public:
 #endif
 #ifdef _BOX_
 		const Real norm_factor = .25/(gsize[0]*gsize[1]);
+#endif
+		
+		
+#ifndef _BOX_
+#ifndef _OPENBOX_
+#ifndef _MIXED_
+		const Real norm_factor = 0;
+		cout << "I should not be here!\n";
+		abort();
+#endif
+#endif
 #endif
         const Real h = grid.getBlocksInfo().front().h_gridpoint;
 		//cout << (int)(1+1./h) << " " << max(gsize[0],gsize[1]) << endl;

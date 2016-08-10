@@ -24,14 +24,14 @@ p = fig.add_subplot(111, aspect='equal')
 bIdx = 0;
 
 for dirName, subDirList, fileList in os.walk(rootDir):
-	if "Andersen_3011_Re1100_small_box_CFL0.01_bpd128_.1" in dirName:
+	if "Andersen_1012_"in dirName and "_Re1100_box_DLM1.0_CFL0.01_bpd16" in dirName:
 		for file in fileList:
 			if "diagnostics.dat" in file:
 				if "16" in file:
 					bIdx = 1
 				if "32" in file:
 					bIdx = 2
-				if "64" in file:
+				if "old" in file:
 					bIdx = 3
 				data.append(np.genfromtxt(fname=dirName+'/'+file))
 				idx = len(data)-1
@@ -42,10 +42,10 @@ for dirName, subDirList, fileList in os.walk(rootDir):
 				n.append(x[idx].size)
 				#ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.2, height=0.025, angle=a[idx][i]*360/(2*math.pi))
 				#ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.1, height=0.0125, angle=a[idx][i]*360/(2*math.pi))
-				#ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.05, height=0.00625, angle=a[idx][i]*360/(2*math.pi))
-				ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.025, height=0.003125, angle=a[idx][i]*360/(2*math.pi))
+				ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.05, height=0.00625, angle=a[idx][i]*360/(2*math.pi))
+				#ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.025, height=0.003125, angle=a[idx][i]*360/(2*math.pi))
 							 for i in range(n[idx])])
-				increment = 100
+				increment = 10
 				for i in range(1,n[idx],increment):
 					e = ells[idx][i]
 					p.add_artist(e)

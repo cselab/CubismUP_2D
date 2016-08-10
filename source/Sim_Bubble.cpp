@@ -83,7 +83,7 @@ void Sim_Bubble::_ic()
         bool bPeriodic[2] = {false,false};
         
         vector<BlockInfo> vInfo = grid->getBlocksInfo();
-        const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+        Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
             FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
         
 		shape = new Disk(centerOfMass, radius, rhoS, 2, 2, bPeriodic, domainSize);

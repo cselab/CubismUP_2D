@@ -127,5 +127,6 @@ void processOMP(Layer& outputField, const Real rho0, const Real dt, const int st
 }
 
 double findMaxUOMP(vector<BlockInfo>& myInfo, FluidGrid & grid);
+double findMaxUOMP(Real uBody, Real vBody, vector<BlockInfo>& myInfo, FluidGrid & grid);
 void computeForcesFromVorticity(vector<BlockInfo>& myInfo, FluidGrid & grid, Real ub[2], Real oldAccVort[2], Real rhoS);
 #endif

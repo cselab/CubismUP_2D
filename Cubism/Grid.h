@@ -118,6 +118,7 @@ public:
 		r.reserve(N);
 		
 		const double h = (1./max(NX,max(NY,NZ)));
+		const double h_gp =(1. / max(NX*Block::sizeX, max(NY*Block::sizeY, NZ*Block::sizeZ)));
 
 		for(unsigned int iz=0; iz<NZ; iz++)
 			for(unsigned int iy=0; iy<NY; iy++)
@@ -125,9 +126,9 @@ public:
 				{
 					const long long blockID = _encode(ix, iy, iz);
 					const int idx[3] = {ix, iy, iz};
-					const double origin[3] = {ix*h, iy*h, iz*h};
+					const double origin[3] = {ix*h_gp*Block::sizeX, iy*h_gp*Block::sizeY, iz*h_gp*Block::sizeZ};
 					
-					r.push_back(BlockInfo(blockID, idx, origin, h, h/Block::sizeX, _linaccess(blockID)));
+					r.push_back(BlockInfo(blockID, idx, origin, h, h_gp, _linaccess(blockID)));
 				}
 		
 		return r;

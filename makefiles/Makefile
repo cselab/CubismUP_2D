@@ -11,11 +11,14 @@ bs ?= 32
 vertexcentered ?= false
 particles ?= false
 dlm ?= false
+vardensity ?= true
 
 constnu ?= false
 densitydiff ?= false
 
 movingframe ?= false
+
+tanktreading ?= false
 
 rk2 ?= true
 
@@ -42,6 +45,14 @@ endif
 
 ifeq "$(precision)" "single"
 	CPPFLAGS += -D_SP_COMP_
+endif
+
+ifeq "$(tanktreading)" "true"
+	CPPFLAGS += -D_TANKTREADING_
+endif
+
+ifeq "$(vardensity)" "true"
+	CPPFLAGS += -D_VARDENSITY_
 endif
 
 CPPFLAGS+= -D_BS_=$(bs)
@@ -109,7 +120,7 @@ ifneq "$(findstring euler,$(shell hostname))" ""
 include make.euler
 endif
 
-CPPFLAGS += -std=c++11 -fopenmp -fpermissive
+CPPFLAGS += -std=c++11 -fopenmp
 CPPFLAGS += -DNTHREADS=$(nthreads)
 CPPFLAGS += -I../source/ -I../Cubism/ -I$(vtk-inc) -I$(fftw-inc)
 CPPFLAGS += -D_USE_FPZIP_  -I../tools/fpzip/inc

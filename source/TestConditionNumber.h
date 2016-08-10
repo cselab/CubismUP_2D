@@ -24,6 +24,8 @@ protected:
 	string path2file;
 	SerializerIO_ImageVTK<FluidGrid, FluidVTKStreamer> dumper;
 	
+	int rank, nprocs;
+	
 	FluidGrid * grid;
 	
 	// body

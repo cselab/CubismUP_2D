@@ -19,6 +19,7 @@
 #include "CoordinatorPressure.h"
 #include "CoordinatorGravity.h"
 #include "CoordinatorBodyVelocities.h"
+#include "CoordinatorTankTread.h"
 
 void Sim_FSI_Gravity::_diagnostics()
 {
@@ -248,7 +249,7 @@ void Sim_FSI_Gravity::init()
 		
 		gravity[1] = -parser("-g").asDouble(9.81);
 		
-		const Real aspectRatio = (Real)bpdx/(Real)bpdy;
+		const Real aspectRatio = (Real)(bpdx*FluidBlock::sizeX)/(Real)(bpdy*FluidBlock::sizeY);
 		Real center[2] = {parser("-xpos").asDouble(.5*aspectRatio),parser("-ypos").asDouble(.85)};
 		shape->setCentroid(center);
 		
@@ -275,10 +276,15 @@ void Sim_FSI_Gravity::init()
 #endif
 	pipeline.push_back(new CoordinatorDiffusion<Lab>(nu, &uBody[0], &uBody[1], &dragV, grid));
 	pipeline.push_back(new CoordinatorGravity(gravity, grid));
+#ifdef _TANKTREADING_
+	pipeline.push_back(new CoordinatorTankTread(shape,grid));
+#endif
 	pipeline.push_back(new CoordinatorPressure<Lab>(minRho, gravity, &uBody[0], &uBody[1], &dragP[0], &dragP[1], &step, bSplit, grid, rank, nprocs));
 	pipeline.push_back(new CoordinatorBodyVelocities(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid));
 	pipeline.push_back(new CoordinatorPenalization(&uBody[0], &uBody[1], &omegaBody, shape, &lambda, grid));
+#ifndef _MOVING_FRAME_
 	pipeline.push_back(new CoordinatorComputeShape(&uBody[0], &uBody[1], &omegaBody, shape, grid));
+#endif
 	
 	if (rank==0)
 	{
@@ -310,7 +316,11 @@ void Sim_FSI_Gravity::simulate()
 			
 			// choose dt (CFL, Fourier)
 			profiler.push_start("DT");
+#ifndef _MOVING_FRAME_
 			maxU = findMaxUOMP(vInfo,*grid);
+#else
+			maxU = findMaxUOMP(uBody[0],uBody[1],vInfo,*grid);
+#endif
 #ifdef _MULTIPHASE_
 			dtFourier = CFL*vInfo[0].h_gridpoint*vInfo[0].h_gridpoint/nu*min(shape->getMinRhoS(),(Real)1);
 #else

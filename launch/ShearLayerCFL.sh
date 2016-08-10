@@ -1,4 +1,4 @@
-BASENAME=ThinShearLayer_UP_180915_CFL_Euler_VarRho
+BASENAME=ThinShearLayer_UP_080116_CFL_Euler_VarRho
 FOLDER=/cluster/scratch_xp/public/cconti/CubismUP/${BASENAME}
 mkdir ${FOLDER}
 

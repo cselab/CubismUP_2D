@@ -29,7 +29,7 @@ void TestConditionNumber::_ic()
     bool bPeriodic[2] = {false,false};
     
     vector<BlockInfo> vInfo = grid->getBlocksInfo();
-    const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+    Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
 								 FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint };
 	
     Real radius = parser("-radius").asDouble(0.2);
@@ -46,7 +46,7 @@ void TestConditionNumber::_ic()
 	}
 }
 
-TestConditionNumber::TestConditionNumber(const int argc, const char ** argv, const int bpd) : Test(argc, argv), parser(argc,argv), bpd(bpd)
+TestConditionNumber::TestConditionNumber(const int argc, const char ** argv, const int bpd) : Test(argc, argv), parser(argc,argv), bpd(bpd), rank(0), nprocs(1)
 {
 	// output settings
 	path2file = parser("-file").asString("../data/TestConditionNumber");

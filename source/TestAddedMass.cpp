@@ -33,7 +33,7 @@ void TestAddedMass::_ic()
     bool bPeriodic[2] = {false,false};
     
     vector<BlockInfo> vInfo = grid->getBlocksInfo();
-    const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+    Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
         FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
 	
     Real radius = parser("-radius").asDouble(0.1);
@@ -118,11 +118,11 @@ void TestAddedMass::run()
 			vOld = uBody[1];
 			double accT = (shape->getMinRhoS()-1)/(shape->getMinRhoS()+1) * gravity[1];
 			double accN = (shape->getMinRhoS()-1)/(shape->getMinRhoS()  ) * gravity[1];
-			cout << bpd << "\t" << rhoS << "\t" << step << "\t" << accM << "\t" << accT << "\t" << accN << endl;
+			cout << bpd << "\t" << 1./(double)(bpd*FluidBlock::sizeX) << "\t" << rhoS << "\t" << step << "\t" << accM << "\t" << abs(accM-accT)/abs(accT) << "\t" << accT << "\t" << accN << endl;
 			stringstream ss;
 			ss << path2file << "_addedmass.dat";
 			ofstream myfile(ss.str(), fstream::app);
-			myfile << bpd << "\t" << rhoS << "\t" << step << "\t" << accM << "\t" << accT << "\t" << accN << endl;
+			myfile << bpd << "\t" << 1./(double)(bpd*FluidBlock::sizeX) << "\t" << rhoS << "\t" << step << "\t" << accM << "\t" << abs(accM-accT)/abs(accT) << "\t" << accT << "\t" << accN << endl;
 		}
 	}
 }

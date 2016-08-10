@@ -23,7 +23,7 @@ private:
 	double dt;
 	
 	template <typename Lab>
-	Euler(Lab & lab, const BlockInfo& info, const int stage)
+	void Euler(Lab & lab, const BlockInfo& info, const int stage) const
 	{
 		const double dh = info.h_gridpoint;
 		const double invdh = 1./dh;
@@ -61,7 +61,7 @@ private:
 	}
 	
 	template <typename Lab>
-	M2P(Lab & lab, const BlockInfo& info)
+	void M2P(Lab & lab, const BlockInfo& info) const
 	{
 		const double dh = info.h_gridpoint;
 		const double invdh = 1./dh;
@@ -113,7 +113,7 @@ private:
 	}
 	
 	template <typename Lab, typename BlockType>
-	P2M(Lab & lab, const BlockInfo& info, BlockType& o)
+	void P2M(Lab & lab, const BlockInfo& info, BlockType& o) const
 	{
 		const double dh = info.h_gridpoint;
 		const double invdh = 1./dh;
@@ -340,7 +340,7 @@ private:
 	double dt;
 	
     template <typename Lab>
-    Euler(Lab & lab, const BlockInfo& info, const int stage)
+    void Euler(Lab & lab, const BlockInfo& info, const int stage)
     {
         const double dh = info.h_gridpoint;
         const double invdh = 1./dh;
@@ -378,7 +378,7 @@ private:
     }
 	
     template <typename Lab>
-    M2P(Lab & lab, const BlockInfo& info)
+    void M2P(Lab & lab, const BlockInfo& info)
     {
         const double dh = info.h_gridpoint;
         const double invdh = 1./dh;
@@ -431,7 +431,7 @@ private:
     }
 	
 	template <typename Lab, typename BlockType>
-    P2M(Lab & lab, const BlockInfo& info, BlockType& o)
+    void P2M(Lab & lab, const BlockInfo& info, BlockType& o)
     {
         const double dh = info.h_gridpoint;
         const double invdh = 1./dh;
@@ -625,7 +625,7 @@ private:
     }
     
     template <typename Lab>
-    Euler(Lab & lab, const BlockInfo& info, const int stage)
+    void Euler(Lab & lab, const BlockInfo& info, const int stage)
     {
         const double dh = info.h_gridpoint;
         const double invdh = 1./dh;
@@ -663,7 +663,7 @@ private:
     }
     
     template <typename Lab>
-    M2P(Lab & lab, const BlockInfo& info)
+    void M2P(Lab & lab, const BlockInfo& info)
     {
         const double dh = info.h_gridpoint;
         const double invdh = 1./dh;
@@ -697,7 +697,7 @@ private:
     }
     
     template <typename Lab, typename BlockType>
-    P2M(Lab & lab, const BlockInfo& info, BlockType& o)
+    void P2M(Lab & lab, const BlockInfo& info, BlockType& o)
     {
         const double dh = info.h_gridpoint;
         const double invdh = 1./dh;
@@ -870,17 +870,18 @@ public:
 					const Real dvdy[2] = {  2*lab(ix  ,iy+1).v + 3*lab(ix  ,iy  ).v - 6*lab(ix  ,iy-1).v +   lab(ix  ,iy-2).v,
 						                   -  lab(ix  ,iy+2).v + 6*lab(ix  ,iy+1).v - 3*lab(ix  ,iy  ).v - 2*lab(ix  ,iy-1).v};
 			
-					const Real u = o(ix,iy).u;
 #ifndef _MOVING_FRAME_
+					const Real u = o(ix,iy).u;
                     const Real v = o(ix,iy).v;
 #else
+					const Real u = o(ix,iy).u - *uBody;
 					const Real v = o(ix,iy).v - *vBody;
 #endif
 			
-					o(ix,iy).tmpU = u + factor*(max(u,(Real)0) * dudx[0] + min(u,(Real)0) * dudx[1] +
-												max(v,(Real)0) * dudy[0] + min(v,(Real)0) * dudy[1]);
+					o(ix,iy).tmpU = o(ix,iy).u + factor*(max(u,(Real)0) * dudx[0] + min(u,(Real)0) * dudx[1] +
+														 max(v,(Real)0) * dudy[0] + min(v,(Real)0) * dudy[1]);
 					o(ix,iy).tmpV = o(ix,iy).v + factor*(max(u,(Real)0) * dvdx[0] + min(u,(Real)0) * dvdx[1] +
-												max(v,(Real)0) * dvdy[0] + min(v,(Real)0) * dvdy[1]);
+														 max(v,(Real)0) * dvdy[0] + min(v,(Real)0) * dvdy[1]);
 #ifndef _RK2_
 #ifdef _MULTIPHASE_
 					const Real drdx[2] = {  2*lab(ix+1,iy  ).rho + 3*lab(ix  ,iy  ).rho - 6*lab(ix-1,iy  ).rho +   lab(ix-2,iy  ).rho,
@@ -891,8 +892,8 @@ public:
 					
 					const Real r = o(ix,iy).rho;
 					
-					o(ix,iy).tmp  =r + factor*(max(u,(Real)0) * drdx[0] + min(u,(Real)0) * drdx[1] +
-                                               max(v,(Real)0) * drdy[0] + min(v,(Real)0) * drdy[1]);
+					o(ix,iy).tmp  = r + factor*(max(u,(Real)0) * drdx[0] + min(u,(Real)0) * drdx[1] +
+                                                max(v,(Real)0) * drdy[0] + min(v,(Real)0) * drdy[1]);
 #endif // _MULTIPHASE_
 #endif // _RK2_
 			}
@@ -913,16 +914,11 @@ public:
 					const Real dvdy[2] = {  2*lab(ix  ,iy+1).tmpV + 3*lab(ix  ,iy  ).tmpV - 6*lab(ix  ,iy-1).tmpV +   lab(ix  ,iy-2).tmpV,
 							               -  lab(ix  ,iy+2).tmpV + 6*lab(ix  ,iy+1).tmpV - 3*lab(ix  ,iy  ).tmpV - 2*lab(ix  ,iy-1).tmpV};
 			
-					const Real drdx[2] = {  2*lab(ix+1,iy  ).tmp + 3*lab(ix  ,iy  ).tmp - 6*lab(ix-1,iy  ).tmp +   lab(ix-2,iy  ).tmp,
-										   -  lab(ix+2,iy  ).tmp + 6*lab(ix+1,iy  ).tmp - 3*lab(ix  ,iy  ).tmp - 2*lab(ix-1,iy  ).tmp};
-			
-					const Real drdy[2] = {  2*lab(ix  ,iy+1).tmp + 3*lab(ix  ,iy  ).tmp - 6*lab(ix  ,iy-1).tmp +   lab(ix  ,iy-2).tmp,
-										   -  lab(ix  ,iy+2).tmp + 6*lab(ix  ,iy+1).tmp - 3*lab(ix  ,iy  ).tmp - 2*lab(ix  ,iy-1).tmp};
-			
-                    const Real u = lab(ix,iy).tmpU;
 #ifndef _MOVING_FRAME_
+					const Real u = lab(ix,iy).tmpU;
                     const Real v = lab(ix,iy).tmpV;
 #else
+					const Real u = lab(ix,iy).tmpU - *uBody;
                     const Real v = lab(ix,iy).tmpV - *vBody;
 #endif
 			
@@ -931,6 +927,12 @@ public:
 					o(ix,iy).tmpV = o(ix,iy).v + factor*(max(u,(Real)0) * dvdx[0] + min(u,(Real)0) * dvdx[1] +
 										                 max(v,(Real)0) * dvdy[0] + min(v,(Real)0) * dvdy[1]);
 #ifdef _MULTIPHASE_
+					
+					const Real drdx[2] = {  2*lab(ix+1,iy  ).rho + 3*lab(ix  ,iy  ).rho - 6*lab(ix-1,iy  ).rho +   lab(ix-2,iy  ).rho,
+						                   -  lab(ix+2,iy  ).rho + 6*lab(ix+1,iy  ).rho - 3*lab(ix  ,iy  ).rho - 2*lab(ix-1,iy  ).rho};
+					
+					const Real drdy[2] = {  2*lab(ix  ,iy+1).rho + 3*lab(ix  ,iy  ).rho - 6*lab(ix  ,iy-1).rho +   lab(ix  ,iy-2).rho,
+						                   -  lab(ix  ,iy+2).rho + 6*lab(ix  ,iy+1).rho - 3*lab(ix  ,iy  ).rho - 2*lab(ix  ,iy-1).rho};
                     const Real r = lab(ix,iy).rho;
 					o(ix,iy).tmp = r + factor*(max(u,(Real)0) * drdx[0] + min(u,(Real)0) * drdx[1] +
                                                max(v,(Real)0) * drdy[0] + min(v,(Real)0) * drdy[1]);

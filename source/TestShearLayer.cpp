@@ -15,7 +15,7 @@
 #include "CoordinatorPressure.h"
 
 #define _THIN_
-#define _VARDENSITY_
+//#define _VARDENSITY_
 
 void TestShearLayer::_getRefs(const int ix, const int iy, const int ratio, Real &u, Real &v)
 {

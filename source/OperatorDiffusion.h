@@ -52,7 +52,7 @@ public:
 					FluidElement& phiN = lab(ix,iy+1);
 					FluidElement& phiS = lab(ix,iy-1);
 					FluidElement& phiE = lab(ix+1,iy);
-					FluidElement& phiW = lab(ix-1,iy);
+					FluidElement& phiW	= lab(ix-1,iy);
 #ifdef _DENSITYDIFF_
 					o(ix,iy).tmp = phi.rho + 1e-5 * dt / (info.h_gridpoint*info.h_gridpoint) * (phiN.rho + phiS.rho + phiE.rho + phiW.rho - phi.rho*4.);
 #endif

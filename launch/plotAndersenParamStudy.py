@@ -8,7 +8,7 @@ import matplotlib
 import matplotlib.gridspec as gridspec
 
 fig = figure(figsize=(16,9))
-fig.canvas.set_window_title('Falling Cylinders')
+fig.canvas.set_window_title('Falling Ellipses')
 
 rootDir = '/cluster/scratch_xp/public/cconti/CubismUP/'
 
@@ -19,7 +19,7 @@ pa = fig.add_subplot(gs[1,2])#,aspect='equal')
 
 for dirName, subDirList, fileList in os.walk(rootDir):
 	for file in fileList:
-		if "diagnostics.dat" in file and "Andersen_ParamStudy_DLM_2810" in dirName:
+		if "diagnostics.dat" in file and "Andersen_" in dirName:
 
 			data = []
 			u = []
@@ -53,16 +53,18 @@ for dirName, subDirList, fileList in os.walk(rootDir):
 			y.append(dataset[:,8])
 			a.append(dataset[:,11])
 			n.append(x[idx].size)
-			
-			if "_L_" in file:
-				ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.2, height=0.025, angle=a[idx][i]*360/(2*math.pi))
+				
+			ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.025, height=0.003125, angle=a[idx][i]*360/(2*math.pi))
 							 for i in range(n[idx])])
-			if "_M_" in file:
-				ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.1, height=0.0125, angle=a[idx][i]*360/(2*math.pi))
-							 for i in range(n[idx])])
-			if "_S_" in file:
-				ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.05, height=0.00625, angle=a[idx][i]*360/(2*math.pi))
-							 for i in range(n[idx])])
+				#if "_L_" in file:
+				#	ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.2, height=0.025, angle=a[idx][i]*360/(2*math.pi))
+				#				 for i in range(n[idx])])
+				#if "_M_" in file:
+				#	ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.1, height=0.0125, angle=a[idx][i]*360/(2*math.pi))
+				#				 for i in range(n[idx])])
+				#if "_S_" in file:
+				#	ells.append([Ellipse(xy=(x[idx][i],y[idx][i]), width=0.05, height=0.00625, angle=a[idx][i]*360/(2*math.pi))
+				#				 for i in range(n[idx])])
 			increment = 10
 			for i in range(1,n[idx],increment):
 				e = ells[idx][i]

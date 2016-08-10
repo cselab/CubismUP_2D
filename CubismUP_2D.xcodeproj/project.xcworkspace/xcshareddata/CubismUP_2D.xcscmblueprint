@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "AAC7B52B3EDB4AA393AB1D9DF82BDC1D62EED6C7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "AAC7B52B3EDB4AA393AB1D9DF82BDC1D62EED6C7" : 0,
+    "A106709450C8F9899D572E8CCD7DF8B13E56D1BE" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D989D18E-884F-4A5B-A73F-FB09F6BF91E6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "AAC7B52B3EDB4AA393AB1D9DF82BDC1D62EED6C7" : "CubismUP_2D",
+    "A106709450C8F9899D572E8CCD7DF8B13E56D1BE" : "CubismUP_3D\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CubismUP_2D",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "CubismUP_2D.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "scratch-petros.ethz.ch:\/export\/home\/gitroot\/CubismUP_3D.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A106709450C8F9899D572E8CCD7DF8B13E56D1BE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "scratch-petros:\/export\/home\/gitroot\/CubismUP_2D.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AAC7B52B3EDB4AA393AB1D9DF82BDC1D62EED6C7"
+    }
+  ]
+}

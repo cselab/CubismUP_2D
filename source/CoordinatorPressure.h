@@ -126,10 +126,6 @@ protected:
 			Operator kernel(dt);
 			
             Lab mylab;
-#ifdef _MOVING_FRAME_
-            mylab.pDirichlet.u = 0;
-            mylab.pDirichlet.v = *vBody;
-#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, true);
 			
 #pragma omp for schedule(static)
@@ -157,10 +153,6 @@ protected:
 			OperatorPressureDrag kernel(0);
 			
 			Lab mylab;
-#ifdef _MOVING_FRAME_
-			mylab.pDirichlet.u = 0;
-			mylab.pDirichlet.v = *vBody;
-#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 			
 #pragma omp for schedule(static) reduction(+:tmpDragX) reduction(+:tmpDragY)
@@ -242,7 +234,7 @@ public:
 #endif // _MULTIGRID_
 			updatePressure();
 		
-		drag();
+		//drag();
 		
 		check("pressure - end");
 	}
@@ -330,10 +322,6 @@ protected:
 			OperatorPressureDrag kernel(0);
 			
 			Lab mylab;
-#ifdef _MOVING_FRAME_
-			mylab.pDirichlet.u = 0;
-			mylab.pDirichlet.v = *vBody;
-#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 			
 #pragma omp for schedule(static) reduction(+:tmpDragX) reduction(+:tmpDragY)
@@ -367,7 +355,7 @@ public:
 		
 		updatePressure();
 		
-		drag();
+		//drag();
 	}
 	
 	string getName()

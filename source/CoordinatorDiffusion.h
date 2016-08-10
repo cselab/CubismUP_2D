@@ -75,10 +75,6 @@ protected:
 			//OperatorDiffusionHighOrder kernel(dt, coeff, stage);
 			
             Lab mylab;
-#ifdef _MOVING_FRAME_
-            mylab.pDirichlet.u = 0;
-            mylab.pDirichlet.v = *vBody;
-#endif
 			mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
 			
 #pragma omp for schedule(static)
@@ -103,10 +99,6 @@ protected:
             OperatorViscousDrag kernel(0);
             
             Lab mylab;
-#ifdef _MOVING_FRAME_
-            mylab.pDirichlet.u = 0;
-            mylab.pDirichlet.v = *vBody;
-#endif
             mylab.prepare(*grid, kernel.stencil_start, kernel.stencil_end, false);
             
 #pragma omp for schedule(static) reduction(+:tmpDrag)
@@ -145,7 +137,7 @@ public:
 #endif
 		update();
         
-        drag();
+        //drag();
 		
 		check("diffusion - end");
 	}

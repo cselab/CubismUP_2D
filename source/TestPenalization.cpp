@@ -20,7 +20,7 @@ void TestPenalization::_ic()
 	vector<BlockInfo> vInfo = grid->getBlocksInfo();
     bool bPeriodic[2] = {false,false};
     
-    const Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
+    Real domainSize[2] = { FluidBlock::sizeX * grid->getBlocksPerDimension(0) * vInfo[0].h_gridpoint,
         FluidBlock::sizeY * grid->getBlocksPerDimension(1) * vInfo[0].h_gridpoint};
     
 	shape = new Disk(center, radius, (Real).1, (Real)2, (Real)2, bPeriodic, domainSize);
