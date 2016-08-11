@@ -10,8 +10,6 @@
 #define CubismUP_2D_DataStructures_h
 
 #include "common.h"
-#include "Layer.h"
-#include "LayerToVTK.h"
 #include "BoundaryConditions.h"
 
 #ifndef _BS_

@@ -10,7 +10,6 @@
 
 #include "ProcessOperatorsOMP.h"
 #include "OperatorDivergence.h"
-#include "OperatorVorticity.h"
 #include "OperatorGradP.h"
 #include "OperatorComputeShape.h"
 
@@ -238,12 +237,6 @@ void Sim_FSI_Fixed::simulate()
 			cout << ss.str() << endl;
 			
 			dumper.Write(*grid, ss.str());
-			
-			Layer vorticity(sizeX,sizeY,1);
-			processOMP<Lab, OperatorVorticity>(vorticity,vInfo,*grid);
-			stringstream sVort;
-			sVort << path2file << "Vorticity-Final.vti";
-			dumpLayer2VTK(step,sVort.str(),vorticity,1);
 			profiler.pop_stop();
 			
 			profiler.printSummary();

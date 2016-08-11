@@ -12,26 +12,11 @@
 #include "OperatorGradP.h"
 #include "PoissonSolverScalarFFTW.h"
 #include "ProcessOperatorsOMP.h"
-#include "LayerToVTK.h"
 #include <sstream>
 #include <cmath>
 #ifdef _MULTIGRID_
 #include "MultigridHypre.h"
 #endif // _MULTIGRID_
-
-void initializeNUMA(Layer& layer)
-{
-	for(int ic = 0; ic < layer.nDim; ic++)
-#pragma omp parallel for
-		for(int iy = 0; iy < layer.sizeY; iy++)
-		{
-			for(int ix=0; ix<layer.sizeX; ix++)
-			{
-				layer.data[ic*layer.sizeX*layer.sizeY + iy*layer.sizeX + ix] = 0;
-				
-			}
-		}
-}
 
 class BS4
 {
@@ -288,10 +273,6 @@ void TestPressure::check()
 	{
 		vector<BlockInfo> vInfo = grid->getBlocksInfo();
 		const int size = bpd * FluidBlock::sizeX;
-		
-        Layer divergence(size,size,1);
-        if (ic!=0 && ic!=2)
-            processOMP<Lab, OperatorDivergenceLayer>(divergence,vInfo,*grid);
         
 		//cout << "\tErrors (Linf, L1, L2):\t";
 		double Linf = 0.;
@@ -336,7 +317,7 @@ void TestPressure::check()
                          //*/
                     }
                     else
-						error = divergence(ix,iy);
+						error = b(ix,iy).divU;
 					
 					Linf = max(Linf,abs(error));
 					L1 += abs(error);

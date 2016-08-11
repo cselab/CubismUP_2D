@@ -15,7 +15,6 @@
 using namespace std;
 #include <assert.h>
 
-#include "Matrix2D.h"
 #include "common.h"
 
 struct Layer

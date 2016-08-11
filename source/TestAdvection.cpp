@@ -8,7 +8,6 @@
 
 #include "TestAdvection.h"
 #include "ProcessOperatorsOMP.h"
-#include "OperatorVorticity.h"
 #include <sstream>
 #include <cmath>
 
@@ -142,15 +141,6 @@ void TestAdvection::_icVortex()
 	ss << path2file << "-IC.vti";
 	
 	dumper.Write(*grid, ss.str());
-	
-	
-	const int sizeX = bpd * FluidBlock::sizeX;
-	const int sizeY = bpd * FluidBlock::sizeY;
-	vorticityIC = new Layer(sizeX,sizeY,1);
-	processOMP<Lab, OperatorVorticity>(*vorticityIC,vInfo,*grid);
-	stringstream sVort;
-	sVort << path2file << "Vorticity-IC.vti";
-	dumpLayer2VTK(0,sVort.str(),*vorticityIC,1);
 }
 
 void TestAdvection::_icBurger()
@@ -357,10 +347,6 @@ void TestAdvection::check()
 		}
 		 */
 	}
-	
-	//stringstream sVort;
-	//sVort << path2file << "VorticityDiff-" << bpd << ".vti";
-	//dumpLayer2VTK(0,sVort.str(),vorticityDiff,1);
 	
 	stringstream ssol;
 	ssol << path2file << "-solution" << testCase << "-bpd" << bpd << ".vti";

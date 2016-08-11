@@ -8,7 +8,6 @@
 
 #include "TestTranslation.h"
 #include "ProcessOperatorsOMP.h"
-#include "OperatorVorticity.h"
 #include "CoordinatorComputeShape.h"
 #include "CoordinatorBodyVelocities.h"
 #include <sstream>
@@ -104,12 +103,6 @@ void TestTranslation::run()
 			ss << path2file << "-" << bpd << "-" << step << ".vti";
 			
 			dumper.Write(*grid, ss.str());
-			
-			Layer vorticity(sizeX,sizeY,1);
-			processOMP<Lab, OperatorVorticity>(vorticity,vInfo,*grid);
-			stringstream sVort;
-			sVort << path2file << "Vorticity-" << bpd << "-" << step << ".vti";
-			dumpLayer2VTK(step,sVort.str(),vorticity,1);
 		}
 	}
 }

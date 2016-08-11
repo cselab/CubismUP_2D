@@ -250,14 +250,6 @@ void TestShearLayer::run()
 			stringstream ss;
 			ss << path2file << bpd << "-" << step <<  ".vti";
 			dumper.Write(*grid, ss.str());
-			/*
-			 const int size = bpd * FluidBlock::sizeX;
-			 Layer vorticity(size,size,1);
-			 processOMP<Lab, OperatorDivergenceLayer>(vorticity,vInfo,*grid);
-			 stringstream sVort;
-			 sVort << path2file << "Vorticity-" << bpd << "-" << step << ".vti";
-			 dumpLayer2VTK(step,sVort.str(),vorticity,1);
-			 */
 			nextDumpTime += dumpTime;
 		}
 		

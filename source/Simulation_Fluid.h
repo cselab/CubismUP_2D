@@ -14,7 +14,6 @@
 
 #include "Definitions.h"
 #include "ProcessOperatorsOMP.h"
-#include "OperatorVorticity.h"
 #include "GenericCoordinator.h"
 #include "GenericOperator.h"
 

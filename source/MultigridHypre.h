@@ -17,7 +17,6 @@
 #include <HYPRE_struct_ls.h>
 #include <vector>
 #include <omp.h>
-#include "Layer.h"
 
 class MultigridHypre
 {

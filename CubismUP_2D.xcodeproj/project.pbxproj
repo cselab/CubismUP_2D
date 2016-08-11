@@ -135,7 +135,6 @@
 		DD58CAE61A602C1700291455 /* OperatorDivergence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorDivergence.h; sourceTree = "<group>"; };
 		DD58CAE71A60320400291455 /* TestPressure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPressure.cpp; sourceTree = "<group>"; };
 		DD58CAE81A60320400291455 /* TestPressure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPressure.h; sourceTree = "<group>"; };
-		DD58CAEE1A614B6D00291455 /* LayerToVTK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerToVTK.h; sourceTree = "<group>"; };
 		DD5FCAAD1B2EF32C000232B9 /* Bubble.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Bubble.sh; sourceTree = "<group>"; };
 		DD5FCAAE1B2F1E6B000232B9 /* make.brutus */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = make.brutus; path = makefiles/make.brutus; sourceTree = "<group>"; };
 		DD5FCAAF1B2F1E6B000232B9 /* make.euler */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = make.euler; path = makefiles/make.euler; sourceTree = "<group>"; };
@@ -147,7 +146,6 @@
 		DD6348411C03298900947649 /* Sim_FSI_Oscillating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sim_FSI_Oscillating.h; sourceTree = "<group>"; };
 		DD6348431C032DEB00947649 /* oscillatingCylinder.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = oscillatingCylinder.sh; sourceTree = "<group>"; };
 		DD64F6D01A63C16400D17B72 /* Timer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
-		DD64F6D21A64157D00D17B72 /* OperatorVorticity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperatorVorticity.h; sourceTree = "<group>"; };
 		DD64F6D31A67D6C800D17B72 /* PoissonSolverScalarFFTW.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PoissonSolverScalarFFTW.cpp; sourceTree = "<group>"; };
 		DD64F6D41A67D6C800D17B72 /* PoissonSolverScalarFFTW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoissonSolverScalarFFTW.h; sourceTree = "<group>"; };
 		DD64F6D51A67D6C800D17B72 /* PoissonSolverVectorFFTW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoissonSolverVectorFFTW.h; sourceTree = "<group>"; };
@@ -377,7 +375,6 @@
 				DD58CAA91A5DA2FF00291455 /* OperatorPenalization.h */,
 				DD0C48C11A710A2B00CC0C89 /* OperatorComputeShape.h */,
 				DD58CAE61A602C1700291455 /* OperatorDivergence.h */,
-				DD64F6D21A64157D00D17B72 /* OperatorVorticity.h */,
 				DD64F6DA1A68299500D17B72 /* OperatorGradP.h */,
 				DD0C48C21A712FA500CC0C89 /* OperatorGravity.h */,
 				DDDA9F371A78D69E0042FA80 /* OperatorSplitP.h */,
@@ -472,7 +469,6 @@
 			isa = PBXGroup;
 			children = (
 				DD58CAE31A60299800291455 /* Layer.h */,
-				DD58CAEE1A614B6D00291455 /* LayerToVTK.h */,
 				DD58CAE41A60299800291455 /* Matrix2D.h */,
 			);
 			name = Layer;
