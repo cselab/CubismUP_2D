@@ -342,7 +342,7 @@ private:
 	double dt;
 	
     template <typename Lab>
-    void Euler(Lab & lab, const BlockInfo& info, const int stage)
+    void Euler(Lab & lab, const BlockInfo& info, int stage) const
     {
         const double dh = info.h_gridpoint;
         const double invdh = 1./dh;
@@ -380,7 +380,7 @@ private:
     }
 	
     template <typename Lab>
-    void M2P(Lab & lab, const BlockInfo& info)
+    void M2P(Lab & lab, const BlockInfo& info) const
     {
         const double dh = info.h_gridpoint;
         const double invdh = 1./dh;
@@ -433,7 +433,7 @@ private:
     }
 	
 	template <typename Lab, typename BlockType>
-    void P2M(Lab & lab, const BlockInfo& info, BlockType& o)
+    void P2M(Lab & lab, const BlockInfo& info, BlockType& o) const
     {
         const double dh = info.h_gridpoint;
         const double invdh = 1./dh;
