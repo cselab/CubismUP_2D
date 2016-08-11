@@ -149,6 +149,7 @@ public:
 };
 
 
+// Testing Coordinator
 class CoordinatorDiffusionTimeTest : public GenericCoordinator
 {
 protected:

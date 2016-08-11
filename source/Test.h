@@ -2,6 +2,8 @@
 //  Test.h
 //  CubismUP_2D
 //
+//	Test base class
+//
 //  Created by Christian Conti on 3/6/15.
 //  Copyright (c) 2015 ETHZ. All rights reserved.
 //

@@ -5,6 +5,8 @@
 //	Operates on
 //		tmp, divU
 //
+//  The base of the code to use Hypre is taken and adapted from its tutorials
+//
 //  Created by Christian Conti on 1/30/15.
 //  Copyright (c) 2015 ETHZ. All rights reserved.
 //

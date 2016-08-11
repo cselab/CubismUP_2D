@@ -16,7 +16,6 @@
 
 // utmost import to be defined before including cubism
 
-// double precision fftw not installed currently
 #ifndef _SP_COMP_
 typedef double Real;
 #else // _SP_COMP_
@@ -27,7 +26,7 @@ typedef float Real;
 #include <mpi.h>
 #endif // _MULTIGRID_
 
-//this is all cubism file we need
+//this is all cubism files we need
 #include <ArgumentParser.h>
 #include <Grid.h>
 #include <BlockInfo.h>

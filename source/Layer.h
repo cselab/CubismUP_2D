@@ -2,6 +2,8 @@
  *  Layer.h
  *  VM2D
  *
+ *	In this project, this structure is used exclusively for testing
+ *
  *  Created by Diego Rossinelli on 2/9/09.
  *  Copyright 2009 CSE Lab, ETH Zurich. All rights reserved.
  *

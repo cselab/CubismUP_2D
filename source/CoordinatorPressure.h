@@ -31,10 +31,10 @@ protected:
     Real *uBody, *vBody;
     Real *pressureDragX, *pressureDragY;
 	
-#ifdef _SPLIT_
-#ifndef _MIXED_
-#ifndef _BOX_
-#ifndef _OPENBOX_
+#ifdef _SPLIT_ // split = constant coefficients Poisson for variable density, use FFTW
+#ifndef _MIXED_ // BC
+#ifndef _BOX_ // BC
+#ifndef _OPENBOX_ // BC
 	PoissonSolverScalarFFTW<FluidGrid, StreamerDiv> pressureSolver;
 #else
 	PoissonSolverScalarFFTW_DCT<FluidGrid, StreamerDiv> pressureSolver;
@@ -245,6 +245,7 @@ public:
     }
 };
 
+// constant density pressure solver
 template <typename Lab>
 class CoordinatorPressureSimple : public GenericCoordinator
 {

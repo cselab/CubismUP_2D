@@ -1,3 +1,12 @@
+//
+//  PoissonSolverVectorFFTW.h
+//  CubismUP_2D
+//
+//  Created by CSE Lab.
+//  Adapted by Christian Conti for non-periodic BC
+//  Copyright (c) ETHZ. All rights reserved.
+//
+
 #pragma once
 
 #include "PoissonSolverScalarFFTW.h"

@@ -2,6 +2,8 @@
 //  mainTest.cpp
 //  CubismUP_2D
 //
+//	Every operator should have at least an accompanying test
+//
 //  Created by Christian Conti on 1/8/15.
 //  Copyright (c) 2015 ETHZ. All rights reserved.
 //

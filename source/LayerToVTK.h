@@ -2,6 +2,8 @@
  *  LayerToVTK.h
  *  Fluids2D
  *
+ *	In this project, the layer structure is used exclusively for testing
+ *
  *  Created by Diego Rossinelli on 7/21/09.
  *  Copyright 2009 CSE Lab, ETH Zurich. All rights reserved.
  *
@@ -83,7 +85,5 @@ inline void dumpLayer2VTK(int istep, string sFileNamePattern, const Layer& scala
 	
 	writer->Delete();
 	grid->Delete();
-	
-	//	printf("done with dumping %s.\n", buf);
 }
 

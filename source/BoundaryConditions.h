@@ -3,6 +3,7 @@
  *  MPCFnode
  *
  *  Created by Babak Hejazialhosseini  on 6/16/11.
+ *	Updated by Christian Conti
  *  Copyright 2011 ETH Zurich. All rights reserved.
  *
  */
@@ -94,8 +95,8 @@ public:
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
             {
-                (*this)(ix,iy).rho  = (*this)(ix, TBlock::sizeY-1).rho;//p.rho;
-                (*this)(ix,iy).tmp  = (*this)(ix, TBlock::sizeY-1).tmp;//p.rho;
+                (*this)(ix,iy).rho  = (*this)(ix, TBlock::sizeY-1).rho;
+                (*this)(ix,iy).tmp  = (*this)(ix, TBlock::sizeY-1).tmp;
                 (*this)(ix,iy).chi  = 0;
                 
                 // dirichlet BC
@@ -195,6 +196,7 @@ public:
 		}
 	}
 	
+	// this is a custom BC used for testing
 	template<int dir, int side>
 	void applyBC_vortex(const BlockInfo info)
 	{
@@ -203,13 +205,6 @@ public:
 		for(int iy=s[1]; iy<e[1]; iy++)
 			for(int ix=s[0]; ix<e[0]; ix++)
 			{
-				/*
-				(*this)(ix,iy).rho = 1;
-				(*this)(ix,iy).u = 0;
-				(*this)(ix,iy).v = 0;
-				(*this)(ix,iy).p = 0;
-				*/
-				 //*
 				double p[3];
 				info.pos(p, ix, iy);
 				
@@ -224,7 +219,6 @@ public:
                 (*this)(ix,iy).v   =  -sin(p[0])*cos(r*M_PI/2)*invR;// p[0];//
 				(*this)(ix,iy).chi = 0;
 				 // what about pressure?
-				 //*/
 			}
 	}
 };

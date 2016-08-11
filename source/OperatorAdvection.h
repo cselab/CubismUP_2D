@@ -16,6 +16,7 @@
 #include "InterpolationKernels.h"
 #include "GenericOperator.h"
 
+// remeshed particle advection
 template <typename RemeshingKernel>
 class OperatorAdvection : public GenericLabOperator
 {
@@ -333,6 +334,7 @@ public:
 	}
 };
 
+// transport with remeshed particles
 template <typename RemeshingKernel>
 class OperatorTransport : public GenericLabOperator
 {
@@ -612,6 +614,7 @@ public:
 	}
 };
 
+// testing class for remeshed particles
 template <typename RemeshingKernel>
 class OperatorTransportTimeTest : public GenericLabOperator
 {
@@ -779,6 +782,7 @@ public:
     }
 };
 
+// Finite Difference Advection
 class OperatorAdvectionFD : public GenericLabOperator
 {
 private:
@@ -813,6 +817,7 @@ public:
 	}
 };
 
+// Finite Difference Advection, upwind, 3rd order - adapted from MRAG
 class OperatorAdvectionUpwind3rdOrder : public GenericLabOperator
 {
 private:
@@ -942,7 +947,7 @@ public:
 	}
 };
 
-
+// testing class for FD advection
 class OperatorTransportUpwind3rdOrder : public GenericLabOperator
 {
 private:
@@ -1036,7 +1041,7 @@ public:
     }
 };
 
-
+// testing class for FD advection
 class OperatorTransportTimeTestUpwind3rdOrder : public GenericLabOperator
 {
 private:

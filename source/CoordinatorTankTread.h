@@ -9,6 +9,7 @@
 #ifndef CoordinatorTankTread_h
 #define CoordinatorTankTread_h
 
+// add a rotating velocity field at the boundary of a cylinder
 class CoordinatorTankTread : public GenericCoordinator
 {
 protected:

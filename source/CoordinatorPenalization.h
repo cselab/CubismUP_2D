@@ -13,6 +13,7 @@
 #include "OperatorPenalization.h"
 #include "Shape.h"
 
+// Fixed Structure
 class CoordinatorPenalizationFixed : public GenericCoordinator
 {
 protected:
@@ -51,6 +52,7 @@ public:
 	}
 };
 
+// General Moving Rigid Structure
 class CoordinatorPenalization : public GenericCoordinator
 {
 protected:

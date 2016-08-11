@@ -71,6 +71,7 @@ public:
 	}
 };
 
+// Rayleigh Taylor Instability
 class CoordinatorIC_RT : public GenericCoordinator
 {
 protected:

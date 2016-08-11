@@ -31,13 +31,11 @@ public:
 		double mass = 0;
 		double u = 0;
 		double v = 0;
-		//double vTmp = 0;
 		double momOfInertia = 0;
 		double angularMomentum = 0;
 		const int N = vInfo.size();
 		
 #pragma omp parallel for schedule(static) reduction(+:mass) reduction(+:u) reduction(+:v)
-		//reduction(+:vTmp)
 		for(int i=0; i<N; i++)
 		{
 			BlockInfo info = vInfo[i];
@@ -52,15 +50,11 @@ public:
 				info.pos(p, ix, iy);
 				const double chi = b(ix,iy).chi;
 				const double rhochi = b(ix,iy).rho * chi;
-				//const double rhochi = shape->getMinRhoS() * chi;
 				mass += rhochi;
 				u += b(ix,iy).u * rhochi;
 				v += b(ix,iy).v * rhochi;
-				//vTmp += b(ix,iy).v * b(ix,iy).rho * (chi==1?1:0);
 			}
 		}
-		
-		//cout << "Velocity Out/In " << (v-vTmp)/vTmp << endl;
 		
 		*uBody = u / mass;
 		*vBody = v / mass;

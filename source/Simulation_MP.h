@@ -2,6 +2,8 @@
 //  Simulation_MP.h
 //  CubismUP_2D
 //
+//	Multiphase flows base class
+//
 //  Created by Christian Conti on 4/8/15.
 //  Copyright (c) 2015 ETHZ. All rights reserved.
 //

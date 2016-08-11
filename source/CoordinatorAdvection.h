@@ -166,6 +166,7 @@ public:
 	}
 };
 
+// Testing Coordinator
 template <typename Lab>
 class CoordinatorTransport : public GenericCoordinator
 {
@@ -268,6 +269,7 @@ public:
     }
 };
 
+// Testing Coordinator
 template <typename Lab>
 class CoordinatorTransportTimeTest : public GenericCoordinator
 {
